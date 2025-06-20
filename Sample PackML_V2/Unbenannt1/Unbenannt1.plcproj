@@ -389,15 +389,6 @@
             </o>
           </d>
         </o>
-        <v>{F66C7017-BDD8-4114-926C-81D6D687E35F}</v>
-        <o>
-          <v n="Name">"{F66C7017-BDD8-4114-926C-81D6D687E35F}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
-            <v>CalcActiveTransOnly</v>
-            <v>True</v>
-          </d>
-        </o>
         <v>{FE9F63D4-9E34-43ce-9322-D46747A00F33}</v>
         <o>
           <v n="Name">"{FE9F63D4-9E34-43ce-9322-D46747A00F33}"</v>
