@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="MAIN" Id="{3db2f275-2958-4d55-b639-7561aac45e5f}" SpecialFunc="None">
     <Declaration><![CDATA[// Disclaimer
 // 
@@ -109,7 +109,10 @@ M_SetPackTagsErrorWarning();
 M_CallVisu();
 
 //Call FB_Machine
-fbMachine(eModeCommand:= PackTags.Command.UnitMode,  eMode => PackTags.Status.UnitModeCurrent, eState =>PackTags.Status.StateCurrent);]]></ST>
+fbMachine(eModeCommand:= PackTags.Command.UnitMode,  eMode => PackTags.Status.UnitModeCurrent, eState =>PackTags.Status.StateCurrent);
+
+//for analytics conversion
+uProcessedCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[1].Count);]]></ST>
     </Implementation>
     <Action Name="A_UnitModeConfig" Id="{22b649e9-a085-4601-8ad9-54522ade47b0}">
       <Implementation>
@@ -387,6 +390,8 @@ END_IF
     <LineIds Name="MAIN">
       <LineId Id="3" Count="71" />
       <LineId Id="2" Count="0" />
+      <LineId Id="76" Count="1" />
+      <LineId Id="75" Count="0" />
     </LineIds>
     <LineIds Name="MAIN.A_UnitModeConfig">
       <LineId Id="2" Count="25" />
