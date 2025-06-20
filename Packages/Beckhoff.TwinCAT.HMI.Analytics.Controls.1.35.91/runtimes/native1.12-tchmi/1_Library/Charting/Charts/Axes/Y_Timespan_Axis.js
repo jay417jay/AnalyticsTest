@@ -1,0 +1,1 @@
+var TcHmi;!function(n){!function(n){!function(n){class t extends n.YAxis{constructor(n,t,i){super(n,t,i)}__createLabel(t,i){const s=new n.TimeSpan(i).toString(!1,"Day");return this.__drawLabel(t,s)}}n.YTimespanAxis=t}(n.Analytics||(n.Analytics={}))}(n.Controls||(n.Controls={}))}(TcHmi||(TcHmi={}));

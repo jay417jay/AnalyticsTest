@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.AM8xxx": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "AM8xxx",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    },
+    "TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData": {
+      "type": "object",
+      "properties": {
+        "fLive": {
+          "type": "number"
+        },
+        "fMin": {
+          "type": "number"
+        },
+        "fMax": {
+          "type": "number"
+        },
+        "fAvg": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

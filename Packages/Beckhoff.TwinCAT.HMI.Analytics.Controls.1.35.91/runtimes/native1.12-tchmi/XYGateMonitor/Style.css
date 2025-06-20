@@ -1,0 +1,47 @@
+﻿
+.tchmi-x-y-gate-monitor-count-gate {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.tchmi-x-y-gate-monitor-count-outlier {
+    display: block;  
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.tchmi-x-y-gate-monitor-last-event {
+    display: block;
+    font-size: 143px;
+    font-size: 12px;
+    padding-left: 10px;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+
+
+.tchmi-x-y-gate-monitor-line {
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+.tchmi-x-y-gate-monitor-circle-one {
+    stroke-width: 3;
+}
+
+.tchmi-x-y-gate-monitor-circle-two {
+    stroke-width: 3;
+}
+
+.tchmi-x-y-gate-monitor-svg-arrow {
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+.tchmi-x-y-gate-monitor-circle-xy {
+    stroke: none
+}

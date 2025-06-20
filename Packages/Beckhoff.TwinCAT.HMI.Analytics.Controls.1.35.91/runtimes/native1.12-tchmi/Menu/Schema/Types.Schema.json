@@ -1,0 +1,17 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.Menu": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.Analytics.AnalyticsControl",
+      "frameworkControlType": "Menu",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    },
+    "TcHmi.Controls.Analytics.Menu.ViewType": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "ViewType",
+      "type": "string",
+      "enum": [ "Desktop", "Tablet", "Mobile" ]
+    }
+  }
+}

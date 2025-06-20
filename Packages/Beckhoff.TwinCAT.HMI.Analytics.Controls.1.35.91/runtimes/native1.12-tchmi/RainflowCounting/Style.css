@@ -1,0 +1,105 @@
+﻿.tchmi-rainflow-counting-svg {
+    display: block;
+    margin: 5px;
+    left: 10px;
+}
+
+.tchmi-rainflow-counting-svg-stress-alias{
+    text-anchor:middle;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.tchmi-rainflow-counting-svg-time-alias {
+    text-anchor: end;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.tchmi-rainflow-counting-svg-graph{
+    stroke-width:2px;
+    fill:none;
+}
+
+.tchmi-rainflow-counting-svg-coord-system {
+    stroke-width: 2px;
+    fill: none;
+}
+
+.tchmi-rainflow-counting-svg-raindrops {
+    stroke-width: 2px;
+    fill: none;
+}
+
+.tchmi-rainflow-counting-matrix {
+    display: block;
+    margin: 5px;
+    left: 10px;
+    margin-top: 10px;
+}
+.tchmi-rainflow-counting-matrix-first-line{
+    stroke-width:2px;
+}
+
+.tchmi-rainflow-counting-matrix-first-cell {
+    stroke-width: 2px;
+}
+
+.tchmi-rainflow-counting-matrix-lines {
+    stroke-width: 2px;
+}
+
+.tchmi-rainflow-counting-matrix-cells {
+    stroke-width: 2px;
+}
+
+.tchmi-rainflow-counting-matrix-text{
+    font-size:14px;
+    font-weight:bold;
+    text-anchor:middle;
+}
+.tchmi-rainflow-counting-matrix-text-alias {
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+.tchmi-rainflow-counting-miners-rule-graph {
+    stroke-width: 2px;
+}
+
+.tchmi-rainflow-counting-miners-rule-text-big-start {
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: start;
+}
+
+.tchmi-rainflow-counting-miners-rule-text-small-center-italic {
+    font-size: 10px;
+    font-style:italic;
+    text-anchor: middle;
+}
+
+.tchmi-rainflow-counting-miners-rule-text-big-center {
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+    text-align:center
+}
+
+.tchmi-rainflow-counting-miners-rule-text-small-center-bold {
+    font-size: 10px;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+.tchmi-rainflow-counting-miners-rule-text-small-start-bold {
+    font-size: 10px;
+    font-weight: bold;
+    text-anchor: start;
+}
+
+.tchmi-rainflow-counting-miners-rule-text-result {
+    font-weight: bold;
+    text-anchor: middle;
+}

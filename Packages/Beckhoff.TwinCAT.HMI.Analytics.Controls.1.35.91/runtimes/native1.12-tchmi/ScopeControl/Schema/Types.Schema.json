@@ -1,0 +1,47 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.MyNamespace.ScopeControl": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "ScopeControl",
+      "frameworkControlNamespace": "TcHmi.Controls.MyNamespace"
+    },
+    "ScopeConfigs": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Scope Configs",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Scope Config",
+        "description": "Defines a custom object in the array.",
+        "propertiesMeta": [
+          {
+            "name": "name",
+            "category": "Name",
+            "displayName": "Name",
+            "displayPriority": 1,
+            "description": "",
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          },
+          {
+            "name": "chart",
+            "category": "Chart",
+            "displayName": "Chart",
+            "displayPriority": 2,
+            "description": "",
+            "bindable": true,
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          }
+        ],
+        "properties": {
+          "name": { "type": "string" },
+          "chart": { "type": "string" }
+        },
+        "required": [ "name", "chart" ]
+      }
+    }
+  }
+}

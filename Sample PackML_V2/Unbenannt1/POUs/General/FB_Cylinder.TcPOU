@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_Cylinder" Id="{85b70ad3-3d84-435f-8727-656b74bf1dd3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Cylinder 
+VAR_INPUT
+	bMoveToWork					: BOOL;		//Command, that cylinder move to work position
+END_VAR
+VAR_OUTPUT
+	bMoveToWorkHW	AT%Q*		: BOOL;		//HW-Signal output, cylinder move to workposition
+	bAtBasePos		AT%I*		: BOOL;		//HW-Signal input, cylinder in baseposition
+	bAtWorkPos		AT%I*		: BOOL;		//HW-Signal input, cylinder in workposition
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bMoveToWork THEN
+	bMoveToWorkHW	:= TRUE;
+ELSE
+	bMoveToWorkHW	:= FALSE;
+END_IF
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,562 @@
+{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "AM8xxx",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "AM8xxx",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "AM8xxx.",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 940,
+      "height": 790
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/AM8xxx.png",
+      "width": 100,
+      "height": 100
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "AM8xxx.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "AM8xxx",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-humidity",
+      "propertyName": "Humidity",
+      "propertySetterName": "setHumidity",
+      "propertyGetterName": "getHumidity",
+      "displayName": "Humidity",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData",
+      "category": "Analytics",
+      "description": "Humidity",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "allowSymbolExpressionsInObject": true,
+      "defaultValue": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      },
+      "defaultValueInternal": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      }
+    },
+    {
+      "name": "data-tchmi-temperature",
+      "propertyName": "Temperature",
+      "propertySetterName": "setTemperature",
+      "propertyGetterName": "getTemperature",
+      "displayName": "Temperature",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData",
+      "category": "Analytics",
+      "description": "Temperature",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "allowSymbolExpressionsInObject": true,
+      "defaultValue": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      },
+      "defaultValueInternal": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      }
+    },
+    {
+      "name": "data-tchmi-x-rms-acceleration",
+      "propertyName": "XRmsAcceleration",
+      "propertySetterName": "setXRmsAcceleration",
+      "propertyGetterName": "getXRmsAcceleration",
+      "displayName": "X RMS Acceleration",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData",
+      "category": "Analytics",
+      "description": "X RMS Acceleration",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "allowSymbolExpressionsInObject": true,
+      "defaultValue": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      },
+      "defaultValueInternal": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      }
+    },
+    {
+      "name": "data-tchmi-x-kurtosis-acceleration",
+      "propertyName": "XKurtosisAcceleration",
+      "propertySetterName": "setXKurtosisAcceleration",
+      "propertyGetterName": "getXKurtosisAcceleration",
+      "displayName": "X Kurtosis Acceleration",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData",
+      "category": "Analytics",
+      "description": "X Kurtosis Acceleration",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "allowSymbolExpressionsInObject": true,
+      "defaultValue": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      },
+      "defaultValueInternal": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      }
+    },
+    {
+      "name": "data-tchmi-x-peak-peak-acceleration",
+      "propertyName": "XPeakPeakAcceleration",
+      "propertySetterName": "setXPeakPeakAcceleration",
+      "propertyGetterName": "getXPeakPeakAcceleration",
+      "displayName": "X Peak-Peak Acceleration",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData",
+      "category": "Analytics",
+      "description": "X Peak-Peak Acceleration",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "allowSymbolExpressionsInObject": true,
+      "defaultValue": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      },
+      "defaultValueInternal": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      }
+    },
+    {
+      "name": "data-tchmi-y-rms-acceleration",
+      "propertyName": "YRmsAcceleration",
+      "propertySetterName": "setYRmsAcceleration",
+      "propertyGetterName": "getYRmsAcceleration",
+      "displayName": "Y RMS Acceleration",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData",
+      "category": "Analytics",
+      "description": "Y RMS Acceleration",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "allowSymbolExpressionsInObject": true,
+      "defaultValue": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      },
+      "defaultValueInternal": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      }
+    },
+    {
+      "name": "data-tchmi-y-kurtosis-acceleration",
+      "propertyName": "YKurtosisAcceleration",
+      "propertySetterName": "setYKurtosisAcceleration",
+      "propertyGetterName": "getYKurtosisAcceleration",
+      "displayName": "Y Kurtosis Acceleration",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData",
+      "category": "Analytics",
+      "description": "Y Kurtosis Acceleration",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "allowSymbolExpressionsInObject": true,
+      "defaultValue": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      },
+      "defaultValueInternal": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      }
+    },
+    {
+      "name": "data-tchmi-y-peak-peak-acceleration",
+      "propertyName": "YPeakPeakAcceleration",
+      "propertySetterName": "setYPeakPeakAcceleration",
+      "propertyGetterName": "getYPeakPeakAcceleration",
+      "displayName": "Y Peak-Peak Acceleration",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.AM8xxx.LiveMinMaxAvgData",
+      "category": "Analytics",
+      "description": "Y Peak-Peak Acceleration",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "allowSymbolExpressionsInObject": true,
+      "defaultValue": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      },
+      "defaultValueInternal": {
+        "fLive": 0,
+        "fMin": 0,
+        "fMax": 0,
+        "fAvg": 0
+      }
+    },
+    {
+      "name": "data-tchmi-count-x-shocks",
+      "propertyName": "CountXShocks",
+      "propertySetterName": "setCountXShocks",
+      "propertyGetterName": "getCountXShocks",
+      "displayName": "Count X Shocks",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:general#/definitions/Number",
+      "category": "Analytics",
+      "description": "Count X Shocks",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-last-x-shock-event",
+      "propertyName": "LastXShockEvent",
+      "propertySetterName": "setLastXShockEvent",
+      "propertyGetterName": "getLastXShockEvent",
+      "displayName": "Last X Shock Event",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Last X Shock Event",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-count-y-shocks",
+      "propertyName": "CountYShocks",
+      "propertySetterName": "setCountYShocks",
+      "propertyGetterName": "getCountYShocks",
+      "displayName": "Count Y Shocks",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:general#/definitions/Number",
+      "category": "Analytics",
+      "description": "Count Y Shocks",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-last-y-shock-event",
+      "propertyName": "LastYShockEvent",
+      "propertySetterName": "setLastYShockEvent",
+      "propertyGetterName": "getLastYShockEvent",
+      "displayName": "Last Y Shock Event",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Last Y Shock Event",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-count-total-shocks",
+      "propertyName": "CountTotalShocks",
+      "propertySetterName": "setCountTotalShocks",
+      "propertyGetterName": "getCountTotalShocks",
+      "displayName": "Count Total Shocks",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:general#/definitions/Number",
+      "category": "Analytics",
+      "description": "Count Total Shocks",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-sections-humidity",
+      "propertyName": "SectionsHumidity",
+      "propertySetterName": "setSectionsHumidity",
+      "propertyGetterName": "getSectionsHumidity",
+      "displayName": "Sections Humidity",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Array",
+      "category": "Analytics",
+      "description": "Sections Humidity",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [],
+      "defaultValueInternal": []
+    },
+    {
+      "name": "data-tchmi-sections-temperature",
+      "propertyName": "SectionsTemperature",
+      "propertySetterName": "setSectionsTemperature",
+      "propertyGetterName": "getSectionsTemperature",
+      "displayName": "Sections Temperature",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Array",
+      "category": "Analytics",
+      "description": "Sections Temperature",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [],
+      "defaultValueInternal": []
+    },
+    {
+      "name": "data-tchmi-x-rms-acceleration-array",
+      "propertyName": "XRmsAccelerationArray",
+      "propertySetterName": "setXRmsAccelerationArray",
+      "propertyGetterName": "getXRmsAccelerationArray",
+      "displayName": "X RMS Acceleration Array",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Array",
+      "category": "Analytics",
+      "description": "X RMS Acceleration Array",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [],
+      "defaultValueInternal": []
+    },
+    {
+      "name": "data-tchmi-y-rms-acceleration-array",
+      "propertyName": "YRmsAccelerationArray",
+      "propertySetterName": "setYRmsAccelerationArray",
+      "propertyGetterName": "getYRmsAccelerationArray",
+      "displayName": "Y RMS Acceleration Array",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Array",
+      "category": "Analytics",
+      "description": "Y RMS Acceleration Array",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [],
+      "defaultValueInternal": []
+    },
+    {
+      "name": "data-tchmi-font-size",
+      "propertyName": "FontSize",
+      "propertySetterName": "setFontSize",
+      "propertyGetterName": "getFontSize",
+      "displayName": "Font Size",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Specifies the font size of text values in pixel",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 12,
+      "defaultValueInternal": 12
+    },
+    {
+      "name": "data-tchmi-auto-font-size",
+      "propertyName": "AutoFontSize",
+      "propertySetterName": "setAutoFontSize",
+      "propertyGetterName": "getAutoFontSize",
+      "displayName": "Auto Font Size",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Whether the font size of text values should be auto sized",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": true
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "schema": "Schema/AM8xxx.Schema.json"
+    }
+  ],
+  "languages": {
+    "en": "Lang/en.json",
+    "de": "Lang/de.json"
+  }
+}

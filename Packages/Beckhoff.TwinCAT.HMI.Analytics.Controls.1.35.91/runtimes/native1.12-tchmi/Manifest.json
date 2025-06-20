@@ -1,0 +1,406 @@
+{
+  "modules": [
+    {
+      "type": "Package",
+      "nugetId": "Beckhoff.TwinCAT.HMI.Controls"
+    },
+    {
+      "type": "Control",
+      "basePath": "./1_Library/Calendar",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./1_Library/Charting",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./AnalyticsControl",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./AverageChart",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./BandwidthClassificator",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./BinaryState",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Comparisons",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./CurveSketcher",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./DatasourceOverview",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./DataChart",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./DatasourceOverviewV2",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./DataTable",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./DenStream",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./EdgeCounterOnOff",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./EnergyMonitoring",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./EventTiming",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./HistogramMulti",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./HistogramPeaks",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Histogram",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Integrator",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./KMeans",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./LayoutManager",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./LinearRegression",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./MapControl",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Menu/UserPermissionPopup",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": ""
+    },
+    {
+      "type": "Control",
+      "basePath": "./Menu",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./MovingIntervalCounter",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./MultiState",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./MultiValueControl",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./OEE",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./PieceCounter",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./PieChart",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Process",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./ProductivityDiagnosis",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./ProductivityInterval",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./RainflowCounting",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./SankeyChart",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./ScopeControl",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./SingleValue",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./SlopeAnalysis",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./StateChart",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Tachometer",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Thermometer",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./TimeBasedEnvelope",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./TimeBasedTeachPath",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Timer",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./TimingAnalysis",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./TrafficLight",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./TrendLineChart",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./WindTurbulence",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./XTSDirection",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./XTSDistance",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./XTSVelocity",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./XYGateMonitor",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./XYShapeMonitor",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Image",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": ""
+    },
+    {
+      "type": "Control",
+      "basePath": "./Menu/SourceManagerPopup",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": ""
+    },
+    {
+      "type": "Control",
+      "basePath": "./ParetoChartControl",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Control",
+      "basePath": "./Menu/LayoutControllerPopup",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": ""
+    },
+    {
+      "type": "Control",
+      "basePath": "./AM8xxx",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI.Analytics:200"
+    },
+    {
+      "type": "Language",
+      "locale": "de",
+      "files": [
+        "./1_Library/Charting/Lang/de.json",
+        "./LayoutManager/Lang/de.json",
+        "./Menu/LayoutControllerPopup/Lang/de.json",
+        "./Menu/SourceManagerPopup/Lang/de.json",
+        "./AM8xxx/Lang/de.json",
+        "./DataChart/Lang/de.json",
+        "./ParetoChartControl/Lang/de.json"
+      ]
+    },
+    {
+      "type": "Language",
+      "locale": "en",
+      "files": [
+        "./1_Library/Charting/Lang/en.json",
+        "./LayoutManager/Lang/en.json",
+        "./Menu/LayoutControllerPopup/Lang/en.json",
+        "./Menu/SourceManagerPopup/Lang/en.json",
+        "./AM8xxx/Lang/en.json",
+        "./DataChart/Lang/en.json",
+        "./ParetoChartControl/Lang/en.json"
+      ]
+    }
+  ],
+  "provideMetadata": {
+    "toolbox": {
+      "Beckhoff.TwinCAT.HMI.Analytics": {
+        "200": "TcAnalytics",
+        "201": {
+          "default": "Default"
+        }
+      }
+    }
+  },
+  "$schema": ".hmiframework/Schema/Manifest.Schema.json",
+  "apiVersion": 1
+}

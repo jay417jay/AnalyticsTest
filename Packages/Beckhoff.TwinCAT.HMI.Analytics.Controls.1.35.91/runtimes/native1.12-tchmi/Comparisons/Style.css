@@ -1,0 +1,56 @@
+﻿.tchmi-comparisons-state {
+    width: 10px;
+    height: 80px;
+    border: 2px solid #666666;
+    border-radius: 80px;
+    left: 125px;
+    float: left;
+    margin: auto;
+    position: relative;
+    margin-top: 10px;
+}
+
+.tchmi-comparisons-input {
+   
+    font-size: 30px;
+    display: block;
+    vertical-align: middle;
+    overflow: hidden;
+    -webkit-box-align: center;
+    align-items: center; /* Vertikale Zentrierung */
+    text-align: center;
+    justify-content: center; /* Horizontale Zentrierung */
+    width: 100%;
+    height: 100%;
+}
+
+.tchmi-comparisons-svg {  
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: block;
+}
+
+.tchmi-comparisons-svg-path {
+    stroke-width: 3;
+    stroke: black;
+    stroke-linecap: round;
+    stroke-linejoin:round;
+}
+
+.tchmi-comparisons-counter-value {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-top: 10px;
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.tchmi-comparisons-container {
+    height: 100%;
+    width: 100%;
+    float: left;
+}

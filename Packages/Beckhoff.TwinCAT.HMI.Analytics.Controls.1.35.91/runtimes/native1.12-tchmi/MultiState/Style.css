@@ -1,0 +1,35 @@
+.tchmi-multi-state-state {
+    width: 100%;
+    border: none;
+    border-radius: 80px;
+    margin: auto;
+    position: relative;
+    border: 2px solid #666666;
+}
+
+.tchmi-multi-state-state-alias {
+    display: block;  
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 10px;
+    margin-top: 10px;
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.tchmi-multi-state-container {
+    height: 105px;
+    width: 100%;
+    float: left;
+}
+
+.tchmi-multi-state-svg-eye{
+
+}
+
+.tchmi-multi-state-svg-mouth {
+    stroke-width:4px;
+    stroke-linecap:round;
+    fill:none
+}

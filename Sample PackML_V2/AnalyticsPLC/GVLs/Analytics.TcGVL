@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <GVL Name="Analytics" Id="2423aece-0e5c-41bd-9806-fc2db860d0b0">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	//DataSources
+	//Live:
+	fbT1_InputSource: FB_T1_InputSource;
+	//Historical:
+	//Empty:
+	
+	fbT1_IecCriticalSection: FB_IecCriticalSection;
+	
+	//Historical DataSource parameter
+	nHistMaxInputBuffer: UDINT := 100;
+	nHistMaxSampleCount: UDINT := 100;
+	
+	stReset: ST_AnalysisReset;
+	
+	//Scope ADS Push Target NetID
+	sScopeServerNetID: T_AmsNetID := '10.123.1.33.1.1';
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

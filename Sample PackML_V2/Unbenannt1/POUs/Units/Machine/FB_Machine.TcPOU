@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_Machine" Id="{8f8b4044-4b54-4b05-9dcb-51655cce136f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Machine EXTENDS FB_Generic
+VAR_INPUT
+	bButtonMainFw			: BOOL; 
+	bButtonMetalFw			: BOOL; 
+	bButtonPlasticFw		: BOOL; 
+	bButtonClampToWork		: BOOL; 
+	bButtonBarrierToWork	: BOOL; 
+	bButtonMetalToWork		: BOOL; 
+	bButtonPlasticToWork	: BOOL;
+END_VAR
+VAR_OUTPUT
+	bClampToWork			: BOOL; 
+	bBarrierToWork			: BOOL;
+	bMetalToWork			: BOOL;
+	bPlasticToWork			: BOOL;
+END_VAR
+VAR	
+	fbAxisMain			: FB_AxisMain;							//Main Belt Unit			
+	fbSeperation		: FB_Seperation;						//Separating unit	
+	fbEjectionPlastic	: FB_Ejector;							//Unit that sorts plastic boxes
+	fbEjectionMetal		: FB_Ejector;							//Unit that sorts metal boxes
+	
+	stSubModuleInfo		: ARRAY [1..4] OF ST_PMLSubUnitInfo;	//Informations about the Subunits
+
+	fbVelocity			: FB_Velocity;							//calculate the actual and average velocity
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//=======================Main Belt=======================
+fbAxisMain(		
+	Axis				:= AxisMain,
+	eModeCommand		:= eModeCommand,
+	eCommand 			:= eCommand,
+	bMoveFw				:= bButtonMainFw,
+	fConveyorLenght		:= 1300.0,
+	fConveyorVelo		:= PackTags.Command.Parameter[1].Value,
+	eMode 				=> ,
+	eState				=> stSubModuleInfo[1].eState,
+	bResettingDone		=> bAxisMainResetDone);				
+	
+stSubModuleInfo[1].Active		:= TRUE;
+
+//=======================Separating Modul=======================
+fbSeperation(	
+	eModeCommand		:= eModeCommand,
+	eCommand 			:= eCommand,
+	bMoveClambCylinder	:= bButtonClampToWork,
+	bMoveBarrierCylinder:= bButtonBarrierToWork,
+	eMode 				=> ,
+	eState				=> stSubModuleInfo[2].eState,
+	bMoveToWorkClambHw	=> bClampToWork,
+	bMoveToWorkBarrierHw=> bBarrierToWork);
+
+stSubModuleInfo[2].Active		:= TRUE;
+
+//=======================Plastic Ejection=======================
+fbEjectionPlastic(	
+	Axis			:= AxisPlastic,
+	eModeCommand	:= eModeCommand,
+	eCommand 		:= eCommand,
+	bMoveBeltFw		:= bButtonPlasticFw,
+	bMoveCylinder	:= bButtonPlasticToWork,
+	eMode 			=> ,
+	eState			=>  stSubModuleInfo[3].eState,
+	bResetDone		=> bPlasticEjectionResetDone,
+	nCounterProduct	=> PackTags.Admin.ProdProcessedCount[3].Count,
+	bMoveToWork		=> bPlasticToWork);			
+
+stSubModuleInfo[3].Active			:= TRUE;
+
+//=======================Metal Ejection=======================
+fbEjectionMetal(	
+	Axis			:= AxisMetal,
+	eModeCommand	:= eModeCommand,
+	eCommand		:= eCommand,
+	bMoveBeltFw		:= bButtonMetalFw,
+	bMoveCylinder	:= bButtonMetalToWork,
+	eMode			=> ,
+	eState			=> stSubModuleInfo[4].eState,
+	bResetDone		=> bMetalEjectionResetDone,
+	nCounterProduct	=> PackTags.Admin.ProdProcessedCount[4].Count,
+	bMoveToWork		=> bMetalToWork);			
+
+stSubModuleInfo[4].Active	:= TRUE;
+
+//The fbStateMachine from FB_Machine gets the Information about the states and activity from the subunits
+fbStateMachine.stSubUnitInfoRef.ArraySize		:= SIZEOF(stSubModuleInfo);
+fbStateMachine.stSubUnitInfoRef.NoOfSubUnits	:= 4;
+fbStateMachine.stSubUnitInfoRef.pArray			:= ADR(stSubModuleInfo);
+
+IF  fbAxisMain.bUndefinedDone AND fbEjectionMetal.bUndefinedDone AND fbEjectionPlastic.bUndefinedDone AND fbSeperation.bUndefinedDone THEN
+	bUndefinedDone := TRUE;
+END_IF
+
+//Set unit information 
+M_SetUnitInfo();
+
+fbVelocity(nActQuantity:= PackTags.Admin.ProdProcessedCount[1].Count, fActVelocity=> PackTags.Status.CurMachineSpeed, fAverageVelo=> PackTags.Status.MachineSpeed);
+
+SUPER^();]]></ST>
+    </Implementation>
+    <Method Name="M_SetUnitInfo" Id="{613978d3-6a85-41f0-ad1f-b7556291b862}">
+      <Declaration><![CDATA[METHOD M_SetUnitInfo
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[aUnitInfo[eMachine].Name			:= 'fbMachine';
+aUnitInfo[eMachine].ActMode			:= eMode;
+aUnitInfo[eMachine].ActState		:= eState;
+
+aUnitInfo[eSeperation].Name			:= 'fbSeperation';
+aUnitInfo[eSeperation].ActMode		:= fbSeperation.eMode;
+aUnitInfo[eSeperation].ActState		:= fbSeperation.eState;
+
+
+aUnitInfo[eEjectorPlastic].Name		:= 'fbEjectorPlastic';
+aUnitInfo[eEjectorPlastic].ActMode	:= fbEjectionPlastic.eMode;
+aUnitInfo[eEjectorPlastic].ActState	:= fbEjectionPlastic.eState;
+
+
+aUnitInfo[eAxisMain].Name			:= 'fbAxisMain';
+aUnitInfo[eAxisMain].ActMode		:= fbAxisMain.eMode;
+aUnitInfo[eAxisMain].ActState		:= fbAxisMain.eState;
+
+
+aUnitInfo[eEjectorMetal].Name		:= 'fbEjectorMetal';
+aUnitInfo[eEjectorMetal].ActMode	:= fbEjectionMetal.eMode;
+aUnitInfo[eEjectorMetal].ActState	:= fbEjectionMetal.eState;
+
+
+aUnitInfo[eSensorPlastic].Name		:= 'fbSensorPlastic';
+aUnitInfo[eSensorPlastic].ActMode	:= fbEjectionPlastic.eModeSensor;
+aUnitInfo[eSensorPlastic].ActState	:= fbEjectionPlastic.eStateSesnor;
+
+
+aUnitInfo[eAxisPlastic].Name		:= 'fbAxisplastic';
+aUnitInfo[eAxisPlastic].ActMode		:= fbEjectionPlastic.eModeAxis;
+aUnitInfo[eAxisPlastic].ActState	:= fbEjectionPlastic.eStateAxis;
+
+aUnitInfo[eSensorMetal].Name		:= 'fbSensorMetal';
+aUnitInfo[eSensorMetal].ActMode		:= fbEjectionMetal.eModeSensor;
+aUnitInfo[eSensorMetal].ActState	:= fbEjectionMetal.eStateSesnor;
+
+
+aUnitInfo[eAxisMetal].Name			:= 'fbAxisMetal';
+aUnitInfo[eAxisMetal].ActMode		:= fbEjectionMetal.eModeAxis;
+aUnitInfo[eAxisMetal].ActState		:= fbEjectionMetal.eStateAxis;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

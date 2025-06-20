@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "renderTypes": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "renderTypes",
+      "type": "string",
+      "enum": [ "Lines", "Points", "Lines & Points" ]
+    }
+  }
+}

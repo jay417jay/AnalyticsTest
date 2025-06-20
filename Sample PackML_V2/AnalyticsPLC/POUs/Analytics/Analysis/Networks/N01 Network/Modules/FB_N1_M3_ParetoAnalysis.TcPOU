@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_N1_M3_ParetoAnalysis" Id="c204490d-0213-45a1-beee-d0ada2a39f2a" SpecialFunc="None">
+    <Declaration><![CDATA[//The Pareto Analysis combines data of multiple input channels to realize a pareto chart.
+FUNCTION_BLOCK FB_N1_M3_ParetoAnalysis
+VAR_INPUT
+	nDataInCh1: LINT;
+	nDataInCh2: LINT;
+	tTimestamp: ULINT;
+	bEnableExecution: BOOL := TRUE;
+	bReset: BOOL;
+	bReconfigure: BOOL := TRUE;
+END_VAR
+VAR_INPUT PERSISTENT
+	stThresholdCh1: ST_ALY_Threshold;
+	stThresholdCh2: ST_ALY_Threshold;
+	fTolerance: LREAL;
+	sChannelName1: STRING(255);
+	sChannelName2: STRING(255);
+	eParetoMode: E_ALY_ParetoMode;
+END_VAR
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage;
+	bNewResult: BOOL;
+	aResult: ARRAY [1..2] OF ULINT;
+	aRelativeResult: ARRAY [1..2] OF LREAL;
+	sChannelNamesResult1: STRING(255);
+	sChannelNamesResult2: STRING(255);
+END_VAR
+VAR
+	
+	R_TRIG_Reconfigure: R_TRIG;
+	aChannelNamesResult: ARRAY [1..2] OF STRING(255);
+	
+	fbALY_ParetoAnalysis: FB_ALY_ParetoAnalysis(nNumChannels:=2, bSingleInput:=FALSE);
+END_VAR
+VAR PERSISTENT
+	bConfigured: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="24dfab63-6b33-40d5-af92-54b650797890">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR_INPUT
+	nCurrentContext: DWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bConfigured THEN
+	bConfigured:= TRUE;
+
+	fTolerance:= 0;
+	sChannelName1:= 'Channel 1';
+	sChannelName2:= 'Channel 2';
+	eParetoMode:= E_ALY_ParetoMode.Timespan;
+
+	stThresholdCh1.eComparisonOperator:= E_ALY_ComparisonOperator.Equals;
+	stThresholdCh1.fThreshold:= 1;
+
+	stThresholdCh2.eComparisonOperator:= E_ALY_ComparisonOperator.Equals;
+	stThresholdCh2.fThreshold:= 1;
+
+	fbALY_ParetoAnalysis.fTolerance:= fTolerance;
+END_IF
+
+R_TRIG_Reconfigure(CLK:= bReconfigure);
+IF R_TRIG_Reconfigure.Q THEN
+	fbALY_ParetoAnalysis.ConfigureChannel(nChannel:= 1, sChannelName:= sChannelName1, stThresholdLevel:= stThresholdCh1);
+	fbALY_ParetoAnalysis.ConfigureChannel(nChannel:= 2, sChannelName:= sChannelName2, stThresholdLevel:= stThresholdCh2);
+
+	fbALY_ParetoAnalysis.Configure(eParetoMode:= eParetoMode);
+
+	bReconfigure:= FALSE;
+END_IF
+
+IF bReset THEN
+	Reset();
+END_IF
+
+IF bEnableExecution THEN
+	IF F_HasContext(nCurrentContext, nContext) THEN
+		fbALY_ParetoAnalysis.SetChannelValue(nChannel:= 1, Input:= nDataInCh1);
+		fbALY_ParetoAnalysis.SetChannelValue(nChannel:= 2, Input:= nDataInCh2);
+
+		fbALY_ParetoAnalysis.Call(tTimestamp:= tTimestamp);
+
+		bNewResult:= fbALY_ParetoAnalysis.bNewResult;
+
+		fbALY_ParetoAnalysis.GetOutputArray(nSelection:= 3, pArrayOut:= ADR(aChannelNamesResult), nArrayOutSize:= SIZEOF(aChannelNamesResult));
+		fbALY_ParetoAnalysis.GetOutputArray(nSelection:= 1, pArrayOut:= ADR(aResult), nArrayOutSize:= SIZEOF(aResult));
+		fbALY_ParetoAnalysis.GetOutputArray(nSelection:= 2, pArrayOut:= ADR(aRelativeResult), nArrayOutSize:= SIZEOF(aRelativeResult));
+
+		bError:= fbALY_ParetoAnalysis.bError;
+		ipTcResult:= fbALY_ParetoAnalysis.ipResultMessage;
+
+		sChannelNamesResult1:= aChannelNamesResult[1];
+		sChannelNamesResult2:= aChannelNamesResult[2];
+	END_IF
+ELSE
+	bNewResult:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="4a21a81a-a0fd-4e57-8cb4-4f9494f21809">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset:= fbALY_ParetoAnalysis.Reset();
+
+bNewResult:= fbALY_ParetoAnalysis.bNewResult;
+
+fbALY_ParetoAnalysis.GetOutputArray(nSelection:= 3, pArrayOut:= ADR(aChannelNamesResult), nArrayOutSize:= SIZEOF(aChannelNamesResult));
+fbALY_ParetoAnalysis.GetOutputArray(nSelection:= 1, pArrayOut:= ADR(aResult), nArrayOutSize:= SIZEOF(aResult));
+fbALY_ParetoAnalysis.GetOutputArray(nSelection:= 2, pArrayOut:= ADR(aRelativeResult), nArrayOutSize:= SIZEOF(aRelativeResult));
+
+bError:= NOT Reset;
+ipTcResult:= fbALY_ParetoAnalysis.ipResultMessage;
+
+sChannelNamesResult1:= '';
+sChannelNamesResult2:= '';]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHMI" Id="630ab672-0d5c-4446-a86b-dbaf668c462a">
+      <Declaration><![CDATA[METHOD SetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+	bHMIReinit: BOOL;
+END_VAR
+VAR
+	pHMI_C1_Network: POINTER TO ST_HMI_C1_Network;
+	i: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetHMI:= FALSE;
+
+CASE nContent OF
+	1:
+		pHMI_C1_Network:= pContent;
+
+		IF bHMIReinit AND bConfigured THEN
+			SetHMI:= TRUE;
+		END_IF
+
+		pHMI_C1_Network^.stHMI_C1_Ctrl1_Pareto_Analysis.sM3_sChannelNamesResult1:= sChannelNamesResult1;
+		pHMI_C1_Network^.stHMI_C1_Ctrl1_Pareto_Analysis.sM3_sChannelNamesResult2:= sChannelNamesResult2;
+		FOR i:=1 TO 2 DO
+			pHMI_C1_Network^.stHMI_C1_Ctrl1_Pareto_Analysis.aM3_aResult[i]:= TO_LREAL(aResult[i]);
+		END_FOR
+		pHMI_C1_Network^.stHMI_C1_Ctrl1_Pareto_Analysis.aM3_aRelativeResult:= aRelativeResult;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHMI" Id="e9ca0553-b02c-4082-a5b2-8610473e621c">
+      <Declaration><![CDATA[METHOD GetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+END_VAR
+VAR
+	pHMI_C1_Network: POINTER TO ST_HMI_C1_Network;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE nContent OF
+	1:
+		//Network
+		pHMI_C1_Network:= pContent;
+
+		IF pHMI_C1_Network^.stHMI_C1_Ctrl1_Pareto_Analysis.bTrigReconfigure THEN
+			pHMI_C1_Network^.stHMI_C1_Ctrl1_Pareto_Analysis.bTrigReconfigure:= FALSE;
+			bReconfigure:= TRUE;
+
+		END_IF
+END_CASE
+
+GetHMI:= bReconfigure;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nContext" Id="65bc1bb4-f61b-4d31-8e7f-590a8dcc99c8">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="bc89a8d8-de42-4bbe-b9c2-4449ae378728">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nContext:= E_VirtualInput.eContext_V1_127_0_0_1_PackMLPlcStream1_10_00ms;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

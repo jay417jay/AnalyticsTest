@@ -1,0 +1,18 @@
+﻿.tchmi-single-value-value-container {
+    font-size: 12px;
+    flex: 1; /* Take remaining space */
+    overflow: hidden;
+    display: flex;
+}
+
+.tchmi-single-value-value {
+    font-size: 12px;
+}
+
+.tchmi-single-value-last-event-container {
+    font-size: 12px;
+    display: block;
+    padding-left: 10px;
+    width: 100%;
+    text-wrap: none;
+}

@@ -1,0 +1,306 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "Tachometer",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Tachometer",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Tachometer Control.",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 310,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/16x16.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "Tachometer.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Tachometer",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-tachometer-design",
+      "propertyName": "TachometerDesign",
+      "propertySetterName": "setTachometerDesign",
+      "propertyGetterName": "getTachometerDesign",
+      "displayName": "Tachometer Design",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytic.Tachometer.Design",
+      "category": "Analytics",
+      "description": "The Tachometer design.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Tachometer",
+      "defaultValueInternal": "Tachometer"
+    },
+    {
+      "name": "data-tchmi-value",
+      "propertyName": "Value",
+      "propertySetterName": "setValue",
+      "propertyGetterName": "getValue",
+      "displayName": "Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Actual value.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 12,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-unit",
+      "propertyName": "Unit",
+      "propertySetterName": "setUnit",
+      "propertyGetterName": "getUnit",
+      "displayName": "Unit",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "The unit for the value.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-level-ok-warning",
+      "propertyName": "LevelOkWarning",
+      "propertySetterName": "setLevelOkWarning",
+      "propertyGetterName": "getLevelOkWarning",
+      "displayName": "Level Ok / Warning",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "The Level Ok / Warning threshold (%).",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-level-warning-alarm",
+      "propertyName": "LevelWarningAlarm",
+      "propertySetterName": "setLevelWarningAlarm",
+      "propertyGetterName": "getLevelWarningAlarm",
+      "displayName": "Level Warning / Alarm",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "The Level Warning / Alarm threshold (%).",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-ok-color",
+      "propertyName": "OkColor",
+      "propertySetterName": "setOkColor",
+      "propertyGetterName": "getOkColor",
+      "displayName": "Okay Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Okay Color",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(8, 138,8, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(8, 138,8, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-warning-color",
+      "propertyName": "WarningColor",
+      "propertySetterName": "setWarningColor",
+      "propertyGetterName": "getWarningColor",
+      "displayName": "Warning Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Warning Color",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 244, 0, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 244, 0, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-alarm-color",
+      "propertyName": "AlarmColor",
+      "propertySetterName": "setAlarmColor",
+      "propertyGetterName": "getAlarmColor",
+      "displayName": "Alarm Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Alarm Color",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(239, 0, 0, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(239, 0, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-default-color",
+      "propertyName": "DefaultColor",
+      "propertySetterName": "setDefaultColor",
+      "propertyGetterName": "getDefaultColor",
+      "displayName": "Default Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Default Color",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(0, 200, 200, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(0, 200, 200, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-neddle-color",
+      "propertyName": "NeddleColor",
+      "propertySetterName": "setNeddleColor",
+      "propertyGetterName": "getNeddleColor",
+      "displayName": "Neddle Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Neddle Color",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(150, 150, 150, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(150, 150, 150, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "schema": "Schema/Types.Schema.json"
+    }
+  ]
+}

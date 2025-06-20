@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_Velocity" Id="{9198a814-db10-4e1c-9953-c4d149f1cffa}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Velocity
+VAR_INPUT
+	nActQuantity	: DINT;					//Number of finished products
+END_VAR
+VAR_OUTPUT
+	fActVelocity	: REAL;					//Actual velocity 
+	fAverageVelo	: REAL;					//Average Velocity
+END_VAR
+VAR
+	fbTimer			: TON;
+	aActQuantity	: ARRAY[0..6] OF DINT;	//Array to safe the last 6 Number of finished products
+	aAverageVelo	: ARRAY[1..10] OF REAL;	//Array to safe the last 10 Velocities
+	nCounting		: DINT ;				//Variable to runs step by step trough the array
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbTimer.PT	:= T#10S;
+fbTimer.IN	:= TRUE;
+IF fbTimer.Q THEN
+	//calculate the current velocity, the measurement time is 60s, the Value is updating every 10s
+	aActQuantity[6]	:= aActQuantity[5];
+	aActQuantity[5]	:= aActQuantity[4];
+	aActQuantity[4]	:= aActQuantity[3];
+	aActQuantity[3]	:= aActQuantity[2];
+	aActQuantity[2]	:= aActQuantity[1];
+	aActQuantity[1]	:= aActQuantity[0];
+	aActQuantity[0]	:= nActQuantity;
+	
+	fActVelocity :=DINT_TO_REAL( aActQuantity[0]-aActQuantity[6]) / (60.0/60.0);
+	
+	IF fActVelocity < 0 THEN
+		fActVelocity	:= 0;
+	END_IF
+
+	//calculate the average velocity, the measurement time is 10*10s=100s, the value is updating every 10s
+	FOR nCounting:=1 TO 9 BY 1 DO
+		aAverageVelo[11-nCounting] := aAverageVelo[10-nCounting];
+	END_FOR
+	aAverageVelo[1] := fActVelocity;
+	
+	fAverageVelo		:= 0;
+	FOR nCounting:=1 TO 10 BY 1 DO
+		fAverageVelo	:= fAverageVelo + aAverageVelo[nCounting];
+	END_FOR	
+	fAverageVelo := fAverageVelo/10;
+	
+	fbTimer.IN	:= FALSE;
+END_IF
+
+IF PackTags.Status.StateCurrent = ePMLState_Complete OR stChangeIntoProduction.bYesReset THEN
+	aActQuantity[6]	:= 0;
+	aActQuantity[5]	:= 0;
+	aActQuantity[4]	:= 0;
+	aActQuantity[3]	:= 0;
+	aActQuantity[2]	:= 0;
+	aActQuantity[1]	:= 0;
+	aActQuantity[0]	:= 0;
+	fActVelocity	:= 0;
+END_IF
+fbTimer();
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,80 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmiMapInputSymbol": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Input for Map data",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Map Data",
+        "description": "Defines a map data input for the map control.",
+        "propertiesMeta": [
+          {
+            "name": "sPosition",
+            "category": "Data",
+            "displayName": "Position",
+            "displayPriority": 1,
+            "description": "Coordinates or Address",
+            "defaultValue": null,
+            "defaultValueInternal": null
+          },
+          {
+            "name": "nStatus",
+            "category": "Data",
+            "displayName": "Status",
+            "displayPriority": 2,
+            "description": "Machine status",
+            "defaultValue": 0,
+            "defaultValueInternal": 0
+          },
+          {
+            "name": "sDescription",
+            "category": "Data",
+            "displayName": "Description",
+            "displayPriority": 3,
+            "description": "Popup information for the input data.",
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          },
+          {
+            "name": "sName",
+            "category": "Data",
+            "displayName": "Name",
+            "displayPriority": 4,
+            "description": "Additional information to the input data.",
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          }
+        ],
+        "properties": {
+          "sPosition": {
+            "anyOf": [
+              { "type": "string" },
+              { "$ref": "tchmi:framework#/definitions/TcHmiStringSymbol" }
+            ]
+          },
+          "nStatus": {
+            "anyOf": [
+              { "type": "number" },
+              { "$ref": "tchmi:framework#/definitions/TcHmiNumberSymbol" }
+            ]
+          },
+          "sDescription": {
+            "anyOf": [
+              { "type": "string" },
+              { "$ref": "tchmi:framework#/definitions/TcHmiStringSymbol" }
+            ]
+          },
+          "sName": {
+            "anyOf": [
+              { "type": "string" },
+              { "$ref": "tchmi:framework#/definitions/TcHmiStringSymbol" }
+            ]
+          }
+        },
+        "required": ["sPosition"]
+      }
+    }
+  }
+}

@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MAIN" Id="{3db2f275-2958-4d55-b639-7561aac45e5f}" SpecialFunc="None">
+    <Declaration><![CDATA[// Disclaimer
+// 
+// This publication contains statements about the suitability of our products for certain areas of application. These statements are based on typical features of our products. The examples shown in this publication are for demonstration purposes only. 
+// The information provided herein should not be regarded as specific operation characteristics. It is incumbent on the customer to check and decide whether a product is suitable for use in a particular application. 
+// We do not give any warranty that the source code which is made available with this publication is complete or accurate. 
+//
+// THE SAMPLE CODE CONTAINED IN THIS PUBLICATION IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED OR STATUTORY, INCLUDING WITHOUT LIMITATION, ANY WARRANTY WITH RESPECT TO NON-INFRINGEMENT, FREEDOM FROM PROPRIETARY RIGHTS OF THIRD PARTIES OR FITNESS FOR ANY PARTICULAR PURPOSE. 
+// This publication may be changed from time to time without prior notice. No liability is assumed for errors and/or omissions. Our products are described in detail in our data sheets and documentations. Product-specific warnings and cautions must be observed. 
+// For the latest version of our data sheets and documentations visit our website (www.beckhoff.de). 
+//
+// © Beckhoff Automation GmbH & Co. KG, 2022
+// The reproduction, distribution and utilization of this document as well as the communication of its contents to others without express authorization is prohibited. Offenders will be held liable for the payment of damages. All rights reserved in the event of the grant of a patent, utility model or design.
+PROGRAM MAIN
+VAR_INPUT
+	bExecuteComplete			: BOOL;									//Command Execute Complete, not defined
+END_VAR
+VAR
+	UserModeCofig				: PML_UnitModeConfig;					//User can configure his own Mode
+	
+	fbMachine					: FB_Machine;							//Instance of FB_Machine
+	bMachineStartedUp			: BOOL := FALSE;						//TRUE, when first PLC-Cycle finish
+
+	fbVisu						: FB_Visu;								//Visualization
+	
+	fbTrigger					: F_TRIG;								//Trigger for resseting Counters
+
+	fbLocalSystemTime			 : FB_LocalSystemTime;					//Get local Systemtime
+	
+	fbTriggerErrorMainAxis		: R_TRIG;								//Trigger for detecting Error on Mainaxis and write into PackTags
+	fbTriggerErrorMetalAxis		: R_TRIG;								//Trigger for detecting Error on Metalaxis and write into PackTags
+	fbTriggerErrorPlasticAxis	: R_TRIG;								//Trigger for detecting Error on Plasticaxis and write into PackTags
+	
+	nStateCommandCheck			: DINT;									//State to handle with statecommands
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Configure Usermode 1
+A_UnitModeConfig();
+
+//Runs the first PLC-Cycle
+IF fbMachine.bUndefinedDone AND NOT bMachineStartedUp THEN
+	PackTags.Command.CntrlCmd	:= ePMLCommand_Abort;
+	bMachineStartedUp			:= TRUE;
+END_IF
+
+M_SetPackTags();
+M_SetPackTagsErrorWarning();
+
+bButtonProductionReq := PackTags.Command.UnitMode = ePMLProtUnitMode_Production AND PackTags.Status.UnitModeCurrent <> PackTags.Command.UnitMode;
+
+//Checking the Statecommands
+CASE nStateCommandCheck OF
+0:
+	IF NOT (AxisMain.Status.Error OR AxisPlastic.Status.Error OR AxisMetal.Status.Error) THEN
+		nStateCommandCheck:= 1;
+	ELSE
+		nStateCommandCheck:= 2;
+	END_IF
+1:
+	IF PackTags.Command.CntrlCmd = ePMLCommand_Clear		
+	  AND fbMachine.eState = ePMLState_Aborted	THEN
+			fbMachine.eCommand	:= ePMLCommand_Clear;
+	ELSIF PackTags.Command.CntrlCmd = ePMLCommand_Reset		
+	  AND (fbMachine.eState = ePMLState_Stopped OR fbMachine.eState = ePMLState_Complete) THEN
+			fbMachine.eCommand	:= ePMLCommand_Reset;
+	ELSIF PackTags.Command.CntrlCmd = ePMLCommand_Start	
+	  AND (fbMachine.eState = ePMLState_Idle OR (stPMLUnitModeConfiguration[fbMachine.eMode].aStateDisabled[ePMLState_Idle] AND fbMachine.eState = ePMLState_Stopped))
+	  AND (NOT (PackTags.Command.Parameter[2].Value <= 0) OR NOT (fbMachine.eMode = 1))THEN
+			fbMachine.eCommand	:= ePMLCommand_Start; 
+	ELSIF PackTags.Command.CntrlCmd = ePMLCommand_Hold		
+	  AND fbMachine.eState = ePMLState_Execute	
+	  AND( fbMachine.eMode =  1 OR fbMachine.eMode =  4 OR fbMachine.eMode = 2)  THEN
+			 fbMachine.eCommand	:= ePMLCommand_Hold;
+	ELSIF PackTags.Command.CntrlCmd = ePMLCommand_Suspend	
+	  AND fbMachine.eState = ePMLState_Execute	
+	  AND (fbMachine.eMode = 4 OR fbMachine.eMode = 1)THEN
+			 fbMachine.eCommand	:= ePMLCommand_Suspend;
+	ELSIF PackTags.Command.CntrlCmd = ePMLCommand_Unhold	
+	  AND fbMachine.eState = ePMLState_Held		THEN
+			 fbMachine.eCommand	:= ePMLCommand_Unhold;
+	ELSIF PackTags.Command.CntrlCmd = ePMLCommand_Unsuspend	
+	  AND fbMachine.eState = ePMLState_Suspended	THEN
+			 fbMachine.eCommand	:= ePMLCommand_Unsuspend;
+	ELSIF PackTags.Command.CntrlCmd = ePMLCommand_Abort	THEN
+			fbMachine.eCommand	:= ePMLCommand_Abort;
+	ELSIF PackTags.Command.CntrlCmd = ePMLCommand_Stop	THEN
+			fbMachine.eCommand	:= ePMLCommand_Stop;
+	END_IF
+	nStateCommandCheck:=0;
+	
+2:
+	fbMachine.eCommand	:= ePMLCommand_Abort;
+	IF fbMachine.eState = ePMLState_Aborted AND PackTags.Command.CntrlCmd = ePMLCommand_Clear THEN
+		nStateCommandCheck:=1;
+	END_IF
+END_CASE
+
+//
+//Set the Packtags
+M_SetPackTags();
+
+//set the errors and warnings in Packtags
+M_SetPackTagsErrorWarning();
+
+//Call Visu
+M_CallVisu();
+
+//Call FB_Machine
+fbMachine(eModeCommand:= PackTags.Command.UnitMode,  eMode => PackTags.Status.UnitModeCurrent, eState =>PackTags.Status.StateCurrent);
+
+//for analytics conversion
+uTotalProducedUnit:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[1].Count);]]></ST>
+    </Implementation>
+    <Action Name="A_UnitModeConfig" Id="{22b649e9-a085-4601-8ad9-54522ade47b0}">
+      <Implementation>
+        <ST><![CDATA[UserModeCofig(
+	eMode							:= ePMLUnitMode_Service, 
+	bDisableClearing				:= TRUE, 
+	bDisableStarting				:= TRUE, 
+	bDisableSuspended				:= FALSE, 
+	bDisableStopping				:= TRUE, 
+	bDisableAborting				:= TRUE, 
+	bDisableHolding					:= TRUE, 
+	bDisableHeld					:= TRUE, 
+	bDisableUnholding				:= TRUE, 
+	bDisableSuspending				:= TRUE, 
+	bDisableUnsuspending			:= TRUE, 
+	bDisableResetting				:= TRUE, 
+	bDisableIdle					:= TRUE, 
+	bDisableCompleting				:= TRUE, 
+	bDisableComplete				:= TRUE, 
+	bEnableUnitModeChangeStopped	:= TRUE, 
+	bEnableUnitModeChangeIdle		:= FALSE, 
+	bEnableUnitModeChangeSuspended	:= FALSE, 
+	bEnableUnitModeChangeExecute	:= FALSE, 
+	bEnableUnitModeChangeAborted	:= TRUE, 
+	bEnableUnitModeChangeHeld		:= FALSE, 
+	bEnableUnitModeChangeComplete	:= FALSE, 
+	bError							=> , 
+	nErrorId						=> );
+	
+]]></ST>
+      </Implementation>
+    </Action>
+    <Method Name="M_CallVisu" Id="{1e59b2a3-52d5-45b9-816e-b9175fe8bcf5}">
+      <Declaration><![CDATA[METHOD M_CallVisu
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Calling FB_Visu
+fbVisu(
+	fAxisVelo				:= PackTags.Command.Parameter[1].Value, 							
+	bMainAxisMoves			:= AxisMain.Status.Moving, 
+	bMetalAxisMoves			:= AxisMetal.Status.Moving, 
+	bPlasticAxisMoves		:= AxisPlastic.Status.Moving, 
+	bClampToWork			:= fbMachine.bClampToWork, 
+	bBarrierToWork			:= fbMachine.bBarrierToWork, 
+	bMetalToWork			:= fbMachine.bMetalToWork , 
+	bPlasticToWork			:= fbMachine.bPlasticToWork ,
+	bReset					:= ,
+	aKeyPressed				:= aKeyPressed,
+	aUnitInfo				:= aUnitInfo,
+	fYClamp					=> , 
+	fYBarrier				=> , 
+	fYMetal					=> , 
+	fYPlastic				=> , 
+	bButtonPowerOut			=> , 
+	bButtonMainFwOut		=> fbMachine.bButtonMainFw,  
+	bButtonMetalFwOut		=> fbMachine.bButtonMetalFw, 
+	bButtonPlasticFwOut		=> fbMachine.bButtonPlasticFw, 
+	bButtonClampToWorkOut	=> fbMachine.bButtonClampToWork, 
+	bButtonBarrierToWorkOut	=> fbMachine.bButtonBarrierToWork, 
+	bButtonMetalToWorkOut	=> fbMachine.bButtonMetalToWork, 
+	bButtonPlasticToWorkOut	=> fbMachine.bButtonPlasticToWork,
+	bInvalidEntry			=> ,
+	aCaption				=> aCaption,
+	eModeVisu				=> ,
+	eStateVisu				=> ,
+	sUnitName				=> ,
+	iFrameVisible			=> );
+	
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_SetPackTags" Id="{e3fcccbd-b9f1-4f18-9b86-975dcfc89c23}">
+      <Declaration><![CDATA[METHOD M_SetPackTags
+VAR_INPUT
+END_VAR
+VAR	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//***************************Writing Data into PackTags***************************
+//Define the product metalbox 
+PackTags.Command.Product[1].ProductID					:= 1;
+PackTags.Command.Product[1].ProcessVariables[1].ID		:= 1;
+PackTags.Command.Product[1].ProcessVariables[1].Name	:= 'CylinderPressureMetal';
+PackTags.Command.Product[1].ProcessVariables[1].Unit	:= 'Bar';
+PackTags.Command.Product[1].ProcessVariables[1].Value	:= 5;
+(*Thre are no useful Ingrediens for Metalboxes in this Machine*)
+
+//Define the product plasticbox
+PackTags.Command.Product[2].ProductID					:= 2;
+PackTags.Command.Product[2].ProcessVariables[1].ID		:= 2;
+PackTags.Command.Product[2].ProcessVariables[1].Name	:= 'CylinderPressurePlastic';
+PackTags.Command.Product[2].ProcessVariables[1].Unit	:= 'Bar';
+PackTags.Command.Product[2].ProcessVariables[1].Value	:= 3;
+(*Thre are no useful Ingrediens for Plasticboxes in this Machine*)
+
+//Parameters for the production, here set the velocity from MainBelt
+PackTags.Command.Parameter[1].ID				:= 3;
+PackTags.Command.Parameter[1].Name				:= 'MainBeltVelo';
+PackTags.Command.Parameter[1].Unit				:= 'mm/s';
+PackTags.Command.Parameter[1].Value				:= 100.0;
+
+//Number of producing products
+PackTags.Command.Parameter[2].ID				:= 4;
+PackTags.Command.Parameter[2].Name				:= 'Quantity';
+PackTags.Command.Parameter[2].Unit				:= 'Box';
+
+//Parameters for the production, here set the velocity from MetalBelt
+PackTags.Command.Parameter[3].ID				:= 5;
+PackTags.Command.Parameter[3].Name				:= 'MetalBeltVelo';
+PackTags.Command.Parameter[3].Unit				:= 'mm/s';
+PackTags.Command.Parameter[3].Value				:= 100.0;
+
+//Parameters for the production, here set the velocity from PlasticBelt
+PackTags.Command.Parameter[4].ID				:= 6;
+PackTags.Command.Parameter[4].Name				:= 'PlasticBeltVelo';
+PackTags.Command.Parameter[4].Unit				:= 'mm/s';
+PackTags.Command.Parameter[4].Value				:= 100.0;
+
+//Parameters for the production, here get the velocity from PlasticBelt
+PackTags.Status.Parameter[1].ID					:= 7;
+PackTags.Status.Parameter[1].Name				:= 'MainBeltVelo';
+PackTags.Status.Parameter[1].Unit				:= 'mm/s';
+PackTags.Status.Parameter[1].Value				:= LREAL_TO_REAL(AxisMain.NcToPlc.ActVelo);
+
+//Parameters for the production, here get the velocity from PlasticBelt
+PackTags.Status.Parameter[2].ID					:= 8;
+PackTags.Status.Parameter[2].Name				:= 'MetalBeltVelo';
+PackTags.Status.Parameter[2].Unit				:= 'mm/s';
+PackTags.Status.Parameter[2].Value				:=  LREAL_TO_REAL(AxisMetal.NcToPlc.ActVelo);
+
+//Parameters for the production, here get the velocity from PlasticBelt
+PackTags.Status.Parameter[3].ID					:= 9;
+PackTags.Status.Parameter[3].Name				:= 'PlasticBeltVelo';
+PackTags.Status.Parameter[3].Unit				:= 'mm/s';
+PackTags.Status.Parameter[3].Value				:=  LREAL_TO_REAL(AxisPlastic.NcToPlc.ActVelo);
+
+//Countig produced boxes, see FB_Ejection
+PackTags.Admin.ProdProcessedCount[1].ID			:= 1;
+PackTags.Admin.ProdProcessedCount[1].Name		:= 'BoxfinishEjectionAll';
+PackTags.Admin.ProdProcessedCount[1].Unit		:= 'Box';
+
+//Countig produced boxes, see FB_Seperation
+PackTags.Admin.ProdProcessedCount[2].ID			:= 2;
+PackTags.Admin.ProdProcessedCount[2].Name		:= 'BoxfinishSeperation';
+PackTags.Admin.ProdProcessedCount[2].Unit		:= 'Boxes';
+
+//Countig produced boxes, see FB_EjectionPlastic
+PackTags.Admin.ProdProcessedCount[3].ID			:= 3;
+PackTags.Admin.ProdProcessedCount[3].Name		:= 'BoxFinishPlastic';
+PackTags.Admin.ProdProcessedCount[3].Unit		:= 'Boxes';
+
+//Countig produced boxes, see FB_EjectionMetal
+PackTags.Admin.ProdProcessedCount[4].ID			:= 4;
+PackTags.Admin.ProdProcessedCount[4].Name		:= 'BoxFinishMetal';
+PackTags.Admin.ProdProcessedCount[4].Unit		:= 'Boxes';
+
+//Write the actual state and mode into the PackTags
+PackTags.Status.StateCurrent					:= fbMachine.eState;
+PackTags.Status.UnitModeCurrent					:= fbMachine.eMode;
+PackTags.Status.StateRequested					:= fbMachine.eCommand;
+PackTags.Status.UnitModeRequested				:= fbMachine.eModeCommand;
+PackTags.Status.StateChangeInProcess			:= PackTags.Status.StateCurrent <> PackTags.Status.StateRequested;
+PackTags.Status.UnitModeChangeInProcess			:= PackTags.Status.UnitModeCurrent <> PackTags.Status.UnitModeRequested;
+
+//Write actual time and date in PackTags
+fbLocalSystemTime(sNetID:= '', bEnable := TRUE);
+PackTags.Admin.PlcDateTime[0]	:= fbLocalSystemTime.systemTime.wYear;
+PackTags.Admin.PlcDateTime[1]	:= fbLocalSystemTime.systemTime.wMonth;
+PackTags.Admin.PlcDateTime[2]	:= fbLocalSystemTime.systemTime.wDay;
+PackTags.Admin.PlcDateTime[3]	:= fbLocalSystemTime.systemTime.wHour;
+PackTags.Admin.PlcDateTime[4]	:= fbLocalSystemTime.systemTime.wMinute;
+PackTags.Admin.PlcDateTime[5]	:= fbLocalSystemTime.systemTime.wSecond;
+PackTags.Admin.PlcDateTime[6]	:= fbLocalSystemTime.systemTime.wMilliseconds;
+
+
+//Set the productcounter to 0, when the production command is completed
+fbTrigger(CLK:= (fbMachine.eState = ePMLState_Complete));
+IF fbTrigger.Q OR stChangeIntoProduction.bYesReset THEN
+	PackTags.Admin.ProdProcessedCount[1].Count	:= 0;
+	PackTags.Admin.ProdProcessedCount[2].Count	:= 0;
+	PackTags.Admin.ProdProcessedCount[3].Count	:= 0;
+	PackTags.Admin.ProdProcessedCount[4].Count	:= 0;
+	PackTags.Command.Parameter[2].Value			:= 0;
+	nVisuProductCommand							:= 0;
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_SetPackTagsErrorWarning" Id="{9cf9563e-0860-4b80-8190-1adefae96c7f}">
+      <Declaration><![CDATA[METHOD M_SetPackTagsErrorWarning
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//====================Error and Warnig setting========================
+//Warnings
+PackTags.Admin.Warning[1].Message	:= 'Invalid Production Command, command Products must be higher than 0';
+PackTags.Admin.Warning[1].ID 		:= 1;
+
+PackTags.Admin.Warning[2].Message	:= 'Invalid Mode Command, please try anothereone';
+PackTags.Admin.Warning[2].ID		:= 2;
+
+//Errors
+PackTags.Admin.Alarm[1].Message		:= 'Error on Main Axis';
+PackTags.Admin.Alarm[1].ID			:= 1;
+
+PackTags.Admin.Alarm[2].Message		:= 'Error on Metal Axis';
+PackTags.Admin.Alarm[2].ID			:= 2;
+
+PackTags.Admin.Alarm[3].Message		:= 'Error on Plastic Belt';
+PackTags.Admin.Alarm[3].ID			:= 3;
+
+//====================Error and Warnig handling========================
+//warning for invalid production command
+IF PackTags.Status.UnitModeCurrent = ePMLProtUnitMode_Production AND PackTags.Status.StateCurrent = ePMLState_Idle AND PackTags.Command.CntrlCmd = ePMLCommand_Start AND PackTags.Command.Parameter[2].Value <= 0 THEN
+	PackTags.Admin.Warning[1].Trigger :=TRUE;
+ELSE
+	PackTags.Admin.Warning[1].Trigger :=FALSE;
+END_IF
+
+//warning for invalid mode command
+IF fbMachine.bInvalidModeCommandOut THEN
+	PackTags.Admin.Warning[2].Trigger :=TRUE;
+ELSE 
+	PackTags.Admin.Warning[2].Trigger :=FALSE;
+END_IF
+
+//===============Axis Errors===================
+//Main Axis
+fbTriggerErrorMainAxis(CLK:= AxisMain.Status.Error);
+IF fbTriggerErrorMainAxis.Q THEN
+	PackTags.Admin.Alarm[1].DateTime	:= PackTags.Admin.PlcDateTime;
+END_IF
+IF AxisMain.Status.Error THEN
+	PackTags.Admin.Alarm[1].Trigger		:= TRUE;
+	PackTags.Admin.Alarm[1].Value		:= UDINT_TO_DINT(AxisMain.Status.ErrorID);
+ELSE
+	PackTags.Admin.Alarm[1].Trigger		:= FALSE;
+	MEMSET(ADR(PackTags.Admin.Alarm[1].DateTime),0,SIZEOF(PackTags.Admin.Alarm[1].DateTime));
+END_IF
+
+//Metal Axis
+fbTriggerErrorMetalAxis(CLK:= AxisMetal.Status.Error);
+IF fbTriggerErrorMetalAxis.Q THEN
+	PackTags.Admin.Alarm[2].DateTime	:= PackTags.Admin.PlcDateTime;
+END_IF
+IF AxisMetal.Status.Error THEN
+	PackTags.Admin.Alarm[2].Trigger		:= TRUE;
+	PackTags.Admin.Alarm[2].Value		:= UDINT_TO_DINT(AxisMetal.Status.ErrorID);
+ELSE
+	PackTags.Admin.Alarm[2].Trigger		:= FALSE;
+	MEMSET(ADR(PackTags.Admin.Alarm[2].DateTime),0,SIZEOF(PackTags.Admin.Alarm[2].DateTime));
+END_IF
+
+//Plastic Axis
+fbTriggerErrorPlasticAxis(CLK:= AxisPlastic.Status.Error);
+IF fbTriggerErrorPlasticAxis.Q THEN
+	PackTags.Admin.Alarm[3].DateTime	:= PackTags.Admin.PlcDateTime;	
+END_IF
+IF AxisPlastic.Status.Error THEN
+	PackTags.Admin.Alarm[3].Trigger		:= TRUE;
+	PackTags.Admin.Alarm[3].Value		:= UDINT_TO_DINT(AxisPlastic.Status.ErrorID);
+ELSE
+	PackTags.Admin.Alarm[3].Trigger		:= FALSE;
+	MEMSET(ADR(PackTags.Admin.Alarm[3].DateTime),0,SIZEOF(PackTags.Admin.Alarm[3].DateTime));
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="MAIN">
+      <LineId Id="3" Count="71" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="76" Count="1" />
+      <LineId Id="75" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.A_UnitModeConfig">
+      <LineId Id="2" Count="25" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.M_CallVisu">
+      <LineId Id="3" Count="31" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.M_SetPackTags">
+      <LineId Id="3" Count="107" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.M_SetPackTagsErrorWarning">
+      <LineId Id="3" Count="72" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

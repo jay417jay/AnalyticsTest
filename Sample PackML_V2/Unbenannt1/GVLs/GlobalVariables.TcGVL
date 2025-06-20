@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GlobalVariables" Id="{085f587e-4932-4daf-9259-49a8d2146225}">
+    <Declaration><![CDATA[VAR_GLOBAL
+		AxisMain					: AXIS_REF;						//Main belt
+		AxisPlastic					: AXIS_REF;						//Plastic belt
+		AxisMetal					: AXIS_REF;						//Metal belt
+
+		bAxisMainResetDone			: BOOL;							//True if main belt ressetting is finished 
+		bPlasticEjectionResetDone	: BOOL;							//True if plasticejection ressetting is finished 
+		bMetalEjectionResetDone		: BOOL;							//True if metalejection ressetting is finished 
+
+		//analytics testing
+		{attribute 'TcAnalytics'}
+		PackTags					: ST_PackMLv30;					//PackTags
+		
+		//analytics testing
+		{attribute 'TcAnalytics'}
+		nVisuProductCommand			: DINT;							//Products to produce
+ 
+		bButtonProductionReq		: BOOL;							//TRUE when a mode change to PRODUCTION is requested
+		stChangeIntoProduction		: ST_ChangeIntoProduction;		//Result of command box "Change to Production requested"
+ 
+		aUnitInfo					: ARRAY [1..12] OF ST_UnitInfo;	//Array includes the states and modes of machineunits	
+		aCaption					: ARRAY [1..12] OF STRING := ['F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12'];
+		aKeyPressed					: ARRAY [1..12] OF BOOL;	
+
+		//analytics testing
+		{attribute 'TcAnalytics'}
+		bTestStart					: BOOL; //to replicate schedule time bit
+		
+		//analytics testing
+		//conversion for analytic
+		{attribute 'TcAnalytics'}
+		uTotalProducedUnit			: ULINT ;//for OEE total produced item
+		
+		//analytics testing
+		{attribute 'TcAnalytics'}
+		uTotalDefectiveUnit			: ULINT:= 0 ;// for OEE defective unit dummy
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "ProductivityEnum": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "ProductivityEnum",
+      "type": "string",
+      "enum": [ "Productivity", "ProductivityLastCycle", "Both", "None" ]
+    }
+  }
+}

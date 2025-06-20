@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Task Name="AnalyticsTask_C1" Id="{c06d6149-5331-4cbe-b65c-be1cd64159a0}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>10000</CycleTime>
+    <Priority>22</Priority>
+    <PouCall>
+      <Name>MAIN_Analytics_C1</Name>
+    </PouCall>
+    <TaskFBGuid>{cf2f55a1-3900-4e1c-b6e6-dbcd132d0c78}</TaskFBGuid>
+    <Fb_init>{79732510-905f-4cc5-8373-cb16245ce816}</Fb_init>
+    <Fb_exit>{d85c93aa-295c-4972-886e-384a6245b02d}</Fb_exit>
+    <CycleUpdate>{ff7484c5-3eb2-4a65-b1cb-17e40a655ed2}</CycleUpdate>
+    <PostCycleUpdate>{a59c622d-3353-4b03-9625-1e1046bf473a}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

@@ -1,0 +1,572 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "EnergyMonitoring",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Energy Monitoring",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Energy Monitoring",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 470,
+      "height": 150
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/EnergyMonitoring.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "EnergyMonitoring.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.EnergyMonitoring",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Energy Monitoring",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-mean",
+      "propertyName": "Mean",
+      "propertySetterName": "setMean",
+      "propertyGetterName": "getMean",
+      "displayName": "Mean",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "Analytics",
+      "description": "Mean value",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-current-value",
+      "propertyName": "CurrentValue",
+      "propertySetterName": "setCurrentValue",
+      "propertyGetterName": "getCurrentValue",
+      "displayName": "Current Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "Analytics",
+      "description": "Current Value",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-min",
+      "propertyName": "Min",
+      "propertySetterName": "setMin",
+      "propertyGetterName": "getMin",
+      "displayName": "Min Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Min value",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-max",
+      "propertyName": "Max",
+      "propertySetterName": "setMax",
+      "propertyGetterName": "getMax",
+      "displayName": "Max Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Max value",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 1,
+      "defaultValueInternal": 1
+    },
+    {
+      "name": "data-tchmi-ranges",
+      "propertyName": "Ranges",
+      "propertySetterName": "setRanges",
+      "propertyGetterName": "getgRanges",
+      "displayName": "Ranges",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/ValueRangesEnergyMonitoring",
+      "category": "Analytics",
+      "description": "Ranges for error and warning",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-min-timestamp",
+      "propertyName": "minTimestamp",
+      "propertySetterName": "setMinTimestamp",
+      "propertyGetterName": "getMinTimestamp",
+      "displayName": "Min Timestamp",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Min Timestamp",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+
+    },
+    {
+      "name": "data-tchmi-max-timestamp",
+      "propertyName": "maxTimestamp",
+      "propertySetterName": "setMaxTimestamp",
+      "propertyGetterName": "getMaxTimestamp",
+      "displayName": "Max Timestamp",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Max Timestamp",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-unit",
+      "propertyName": "Unit",
+      "propertySetterName": "setUnit",
+      "propertyGetterName": "getUnit",
+      "displayName": "Unit",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Unit for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "kW",
+      "defaultValueInternal": "kW"
+    },
+    {
+      "name": "data-tchmi-amount-decimals",
+      "propertyName": "AmountDecimals",
+      "propertySetterName": "setAmountDecimals",
+      "propertyGetterName": "getAmountDecimals",
+      "displayName": "Amount Decimals",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/UINT32",
+      "category": "Analytics",
+      "description": "Amount of Decimals for numbers in the table",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 2,
+      "defaultValueInternal": 0
+    },
+
+    {
+      "name": "data-tchmi-message-alias",
+      "propertyName": "MessageAlias",
+      "propertySetterName": "setMessageAlias",
+      "propertyGetterName": "getMessageAlias",
+      "displayName": "Message Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Message alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "NotInitialized,Ok,Warning,Alarm",
+      "defaultValueInternal": "NotInitialized,Ok,Warning,Alarm"
+    },
+    {
+      "name": "data-tchmi-min-alias",
+      "propertyName": "MinAlias",
+      "propertySetterName": "setMinAlias",
+      "propertyGetterName": "getMinAlias",
+      "displayName": "Min Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Min alias name",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Min",
+      "defaultValueInternal": "Min"
+    },
+    {
+      "name": "data-tchmi-max-alias",
+      "propertyName": "MaxAlias",
+      "propertySetterName": "setMaxAlias",
+      "propertyGetterName": "getMaxAlias",
+      "displayName": "Max Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Max alias name",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Max",
+      "defaultValueInternal": "Max"
+    },
+    {
+      "name": "data-tchmi-target-alias",
+      "propertyName": "TargetAlias",
+      "propertySetterName": "setTargetAlias",
+      "propertyGetterName": "getTargetAlias",
+      "displayName": "Target Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Target alias name",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Target",
+      "defaultValueInternal": "Target"
+    },
+    {
+      "name": "data-tchmi-month-alias",
+      "propertyName": "MonthAlias",
+      "propertySetterName": "setMonthAlias",
+      "propertyGetterName": "getMonthAlias",
+      "displayName": "Month Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Month alias name",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+      "defaultValueInternal": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+    },
+    {
+      "name": "data-tchmi-error-color",
+      "description": "Error Color",
+      "displayName": "Error Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getErrorColor",
+      "propertyName": "ErrorColor",
+      "propertySetterName": "setErrorColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(239,0,0,1)"
+      }
+    },
+    {
+      "name": "data-tchmi-warning-color",
+      "description": "Warning Color",
+      "displayName": "Warning Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getWarningColor",
+      "propertyName": "WarningColor",
+      "propertySetterName": "setWarningColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255,244,0,1)"
+      }
+    },
+    {
+      "name": "data-tchmi-min-max-color",
+      "description": "MinMax Color",
+      "displayName": "Min-Max Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getMinMaxColor",
+      "propertyName": "MinMaxColor",
+      "propertySetterName": "setMinMaxColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(8, 138, 8,1)"
+      }
+    },
+    {
+      "name": "data-tchmi-min-max-marker-color",
+      "description": "MinMax Marker Color",
+      "displayName": "Min-Max Marker Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getMinMaxMarkerColor",
+      "propertyName": "MinMaxMarkerColor",
+      "propertySetterName": "setMinMaxMarkerColor",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(0, 83, 133,1)"
+      }
+    },
+    {
+      "name": "data-tchmi-mean-color",
+      "description": "Mean Color",
+      "displayName": "Mean Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getMeanColor",
+      "propertyName": "MeanColor",
+      "propertySetterName": "setMeanColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158,1)"
+      }
+    },
+
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+      "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+      "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.EnergyMonitoring",
+      "schema": "Schema/TypeDefinitions/EnergyMonitoring.Schema.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/ValueRangesEnergyMonitoring",
+      "schema": "Schema/TypeDefinitions/ValueRangesEnergyMonitoring.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/EnumRanges",
+      "schema": "Schema/TypeDefinitions/EnumRanges.json"
+    }
+  ]
+}

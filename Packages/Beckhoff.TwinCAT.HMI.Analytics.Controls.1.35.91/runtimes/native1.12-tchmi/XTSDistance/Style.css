@@ -1,0 +1,33 @@
+﻿.tchmi-x-t-s-distance-svg {
+    display: block;
+    margin-left: 5px;
+}
+
+.tchmi-x-t-s-distance-neg-rect{
+    stroke-width:2;
+}
+.tchmi-x-t-s-distance-rect {
+    stroke-width: 2;
+}
+.tchmi-x-t-s-distance-pos-rect {
+    stroke-width: 2;
+}
+.tchmi-x-t-s-distance-neg-rect-text {
+    text-anchor: end;
+    font-weight: bold;
+    font-size: 16px;
+}
+.tchmi-x-t-s-distance-pos-rect-text {
+    text-anchor: start;
+    font-size:16px;
+    font-weight:bold;
+}
+.tchmi-x-t-s-distance-rect-text {
+    text-anchor: start;
+    font-weight: bold;
+}
+
+.tchmi-x-t-s-distance-svg-label {
+    text-anchor: middle;
+    font-weight: bold;
+}

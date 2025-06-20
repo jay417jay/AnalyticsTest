@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <Itf Name="I_V1_127_0_0_1_PackMLPlcStream1_10_00ms" Id="59950446-618d-4fc8-8e61-7059f82260dd">
+    <Declaration><![CDATA[INTERFACE I_V1_127_0_0_1_PackMLPlcStream1_10_00ms EXTENDS I_VirtualInputSource]]></Declaration>
+    <Property Name="nV1_TimeLine" Id="d9c68758-11e8-461f-bfea-f967f9d612de">
+      <Declaration><![CDATA[PROPERTY nV1_TimeLine : ULINT]]></Declaration>
+      <Get Name="Get" Id="9829fd0a-a69b-430b-a12d-766388f294fc">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nV1_UnitModeCurrent" Id="aaaac9e4-5979-4c3b-a88b-1726f595b429">
+      <Declaration><![CDATA[PROPERTY nV1_UnitModeCurrent : DINT]]></Declaration>
+      <Get Name="Get" Id="e9579c47-93cf-4d88-a965-008507909a56">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

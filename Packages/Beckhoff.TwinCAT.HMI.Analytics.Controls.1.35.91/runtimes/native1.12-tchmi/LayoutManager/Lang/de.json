@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../../TcHmiServer/TcHmiSrv/schema/Language.Schema.json",
+  "locale": "de",
+  "localizedText": {
+    "Edit_Button_Tooltip": "Layout bearbeiten (STRG + E)",
+    "Save_Button_Tooltip": "Layout speichern (STRG + S)",
+    "SaveExit_Button_Tooltip": "Speichern und Verlassen (STRG + Q)",
+    "Reset_Button_Tooltip": "Layout zurücksetzen (STRG + R)",
+    "MoveUp_Button_Tooltip": "Controls hochrücken (STRG + U)",
+    "Undo_Button_Tooltip": "Rückgängig (STRG + Z)",
+    "Redo_Button_Tooltip": "Wiederholen (STRG + Y)",
+    "AddChart_Button_Tooltip": "Diagramm hinzufügen",
+    "Save_Sucess": "Layout speichern erfolgreich.",
+    "Save_Error": "Layout speichern fehlgeschlagen.",
+    "Save_Cancel": "Layout speichern wurde abgebrochen, da das Layout gerade bearbeitet wird.",
+    "Exit_Cancel": "Verlassen abgebrochen, da das Layout gerade bearbeitet wird.",
+    "Mobile_Button_Tooltip": "Mobile Ansicht",
+    "Desktop_Button_Tooltip": "Desktop Ansicht",
+    "Current_User": "Aktueller Benutzer:",
+    "Interactivity_Lock": "Interaktion während der Bearbeitung deaktiviert",
+    "Add": "Neues Control: "
+  }
+}

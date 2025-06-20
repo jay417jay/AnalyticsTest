@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.SlopeAnalysis": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "SlopeAnalysis",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    }
+  }
+}

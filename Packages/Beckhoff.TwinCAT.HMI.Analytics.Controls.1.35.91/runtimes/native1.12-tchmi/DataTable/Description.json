@@ -1,0 +1,523 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "DataTable",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Data Table",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Data Table",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 470,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/Datatable.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "DataTable.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.DataTable",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "DataTable",
+      "defaultValueInternal": "DataTable"
+    },
+    {
+      "name": "data-tchmi-table-type",
+      "propertyName": "TableType",
+      "propertySetterName": "setTableType",
+      "propertyGetterName": "getTableType",
+      "displayName": "Table Type",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:framework#/definitions/TcHmiTableVersion",
+      "category": "Analytics",
+      "description": "Choose Table Type",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Horizontal",
+      "defaultValueInternal": "Horizontal"
+    },
+    {
+      "name": "data-tchmi-results",
+      "propertyName": "Results",
+      "propertySetterName": "setResults",
+      "propertyGetterName": "getResults",
+      "displayName": "Table Data",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/TcHmiTableData",
+      "allowSymbolExpressionsInObject": true,
+      "category": "Analytics",
+      "description": "Result data for the table.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [
+        {
+          "name": "MinMaxAvg",
+          "datavalues": [
+            {
+              "sKey": "fMin",
+              "displayName": "Min",
+              "sValue": "4",
+              "editable": false
+            },
+
+            {
+              "sKey": "fMax",
+              "displayName": "Max",
+              "sValue": "8",
+              "editable": false
+            }
+          ]
+        }
+      ],
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-month-alias",
+      "propertyName": "MonthAlias",
+      "propertySetterName": "setMonthAlias",
+      "propertyGetterName": "getMonthAlias",
+      "displayName": "Month Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Month alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+      "defaultValueInternal": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+    },
+    {
+      "name": "data-tchmi-amount-decimals",
+      "propertyName": "AmountDecimals",
+      "propertySetterName": "setAmountDecimals",
+      "propertyGetterName": "getAmountDecimals",
+      "displayName": "Amount Decimals",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/UINT32",
+      "category": "Analytics",
+      "description": "Amount of Decimals for numbers in the table",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 2,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-font-size-header",
+      "propertyName": "FontsizeHeader",
+      "propertySetterName": "setFontsizeHeader",
+      "propertyGetterName": "getFontsizeHeader",
+      "displayName": "Fontsize Header",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/UINT32",
+      "category": "Analytics",
+      "description": "Specifies the fontsize of the headers",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 14,
+      "defaultValueInternal": 14
+    },
+    {
+      "name": "data-tchmi-font-size-item",
+      "propertyName": "FontsizeItem",
+      "propertySetterName": "setFontsizeItem",
+      "propertyGetterName": "getFontsizeItem",
+      "displayName": "Fontsize Item",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/UINT32",
+      "category": "Analytics",
+      "description": "Specifies the fontsize of the items",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 14,
+      "defaultValueInternal": 14
+    },
+    {
+      "name": "data-tchmi-dynamic-font-size-item",
+      "propertyName": "DynamicFontSizeItem",
+      "propertySetterName": "setDynamicFontSizeItem",
+      "propertyGetterName": "getDynamicFontSizeItem",
+      "displayName": "Dynamic Fontsize Item",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate dynamic fontsize for table data.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-milli-seconds",
+      "propertyName": "ShowMilliseconds",
+      "propertySetterName": "setShowMilliseconds",
+      "propertyGetterName": "getShowMilliseconds",
+      "displayName": "Show Milliseconds",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show milliseconds in time.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-day-alias",
+      "propertyName": "DayAlias",
+      "propertySetterName": "setDayAlias",
+      "propertyGetterName": "getDayAlias",
+      "displayName": "Day Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Day Alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Day",
+      "defaultValueInternal": "Day"
+    },
+    {
+      "name": "data-tchmi-not-all-mapped-alias",
+      "propertyName": "NotAllMappedAlias",
+      "propertySetterName": "setNotAllMappedAlias",
+      "propertyGetterName": "getNotAllMappedAlias",
+      "displayName": "Not All Mapped Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Not all mapped alias name.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Not all parameters or module triggers are mapped. View console log for details.",
+      "defaultValueInternal": "Not all parameters or module triggers are mapped. View console log for details."
+    },
+    {
+      "name": "data-tchmi-error-parameters-alias",
+      "propertyName": "ErrorParametersAlias",
+      "propertySetterName": "setErrorParametersAlias",
+      "propertyGetterName": "getErrorParametersAlias",
+      "displayName": "Error Parameters Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Error parameters alias name.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "An error occured while writing the parameters. View console log for details.",
+      "defaultValueInternal": "An error occured while writing the parameters. View console log for details."
+    },
+    {
+      "name": "data-tchmi-success-parameter-alias",
+      "propertyName": "SuccessParametersAlias",
+      "propertySetterName": "setSuccessParametersAlias",
+      "propertyGetterName": "getSuccessParametersAlias",
+      "displayName": "Success Parameters Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Success parameters alias name.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Parameters has been reconfigured successfully!",
+      "defaultValueInternal": "Parameters has been reconfigured successfully!"
+    },
+    {
+      "name": "data-tchmi-change-parameters-alias",
+      "propertyName": "ChangeParametersAlias",
+      "propertySetterName": "setChangeParametersAlias",
+      "propertyGetterName": "getChangeParametersAlias",
+      "displayName": "Change Parameters Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Change parameters alias name.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Change Parameters",
+      "defaultValueInternal": "Change Parameters"
+    },
+    {
+      "name": "data-tchmi-reset-column-size-alias",
+      "propertyName": "ResetColumnSizeAlias",
+      "propertySetterName": "setResetColumnSizeAlias",
+      "propertyGetterName": "getResetColumnSizeAlias",
+      "displayName": "Reset Column Size Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Reset column size alias name.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Reset column size",
+      "defaultValueInternal": "Reset column size"
+    },
+    {
+      "name": "data-tchmi-item-color",
+      "description": "Item Light",
+      "displayName": "Item Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getItemColor",
+      "propertyName": "ItemColor",
+      "propertySetterName": "setItemColor",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(185, 185,185, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-dark-table",
+      "description": "Control Color Dark Table",
+      "displayName": "Control Color Dark Table",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorDarkTable",
+      "propertyName": "ControlColorDarkTable",
+      "propertySetterName": "setControlColorDarkTable",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102, 102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-middle-table",
+      "description": "Control Color Middle Table",
+      "displayName": "Control Color Middle Table",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddleTable",
+      "propertyName": "ControlColorMiddleTable",
+      "propertySetterName": "setControlColorMiddleTable",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+      "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(172, 172,172, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-dark",
+      "description": "Control Color Dark",
+      "displayName": "Control Color Dark",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorDark",
+      "propertyName": "ControlColorDark",
+      "propertySetterName": "setControlColorDark",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102, 102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+      "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "schema": "Schema/TypeDefinitions/DataTable.Schema.json"
+    }
+  ]
+}

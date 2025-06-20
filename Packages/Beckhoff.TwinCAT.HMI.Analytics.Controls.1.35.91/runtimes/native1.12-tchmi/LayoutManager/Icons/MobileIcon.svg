@@ -1,0 +1,39 @@
+<svg
+   width="128px"
+   height="128px"
+   viewBox="0 0 128 128"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <!-- Dynamic Island-->
+  <rect
+     x="44"
+     y="-5"
+     width="40"
+     height="20"
+     rx="6"
+     ry="6"
+     fill="none"
+     stroke="black"
+     stroke-width="6"
+     stroke-linecap="round"/>
+  <!-- phone Body-->
+  <rect
+     x="28"
+     y="2"
+     width="72"
+     height="124"
+     rx="12"
+     ry="12"
+     fill="none"
+     stroke="black"
+     stroke-width="6" />
+  <!-- Swipe-up Indicator Line -->
+  <line
+     x1="47"
+     y1="110"
+     x2="81"
+     y2="110"
+     stroke="black"
+     stroke-width="6"
+     stroke-linecap="round"/>
+</svg>

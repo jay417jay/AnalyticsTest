@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_AxisGeneral" Id="{39aa8b35-667b-4e67-82ff-3fff63830ce4}" SpecialFunc="None">
+    <Declaration><![CDATA[//Functionblock for general axisbehavior
+FUNCTION_BLOCK FB_AxisGeneral EXTENDS FB_Generic
+VAR_IN_OUT
+	Axis					: AXIS_REF;		//Axis reference
+END_VAR
+VAR_INPUT
+	fConveyorLenght			: LREAL;		//Half Lenght of the Belt
+	fConveyorVelo			: LREAL;		//Velocity from the Belt
+	bMoveFw					: BOOL;			//Button for Manual Movement
+END_VAR
+VAR_OUTPUT
+	bResettingDone			: BOOL;			//TRUE if Resetting is finished
+END_VAR
+VAR	
+	stAxis					: ST_AxFunctions;		//Struct with motionfunctions
+	iStateClearing			: INT;			//State variable for Clearing
+	iStateResetting			: INT;			//State variable for Resetting
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT (fbStateMachine.eState = ePMLState_Clearing) THEN
+	iStateClearing	:= 0;
+END_IF
+IF NOT (fbStateMachine.eState = ePMLState_Resetting) THEN
+	iStateResetting	:= 0; 
+END_IF
+
+this^.M_Reset();
+
+//Call FB_Generic
+SUPER^();
+
+//Call the Motionfunctions from the ST_Axis
+stAxis.Admin.Power(			Axis	:= Axis);
+stAxis.Admin.Reset(			Axis	:= Axis);
+stAxis.PTP.MoveAbsolute1(	Axis	:= Axis);
+stAxis.PTP.MoveAbsolute2(	Axis	:= Axis);
+stAxis.PTP.MoveVelocitiy(	Axis	:= Axis);
+stAxis.PTP.Stop(			Axis	:= Axis);
+stAxis.PTP.Halt(			Axis	:= Axis);
+
+//Call the Axis, read NC parameters
+Axis.ReadStatus();]]></ST>
+    </Implementation>
+    <Method Name="M_Aborting" Id="{d7a43607-cf37-4491-b8c7-5f80d28d2a3e}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Aborting'}
+METHOD M_Aborting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production, ePMLProtUnitMode_Manual:	
+
+		bResettingDone			:= FALSE;
+		iStateClearing		:= 0;
+		
+		IF NOT stAxis.PTP.Stop.Done AND stAxis.Admin.Power.Status THEN
+			//Stop the axis
+			stAxis.PTP.Stop.Deceleration		:= 0;
+			stAxis.PTP.Stop.Execute				:= TRUE;
+			stAxis.PTP.Stop.Jerk				:= 0;
+			//take away the executes from MoveVelocity and MoveAbsolute
+			 stAxis.PTP.MoveAbsolute1.Execute	:= FALSE;
+			 stAxis.PTP.MoveAbsolute2.Execute	:= FALSE;
+			 stAxis.PTP.MoveVelocitiy.Execute	:= FALSE;
+		END_IF
+		
+		IF stAxis.PTP.Stop.Done THEN
+			stAxis.PTP.Stop.Execute				:= FALSE;
+			//Take away the SW-enalbe, so the user can move the belt with his hands  
+			stAxis.Admin.Power.Enable			:= FALSE;
+			stAxis.Admin.Power.Enable_Negative	:= FALSE;
+			stAxis.Admin.Power.Enable_Positive	:= FALSE;
+		END_IF
+		
+		IF NOT stAxis.Admin.Power.Status THEN
+			M_StateComplete();
+		END_IF
+			
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:	
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Clearing" Id="{e6eff0a8-14ac-435a-bb26-cc4fddb7392e}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Clearing'}
+METHOD M_Clearing
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production, ePMLProtUnitMode_Manual:
+		CASE iStateClearing OF 
+			0:
+				//Reset the Axis
+				stAxis.Admin.Reset.Execute				:= TRUE;
+				IF stAxis.Admin.Reset.Done  THEN
+					stAxis.Admin.Reset.Execute			:= FALSE;
+					iStateClearing								:= 1;
+				END_IF
+				IF stAxis.Admin.Reset.Error THEN
+					iStateClearing								:= 0;
+				END_IF
+			1:	
+				//Get the SW-Enable for the Axis
+				stAxis.Admin.Power.BufferMode			:= MC_Aborting;
+				stAxis.Admin.Power.Enable				:= TRUE;
+				stAxis.Admin.Power.Enable_Negative		:= TRUE;
+				stAxis.Admin.Power.Enable_Positive		:= TRUE;
+				stAxis.Admin.Power.Override				:= 100.0;
+				IF stAxis.Admin.Power.Status THEN
+					M_StateComplete();
+				END_IF
+			END_CASE
+			
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Completing" Id="{6b1ba450-754e-4779-9c1f-dbc5e63ec7e3}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Completing'}
+METHOD M_Completing
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF 
+	ePMLProtUnitMode_Production:			//Production, Mantainance, Manual	
+		//disable the MC_MoveVeolocity
+		stAxis.PTP.MoveVelocitiy.Execute	:= FALSE;
+		stAxis.PTP.MoveAbsolute1.Execute	:= FALSE;
+		stAxis.PTP.MoveAbsolute2.Execute	:= FALSE;
+		IF PackTags.Status.StateCurrent = ePMLState_Completing THEN
+			M_StateComplete();
+		END_IF	
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Execute" Id="{4e4fd8e4-813a-486b-8fa4-3cfdd315d976}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Execute'}
+METHOD M_Execute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF		
+	ePMLProtUnitMode_Production:
+			
+	ePMLProtUnitMode_Maintenance:		//Mantainancemode
+		stAxis.PTP.Stop.Deceleration				:= 0;
+		stAxis.PTP.Stop.Execute						:= TRUE;
+		stAxis.PTP.Stop.Jerk						:= 0;
+	
+	ePMLProtUnitMode_Manual:		//Manualmode		
+		IF bMoveFw THEN
+			stAxis.PTP.Halt.Execute						:= FALSE;
+			stAxis.PTP.MoveVelocitiy.Acceleration		:= 0;
+			stAxis.PTP.MoveVelocitiy.BufferMode			:= MC_Aborting;
+			stAxis.PTP.MoveVelocitiy.Deceleration		:= 0;
+			stAxis.PTP.MoveVelocitiy.Direction			:= MC_Positive_Direction;
+			stAxis.PTP.MoveVelocitiy.Execute			:= TRUE;
+			stAxis.PTP.MoveVelocitiy.Jerk				:= 0;
+			stAxis.PTP.MoveVelocitiy.Velocity			:= fConveyorVelo;
+		ELSE
+			stAxis.PTP.MoveVelocitiy.Execute			:= FALSE;
+			stAxis.PTP.Halt.BufferMode					:= MC_Aborting;
+			stAxis.PTP.Halt.Deceleration				:= 0;
+			stAxis.PTP.Halt.Execute						:= TRUE;
+			stAxis.PTP.Halt.Jerk						:= 0;
+		END_IF
+
+	ePMLUnitMode_Service:		//UserMode
+			//Not defined
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Idle" Id="{36262632-28c7-41d2-b417-979e74f5c49a}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Idle'}
+METHOD M_Idle
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[iStateResetting	:= 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Reset" Id="{fa688c4f-d892-48f8-ae39-068604f19819}">
+      <Declaration><![CDATA[METHOD M_Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF stChangeIntoProduction.bYesReset THEN
+	bMoveFw				:= FALSE;
+	iStateClearing		:= 0;
+	iStateResetting		:= 0;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Resetting" Id="{4cb81207-c171-4d96-9621-dd0e8c49b1ff}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Resetting'}
+METHOD M_Resetting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		
+	
+	ePMLProtUnitMode_Maintenance:
+
+	ePMLProtUnitMode_Manual:		
+		IF stAxis.Admin.Power.Status THEN
+			iStateClearing		:= 0;
+			M_StateComplete();
+		ELSE
+			stAxis.Admin.Power.BufferMode			:= MC_Aborting;
+			stAxis.Admin.Power.Enable				:= TRUE;
+			stAxis.Admin.Power.Enable_Negative		:= TRUE;
+			stAxis.Admin.Power.Enable_Positive		:= TRUE;
+			stAxis.Admin.Power.Override				:= 100.0;
+		END_IF
+		
+	ePMLUnitMode_Service:				//Usermode
+		//not defined	
+
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Starting" Id="{3805465d-ce33-4459-a59f-bafacdfe46ef}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Starting'}
+METHOD M_Starting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production, ePMLProtUnitMode_Manual:		
+		bResettingDone			:= FALSE;
+		stAxis.PTP.Halt.Execute					:= FALSE;
+		stAxis.PTP.MoveAbsolute1.Execute		:= FALSE;
+		stAxis.PTP.MoveAbsolute2.Execute		:= FALSE;
+		stAxis.PTP.MoveVelocitiy.Execute		:= FALSE;
+		stAxis.PTP.Stop.Execute					:= FALSE;
+		iStateResetting									:= 0;
+		SUPER^.M_Starting();
+					
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:			
+		SUPER^.M_Starting();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Stopped" Id="{08e176c9-d61a-44ec-8f2d-46e837f4adf8}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Stopped'}
+METHOD M_Stopped
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[iStateResetting	:= 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Stopping" Id="{613ca499-ea05-43ac-ac4a-b3fae2ca2f4f}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Stopping'}
+METHOD M_Stopping
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production, ePMLProtUnitMode_Manual:	
+		bResettingDone			:= FALSE;
+		
+		IF NOT stAxis.PTP.Stop.Done AND stAxis.Admin.Power.Status THEN
+			//Stop the Axis
+			stAxis.PTP.Stop.Deceleration		:= 0;
+			stAxis.PTP.Stop.Execute				:= TRUE;
+			stAxis.PTP.Stop.Jerk				:= 0;
+			//take away the Executes from MoveVelocity and Move absolte
+			 stAxis.PTP.MoveAbsolute1.Execute	:= FALSE;
+			 stAxis.PTP.MoveVelocitiy.Execute	:= FALSE;
+		END_IF
+		
+		IF stAxis.PTP.Stop.Done THEN
+			stAxis.PTP.Stop.Execute				:= FALSE;
+			//Take away the SW-enalbe, so the user can move the belt with his hands  
+			stAxis.Admin.Power.Enable			:= FALSE;
+			stAxis.Admin.Power.Enable_Negative	:= FALSE;
+			stAxis.Admin.Power.Enable_Positive	:= FALSE;
+		END_IF
+		
+		IF NOT stAxis.Admin.Power.Status THEN
+			M_StateComplete();
+		END_IF
+			
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Unholding" Id="{fe2c1acb-8c9d-433b-a6fa-b86d981690f8}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Unholding'}
+METHOD M_Unholding
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:			//Production
+		IF  PackTags.Status.StateCurrent = ePMLState_Unholding THEN
+			M_StateComplete();
+		END_IF
+				
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:			//Mantainance & UserMode
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Unsuspending" Id="{71717b77-50c3-44d1-90cd-5f752ca805a1}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Unsuspending'}
+METHOD M_Unsuspending
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:			//Production
+		IF PackTags.Status.StateCurrent = ePMLState_Unsuspending THEN
+			M_StateComplete();
+		END_IF
+					
+	ePMLUnitMode_Service:			//Usermode
+		M_StateComplete();	
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

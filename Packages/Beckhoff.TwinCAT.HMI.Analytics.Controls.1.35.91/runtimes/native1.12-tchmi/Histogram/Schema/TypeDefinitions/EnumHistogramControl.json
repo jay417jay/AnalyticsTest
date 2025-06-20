@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "EnumHistogramControl": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "EnumHistogramControl",
+      "type": "string",
+      "enum": [ "Histogram", "SectionTimer" ]
+    }
+  }
+}

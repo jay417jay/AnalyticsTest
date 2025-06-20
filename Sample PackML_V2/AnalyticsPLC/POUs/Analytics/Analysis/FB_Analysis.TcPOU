@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_Analysis" Id="9feaff37-5e44-4884-a09b-58fdc0c634cc" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Analysis
+VAR_INPUT
+	nConfigurationID: INT;
+	ip127_0_0_1_PackMLPlcStream1_10_00ms: I_V1_127_0_0_1_PackMLPlcStream1_10_00ms;
+	
+END_VAR
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage := fbTcMsgSuccess;
+END_VAR
+VAR
+	fbTcMsgSuccess: FB_TcMessageSuccess;
+	
+	R_TRIG_Reset: R_TRIG;
+	bResetBusy: BOOL;
+	
+	fbN1_Network: FB_N1_Network;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="8d7781f5-5b8e-49b6-932b-1e8c9ed21b34">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+//Analytics Network "Network" with ID: 1
+fbN1_Network.Call(THIS);
+
+
+//Error Handling
+IF fbN1_Network.bError THEN
+	bError:= TRUE;
+	ipTcResult:= fbN1_Network.ipTcResult;
+ELSE
+	bError:= FALSE;
+	ipTcResult:= fbTcMsgSuccess;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHMIValues" Id="c9078769-9370-4c63-8fcd-71fcf3a182d1">
+      <Declaration><![CDATA[METHOD SetHMIValues : BOOL
+VAR_INPUT
+	nContentID: DINT;
+	pContent: PVOID;
+	bHMIReinit: BOOL;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE nContentID OF
+	1:
+		SetHMIValues:= fbN1_Network.fbM1_ProductionTimingAnalysis1Ch.SetHMI(1, pContent, bHMIReinit);
+		SetHMIValues:= SetHMIValues AND fbN1_Network.fbM2_MaintenanceTimingAnalysis1Ch.SetHMI(1, pContent, bHMIReinit);
+		SetHMIValues:= SetHMIValues AND fbN1_Network.fbM3_ParetoAnalysis.SetHMI(1, pContent, bHMIReinit);
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHMIValues" Id="1a8c0d02-63ec-4549-92b3-b2b7b5aaede6">
+      <Declaration><![CDATA[METHOD GetHMIValues : BOOL
+VAR_INPUT
+	nContentID: DINT;
+	pContent: PVOID;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nContext" Id="4add0b54-f995-42bf-9be1-8deef6276b88">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="7f26b72a-1db5-47ad-acd6-14a4d0f6f99b">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+nContext:= 0;
+IF ip127_0_0_1_PackMLPlcStream1_10_00ms <> 0 THEN
+	nContext:= ip127_0_0_1_PackMLPlcStream1_10_00ms.nContext;
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

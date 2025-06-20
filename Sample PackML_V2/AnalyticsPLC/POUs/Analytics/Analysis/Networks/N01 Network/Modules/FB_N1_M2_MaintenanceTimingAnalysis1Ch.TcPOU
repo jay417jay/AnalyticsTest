@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_N1_M2_MaintenanceTimingAnalysis1Ch" Id="5f87604e-5fb3-49cf-814f-212d738547e2" SpecialFunc="None">
+    <Declaration><![CDATA[//The Timing Analysis 1Ch measures time difference between on- and off-periods and counts the amount of on-periods. The on-period starts when the condition of operator and threshold is met. Optional a boolean signal for Enable Execution can be selected, so that the algorithm is just active if the value of the selected signal is TRUE.
+FUNCTION_BLOCK FB_N1_M2_MaintenanceTimingAnalysis1Ch
+VAR_INPUT
+	nDataIn: DINT;
+	tTimestamp: ULINT;
+	bEnableExecution: BOOL := TRUE;
+	bReset: BOOL;
+	bReconfigure: BOOL := TRUE;
+END_VAR
+VAR_INPUT PERSISTENT
+	stThresholdLevelOn: ST_ALY_Threshold;
+	fTolerance: LREAL;
+END_VAR
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage;
+	bNewResult: BOOL;
+	bIsOn: BOOL;
+	nCountOn: ULINT;
+	fbTimeCurrentInterval: FB_ALY_TimeSpan;
+	fbTimeOnTotal: FB_ALY_TimeSpan;
+	fbTimeOffTotal: FB_ALY_TimeSpan;
+	fbTimeLastInterval: FB_ALY_TimeSpan;
+END_VAR
+VAR
+	
+	R_TRIG_Reconfigure: R_TRIG;
+	
+	fbALY_TimingAnalysis_1Ch: FB_ALY_TimingAnalysis_1Ch;
+END_VAR
+VAR PERSISTENT
+	bConfigured: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="22c9913a-ee0c-4bf5-a855-bc8eb7b276cd">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR_INPUT
+	nCurrentContext: DWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bConfigured THEN
+	bConfigured:= TRUE;
+
+	fTolerance:= 0;
+
+	stThresholdLevelOn.eComparisonOperator:= E_ALY_ComparisonOperator.Equals;
+	stThresholdLevelOn.fThreshold:= 2;
+
+	fbALY_TimingAnalysis_1Ch.fTolerance:= fTolerance;
+END_IF
+
+R_TRIG_Reconfigure(CLK:= bReconfigure);
+IF R_TRIG_Reconfigure.Q THEN
+	fbALY_TimingAnalysis_1Ch.ConfigureChannel(stThresholdLevel:= stThresholdLevelOn);
+
+	fbALY_TimingAnalysis_1Ch.Configure();
+
+	bReconfigure:= FALSE;
+END_IF
+
+IF bReset THEN
+	Reset();
+END_IF
+
+IF bEnableExecution THEN
+	IF F_HasContext(nCurrentContext, nContext) THEN
+		fbALY_TimingAnalysis_1Ch.SetChannelValue(Input:= nDataIn);
+
+		fbALY_TimingAnalysis_1Ch.Call(tTimestamp:= tTimestamp);
+
+		bNewResult:= fbALY_TimingAnalysis_1Ch.bNewResult;
+		bIsOn:= fbALY_TimingAnalysis_1Ch.bIsOn;
+		nCountOn:= fbALY_TimingAnalysis_1Ch.nCountOn;
+		fbTimeCurrentInterval:= fbALY_TimingAnalysis_1Ch.fbTimeCurrentInterval;
+		fbTimeOnTotal:= fbALY_TimingAnalysis_1Ch.fbTimeOnTotal;
+		fbTimeOffTotal:= fbALY_TimingAnalysis_1Ch.fbTimeOffTotal;
+		fbTimeLastInterval:= fbALY_TimingAnalysis_1Ch.fbTimeLastInterval;
+
+		bError:= fbALY_TimingAnalysis_1Ch.bError;
+		ipTcResult:= fbALY_TimingAnalysis_1Ch.ipResultMessage;
+	END_IF
+ELSE
+	bNewResult:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="aab1e51b-66c0-44ae-828f-23b45d873d90">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset:= fbALY_TimingAnalysis_1Ch.Reset();
+
+bNewResult:= fbALY_TimingAnalysis_1Ch.bNewResult;
+bIsOn:= fbALY_TimingAnalysis_1Ch.bIsOn;
+nCountOn:= fbALY_TimingAnalysis_1Ch.nCountOn;
+fbTimeCurrentInterval:= fbALY_TimingAnalysis_1Ch.fbTimeCurrentInterval;
+fbTimeOnTotal:= fbALY_TimingAnalysis_1Ch.fbTimeOnTotal;
+fbTimeOffTotal:= fbALY_TimingAnalysis_1Ch.fbTimeOffTotal;
+fbTimeLastInterval:= fbALY_TimingAnalysis_1Ch.fbTimeLastInterval;
+
+bError:= NOT Reset;
+ipTcResult:= fbALY_TimingAnalysis_1Ch.ipResultMessage;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHMI" Id="b43ecbdb-819d-4c10-9cfa-ed0afcbd8abe">
+      <Declaration><![CDATA[METHOD SetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+	bHMIReinit: BOOL;
+END_VAR
+VAR
+	pHMI_C1_Network: POINTER TO ST_HMI_C1_Network;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetHMI:= FALSE;
+
+CASE nContent OF
+	1:
+		pHMI_C1_Network:= pContent;
+
+		IF bHMIReinit AND bConfigured THEN
+			SetHMI:= TRUE;
+		END_IF
+
+		pHMI_C1_Network^.stHMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch.bM2_bIsOn:= bIsOn;
+		pHMI_C1_Network^.stHMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch.tM2_fbTimeCurrentInterval:= fbTimeCurrentInterval.stStructured;
+		pHMI_C1_Network^.stHMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch.tM2_fbTimeOnTotal:= fbTimeOnTotal.stStructured;
+		pHMI_C1_Network^.stHMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch.tM2_fbTimeOffTotal:= fbTimeOffTotal.stStructured;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHMI" Id="cc2a8d31-43f6-4930-89c2-4203d7f36ba6">
+      <Declaration><![CDATA[METHOD GetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+END_VAR
+VAR
+	pHMI_C1_Network: POINTER TO ST_HMI_C1_Network;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE nContent OF
+	1:
+		//Network
+		pHMI_C1_Network:= pContent;
+
+		IF pHMI_C1_Network^.stHMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch.bTrigReconfigure THEN
+			pHMI_C1_Network^.stHMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch.bTrigReconfigure:= FALSE;
+			bReconfigure:= TRUE;
+
+		END_IF
+END_CASE
+
+GetHMI:= bReconfigure;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nContext" Id="225ea2d5-2ecb-447b-b593-9fa6a9d8fcb0">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="7a9e7fb1-78e7-4485-a1d0-7f2fc110b719">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nContext:= E_VirtualInput.eContext_V1_127_0_0_1_PackMLPlcStream1_10_00ms;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

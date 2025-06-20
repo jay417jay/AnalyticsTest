@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_Seperation" Id="{87dff2a1-bf49-401f-ac20-a3cd4c30d32e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Seperation EXTENDS FB_Generic
+VAR_INPUT
+	bMoveBarrierCylinder				: BOOL;				//Button to move Barriercylinder
+	bMoveClambCylinder					: BOOL;				//Button to move Clamber
+END_VAR
+VAR_OUTPUT
+	bMoveToWorkBarrierHW				: BOOL;				//Barrier moves to workposition, utput for FB_Visu
+	bMoveToWorkClambHW					: BOOL;				//Clamber moves to workposition, utput for FB_Visu
+END_VAR
+VAR	
+	fbCylinderClamb						: FB_Cylinder;		//Subunit1
+	fbCylinderBarrier					: FB_Cylinder;		//Subunit2
+
+	nStateExecute						: INT;				//State for processing the Seperation
+	fbTimerSeperation					: TON;				//Timer for waiting, till the Box is on mainbelt
+	
+	bSensorBarrier	AT%I*				: BOOL;				//Sensor to detct a box at the barriercylinder, link to PlcOutput fbVisu.bBarrierSensor
+	
+	//Counting Packtags
+	fbTrigger							:F_TRIG;			//Trigger for counting the seperated boxes
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^();
+
+//Outreach the Variables in the FB_Machine
+bMoveToWorkBarrierHW	:= fbCylinderBarrier.bMoveToWorkHW;
+bMoveToWorkClambHW		:= fbCylinderClamb.bMoveToWorkHW;
+
+//counting products and calculate the productionvelocity
+fbTrigger(CLK:= fbCylinderBarrier.bAtWorkPos);
+IF fbTrigger.Q AND fbUnitModeManager.eModeStatus = 1
+  AND (fbStateMachine.eState =  ePMLState_Execute OR fbStateMachine.eState = ePMLState_Suspending OR
+       fbStateMachine.eState = ePMLState_Holding OR fbStateMachine.eState = ePMLState_Resetting ) THEN	
+	PackTags.Admin.ProdProcessedCount[2].Count		:=  PackTags.Admin.ProdProcessedCount[2].Count +1;
+END_IF
+
+THIS^.M_Reset();
+fbCylinderBarrier();
+fbCylinderClamb();
+fbTimerSeperation();
+
+
+]]></ST>
+    </Implementation>
+    <Method Name="M_Aborting" Id="{b38c33cf-56e0-4e27-8242-0d486745e932}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Aborting'}
+METHOD M_Aborting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF	
+	ePMLProtUnitMode_Production, ePMLProtUnitMode_Manual:		
+		IF fbCylinderBarrier.bAtBasePos THEN
+			fbCylinderBarrier.bMoveToWork	:= FALSE;
+		END_IF
+		IF fbCylinderClamb.bAtBasePos THEN
+			fbCylinderClamb.bMoveToWork		:= FALSE;
+		END_IF
+		fbTimerSeperation.IN	:= FALSE;
+		M_StateComplete();
+			
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Completing" Id="{f5ea9818-cd63-4cc9-ac4f-f4b356b4eee5}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Completing'}
+METHOD M_Completing
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:
+		//Waiting till all units are in Completing
+		IF PackTags.Status.StateCurrent = ePMLState_Completing THEN
+			M_StateComplete();
+		END_IF
+END_CASE
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Execute" Id="{e159648e-f697-4554-8bd9-70357bba35ca}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Execute'}
+METHOD M_Execute
+
+VAR
+
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Mode Production
+		//Processing automatic Seperation
+		CASE nStateExecute OF
+			0:
+				IF	PackTags.Admin.ProdProcessedCount[2].Count >= REAL_TO_DINT( PackTags.Command.Parameter[2].Value) AND  PackTags.Admin.ProdProcessedCount[1].Count = REAL_TO_DINT(PackTags.Command.Parameter[2].Value)AND
+					fbCylinderBarrier.bAtBasePos AND  AxisMain.Status.NotMoving AND AxisPlastic.Status.NotMoving AND AxisMetal.Status.NotMoving AND
+					PackTags.Status.StateCurrent = ePMLState_Execute THEN
+						M_StateComplete();
+				ELSIF PackTags.Admin.ProdProcessedCount[2].Count >= REAL_TO_DINT( PackTags.Command.Parameter[2].Value) AND fbCylinderBarrier.bAtBasePos AND fbCylinderClamb.bAtBasePos THEN
+						nStateExecute			:= 0;
+				ELSE
+						nStateExecute			:= 1;
+				END_IF
+				
+			1:	
+				fbCylinderClamb.bMoveToWork		:=	FALSE; 
+				fbCylinderBarrier.bMoveToWork	:=	TRUE;
+				IF 	 fbCylinderBarrier.bAtWorkPos THEN
+					nStateExecute				:= 2;
+				END_IF
+			2:
+				fbTimerSeperation.IN	:= TRUE; 
+				fbTimerSeperation.PT	:= T#4S;
+				IF fbTimerSeperation.Q THEN
+					fbTimerSeperation.IN			:= FALSE;
+					nStateExecute				:= 3;
+				END_IF
+				
+			3:
+				fbCylinderBarrier.bMoveToWork	:=	FALSE;
+				IF fbCylinderBarrier.bAtBasePos THEN
+					nStateExecute				:= 4;
+				END_IF
+				
+			4:
+				fbCylinderClamb.bMoveToWork		:=	TRUE;
+				IF fbCylinderClamb.bAtWorkPos AND bSensorBarrier THEN
+					nStateExecute				:= 5;
+				END_IF
+			5:
+				fbCylinderClamb.bMoveToWork		:=	FALSE;
+				IF fbCylinderClamb.bAtBasePos AND fbCylinderBarrier.bAtBasePos THEN
+					nStateExecute				:= 0;
+				END_IF
+		END_CASE
+
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:		
+		//
+		
+	ePMLProtUnitMode_Manual:		//Manaul
+		//React on Visubuttons		
+		IF  bMoveBarrierCylinder THEN
+			fbCylinderBarrier.bMoveToWork	:=	TRUE;
+		ELSE
+			fbCylinderBarrier.bMoveToWork	:=	FALSE;
+		END_IF
+		IF bMoveClambCylinder	THEN
+			fbCylinderClamb.bMoveToWork		:=	TRUE;
+		ELSE
+			fbCylinderClamb.bMoveToWork		:=	FALSE;
+		END_IF
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Holding" Id="{868bced9-d38e-4f96-a2c5-bdc606565cab}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Holding'}
+METHOD M_Holding
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Mode Production
+		//Finisch the actual seperationstep	
+		CASE nStateExecute OF
+			0:
+				M_StateComplete();	
+			1:	
+				fbCylinderClamb.bMoveToWork		:=	FALSE; 
+				fbCylinderBarrier.bMoveToWork	:=	TRUE;
+				IF 	 fbCylinderBarrier.bAtWorkPos THEN
+					nStateExecute				:= 2;
+				END_IF
+			2:
+				fbTimerSeperation.IN	:= TRUE; 
+				fbTimerSeperation.PT	:= T#4S;
+				IF fbTimerSeperation.Q THEN
+					fbTimerSeperation.IN			:= FALSE;
+					nStateExecute				:= 3;
+				END_IF
+				
+			3:
+				fbCylinderBarrier.bMoveToWork	:=	FALSE;
+				IF fbCylinderBarrier.bAtBasePos THEN
+					nStateExecute				:= 4;
+				END_IF
+					
+			4:
+				fbCylinderClamb.bMoveToWork		:=	TRUE;
+				IF fbCylinderClamb.bAtWorkPos AND bSensorBarrier THEN
+					nStateExecute				:= 5;
+				END_IF
+			5:
+				fbCylinderClamb.bMoveToWork		:=	FALSE;
+				IF fbCylinderClamb.bAtBasePos AND fbCylinderBarrier.bAtBasePos THEN
+					nStateExecute				:= 5;
+					M_StateComplete();
+				END_IF
+		END_CASE
+
+	ePMLProtUnitMode_Maintenance:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Reset" Id="{7372f493-c5fa-446f-9fc2-6c6e190fb66e}">
+      <Declaration><![CDATA[METHOD M_Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Take away all commands
+IF stChangeIntoProduction.bYesReset THEN
+	nStateExecute					:= 0;
+	fbTimerSeperation.IN			:= FALSE;
+	fbCylinderBarrier.bMoveToWork	:= FALSE;
+	fbCylinderClamb.bMoveToWork		:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Resetting" Id="{0e593cb6-eecb-4b8f-b83c-37be309ebdd4}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Resetting'}
+METHOD M_Resetting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Production, Mantainance, Manual	
+		IF nStateExecute = 0 AND fbCylinderBarrier.bAtBasePos AND fbCylinderClamb.bAtBasePos AND bSensorBarrier THEN
+			M_StateComplete();
+		ELSIF AxisMain.Status.Moving THEN
+			//Finisch the actual seperationstep	
+			CASE nStateExecute OF
+			0:
+				M_StateComplete();									
+				fbCylinderClamb.bMoveToWork		:=	FALSE;
+				fbCylinderBarrier.bMoveToWork	:=	FALSE;			
+			1:	
+				fbCylinderClamb.bMoveToWork		:=	FALSE; 
+				fbCylinderBarrier.bMoveToWork	:=	TRUE;
+				IF 	 fbCylinderBarrier.bAtWorkPos THEN
+					nStateExecute				:= 2;
+				END_IF
+			2:
+				fbTimerSeperation.IN	:= TRUE; 
+				fbTimerSeperation.PT	:= T#4S;
+				IF fbTimerSeperation.Q THEN
+					fbTimerSeperation.IN			:= FALSE;
+					nStateExecute				:= 3;
+				END_IF
+					
+			3:
+				fbCylinderBarrier.bMoveToWork	:=	FALSE;
+				IF fbCylinderBarrier.bAtBasePos THEN
+					nStateExecute				:= 4;
+				END_IF
+						
+			4:
+				fbCylinderClamb.bMoveToWork		:=	TRUE;
+				IF fbCylinderClamb.bAtWorkPos AND bSensorBarrier THEN
+					nStateExecute				:= 5;
+				END_IF
+			5:
+				fbCylinderClamb.bMoveToWork		:=	FALSE;
+				IF fbCylinderClamb.bAtBasePos AND fbCylinderBarrier.bAtBasePos THEN
+					nStateExecute				:= 0;
+				END_IF
+			END_CASE
+		END_IF
+	
+	ePMLProtUnitMode_Maintenance, ePMLProtUnitMode_Manual, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Starting" Id="{f6bf4ecd-13e6-406b-96e9-796d16cf6fcf}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Starting'}
+METHOD M_Starting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Production, Mantainance, Manual
+		//Resetting all Commands and Values
+		fbTimerSeperation.IN			:= FALSE;
+		nStateExecute					:= 0;
+		fbCylinderBarrier.bMoveToWork	:= FALSE;
+		fbCylinderClamb.bMoveToWork		:= FALSE;
+		IF fbCylinderBarrier.bAtBasePos AND fbCylinderClamb.bAtBasePos THEN
+			SUPER^.M_Starting();
+		END_IF
+
+	ePMLProtUnitMode_Maintenance, ePMLProtUnitMode_Manual, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Stopping" Id="{e4f1c82d-162c-4746-b8a8-8ebcfd9b3a08}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Stopping'}
+METHOD M_Stopping
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production, ePMLProtUnitMode_Manual:			
+		IF fbCylinderBarrier.bAtBasePos THEN
+			fbCylinderBarrier.bMoveToWork	:= FALSE;
+		END_IF
+		IF fbCylinderClamb.bAtBasePos THEN
+			fbCylinderClamb.bMoveToWork		:= FALSE;
+		END_IF
+		fbTimerSeperation.IN	:= FALSE;
+		M_StateComplete();
+
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:
+		M_StateComplete();	
+			//not defined
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Suspending" Id="{21925bae-0a72-48a7-8e80-386a48818618}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Suspending'}
+METHOD M_Suspending
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Mode Production
+		//Finisch the actual seperationstep	
+		CASE nStateExecute OF
+			0:
+				M_StateComplete();	
+			1:	
+				fbCylinderClamb.bMoveToWork		:=	FALSE; 
+				fbCylinderBarrier.bMoveToWork	:=	TRUE;
+				IF 	 fbCylinderBarrier.bAtWorkPos THEN
+					nStateExecute				:= 2;
+				END_IF
+			2:
+				fbTimerSeperation.IN	:= TRUE; 
+				fbTimerSeperation.PT	:= T#4S;
+				IF fbTimerSeperation.Q THEN
+					fbTimerSeperation.IN			:= FALSE;
+					nStateExecute				:= 3;
+				END_IF
+			3:
+				fbCylinderBarrier.bMoveToWork	:=	FALSE;
+				IF fbCylinderBarrier.bAtBasePos THEN
+					nStateExecute				:= 4;
+				END_IF
+					
+			4:
+				fbCylinderClamb.bMoveToWork		:=	TRUE;
+				IF fbCylinderClamb.bAtWorkPos AND bSensorBarrier THEN
+					nStateExecute				:= 5;
+				END_IF
+			5:
+				fbCylinderClamb.bMoveToWork		:=	FALSE;
+				IF fbCylinderClamb.bAtBasePos AND fbCylinderBarrier.bAtBasePos THEN
+					nStateExecute				:= 5;
+					M_StateComplete();
+				END_IF
+		END_CASE
+
+	ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Undefined" Id="{edbd7a86-55f8-4261-922a-b88d3ff38aa8}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Undefined'}
+METHOD M_Undefined
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbCylinderBarrier.bMoveToWork	:= FALSE;
+fbCylinderClamb.bMoveToWork		:= FALSE;
+bUndefinedDone					:= TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Unholding" Id="{77577efa-2225-4bc2-8b05-3494dec81d51}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Unholding'}
+METHOD M_Unholding
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:	//Production, Mantainance, Manual
+		IF fbCylinderBarrier.bAtBasePos AND fbCylinderClamb.bAtBasePos AND PackTags.Status.StateCurrent = ePMLState_Unholding THEN
+			M_StateComplete();
+			nStateExecute		:= 0;
+			fbTimerSeperation.IN	:= FALSE;
+		END_IF
+			
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:	
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Unsuspending" Id="{dd0b5156-9282-45f2-892c-eaa9c78be032}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Unsuspending'}
+METHOD M_Unsuspending
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:	//Production, Mantainance, Manual
+		IF fbCylinderBarrier.bAtBasePos AND fbCylinderClamb.bAtBasePos AND PackTags.Status.StateCurrent = ePMLState_Unsuspending THEN
+			M_StateComplete();
+			nStateExecute		:= 0;
+			fbTimerSeperation.IN	:= FALSE;
+		END_IF	
+
+	ePMLUnitMode_Service:			
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

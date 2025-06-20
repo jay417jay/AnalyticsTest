@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.LayoutManager": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiContainerControl",
+      "frameworkControlType": "LayoutManager",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    },
+    "TcHmiControlList": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "TcHmiControlList",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "TcHmiControlList",
+        "description": "Defines a custom object in the array.",
+        "propertiesMeta": [
+          {
+            "name": "sDisplayName",
+            "category": "Common",
+            "displayName": "DisplayName",
+            "displayPriority": 1,
+            "description": "",
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          },
+          {
+            "name": "sControlName",
+            "category": "Common",
+            "displayName": "ControlType",
+            "displayPriority": 2,
+            "description": "",
+            "defaultValue": null,
+            "defaultValueInternal": null
+          }
+        ],
+        "properties": {
+          "sDisplayName": {
+            "anyOf": [
+              { "type": "string" },
+              { "$ref": "tchmi:framework#/definitions/TcHmiStringSymbol" }
+            ]
+          },
+          "sControlName": {
+            "anyOf": [
+              { "$ref": "tchmi:framework#/definitions/ControlType" }
+            ]
+          }
+        },
+        "required": [ "sDisplayName, sControlName" ]
+
+      }
+    }
+  }
+}

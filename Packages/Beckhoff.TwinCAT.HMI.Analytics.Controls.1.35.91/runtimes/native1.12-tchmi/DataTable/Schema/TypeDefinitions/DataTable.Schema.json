@@ -1,0 +1,198 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.DataTable": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "DataTable",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    },
+    "TcHmiBoolSymbol": {
+      "allOf": [
+        {
+          "$ref": "tchmi:framework#/definitions/Symbol"
+        },
+        {
+          "frameworkSymbolSubType": {
+            "$ref": "tchmi:general#/definitions/Boolean"
+          }
+        }
+      ]
+    },
+    "TcHmiNumberSymbol": {
+      "allOf": [
+        {
+          "$ref": "tchmi:framework#/definitions/Symbol"
+        },
+        {
+          "frameworkSymbolSubType": {
+            "anyOf": [
+              {
+                "$ref": "tchmi:general#/definitions/Number"
+              },
+              {
+                "$ref": "tchmi:general#/definitions/INT"
+              },
+              {
+                "$ref": "tchmi:general#/definitions/REAL"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "TcHmiStringSymbol": {
+      "allOf": [
+        {
+          "$ref": "tchmi:framework#/definitions/Symbol"
+        },
+        {
+          "frameworkSymbolSubType": {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        }
+      ]
+    },
+    "TcHmiObjectSymbol": {
+      "allOf": [
+        {
+          "$ref": "tchmi:framework#/definitions/Symbol"
+        },
+        {
+          "frameworkSymbolSubType": {
+            "tchmi": "tchmi:general#/definitions/Object"
+          }
+        }
+      ]
+    },
+    "TcHmiTableVersion": {
+      "title": "TcHmiTableVersion",
+      "type": "string",
+      "enum": [ "Horizontal", "Vertical" ]
+    },
+    "TcHmiCellData": {
+      "title": "CellData",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "CellData",
+        "description": "Defines a custom object in the array.",
+        "propertiesMeta": [
+          {
+            "name": "sKey",
+            "category": "Key",
+            "displayName": "Key",
+            "displayPriority": 1,
+            "description": "",
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          },
+          {
+            "name": "displayName",
+            "category": "Key",
+            "displayName": "DisplayName",
+            "displayPriority": 2,
+            "description": "",
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          },
+          {
+            "name": "sValue",
+            "category": "Value",
+            "displayName": "Value",
+            "displayPriority": 1,
+            "description": "",
+            "defaultValue": null,
+            "defaultValueInternal": null
+          },
+          {
+            "name": "editable",
+            "category": "Value",
+            "displayName": "Editable",
+            "displayPriority": 2,
+            "description": "",
+            "defaultValue": false,
+            "defaultValueInternal": false
+          }
+        ],
+        "properties": {
+          "sKey": {
+            "anyOf": [
+              { "type": "string" },
+              { "$ref": "tchmi:framework#/definitions/TcHmiStringSymbol" }
+            ]
+          },
+          "displayName": {
+            "anyOf": [
+              { "type": "string" },
+              { "$ref": "tchmi:framework#/definitions/TcHmiStringSymbol" }
+            ]
+          },
+          "sValue": {
+            "anyOf": [
+              { "type": "string" },
+              { "type": "number" },
+              { "type": "array" },
+              { "type": "object" }
+            ]
+          },
+          "editable": {
+            "type": "boolean"
+          }
+        },
+        "required": [ "sKey, sValue" ]
+      }
+    },
+    "TcHmiTableData": {
+      "title": "TableData",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "DataTableItem",
+        "description": "Defines a custom object in the array.",
+        "propertiesMeta": [
+          {
+            "name": "name",
+            "category": "Name",
+            "displayName": "Name",
+            "displayPriority": 1,
+            "description": "The module name.",
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          },
+          {
+            "name": "reconfigure",
+            "category": "Reconfigure",
+            "displayName": "Reconfigure",
+            "displayPriority": 2,
+            "description": "Used to trigger reconfigure for changed parameter values.",
+            "defaultValue": null,
+            "defaultValueInternal": null
+          },
+          {
+            "name": "datavalues",
+            "category": "Data Values",
+            "displayName": "Data Values",
+            "displayPriority": 3,
+            "description": "Array of data values.",
+            "defaultValue": null,
+            "defaultValueInternal": null
+          }
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "reconfigure": {
+            "$ref": "tchmi:framework#/definitions/TcHmiBoolSymbol"
+          },
+          "datavalues": {
+            "$ref": "tchmi:framework#/definitions/TcHmiCellData"
+          }
+        },
+        "required": [ "datavalues" ]
+
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <DUT Name="ST_AxFunctions" Id="{be8a00d9-2abf-48be-ac44-6a555b0fbf29}">
+    <Declaration><![CDATA[//structure includes structures with TC Motion functions
+TYPE ST_AxFunctions :
+STRUCT
+	Admin				: ST_AxFunctionsAdmin;
+	PTP					: ST_AxFunctionsPTP;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

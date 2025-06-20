@@ -1,0 +1,162 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "Image",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Image",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Image.",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 470,
+      "height": 470
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/16x16.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "Image.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Image",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-src",
+      "propertyName": "Src",
+      "propertySetterName": "setSrc",
+      "propertyGetterName": "getSrc",
+      "displayName": "Src",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/Path",
+      "category": "Analytics",
+      "description": "The image URL.",
+      "searchTerms": [
+        "getSource",
+        "setSource",
+        "source",
+        "getImage",
+        "setImage",
+        "image",
+        "getPicture",
+        "setPicture",
+        "picture"
+      ],
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-alt",
+      "propertyName": "Alt",
+      "propertySetterName": "setAlt",
+      "propertyGetterName": "getAlt",
+      "displayName": "Alt",
+      "visible": true,
+      "themeable": "Advanced",
+      "displayPriority": 60,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Replacement text for use if images are not available.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-original-width",
+      "propertyName": "OriginalWidth",
+      "propertyGetterName": "getOriginalWidth",
+      "displayName": "OriginalWidth",
+      "visible": true,
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Number",
+      "category": "Analytics",
+      "description": "The original width of the image resource before sizing or 0 if no media is available.",
+      "readOnly": true,
+      "bindable": false,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-original-height",
+      "propertyName": "OriginalHeight",
+      "propertyGetterName": "getOriginalHeight",
+      "displayName": "OriginalHeight",
+      "visible": true,
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Number",
+      "category": "Analytics",
+      "description": "The original height of the image resource before sizing or 0 if no media is available.",
+      "readOnly": true,
+      "bindable": false,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": 0
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "schema": "Schema/Types.Schema.json"
+    }
+  ]
+}

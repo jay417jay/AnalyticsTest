@@ -1,0 +1,219 @@
+.tchmi-analytics-control-properties {
+    box-sizing: border-box;
+    position: fixed;
+    z-index: 6000;
+    max-width: 350px !important;
+    right: -350px;
+    min-width: 0px;
+    top: 5px;
+    bottom: 0px;
+    transition: 0.4s;
+    padding: 10px;
+    background: rgba(230,230,230,1);
+    border-left: 1px solid rgba(128,128,128,0.8);
+    border-top: 1px solid rgba(128,128,128,0.8);
+    font-size: 16px;
+}
+
+.tchmi-analytics-control-sub-property {
+    padding-left: 15px;
+}
+
+.tchmi-analytics-control-properties-mobile {
+    max-width: 280px;
+    right: -280px;
+}
+
+.tchmi-analytics-control-properties-active {
+    right: 0%;
+    flex-direction: column;
+    display: flex;
+    width: 350px;
+}
+
+.tchmi-analytics-control-properties-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
+    margin-bottom: 30px;
+    width: 330px;
+}
+
+.tchmi-analytics-control-dim-mask {
+    position: fixed;
+    z-index: 10;
+    background: rgba(128,128,128,0.4);
+}
+
+.tchmi-analytics-control-dim-mask-active {
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.tchmi-analytics-control-property {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    font-size:1em;
+}
+
+.tchmi-analytics-control-property-identifier {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(128,128,128,0.5);
+    font-size: 1.1em;
+}
+
+.tchmi-analytics-control-id-value {
+    overflow: hidden;
+    width: inherit;
+    margin-right: 20px;
+    text-overflow: ellipsis;
+}
+
+.tchmi-analytics-control-combobox {
+    padding-right: 7px;
+}
+
+.tchmi-analytics-control-property-name {
+    width: 150px;
+}
+
+.tchmi-analytics-control-property-name + .tchmi-analytics-control-value {
+    max-width: calc(100% - 152px);
+}
+
+/* For mobile devices */
+.tchmi-analytics-control-property-name-mobile {
+    min-width: 120px;
+    width: 120px;
+}
+
+.tchmi-analytics-control-property-name-mobile + .tchmi-analytics-control-value {
+    max-width: calc(100% - 125px);
+}
+
+.tchmi-analytics-control-close {
+    position: absolute;
+    right: 10px;
+}
+
+.tchmi-analytics-control-reset-properties {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    width:22px;
+    height:23.5px;
+    background-size: 22px 23.5px;
+    background-image:url("../Icons/reset.svg");
+}
+
+.tchmi-analytics-control-reset-properties-darktheme {
+    background-image: url("../Icons/reset_white.svg");
+}
+
+.tchmi-analytics-control-reset-properties:hover {
+    background-image: url("../Icons/reset_hover.svg");
+}
+
+.tchmi-analytics-control-close:hover + .tchmi-analytics-control-close-hover {
+    width: 24px;
+    height: 24px;
+    right: 10px;
+}
+
+.tchmi-analytics-control-close:hover {
+    color: rgba(255,255,255,0.9);
+    cursor: pointer;
+}
+
+.tchmi-analytics-control-close-hover {
+    position: absolute;
+    right: 22px;
+    border-radius: 12px;
+    background: black;
+    opacity:0.2;
+    width: 0px;
+    height: 0px;
+    z-index: -1;
+    transition: 0.1s;
+}
+
+
+/* Styles for custom dropdown*/
+.tchmi-analytics-custom-dropdown {
+    z-index:5;
+    position: relative;
+    width: 325px;
+    height: 30px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: lightgray;
+    margin-top: 5px;
+    background: lightgray;
+    border-radius: 5px;
+    border-color: gray;
+}
+.tchmi-analytics-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    width: 315px;
+    padding:5px;
+    background-color:white;
+}
+.tchmi-analytics-option {
+    padding: 5px;
+    width: 305px;
+    cursor: pointer;
+    background-color: lightgray;
+    display: flex;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+.tchmi-analytics-option:hover {
+    background-color: gray;
+}
+.tchmi-analytics-option-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+.tchmi-analytics-option-text-container {
+    flex: 1;
+}
+.tchmi-analytics-option-bold {
+    font-weight: bold;
+}
+.tchmi-analytics-angle-bold {
+    font-weight: bold;
+}
+.tchmi-analytics-option-normal {
+    margin: 0;
+}
+.tchmi-analytics-selected-value {
+    width: 305px;
+    cursor: pointer;
+    display: flex;
+    margin-top: 5px;
+}
+.tchmi-analytics-selected-value-image {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: 30px;
+}
+.tchmi-analytics-text-container {
+    flex: 1;
+}
+.tchmi-analytics-selected-value-angle {
+    display: inline-block;
+    transform: rotate(90deg);
+}
+
+
+
+

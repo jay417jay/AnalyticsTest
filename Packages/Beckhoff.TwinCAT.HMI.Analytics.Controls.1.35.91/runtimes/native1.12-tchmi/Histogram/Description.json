@@ -1,0 +1,546 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "Histogram",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Histogram",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Histogram",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 470,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/Histogram.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "Histogram.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.Histogram",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Histogram",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-control-type",
+      "propertyName": "ControlType",
+      "propertySetterName": "setControlType",
+      "propertyGetterName": "getControlType",
+      "displayName": "Control Type",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:framework#/definitions/EnumHistogramControl",
+      "category": "Analytics",
+      "description": "Choose Control Type",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Histogram",
+      "defaultValueInternal": "Histogram"
+    },
+    {
+      "name": "data-tchmi-histogram-unit",
+      "propertyName": "HistogramUnit",
+      "propertySetterName": "setHistogramUnit",
+      "propertyGetterName": "getHistogramUnit",
+      "displayName": "Histogram Unit",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:framework#/definitions/EnumUnitHistogram",
+      "category": "Analytics",
+      "description": "Choose Histogram Unit",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "s",
+      "defaultValueInternal": "s"
+    },
+    {
+      "name": "data-tchmi-unit",
+      "propertyName": "Unit",
+      "propertySetterName": "setUnit",
+      "propertyGetterName": "getUnit",
+      "displayName": "Unit",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Unit of the input and output values",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-y-axis-name",
+      "propertyName": "YAxisName",
+      "propertySetterName": "setYAxisName",
+      "propertyGetterName": "getYAxisName",
+      "displayName": "Y Axis Name",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 20,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Y Axis Name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-bins",
+      "propertyName": "Bins",
+      "propertySetterName": "setBins",
+      "propertyGetterName": "getBins",
+      "displayName": "Bins",
+      "visible": false,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:general#/definitions/Array",
+      "category": "Analytics",
+      "description": "OBSOLETE! Amount of bins for the histogram",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-bins-label",
+      "propertyName": "BinsLabel",
+      "propertySetterName": "setBinsLabel",
+      "propertyGetterName": "getBinsLabel",
+      "displayName": "Bin Labels",
+      "visible": false,
+      "themeable": "Standard",
+      "displayPriority": 14,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "OBSOLETE! Bin labels for the histogram separated by comma.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-bins2",
+      "propertyName": "Bins2",
+      "propertySetterName": "setBins2",
+      "propertyGetterName": "getBins2",
+      "displayName": "Bins",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:framework#/definitions/HistogramBins",
+      "allowSymbolExpressionsInObject": true,
+      "category": "Analytics",
+      "description": "Bins for the histogram",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [
+        {
+          "name": "1",
+          "value": 50
+        },
+        {
+          "name": "2",
+          "value": 100
+        },
+        {
+          "name": "3",
+          "value": 50
+        }
+      ],
+      "defaultValueInternal": [
+      ]
+    },
+    {
+      "name": "data-tchmi-sections-lower-border",
+      "propertyName": "SectionsLowerBorder",
+      "propertySetterName": "setSectionsLowerBorder",
+      "propertyGetterName": "getSectionsLowerBorder",
+      "displayName": "Sections Lower Border",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "Analytics",
+      "description": "Sections Lower Border from section timer for the histogram",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-sections-upper-borders",
+      "propertyName": "SectionsUpperBorders",
+      "propertySetterName": "setSectionsUpperBorders",
+      "propertyGetterName": "getSectionsUpperBorders",
+      "displayName": "Sections Upper Borders",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:general#/definitions/Array",
+      "category": "Analytics",
+      "description": "Sections Upper Borders from section timer for the histogram",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [],
+      "defaultValueInternal": []
+    },
+    {
+      "name": "data-tchmi-relative",
+      "propertyName": "Relative",
+      "propertySetterName": "setRelative",
+      "propertyGetterName": "getRelative",
+      "displayName": "Relative",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 14,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Bins are relative or not.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-show-outer-bins",
+      "propertyName": "ShowOuterBins",
+      "propertySetterName": "setShowOuterBins",
+      "propertyGetterName": "getShowOuterBins",
+      "displayName": "Show Outer Bins",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 14,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate Show Outer Bins.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-default-min-height",
+      "propertyName": "DefaultMinHeight",
+      "propertySetterName": "setDefaultMinHeight",
+      "propertyGetterName": "getDefaultMinHeight",
+      "displayName": "Default Min Height",
+      "visible": false,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:general#/definitions/UINT32",
+      "category": "Analytics",
+      "description": "Default minimum height. Used for mobile switch in a layout manager.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 310,
+      "defaultValueInternal": 310
+    },
+    {
+      "name": "data-tchmi-show-colors",
+      "propertyName": "ShowColors",
+      "propertySetterName": "setShowColors",
+      "propertyGetterName": "getShowColors",
+      "displayName": "Show Colors",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 25,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Show histogram colors",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-colors-hist",
+      "propertyName": "ColorsHist",
+      "propertySetterName": "setColorsHist",
+      "propertyGetterName": "getColorsHist",
+      "displayName": "Colors Hist",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 25,
+      "type": "tchmi:framework#/definitions/PopupHistogram",
+      "category": "Analytics",
+      "description": "Color for each bin.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [],
+      "defaultValueInternal": []
+    },
+    {
+      "name": "data-tchmi-show-axis",
+      "propertyName": "ShowAxis",
+      "propertySetterName": "setShowAxis",
+      "propertyGetterName": "getShowAxis",
+      "displayName": "Show Axis",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 20,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Show y-axis",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-values",
+      "propertyName": "ShowValues",
+      "propertySetterName": "setShowValues",
+      "propertyGetterName": "getShowValues",
+      "displayName": "Show Values",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 21,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Show histogram values",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-labels",
+      "propertyName": "Labels",
+      "propertySetterName": "setLabels",
+      "propertyGetterName": "getLabels",
+      "displayName": "Labels",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 13,
+      "type": "tchmi:framework#/definitions/EnumLabel",
+      "category": "Analytics",
+      "description": "Choose Labels",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Manual",
+      "defaultValueInternal": "Manual"
+    },
+    {
+      "name": "data-tchmi-write-labels-vertical",
+      "propertyName": "WriteLabelsVertical",
+      "propertySetterName": "setWriteLabelsVertical",
+      "propertyGetterName": "getWriteLabelsVertical",
+      "displayName": "Write Labels Vertical",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 14,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Write Labels Vertical",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-control-color-dark",
+      "description": "Control Color Dark",
+      "displayName": "Control Color Dark",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorDark",
+      "propertyName": "ControlColorDark",
+      "propertySetterName": "setControlColorDark",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102, 102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+      "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.Histogram",
+      "schema": "Schema/TypeDefinitions/Histogram.Schema.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/PopupHistogram",
+      "schema": "Schema/TypeDefinitions/PopupHistogram.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/EnumHistogramControl",
+      "schema": "Schema/TypeDefinitions/EnumHistogramControl.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/EnumUnitHistogram",
+      "schema": "Schema/TypeDefinitions/EnumUnitHistogram.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/EnumLabel",
+      "schema": "Schema/TypeDefinitions/EnumLabel.json"
+    },
+    {
+      "schema": "Schema/TypeDefinitions/HistogramBins.json"
+    }
+  ]
+}

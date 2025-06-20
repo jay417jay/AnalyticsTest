@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.BandwidthClassificator": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "BandwidthClassificator",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    }
+  }
+}

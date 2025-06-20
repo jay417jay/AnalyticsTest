@@ -1,0 +1,28 @@
+{
+  "$schema": "../../../../TcHmiServer/TcHmiSrv/schema/Language.Schema.json",
+  "locale": "en",
+  "localizedText": {
+    "Pareto_Line": "Pareto Line",
+    "Show_Pareto_Line": "Show Pareto Line",
+    "Pareto_Line_Percentage": "Pareto Line Percentage",
+    "Pareto_Line_Color": "Pareto Line Color",
+    "Hover": "Hover",
+    "Use_Hover_Effect": "Use Hover Effect",
+    "Draw_Pareto_Entry": "Draw Pareto Entry",
+    "Hoverpoint_Radius": "Hoverpoint Radius",
+    "Bars": "Bars",
+    "Show_Bar_Label": "Show Bar Label",
+    "Draw_Vital_Few": "Draw Vital Few",
+    "Bar_Gap": "Bar Gap",
+    "Base_Bar_Color": "Base Bar Color",
+    "Vital_Few_Color": "Vital Few Color",
+    "Relative_Line": "Relative Line",
+    "Relative_Line_Color": "Relative Line Color",
+    "Bar_Maximization": "Bar Maximization",
+    "Cumulative_Scaling": "Cumulative Scaling",
+    "Axes_And_Grid": "Axes and Grid",
+    "Y_Axis_Scaling": "Y Axis Scaling",
+    "Draw_X_Grid_Lines": "Draw X Grid Lines",
+    "Draw_Y_Grid_Lines": "Draw Y Grid Lines"
+  }
+}

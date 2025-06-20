@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "XYShapeEnum": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "XYShapeEnum",
+      "type": "string",
+      "enum": [ "Circle", "Rectangle", "Triangle" ]
+    }
+  }
+}

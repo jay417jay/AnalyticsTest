@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "EnumRainflow": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "EnumRainflow",
+      "type": "string",
+      "enum": [ "Show Halfcycle Table", "Show Miners Rule", "Show Both" ]
+    }
+  }
+}

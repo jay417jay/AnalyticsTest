@@ -1,0 +1,82 @@
+﻿.tchmi-timing-analysis-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tchmi-timing-analysis-inner-container {
+    height: 100%;
+    margin-left: 5px;
+    margin-top: 5px;
+    width:90px;
+}
+
+.tchmi-timing-analysis-svg {
+    margin: 0;
+}
+
+.tchmi-timing-analysis-svg-on-circle {
+    stroke-width: 0;
+}
+
+.tchmi-timing-analysis-svg-off-circle {
+    stroke-width: 2;
+} 
+
+.tchmi-timing-analysis-state {
+    float:left;
+    border: none;
+    font-size: 14px;
+    width: 68px;
+    height: 16px;
+    -webkit-box-align: center;
+    align-items: center; /* Vertikale Zentrierung */
+    text-align: center;
+    justify-content: center; /* Horizontale Zentrierung */
+    font-weight: bold;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #999999;
+    border: 2px solid #666666;
+}
+
+.tchmi-timing-analysis-on-state {
+    justify-content: center; /* Horizontale Zentrierung */
+    margin-top: 5px;
+}
+
+.tchmi-timing-analysis-off-state {
+    justify-content: center; /* Horizontale Zentrierung */
+}
+
+.tchmi-timing-analysis-current {
+    justify-content: center; /* Horizontale Zentrierung */
+    background-color: #666666;
+}
+
+.tchmi-timing-analysis-state-values {
+    border: none;
+    font-size: 14px;
+    height: 22px;
+    -webkit-box-align: center;
+    align-items: center; /* Vertikale Zentrierung */
+    text-align: center;
+    justify-content: center; /* Horizontale Zentrierung */
+    padding-bottom: 3px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.tchmi-timing-analysis-on-state-value {
+    justify-content: center; /* Horizontale Zentrierung */
+}
+
+.tchmi-timing-analysis-off-state-value {
+    justify-content: center; /* Horizontale Zentrierung */
+}
+
+.tchmi-timing-analysis-current-value {
+    justify-content: center; /* Horizontale Zentrierung */
+}

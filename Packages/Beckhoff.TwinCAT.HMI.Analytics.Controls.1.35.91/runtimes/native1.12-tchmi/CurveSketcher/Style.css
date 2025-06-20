@@ -1,0 +1,39 @@
+﻿.tchmi-curve-sketcher-svg {
+    display: block;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+.tchmi-curve-sketcher-svg-line-coordinate-system {
+    stroke-width: 3px;
+    stroke-linecap: round;
+    fill: none;
+    stroke-linejoin:round;
+}
+
+.tchmi-curve-sketcher-svg-line-coordinate-system-graph {
+    stroke-width: 3px;
+    stroke-linecap: round;
+    fill: none;
+}
+
+.tchmi-curve-sketcher-svg-text-count-alias {
+    font-size: 12px;
+    text-anchor:middle;
+}
+
+.tchmi-curve-sketcher-svg-text-values{
+    font-size:14px;
+    text-align:center;
+}
+
+.tchmi-curve-sketcher-svg-text-count {
+    font-size: 12px;
+    text-anchor: middle;
+}
+
+.tchmi-curve-sketcher-svg-text-date {
+    font-size: 10px;
+    text-anchor: middle;
+}
+

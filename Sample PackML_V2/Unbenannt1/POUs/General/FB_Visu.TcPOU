@@ -1,0 +1,1169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_Visu" Id="{80f0fe96-1376-4f3c-ab9b-90ae9e44b11c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Visu
+VAR_INPUT
+	// =============== Axis =====================================
+	fAxisVelo						: LREAL;					// Axis velocity
+	
+	// =============== State of machine elements ================
+	bMainAxisMoves					: BOOL;						// True if main axis is moving
+	bMetalAxisMoves					: BOOL;						// True if metal axis is moving
+	bPlasticAxisMoves				: BOOL;						// True if plastic axis is moving
+	bClampToWork					: BOOL;						// True if clamp cylinder moves to work position
+	bBarrierToWork					: BOOL;						// True if barrier cylinder moves to work position
+	bMetalToWork					: BOOL;						// True if metal cylinder moves to work position
+	bPlasticToWork					: BOOL;						// True if plastic cylinder moves to work position
+	
+	bReset							: BOOL;						// True if state machine is in state RESETTING
+	
+	// =============== Keys =====================================
+	aKeyPressed						: ARRAY [1..12] OF BOOL;
+	aUnitInfo						: ARRAY [1..12] OF ST_UnitInfo;
+END_VAR
+VAR_OUTPUT
+	fYClamp							: LREAL;					// Y-Coordinate of clamp cylinder
+	fYBarrier						: LREAL;					// Y-Coordinate of barrier cylinder
+	fYMetal							: LREAL;					// Y-Coordinate of metal cylinder
+	fYPlastic						: LREAL;					// Y-Coordinate of plastic cylinder
+	
+	// =============== Buttons of visualization - outputs =======
+	bButtonPowerOut					: BOOL;						// To turn on and off the machine
+	
+	// Axis buttons
+	bButtonMainFwOut				: BOOL;						// To move main axis forward
+	bButtonMetalFwOut				: BOOL;						// To move metal axis forwards
+	bButtonPlasticFwOut				: BOOL;						// To move plastic axis forwards
+	
+	// Cylinder buttons
+	bButtonClampToWorkOut			: BOOL;						// To move manually clamp cylinder to work position
+	bButtonBarrierToWorkOut			: BOOL;						// To move manually barrier cylinder to work position
+	bButtonMetalToWorkOut			: BOOL;						// To move manually metal cylinder to work position
+	bButtonPlasticToWorkOut			: BOOL;						// To move manually plastic cylinder to work position
+	
+	//=============== Cheking Button and entries =======================
+	bInvalidEntry					: BOOL;						//Invalid entry, to produce products
+
+	// =============== Keys =====================================
+	aCaption						: ARRAY [1..12] OF STRING;	
+
+	eModeVisu						: DINT;						// Mode for the 	StateChart	
+	eStateVisu						: E_PMLState;				// State for the StateChart
+	sUnitName						: STRING;
+	iFrameVisible					: DINT;
+END_VAR
+VAR
+	i								: DINT;
+	
+	// =============== Cylinder states ======================
+	//The PlcTask Outputs(AT%Q*) are linked to the PlcTaks Inputs(AT%I*)
+	bClampAtBase		AT %Q*		: BOOL;						// True if clamp cylinder is in base position
+	bClampAtWork		AT %Q*		: BOOL;						// True if clamp cylinder is in work position
+	bBarrierAtBase		AT %Q*		: BOOL;						// True if barrier cylinder is in base position
+	bBarrierAtWork		AT %Q*		: BOOL;						// True if barrier cylinder is in work position
+	bMetalAtBase		AT %Q*		: BOOL;						// True if metal cylinder is in base position
+	bMetalAtWork		AT %Q*		: BOOL;						// True if metal cylinder is in work position
+	bPlasticAtBase		AT %Q*		: BOOL;						// True if plastic cylinder is in base position
+	bPlasticAtWork		AT %Q*		: BOOL;						// True if plastic cylinder is in work position
+
+	// =============== Sensors to detect boxes ==============
+	//The PlcTask Outputs(AT%Q*) are linked to the PlcTaks Inputs(AT%I*)
+	bBarrierSensor		AT %Q*		: BOOL;						// True if barrier sensor detects a box
+	bMetalSensor		AT %Q*		: BOOL;						// True if metal sensor detects a metal box
+	bPlasticSensor		AT %Q*		: BOOL;						// True if plastic sensor detects a box
+
+	// =============== Position variables ===================
+	aBoxX							: ARRAY[1..4] OF LREAL;		// X-Coordinates of boxes
+	aBoxY							: ARRAY[1..4] OF LREAL;		// Y-Coordinates of boxes
+	
+	// =============== Statechart variables ===================
+	eUnitRepresentOnVisu			: E_UnitName := eMachine;	// Unit represent on Visu
+		
+	// =============== Warnings ===============================================
+	sWarningVisu					: STRING;					// Descripton, name of the warning
+	fbTimerWarning					: TON;						// Timer for visu textbox
+	nWarningState					: INT :=0;					// State for representing warnings
+	nWarningCount					: INT :=1;					// Variable to runs step by step trough the warningarray
+	
+	// =============== Errors ===============================================
+	sAlarmVisu						: STRING;					// Descripton, name of the error
+	fbTimerAlarm					: TON;						// Timer for visu textbox
+	nAlarmState						: INT :=0;					// State for representing errors
+	nAlarmCount						: INT :=1;					// Variable to runs step by step trough the errorarray
+	
+	// =============== Boxes movement ===========================
+	nLastBox						: INT;						// Box on last position of main belt
+	aBoxMetalMove					: ARRAY[1..4] OF BOOL;		// bBoxMetalMove[1] is true, if box 1 is moved by metal cylinder
+	aBoxMetalFree					: ARRAY[1..4] OF BOOL;		// bBoxMetalFree[1] is true, if any box blockades the movement of box 1 on metal belt
+	aBoxPlasticMove					: ARRAY[1..4] OF BOOL;		// bBoxPlasticMove[1] is true, if box 1 is moved by plastic cylinder
+	aBoxPlasticFree					: ARRAY[1..4] OF BOOL;		// bBoxMetalFree[1] is true, if any box blockades the plastic belt
+	aBoxMainBelt					: ARRAY[1..4] OF BOOL;		// bBoxMainBelt[1] is true, if box 1 is on main belt and has no obstacles, so box 1 is moved by main axis
+	aBoxMetalBelt					: ARRAY[1..4] OF BOOL;		// aBoxMetalBelt[1] is true, if box 1 is on metal belt and has no obstacles, so box 1 is moved by metal axis
+	aBoxPlasticBelt					: ARRAY[1..4] OF BOOL;		// aBoxPlasticBelt[1] is true, if box 1 is on plastic belt and has no obstacles, so box 1 is moved by plastic axis
+	fMainVelo						: LREAL;					// Velocity of boxes on main belt
+	fMetalVelo						: LREAL;					// Velocity of boxes on metal belt
+	fPlasticVelo					: LREAL;					// Velocity of boxes on plastic belt
+	bAccident						: BOOL;						// True if machine caused an accident
+	nState							: INT;
+	
+	// =============== Axes movement ============================
+	nAngleMain						: INT;						// Angle of main axis element
+	nAngleMetal						: INT;						// Angle of metal axis element
+	nAnglePlastic					: INT;						// Angle of plastic axis element
+	fbTimerMainAxis					: TON;						// Timer for movement of main axis element
+	fbTimerMetalAxis				: TON;						// Timer for movement of metal axis element
+	fbTimerPlasticAxis				: TON;						// Timer for movement of plastic axis element
+	tMoveAxis						: TIME := T#40MS;			// Time for movement of elements
+
+	
+	nButtonColorClamp				: DWORD;					// Color of button to move clamp cylinder
+	bButtonColorClamp				: BOOL;						// To change color of clamp button
+	nButtonColorBarrier				: DWORD;					// Color of button to move barrier cylinder
+	bButtonColorBarrier				: BOOL;						// To change color of barrier button
+	nButtonColorMetalCyl			: DWORD;					// Color of button to move metal cylinder
+	bButtonColorMetalCyl			: BOOL;						// To change color of metal cylinder button
+	nButtonColorPlasticCyl			: DWORD;					// Color of button to move plastic cylinder
+	bButtonColorPlasticCyl			: BOOL;						// To change color of plastic cylinder button
+	nButtonColorMainFw				: DWORD;					// Color of button to move main axis forwards
+	bButtonColorMainFw				: BOOL;						// To change color of button to move main axis fw.
+	nButtonColorMetalFw				: DWORD;					// Color of button to move metal axis forwards
+	bButtonColorMetalFw				: BOOL;						// To change color of button to move metal axis fw.
+	nButtonColorPlasticFw			: DWORD;					// Color of button to move plastic axis forwards
+	bButtonColorPlasticFw			: BOOL;						// To change color of button to move plastic axis fw.
+END_VAR
+VAR CONSTANT	
+	// =============== Velocities ===========================================
+	cVelocityDenominator						: LREAL := 250.0;			// Velocity of visualization is a fraction of real axis velocity
+	cAxisMovementSemiPlusAuto					: INT 	:= 2;				// Axis movement per cycle in mode Automatic and Semi Autoamtic
+	cAxisMovementManual							: INT 	:= 1;				// Axis movement per cycle in mode Manual
+	cClampMovement								: LREAL := 0.1;				// Cylinder movement per cycle for clamp cylinder
+	cBarrierMovement							: LREAL := 1.0;				// Cylinder movement per cycle for barrier cylinder
+	cMetalPlasticCylMovement					: LREAL := 1.0;				// Cylinder movement per cycle for metal and plastic cylinder
+	
+	// =============== Barrier, clamp, metal, plastic cylinder ==============
+	cYClampCylStartPos							: LREAL := 0.0;				// Y-start-position of clamp cylinder (where movement starts)
+	cYClampCylEndPos							: LREAL := 3.0;				// Y-end-position of clamp cylinder (where movement ends)
+	cYBarrierCylStartPos						: LREAL := 0.0;				// Y-start-position of barrier cylinder (where movement starts)
+	cYBarrierCylEndPos							: LREAL := 63.0;			// Y-end-position of barrier cylinder (where movement ends)
+	cYMetalPlasticCylStartPos					: LREAL := 0.0;				// Y-start-position of metal and plastic cylinder (where movement starts)
+	cYMetalPlasticCylEndPos						: LREAL := -73.0;			// Y-end-position of metal and plastic cylinder (where movement ends)
+	
+	// =============== Widths, distances ====================================
+	cBoxWidth									: LREAL := 60.0;			// Width of a box in the visu
+	cBarrierWidth								: LREAL := 30.0;			// Width of the barrier cylinder in the visu
+	cDiffBarrierToStartOfMetalCyl				: LREAL := 191.0;			// Difference on visu from barrier to start of metal cylinder
+	cDiffBarrierToEndOfMetalCyl					: LREAL := 261.0;			// Difference on visu from barrier to end of metal cylinder
+	cDiffBarrierToStartOfPlasticCyl				: LREAL := 441.0;			// Difference on visu from barrier to start of plastic cylinder
+	cYMetalPlasticCylOnMainBelt					: LREAL := -9.0;			// Y-Position of metal and plastic cylinder reaching the main belt
+	cYBoxesOnMetalPlasticBelt_min				: LREAL := -65.0;			// Minimal Y-Position of boxes when being on metal or plastic belt
+	cYBoxesOnMetalPlasticBelt_max				: LREAL := -140.0;			// Maximal Y-Position of boxes when being on metal or plastic belt
+	
+	// =============== Positions of boxes - main belt =======================
+	cYforAllBoxesOnMainBelt						: LREAL := -5.0;			// Y-Position of boxes being on main belt
+	cYforAllBoxesNotOnMainBelt					: LREAL := -60.0;			// Y-Position of boxes not being on main belt
+	
+	cYforAllBoxesStartPosMainBelt				: LREAL := 0.0;				// Y-Position of boxes when being on first position of main belt
+	cXforAllBoxesStartPosMainBelt				: LREAL := -240.0;			// X-Position of boxes when being on first position of main belt
+	cXforAllBoxesLastPossiblePosMainBelt		: LREAL := 461.0;			// Last possible X-position of boxes on main belt
+	
+	cXforAllBoxesCorrectPushMetalCyl_min		: LREAL := 180;				// Minimal X-Position of boxes when being pushed by metal cylinder to metal belt 
+	cXforAllBoxesCorrectPushMetalCyl_max		: LREAL := 211;				// Maximal X-Position of boxes when being pushed by metal cylinder to metal belt 
+	cXforAllBoxesIncorrectPushMetalCyl_min		: LREAL := 131;				// Minimal X-Position of boxes when being pushed by metal cylinder, but not pushed to metal belt
+	cXforAllBoxesIncorrectPushMetalCyl_max		: LREAL := 261;				// Maximal X-Position of boxes when being pushed by metal cylinder, but not pushed to metal belt
+	
+	cXforAllBoxesCorrectPushPlasticCyl_min		: LREAL := 430;				// Minimal X-Position of boxes when being pushed by plastic cylinder to plastic belt 
+	cXforAllBoxesCorrectPushPlasticCyl_max		: LREAL := 461;				// Minimal X-Position of boxes when being pushed by plastic cylinder to plastic belt 
+	cXforAllBoxesIncorrectPushPlasticCyl_min	: LREAL := 381;				// Minimal X-Position of boxes when being pushed by plastic cylinder, but not pushed to plastic belt
+	
+	// Box 1
+	cXforBox1_MainBelt_Diff2to1_min				: LREAL := 0.001;			// Minimal distance from box 2 to box 1 so that box 1 can be moved on main belt
+	cXforBox1_MainBelt_Diff2to1_max				: LREAL := 119.99999;		// Maximal distance from box 2 to box 1 so that box 1 can be moved on main belt
+	cXforBox1_MainBelt_Diff3to1_min				: LREAL := 60.001;			// Minimal distance from box 3 to box 1 so that box 1 can be moved on main belt
+	cXforBox1_MainBelt_Diff3to1_max				: LREAL := 179.99999;		// Maximal distance from box 3 to box 1 so that box 1 can be moved on main belt
+	cXforBox1_MainBelt_Diff4to1_min				: LREAL := 120.001;			// Minimal distance from box 4 to box 1 so that box 1 can be moved on main belt
+	cXforBox1_MainBelt_Diff4to1_max				: LREAL := 239.99999;		// Maximal distance from box 4 to box 1 so that box 1 can be moved on main belt
+	
+	// Box 2
+	cXforBox2_MainBelt_Diff1to2_min				: LREAL := -0.00001;		// Minimal distance from box 1 to box 2 so that box 2 can be moved on main belt
+	cXforBox2_MainBelt_Diff1to2_max				: LREAL := -119.999;		// Maximal distance from box 1 to box 2 so that box 2 can be moved on main belt
+	cXforBox2_MainBelt_Diff3to2_min				: LREAL := 119.99999;		// Minimal distance from box 3 to box 2 so that box 2 can be moved on main belt
+	cXforBox2_MainBelt_Diff3to2_max				: LREAL := 0.001;			// Maximal distance from box 3 to box 2 so that box 2 can be moved on main belt
+	cXforBox2_MainBelt_Diff4to2_min				: LREAL := 179.99999;		// Minimal distance from box 4 to box 2 so that box 2 can be moved on main belt
+	cXforBox2_MainBelt_Diff4to2_max				: LREAL := 60.001;			// Maximal distance from box 4 to box 2 so that box 2 can be moved on main belt
+
+	// Box 3
+	cXforBox3_MainBelt_Diff1to3_min				: LREAL := -60.00001;		// Minimal distance from box 1 to box 3 so that box 3 can be moved on main belt
+	cXforBox3_MainBelt_Diff1to3_max				: LREAL := -179.999;		// Maximal distance from box 1 to box 3 so that box 3 can be moved on main belt
+	cXforBox3_MainBelt_Diff2to3_min				: LREAL := -0.00001;		// Minimal distance from box 2 to box 3 so that box 3 can be moved on main belt
+	cXforBox3_MainBelt_Diff2to3_max				: LREAL := -119.999;		// Maximal distance from box 2 to box 3 so that box 3 can be moved on main belt
+	cXforBox3_MainBelt_Diff4to3_min				: LREAL := 119.99999;		// Minimal distance from box 4 to box 3 so that box 3 can be moved on main belt
+	cXforBox3_MainBelt_Diff4to3_max				: LREAL := 0.001;			// Maximal distance from box 4 to box 3 so that box 3 can be moved on main belt
+	
+	// Box 4
+	cXforBox4_MainBelt_Diff1to4_min				: LREAL := -120.00001;		// Minimal distance from box 1 to box 4 so that box 4 can be moved on main belt
+	cXforBox4_MainBelt_Diff1to4_max				: LREAL := -239.999;		// Maximal distance from box 1 to box 4 so that box 4 can be moved on main belt
+	cXforBox4_MainBelt_Diff2to4_min				: LREAL := -60.00001;		// Minimal distance from box 2 to box 4 so that box 4 can be moved on main belt
+	cXforBox4_MainBelt_Diff2to4_max				: LREAL := -179.999;		// Maximal distance from box 2 to box 4 so that box 4 can be moved on main belt
+	cXforBox4_MainBelt_Diff3to4_min				: LREAL := -0.00001;		// Minimal distance from box 3 to box 4 so that box 4 can be moved on main belt
+	cXforBox4_MainBelt_Diff3to4_max				: LREAL := -119.999;		// Maximal distance from box 3 to box 4 so that box 4 can be moved on main belt
+	
+	// =============== Positions of boxes - metal belt ======================
+	// Box 1
+	cXforBox1OnMetalBelt_min					: LREAL := 240;				// Minimal X-Position of box 1 when being on metal belt
+	cXforBox1OnMetalBelt_max					: LREAL := 271;				// Maximal X-Position of box 1 when being on metal belt
+	// Box 2
+	cXforBox2OnMetalBelt_min					: LREAL := 300;				// Minimal X-Position of box 2 when being on metal belt
+	cXforBox2OnMetalBelt_max					: LREAL := 331;				// Maximal X-Position of box 2 when being on metal belt
+	// Box 3
+	cXforBox3OnMetalBelt_min					: LREAL := 360;				// Minimal X-Position of box 3 when being on metal belt
+	cXforBox3OnMetalBelt_max					: LREAL := 391;				// Maximal X-Position of box 3 when being on metal belt
+	// Box 4
+	cXforBox4OnMetalBelt_min					: LREAL := 420;				// Minimal X-Position of box 4 when being on metal belt
+	cXforBox4OnMetalBelt_max					: LREAL := 451;				// Maximal X-Position of box 4 when being on metal belt
+	
+	// =============== Positions of boxes - plastic belt ====================
+	// Box 1
+	cXforBox1OnPlasticBelt_min					: LREAL := 470;				// Minimal X-Position of box 1 when being on plastic belt
+	cXforBox1OnPlasticBelt_max					: LREAL := 521;				// Maximal X-Position of box 1 when being on plastic belt
+	// Box 2
+	cXforBox2OnPlasticBelt_min					: LREAL := 530;				// Minimal X-Position of box 2 when being on plastic belt
+	cXforBox2OnPlasticBelt_max					: LREAL := 581;				// Maximal X-Position of box 2 when being on plastic belt
+	// Box 3
+	cXforBox3OnPlasticBelt_min					: LREAL := 590;				// Minimal X-Position of box 3 when being on plastic belt
+	cXforBox3OnPlasticBelt_max					: LREAL := 641;				// Maximal X-Position of box 3 when being on plastic belt
+	// Box 4
+	cXforBox4OnPlasticBelt_min					: LREAL := 650;				// Minimal X-Position of box 4 when being on plastic belt
+	cXforBox4OnPlasticBelt_max					: LREAL := 701;				// Maximal X-Position of box 4 when being on plastic belt
+
+	// =============== Cylinder feedback ====================
+	cClampAtWork								: LREAL	:= 3.0;				// Position of clamp cylinder in work position
+	cClampAtBase								: LREAL	:= 0.0;				// Position of clamp cylinder in base position
+	cBarrierAtWork								: LREAL	:= 63.0;			// Position of barrier cylinder in work position
+	cBarrierAtBase								: LREAL	:= 0.0;				// Position of barrier cylinder in base position
+	cMetalAtWorkMin								: LREAL	:= -72.7;			// Position of metal cylinder in work position - lower border
+	cMetalAtWorkMax								: LREAL	:= -73.3;			// Position of metal cylinder in work position - upper border
+	cMetalAtBase								: LREAL	:= 0.0;				// Position of metal cylinder in base position
+	cPlasticAtWorkMin							: LREAL	:= -72.7;			// Position of plastic cylinder in work position - lower border
+	cPlasticAtWorkMax							: LREAL	:= -73.3;			// Position of plastic cylinder in work position - upper border
+	cPlasticAtBase								: LREAL	:= 0.0;				// Position of plastic cylinder in base position
+	
+	// =============== Sensor variables =====================
+	cSensorsBoxesY								: LREAL	:= -5.0;
+	
+	cBarrierSensorBox1Xmin						: LREAL	:= -1.0;			// Position of Box 1 for barrier sensor to come true - lower border
+	cBarrierSensorBox1Xmax						: LREAL	:= 60.0;			// Position of Box 1 for barrier sensor to come true - upper border
+	cBarrierSensorBox2Xmin						: LREAL	:= 59.0;			// Position of Box 2 for barrier sensor to come true - lower border
+	cBarrierSensorBox2Xmax						: LREAL	:= 120.0;			// Position of Box 2 for barrier sensor to come true - upper border
+	cBarrierSensorBox3Xmin						: LREAL := 119.0;			// Position of Box 3 for barrier sensor to come true - lower border
+	cBarrierSensorBox3Xmax						: LREAL := 180.0;			// Position of Box 3 for barrier sensor to come true - upper border
+	cBarrierSensorBox4Xmin						: LREAL := 179.0;			// Position of Box 4 for barrier sensor to come true - lower border
+	cBarrierSensorBox4Xmax						: LREAL := 240.0;			// Position of Box 4 for barrier sensor to come true - upper border
+	
+	cMetalSensorBox1Xmin						: LREAL := 134.0;			// Position of Box 1 for barrier sensor to come true - lower border
+	cMetalSensorBox1Xmax						: LREAL := 197.0;			// Position of Box 1 for barrier sensor to come true - upper border
+	cMetalSensorBox4Xmin						: LREAL := 314.0;			// Position of Box 4 for barrier sensor to come true - lower border
+	cMetalSensorBox4Xmax						: LREAL := 377.0;			// Position of Box 4 for barrier sensor to come true - upper border
+	
+	cPlasticSensorBox1Xmin						: LREAL := 384.0;			// Position of Box 1 for barrier sensor to come true - lower border
+	cPlasticSensorBox1Xmax						: LREAL := 447.0;			// Position of Box 1 for barrier sensor to come true - upper border
+	cPlasticSensorBox2Xmin						: LREAL := 444.0;			// Position of Box 2 for barrier sensor to come true - lower border
+	cPlasticSensorBox2Xmax						: LREAL := 507.0;			// Position of Box 2 for barrier sensor to come true - upper border
+	cPlasticSensorBox3Xmin						: LREAL := 504.0;			// Position of Box 3 for barrier sensor to come true - lower border
+	cPlasticSensorBox3Xmax						: LREAL := 567.0;			// Position of Box 3 for barrier sensor to come true - upper border
+	cPlasticSensorBox4Xmin						: LREAL := 564.0;			// Position of Box 4 for barrier sensor to come true - lower border
+	cPlasticSensorBox4Xmax						: LREAL := 627.0;			// Position of Box 4 for barrier sensor to come true - upper border
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// =========================================================
+// Select visible frame
+aCaption[1] := 'Overview';
+aCaption[2] := 'Machine';
+aCaption[3] := 'Seperation';
+aCaption[4] := 'Ejector plastic';
+aCaption[5] := 'Main belt';
+aCaption[6] := 'Ejector metal';
+aCaption[7] := 'Sensor plastic';
+aCaption[8] := 'Plastic belt';
+aCaption[9] := 'Sensor metal';
+aCaption[10] := 'Metal belt';
+
+FOR i := 1 TO 10 DO
+	IF aKeyPressed[i] THEN
+		iFrameVisible := i - 1;		
+	END_IF
+END_FOR
+
+IF iFrameVisible <= 1 THEN
+	eModeVisu := aUnitInfo[1].ActMode;
+	eStateVisu := aUnitInfo[1].ActState;
+	sUnitName := aUnitInfo[1].Name;
+ELSE
+	eModeVisu := aUnitInfo[iFrameVisible].ActMode;
+	eStateVisu := aUnitInfo[iFrameVisible].ActState;
+	sUnitName := aUnitInfo[iFrameVisible].Name;
+END_IF
+
+// =========================================================
+// Because of the visualisation size, the boxes velocity is a fraction of the axis velocity
+IF  bMainAxisMoves THEN
+	fMainVelo := (fAxisVelo / cVelocityDenominator);
+END_IF
+
+IF bMetalAxisMoves THEN
+	fMetalVelo := -(fAxisVelo / cVelocityDenominator);
+END_IF
+
+IF  bPlasticAxisMoves THEN
+	fPlasticVelo := -(fAxisVelo / cVelocityDenominator);
+END_IF
+
+// =========================================================
+// Visuazation functions
+	// Rotation of axis elements
+	M_AxisRotation();
+	
+	// Buttons, order of boxes, error messages
+	M_LastBox();
+	
+	// Motion of cylinders
+	M_Barrier_Clamp_Cyl();
+	M_Metal_Plastic_Cyl();
+	
+	// Motion of boxes
+	M_AxisMoveBoxes();
+	M_CylinderMoveBoxes();
+	
+	// Checking production command
+	M_ProductCommand();
+	
+	// Show Erorrs in Textbox
+	M_Error_Warnings();
+	
+	//Simulate HW-IOs 
+	M_SetHwIo();
+	
+// =========================================================
+//Hold the cylinders on actual position, when modechange
+IF PackTags.Status.UnitModeChangeInProcess THEN
+	IF bBarrierToWork THEN
+		bButtonBarrierToWorkOut	:= TRUE;
+	ELSIF NOT bBarrierToWork THEN
+		bButtonBarrierToWorkOut	:= FALSE;	
+	END_IF
+	
+	IF bClampToWork THEN
+		bButtonClampToWorkOut	:= TRUE;
+	ELSIF NOT bClampToWork THEN
+		bButtonClampToWorkOut	:= FALSE;
+	END_IF
+	
+	IF bMetalToWork THEN
+		bButtonMetalToWorkOut	:= TRUE;
+	ELSIF NOT bMetalToWork THEN
+		bButtonMetalToWorkOut	:= FALSE;
+	END_IF
+	
+	IF bPlasticToWork THEN
+		bButtonPlasticToWorkOut	:= TRUE;
+	ELSIF NOT bMetalToWork THEN
+		bButtonPlasticToWorkOut	:= FALSE;
+	END_IF
+END_IF
+
+//Only use buttons, when actual state is execute. Buutons are  only visible when Mode is Manual
+	IF NOT (PackTags.Status.StateCurrent = ePMLState_Execute) THEN
+		bButtonMainFwOut		:= FALSE;
+		bButtonMetalFwOut		:= FALSE;						
+		bButtonPlasticFwOut		:= FALSE;
+	END_IF
+	
+// =========================================================
+// Resetting visu
+	bReset	:= stChangeIntoProduction.bYesReset;
+	IF bReset  THEN
+		M_Reset();
+	END_IF
+
+
+
+
+]]></ST>
+    </Implementation>
+    <Method Name="M_AxisMoveBoxes" Id="{db80a2a9-d7dd-48b7-8ded-9020c68b7fe6}">
+      <Declaration><![CDATA[METHOD PRIVATE M_AxisMoveBoxes
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// =========================================================
+// Checking traction standby on main belt
+// bBoxMainBelt[1] is true, if box 1 is on main belt and has no obstacles, so box 1 is moved by main axis
+		
+	aBoxMainBelt[1] := 	// box 1 on main belt
+						aBoxY[1] >= cYforAllBoxesOnMainBelt	
+						// not previous to box 2											
+						AND (	(aBoxX[2] - aBoxX[1] - fMainVelo) >= cXforBox1_MainBelt_Diff2to1_max
+							OR 	(aBoxX[2] - aBoxX[1] - fMainVelo) <= cXforBox1_MainBelt_Diff2to1_min
+							OR 	aBoxY[2] < cYforAllBoxesNotOnMainBelt)
+						// not previous to box 3	
+						AND (	(aBoxX[3] - aBoxX[1] - fMainVelo) >= cXforBox1_MainBelt_Diff3to1_max
+							OR 	(aBoxX[3] - aBoxX[1]- fMainVelo) <= cXforBox1_MainBelt_Diff3to1_min
+							OR 	aBoxY[3] < cYforAllBoxesNotOnMainBelt)
+						// not previous to box 4
+						AND (	(aBoxX[4] - aBoxX[1] - fMainVelo) >= cXforBox1_MainBelt_Diff4to1_max
+							OR 	(aBoxX[4] - aBoxX[1]- fMainVelo) <= cXforBox1_MainBelt_Diff4to1_min
+							OR	aBoxY[4] < cYforAllBoxesNotOnMainBelt);
+						
+	aBoxMainBelt[2] := 	// box 2 on main belt
+						aBoxY[2] >= cYforAllBoxesOnMainBelt
+						// not previous to box 1											
+						AND (	(aBoxX[1] - aBoxX[2] - fMainVelo) >= cXforBox2_MainBelt_Diff1to2_min 
+							OR 	(aBoxX[1] - aBoxX[2] - fMainVelo) <= cXforBox2_MainBelt_Diff1to2_max 
+							OR 	aBoxY[1] < cYforAllBoxesNotOnMainBelt)
+						// not previous to box 3											
+						AND (	(aBoxX[3] - aBoxX[2] - fMainVelo) >= cXforBox2_MainBelt_Diff3to2_min 
+							OR 	(aBoxX[3] - aBoxX[2] - fMainVelo) <= cXforBox2_MainBelt_Diff3to2_max 
+							OR 	aBoxY[3] < cYforAllBoxesNotOnMainBelt)
+						// not previous to box 4											
+						AND (	(aBoxX[4] - aBoxX[2] - fMainVelo) >= cXforBox2_MainBelt_Diff4to2_min 
+							OR 	(aBoxX[4] - aBoxX[2] - fMainVelo) <= cXforBox2_MainBelt_Diff4to2_max 
+							OR 	aBoxY[4] < cYforAllBoxesNotOnMainBelt);
+	
+	aBoxMainBelt[3] := 	// box 3 on main belt
+						aBoxY[3] >= cYforAllBoxesOnMainBelt
+						// not previous to box 1											
+						AND (	(aBoxX[1] - aBoxX[3] - fMainVelo) >= cXforBox3_MainBelt_Diff1to3_min
+							OR 	(aBoxX[1] - aBoxX[3] - fMainVelo) <= cXforBox3_MainBelt_Diff1to3_max
+							OR 	aBoxY[1] < cYforAllBoxesNotOnMainBelt)
+						// not previous to box 2											
+						AND (	(aBoxX[2] - aBoxX[3] - fMainVelo) >= cXforBox3_MainBelt_Diff2to3_min
+							OR 	(aBoxX[2] - aBoxX[3] - fMainVelo) <= cXforBox3_MainBelt_Diff2to3_max 
+							OR 	aBoxY[2] < cYforAllBoxesNotOnMainBelt)
+						// not previous to box 4											
+						AND (	(aBoxX[4] - aBoxX[3] - fMainVelo) >= cXforBox3_MainBelt_Diff4to3_min
+							OR 	(aBoxX[4] - aBoxX[3] - fMainVelo) <= cXforBox3_MainBelt_Diff4to3_max
+							OR 	aBoxY[4] < cYforAllBoxesNotOnMainBelt);
+						
+	aBoxMainBelt[4] := 	// box 4 on main belt
+						aBoxY[4] >= cYforAllBoxesOnMainBelt
+						// not previous to box 1											
+						AND (	(aBoxX[1] - aBoxX[4] - fMainVelo) >= cXforBox4_MainBelt_Diff1to4_min
+							OR 	(aBoxX[1] - aBoxX[4] - fMainVelo) <= cXforBox4_MainBelt_Diff1to4_max
+							OR 	aBoxY[1] < cYforAllBoxesNotOnMainBelt)
+						// not previous to box 2											
+						AND (	(aBoxX[2] - aBoxX[4] - fMainVelo) >= cXforBox4_MainBelt_Diff2to4_min
+							OR 	(aBoxX[2] - aBoxX[4] - fMainVelo) <= cXforBox4_MainBelt_Diff2to4_max
+							OR 	aBoxY[2] < cYforAllBoxesNotOnMainBelt)
+						// not previous to box 3											
+						AND (	(aBoxX[3] - aBoxX[4] - fMainVelo) >= cXforBox4_MainBelt_Diff3to4_min
+							OR 	(aBoxX[3] - aBoxX[4] - fMainVelo) <= cXforBox4_MainBelt_Diff3to4_max
+							OR 	aBoxY[3] < cYforAllBoxesNotOnMainBelt);
+					
+// =========================================================
+// Motion of boxes on main belt - forwards
+					
+	IF bMainAxisMoves (*AND bAuto OR bSemi OR bButtonMainFwIn*) THEN
+		FOR nState := 1 TO 4 BY 1 DO
+			IF aBoxMainBelt[nState] THEN	
+				// not previous to moving metal cylinder
+				IF aBoxX[nState] >= (cBoxWidth*nState + cBarrierWidth) AND aBoxX[nState] < (cBoxWidth*nState + cDiffBarrierToEndOfMetalCyl - 1) THEN
+					// Metal cylinder over main belt
+					IF fYMetal <= cYMetalPlasticCylOnMainBelt THEN
+						IF aBoxX[nState] < (cBoxWidth*nState + cDiffBarrierToStartOfMetalCyl - cBoxWidth + 0.25)
+						AND aBoxX[nState] > (cBoxWidth*nState + cDiffBarrierToStartOfMetalCyl - cBoxWidth - 0.15) THEN
+							aBoxX[nState] := cBoxWidth*nState + cDiffBarrierToStartOfMetalCyl - cBoxWidth;
+						ELSIF aBoxX[nState] <= (cBoxWidth*nState + cDiffBarrierToStartOfMetalCyl - cBoxWidth - 0.15) THEN
+							aBoxX[nState] := aBoxX[nState] + fMainVelo;
+						END_IF
+					// Metal cylinder not over main belt
+					ELSE
+						aBoxX[nState] := aBoxX[nState] + fMainVelo;
+					END_IF
+				END_IF
+				
+				// not previous to moving plastic cylinder
+				IF aBoxX[nState] >= (cBoxWidth*nState + cDiffBarrierToEndOfMetalCyl - 1) THEN
+					// Plastic cylinder over main belt
+					IF fYPlastic <= cYMetalPlasticCylOnMainBelt THEN
+						IF aBoxX[nState] < (cBoxWidth*nState + cDiffBarrierToStartOfPlasticCyl - cBoxWidth + 0.25)
+						AND aBoxX[nState] > (cBoxWidth*nState + cDiffBarrierToStartOfPlasticCyl - cBoxWidth - 0.15) THEN
+							aBoxX[nState] := cBoxWidth*nState + cDiffBarrierToStartOfPlasticCyl - cBoxWidth;
+						ELSIF aBoxX[nState] <= (cBoxWidth*nState + cDiffBarrierToStartOfPlasticCyl - cBoxWidth - 0.15) THEN
+							aBoxX[nState] := aBoxX[nState] + fMainVelo;
+						END_IF
+					// Plastic cylinder not over main belt
+					ELSE
+						aBoxX[nState] := aBoxX[nState] + fMainVelo;
+					END_IF
+				END_IF
+				
+				// barrier open and box 1 in the first place
+				IF fYBarrier >= (cBoxWidth + 1) AND aBoxX[nState] >= cBoxWidth*(nState - 1) AND aBoxX[nState] <  (cBoxWidth*nState + cBarrierWidth) THEN
+					IF aBoxX[nState] + fMainVelo < (cBoxWidth*nState + cBarrierWidth) THEN
+						 aBoxX[nState] := aBoxX[nState] + fMainVelo;
+					ELSIF aBoxX[nState] < (cBoxWidth*nState + cBarrierWidth) THEN
+						aBoxX[nState] := (cBoxWidth*nState + cBarrierWidth);
+					END_IF
+				END_IF
+				
+				// not previous to clamp
+				IF aBoxX[nState] + fMainVelo < -cBoxWidth*(3 - nState) THEN
+					aBoxX[nState] := aBoxX[nState] + fMainVelo;
+				ELSIF aBoxX[nState] < -cBoxWidth*(nState + 1) THEN
+					aBoxX[nState] := -cBoxWidth*(nState + 1);
+				END_IF
+				
+				// clamp open, not after clamp											
+				IF fYClamp >= 1 AND aBoxX[nState] >= -cBoxWidth*(nState + 1) THEN
+					IF aBoxX[nState] + fMainVelo < cBoxWidth*(nState - 1) THEN
+						aBoxX[nState] := aBoxX[nState] + fMainVelo;
+					ELSIF aBoxX[nState] < cBoxWidth*(nState - 1) THEN
+						aBoxX[nState] := cBoxWidth*(nState - 1);
+					END_IF
+				END_IF
+			END_IF
+		END_FOR
+	END_IF
+
+
+// =========================================================
+// Checking traction standby on metal belt
+	
+	aBoxMetalBelt[1] := // box 1 on metal belt
+						aBoxX[1] > cXforBox1OnMetalBelt_min AND aBoxX[1] <= cXforBox1OnMetalBelt_max
+						// not previous to box 2											
+						AND ((aBoxY[2] - aBoxY[1] - fMetalVelo) >= cBoxWidth OR (aBoxY[2] - aBoxY[1] - fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[2] > cXforBox2OnMetalBelt_min AND aBoxX[2] <= cXforBox2OnMetalBelt_max))
+						// not previous to box 3	
+						AND ((aBoxY[3] - aBoxY[1]- fMetalVelo) >= cBoxWidth OR (aBoxY[3] - aBoxY[1]- fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[3] > cXforBox3OnMetalBelt_min AND aBoxX[3] <= cXforBox3OnMetalBelt_max))
+						// not previous to box 4
+						AND ((aBoxY[4] - aBoxY[1]- fMetalVelo) >= cBoxWidth OR (aBoxY[4] - aBoxY[1]- fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[4] > cXforBox4OnMetalBelt_min AND aBoxX[4] <= cXforBox4OnMetalBelt_max));	
+						
+	aBoxMetalBelt[2] := aBoxX[2] > cXforBox2OnMetalBelt_min AND aBoxX[2] <= cXforBox2OnMetalBelt_max										
+						AND ((aBoxY[1] - aBoxY[2] - fMetalVelo) >= cBoxWidth OR (aBoxY[1] - aBoxY[2] - fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[1] > cXforBox1OnMetalBelt_min AND aBoxX[1] <= cXforBox1OnMetalBelt_max))
+						AND ((aBoxY[3] - aBoxY[2]- fMetalVelo) >= cBoxWidth OR (aBoxY[3] - aBoxY[2]- fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[3] > cXforBox3OnMetalBelt_min AND aBoxX[3] <= cXforBox3OnMetalBelt_max))
+						AND ((aBoxY[4] - aBoxY[2]- fMetalVelo) >= cBoxWidth OR (aBoxY[4] - aBoxY[2]- fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[4] > cXforBox4OnMetalBelt_min AND aBoxX[4] <= cXforBox4OnMetalBelt_max));	
+						
+	aBoxMetalBelt[3] := aBoxX[3] > cXforBox3OnMetalBelt_min AND aBoxX[3] <= cXforBox3OnMetalBelt_max										
+						AND ((aBoxY[1] - aBoxY[3] - fMetalVelo) >= cBoxWidth OR (aBoxY[1] - aBoxY[3] - fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[1] > cXforBox1OnMetalBelt_min AND aBoxX[1] <= cXforBox1OnMetalBelt_max))
+						AND ((aBoxY[2] - aBoxY[3]- fMetalVelo) >= cBoxWidth OR (aBoxY[2] - aBoxY[3]- fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[2] > cXforBox2OnMetalBelt_min AND aBoxX[2] <= cXforBox2OnMetalBelt_max))
+						AND ((aBoxY[4] - aBoxY[3]- fMetalVelo) >= cBoxWidth OR (aBoxY[4] - aBoxY[3]- fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[4] > cXforBox4OnMetalBelt_min AND aBoxX[4] <= cXforBox4OnMetalBelt_max));	
+						
+	aBoxMetalBelt[4] := aBoxX[4] > cXforBox4OnMetalBelt_min AND aBoxX[4] <= cXforBox4OnMetalBelt_max										
+						AND ((aBoxY[1] - aBoxY[4] - fMetalVelo) >= cBoxWidth OR (aBoxY[1] - aBoxY[4] - fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[1] > cXforBox1OnMetalBelt_min AND aBoxX[1] <= cXforBox1OnMetalBelt_max))
+						AND ((aBoxY[2] - aBoxY[4] - fMetalVelo) >= cBoxWidth OR (aBoxY[2] - aBoxY[4] - fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[2] > cXforBox2OnMetalBelt_min AND aBoxX[2] <= cXforBox2OnMetalBelt_max))
+						AND ((aBoxY[3] - aBoxY[4]- fMetalVelo) >= cBoxWidth OR (aBoxY[3] - aBoxY[4]- fMetalVelo) <= -cBoxWidth
+							OR NOT (aBoxX[3] > cXforBox3OnMetalBelt_min AND aBoxX[3] <= cXforBox3OnMetalBelt_max));
+
+// =========================================================
+// Motion of boxes on metal belt and back to the start position number 4
+	
+	FOR nState := 1 TO 4 BY 1 DO	
+		IF bMetalAxisMoves THEN
+			IF 	aBoxMetalBelt[nState] THEN
+					// Check the state and direction of motion		
+						// Move box to the end of metal belt and then back to position 4	
+						IF aBoxY[nState] <= (cYBoxesOnMetalPlasticBelt_min + 0.1) AND aBoxY[nState] > cYBoxesOnMetalPlasticBelt_max THEN
+							aBoxY[nState] := aBoxY[nState] + fMetalVelo;
+						END_IF
+			END_IF
+		END_IF	
+		
+		IF aBoxY[nState] <= cYBoxesOnMetalPlasticBelt_max AND nLastBox = 0 THEN
+			aBoxY[nState] := cYforAllBoxesStartPosMainBelt;
+			aBoxX[nState] := cXforAllBoxesStartPosMainBelt + nState*cBoxWidth;
+		END_IF
+	END_FOR
+	
+// =========================================================
+// =========================================================
+// Checking traction standby on plastic belt
+	
+	aBoxPlasticBelt[1] := // box 1 on plastic belt
+						aBoxX[1] > cXforBox1OnPlasticBelt_min AND aBoxX[1] <= cXforBox1OnPlasticBelt_max	
+						// not previous to box 2											
+						AND ((aBoxY[2] - aBoxY[1] - fPlasticVelo) >= cBoxWidth OR (aBoxY[2] - aBoxY[1] - fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[2] > cXforBox2OnPlasticBelt_min AND aBoxX[2] <= cXforBox2OnPlasticBelt_max))
+						// not previous to box 3	
+						AND ((aBoxY[3] - aBoxY[1]- fPlasticVelo) >= cBoxWidth OR (aBoxY[3] - aBoxY[1]- fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[3] > cXforBox3OnPlasticBelt_min AND aBoxX[3] <= cXforBox3OnPlasticBelt_max))
+						// not previous to box 4
+						AND ((aBoxY[4] - aBoxY[1]- fPlasticVelo) >= cBoxWidth OR (aBoxY[4] - aBoxY[1]- fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[4] > cXforBox4OnPlasticBelt_min AND aBoxX[4] <= cXforBox4OnPlasticBelt_max));	
+						
+	aBoxPlasticBelt[2] := aBoxX[2] > cXforBox2OnPlasticBelt_min AND aBoxX[2] <= cXforBox2OnPlasticBelt_max									
+						AND ((aBoxY[1] - aBoxY[2] - fPlasticVelo) >= cBoxWidth OR (aBoxY[1] - aBoxY[2] - fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[1] > cXforBox1OnPlasticBelt_min AND aBoxX[1] <= cXforBox1OnPlasticBelt_max))
+						AND ((aBoxY[3] - aBoxY[2]- fPlasticVelo) >= cBoxWidth OR (aBoxY[3] - aBoxY[2]- fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[3] > cXforBox3OnPlasticBelt_min AND aBoxX[3] <= cXforBox3OnPlasticBelt_max))
+						AND ((aBoxY[4] - aBoxY[2]- fPlasticVelo) >= cBoxWidth OR (aBoxY[4] - aBoxY[2]- fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[4] > cXforBox4OnPlasticBelt_min AND aBoxX[4] <= cXforBox4OnPlasticBelt_max));	
+						
+	aBoxPlasticBelt[3] := aBoxX[3] > cXforBox3OnPlasticBelt_min AND aBoxX[3] <= cXforBox3OnPlasticBelt_max										
+						AND ((aBoxY[1] - aBoxY[3] - fPlasticVelo) >= cBoxWidth OR (aBoxY[1] - aBoxY[3] - fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[1] > cXforBox1OnPlasticBelt_min AND aBoxX[1] <= cXforBox1OnPlasticBelt_max))
+						AND ((aBoxY[2] - aBoxY[3]- fPlasticVelo) >= cBoxWidth OR (aBoxY[2] - aBoxY[3]- fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[2] > cXforBox2OnPlasticBelt_min AND aBoxX[2] <= cXforBox2OnPlasticBelt_max))
+						AND ((aBoxY[4] - aBoxY[3]- fPlasticVelo) >= cBoxWidth OR (aBoxY[4] - aBoxY[3]- fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[4] > cXforBox4OnPlasticBelt_min AND aBoxX[4] <= cXforBox4OnPlasticBelt_max));	
+						
+	aBoxPlasticBelt[4] := aBoxX[4] > cXforBox4OnPlasticBelt_min AND aBoxX[4] <= cXforBox4OnPlasticBelt_max										
+						AND ((aBoxY[1] - aBoxY[4] - fPlasticVelo) >= cBoxWidth OR (aBoxY[1] - aBoxY[4] - fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[1] > cXforBox1OnPlasticBelt_min AND aBoxX[1] <= cXforBox1OnPlasticBelt_max))
+						AND ((aBoxY[2] - aBoxY[4] - fPlasticVelo) >= cBoxWidth OR (aBoxY[2] - aBoxY[4] - fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[2] > cXforBox2OnPlasticBelt_min AND aBoxX[2] <= cXforBox2OnPlasticBelt_max))
+						AND ((aBoxY[3] - aBoxY[4]- fPlasticVelo) >= cBoxWidth OR (aBoxY[3] - aBoxY[4]- fPlasticVelo) <= -cBoxWidth
+								OR NOT (aBoxX[3] > cXforBox3OnPlasticBelt_min AND aBoxX[3] <= cXforBox3OnPlasticBelt_max));
+
+// =========================================================
+// Motion of boxes on plastic belt and back to the start position number 4
+
+	FOR nState := 1 TO 4 BY 1 DO	
+		IF bPlasticAxisMoves THEN
+				IF 	aBoxPlasticBelt[nState] THEN	
+					// Check the state and direction of motion		
+						// Move box to the end of metal belt and then back to position 4	
+						IF aBoxY[nState] <= (cYBoxesOnMetalPlasticBelt_min + 0.1) AND aBoxY[nState] > cYBoxesOnMetalPlasticBelt_max THEN
+							aBoxY[nState] := aBoxY[nState] + fPlasticVelo;
+						END_IF
+				END_IF
+		END_IF
+		
+		IF aBoxY[nState] <= cYBoxesOnMetalPlasticBelt_max AND nLastBox = 0 THEN
+			aBoxY[nState] := cYforAllBoxesStartPosMainBelt;
+			aBoxX[nState] := cXforAllBoxesStartPosMainBelt + nState*cBoxWidth;
+		END_IF
+	END_FOR
+
+// =========================================================]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_AxisRotation" Id="{e54218e4-ab21-4508-af91-eb2b523bd079}">
+      <Declaration><![CDATA[METHOD PRIVATE M_AxisRotation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// =========================================================
+// Rotation of main axis
+	
+	fbTimerMainAxis(IN := bMainAxisMoves,
+					PT := tMoveAxis);
+	
+	IF fbTimerMainAxis.Q THEN
+		fbTimerMainAxis(IN := FALSE);
+		IF  bMainAxisMoves THEN
+			nAngleMain := nAngleMain + cAxisMovementManual;
+		END_IF
+	END_IF
+
+// =========================================================
+// Rotation of metal axis
+	
+	fbTimerMetalAxis( 	IN := bMetalAxisMoves,
+						PT := tMoveAxis);
+	
+	IF fbTimerMetalAxis.Q THEN
+		fbTimerMetalAxis( IN := FALSE );
+		IF  bMetalAxisMoves THEN
+			nAngleMetal := nAngleMetal + cAxisMovementManual;
+		END_IF
+	END_IF
+
+// =========================================================
+// Rotation of plastic axis
+	
+	fbTimerPlasticAxis( IN := bPlasticAxisMoves,
+						PT := tMoveAxis);
+	
+	IF fbTimerPlasticAxis.Q THEN
+		fbTimerPlasticAxis( IN := FALSE );
+		IF  bPlasticAxisMoves THEN
+			nAnglePlastic := nAnglePlastic + cAxisMovementManual;
+		END_IF
+	END_IF
+
+// =========================================================]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Barrier_Clamp_Cyl" Id="{ebaebd63-1e2c-4fa1-b813-a22c2850b1ef}">
+      <Declaration><![CDATA[METHOD PRIVATE M_Barrier_Clamp_Cyl
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// =========================================================
+// Moving clamp cylinder
+	
+	IF bClampToWork THEN
+		IF (fYClamp + cClampMovement) < cYClampCylEndPos THEN
+			fYClamp := fYClamp + cClampMovement;
+		ELSE
+			fYClamp := cYClampCylEndPos;
+		END_IF
+		
+	ELSE
+		IF (fYClamp - cClampMovement) > cYClampCylStartPos THEN
+			fYClamp := fYClamp - cClampMovement;
+		ELSE
+			fYClamp := cYClampCylStartPos;
+		END_IF
+	END_IF
+
+// =========================================================
+// =========================================================
+// Moving barrier cylinder
+	
+	IF bBarrierToWork THEN
+		IF (fYBarrier + cBarrierMovement) < cYBarrierCylEndPos THEN
+			fYBarrier := fYBarrier + cBarrierMovement;
+		ELSE
+			fYBarrier := cYBarrierCylEndPos;
+		END_IF
+		
+	ELSE
+		IF (fYBarrier - cBarrierMovement) > cYBarrierCylStartPos THEN
+			fYBarrier := fYBarrier - cBarrierMovement;
+		ELSE
+			fYBarrier := cYBarrierCylStartPos;
+		END_IF
+	END_IF
+
+// =========================================================
+// Checking position of boxes related to the barrier cylinder
+	
+	IF fYBarrier <= cBoxWidth AND NOT bBarrierToWork THEN
+		FOR nState := 1 TO 4 BY 1 DO
+			IF aBoxX[nState] > (-cBoxWidth + 0.11 + cBoxWidth*nState) AND aBoxX[nState] < (cBoxWidth*nState + cBarrierWidth) AND aBoxY[nState] = 0
+			(*AND NOT bStopped *)THEN
+				bAccident := TRUE;
+			END_IF
+		END_FOR
+	END_IF
+
+// =========================================================]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_CylinderMoveBoxes" Id="{580d750a-5d59-4322-99d0-c7ea0b543de2}">
+      <Declaration><![CDATA[METHOD PRIVATE M_CylinderMoveBoxes
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// =========================================================
+// Metal cylinder - checking the positions of boxes
+// bBoxMetalFree[1] is true, if any box blockades the movement of box 1 on metal belt
+	
+	aBoxMetalFree[1] := 	NOT (aBoxX[2] > cXforBox2OnMetalBelt_min AND aBoxX[2] <= cXforBox2OnMetalBelt_max AND (aBoxY[1] - aBoxY[2]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[3] > cXforBox3OnMetalBelt_min AND aBoxX[3] <= cXforBox3OnMetalBelt_max AND (aBoxY[1] - aBoxY[3]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[4] > cXforBox4OnMetalBelt_min AND aBoxX[4] <= cXforBox4OnMetalBelt_max AND (aBoxY[1] - aBoxY[4]) <= (cBoxWidth + 1));
+	
+	aBoxMetalFree[2] := 	NOT (aBoxX[1] > cXforBox1OnMetalBelt_min AND aBoxX[1] <= cXforBox1OnMetalBelt_max AND (aBoxY[2] - aBoxY[1]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[3] > cXforBox3OnMetalBelt_min AND aBoxX[3] <= cXforBox3OnMetalBelt_max AND (aBoxY[2] - aBoxY[3]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[4] > cXforBox4OnMetalBelt_min AND aBoxX[4] <= cXforBox4OnMetalBelt_max AND (aBoxY[2] - aBoxY[4]) <= (cBoxWidth + 1));
+						
+	aBoxMetalFree[3] := 	NOT (aBoxX[1] > cXforBox1OnMetalBelt_min AND aBoxX[1] <= cXforBox1OnMetalBelt_max AND (aBoxY[3] - aBoxY[1]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[2] > cXforBox2OnMetalBelt_min AND aBoxX[2] <= cXforBox2OnMetalBelt_max AND (aBoxY[3] - aBoxY[2]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[4] > cXforBox4OnMetalBelt_min AND aBoxX[4] <= cXforBox4OnMetalBelt_max AND (aBoxY[3] - aBoxY[4]) <= (cBoxWidth + 1));
+						
+	aBoxMetalFree[4] := 	NOT (aBoxX[1] > cXforBox1OnMetalBelt_min AND aBoxX[1] <= cXforBox1OnMetalBelt_max AND (aBoxY[4] - aBoxY[1]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[2] > cXforBox2OnMetalBelt_min AND aBoxX[2] <= cXforBox2OnMetalBelt_max AND (aBoxY[4] - aBoxY[2]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[3] > cXforBox3OnMetalBelt_min AND aBoxX[3] <= cXforBox3OnMetalBelt_max AND (aBoxY[4] - aBoxY[3]) <= (cBoxWidth + 1));
+
+// =========================================================
+// Metal cylinder - boxes motion
+	
+	FOR nState := 1 TO 4 BY 1 DO
+		IF bMetalToWork AND aBoxMetalMove[nState] AND aBoxMetalFree[nState] THEN
+			IF (fYMetal - cMetalPlasticCylMovement) >= (cYMetalPlasticCylEndPos + cMetalPlasticCylMovement) THEN
+				fYMetal := fYMetal - cMetalPlasticCylMovement;
+				
+				IF (fYMetal - aBoxY[nState]) <= cYMetalPlasticCylOnMainBelt THEN
+					aBoxY[nState] := aBoxY[nState] - cMetalPlasticCylMovement;
+				END_IF
+				
+			ELSIF fYMetal = (cYMetalPlasticCylEndPos + cMetalPlasticCylMovement) AND (fYMetal - aBoxY[nState]) <= cYMetalPlasticCylOnMainBelt THEN
+				aBoxY[nState] := aBoxY[nState] - 2*cMetalPlasticCylMovement;
+				
+			ELSE
+				aBoxMetalMove[nState] := FALSE;
+			END_IF
+		END_IF	
+	END_FOR
+
+// =========================================================
+// =========================================================
+// Plastic cylinder - checking the positions of boxes
+
+	aBoxPlasticFree[1] := 	NOT (aBoxX[2] > (cXforBox2OnPlasticBelt_min + 20) AND aBoxX[2] <= cXforBox2OnPlasticBelt_max AND (aBoxY[1] - aBoxY[2]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[3] > (cXforBox3OnPlasticBelt_min + 20) AND aBoxX[3] <= cXforBox3OnPlasticBelt_max AND (aBoxY[1] - aBoxY[3]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[4] > (cXforBox4OnPlasticBelt_min + 20) AND aBoxX[4] <= cXforBox4OnPlasticBelt_max AND (aBoxY[1] - aBoxY[4]) <= (cBoxWidth + 1));
+	
+	aBoxPlasticFree[2] := 	NOT (aBoxX[1] > (cXforBox1OnPlasticBelt_min + 20) AND aBoxX[1] <= cXforBox1OnPlasticBelt_max AND (aBoxY[2] - aBoxY[1]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[3] > (cXforBox3OnPlasticBelt_min + 20) AND aBoxX[3] <= cXforBox3OnPlasticBelt_max AND (aBoxY[2] - aBoxY[3]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[4] > (cXforBox4OnPlasticBelt_min + 20) AND aBoxX[4] <= cXforBox4OnPlasticBelt_max AND (aBoxY[2] - aBoxY[4]) <= (cBoxWidth + 1));
+						
+	aBoxPlasticFree[3] := 	NOT (aBoxX[1] > (cXforBox1OnPlasticBelt_min + 20) AND aBoxX[1] <= cXforBox1OnPlasticBelt_max AND (aBoxY[3] - aBoxY[1]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[2] > (cXforBox2OnPlasticBelt_min + 20) AND aBoxX[2] <= cXforBox2OnPlasticBelt_max AND (aBoxY[3] - aBoxY[2]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[4] > (cXforBox4OnPlasticBelt_min + 20) AND aBoxX[4] <= cXforBox4OnPlasticBelt_max AND (aBoxY[3] - aBoxY[4]) <= (cBoxWidth + 1));
+						
+	aBoxPlasticFree[4] := 	NOT (aBoxX[1] > (cXforBox1OnPlasticBelt_min + 20) AND aBoxX[1] <= cXforBox1OnPlasticBelt_max AND (aBoxY[4] - aBoxY[1]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[2] > (cXforBox2OnPlasticBelt_min + 20) AND aBoxX[2] <= cXforBox2OnPlasticBelt_max AND (aBoxY[4] - aBoxY[2]) <= (cBoxWidth + 1))
+						AND NOT (aBoxX[3] > (cXforBox3OnPlasticBelt_min + 20) AND aBoxX[3] <= cXforBox3OnPlasticBelt_max AND (aBoxY[4] - aBoxY[3]) <= (cBoxWidth + 1));
+					
+// =========================================================
+// Plastic cylinder - boxes motion
+
+	FOR nState := 1 TO 4 BY 1 DO
+		IF bPlasticToWork AND aBoxPlasticMove[nState] AND aBoxPlasticFree[nState] THEN
+			IF (fYPlastic - cMetalPlasticCylMovement) >= (cYMetalPlasticCylEndPos + cMetalPlasticCylMovement) THEN
+				fYPlastic := fYPlastic - cMetalPlasticCylMovement;
+				
+				IF (fYPlastic - aBoxY[nState]) <= cYMetalPlasticCylOnMainBelt THEN
+					aBoxY[nState] := aBoxY[nState] - cMetalPlasticCylMovement;
+				END_IF
+				
+			ELSIF fYPlastic = (cYMetalPlasticCylEndPos + cMetalPlasticCylMovement) AND (fYPlastic - aBoxY[nState]) <= cYMetalPlasticCylOnMainBelt THEN
+				aBoxY[nState] := aBoxY[nState] - 2*cMetalPlasticCylMovement;
+				
+			ELSE
+				aBoxPlasticMove[nState] := FALSE;
+			END_IF
+		END_IF	
+	END_FOR
+
+// =========================================================]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Error_Warnings" Id="{8182f2e5-773a-4595-83bc-25d07655545e}">
+      <Declaration><![CDATA[METHOD M_Error_Warnings
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Show the Warnings on Visu
+CASE nWarningState OF
+	0:
+		sWarningVisu					:= '';
+		IF PackTags.Admin.Warning[nWarningCount].Trigger THEN
+			fbTimerWarning.IN 		:= TRUE;
+			fbTimerWarning.PT		:= T#3S;
+			nWarningState			:= 1;
+		ELSIF nWarningCount < 10 THEN
+			nWarningCount		:= nWarningCount +1;
+		ELSIF nWarningCount >= 10 THEN
+			nWarningCount		:= 1;
+		END_IF
+	1:
+		sWarningVisu 	:= PackTags.Admin.Warning[nWarningCount].Message;
+		IF fbTimerWarning.Q THEN
+			fbTimerWarning.IN 		:= FALSE;
+			nWarningState			:= 0;
+			
+			IF nWarningCount < 10 THEN
+				nWarningCount		:= nWarningCount +1;
+			ELSIF nWarningCount >= 10 THEN
+				nWarningCount		:= 1;
+			END_IF
+		END_IF
+		
+END_CASE	
+fbTimerWarning();
+
+//Show the Errors on Visu
+CASE nAlarmState OF
+	0:
+		sAlarmVisu					:= '';
+		IF PackTags.Admin.Alarm[nAlarmCount].Trigger THEN
+			fbTimerAlarm.IN 		:= TRUE;
+			fbTimerAlarm.PT		:= T#3S;
+			nAlarmState			:= 1;
+		ELSIF nAlarmCount < 10 THEN
+			nAlarmCount		:= nAlarmCount +1;
+		ELSIF nAlarmCount >= 10 THEN
+			nAlarmCount		:= 1;
+		END_IF
+	1:
+		sAlarmVisu 	:= PackTags.Admin.Alarm[nAlarmCount].Message;
+		IF fbTimerAlarm.Q THEN
+			fbTimerAlarm.IN 		:= FALSE;
+			nAlarmState			:= 0;
+			
+			IF nAlarmCount < 10 THEN
+				nAlarmCount		:= nAlarmCount +1;
+			ELSIF nAlarmCount >= 10 THEN
+				nAlarmCount		:= 1;
+			END_IF
+		END_IF
+END_CASE
+fbTimerAlarm();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_LastBox" Id="{7237fc0b-1803-4efe-bf33-65240579eca4}">
+      <Declaration><![CDATA[METHOD PRIVATE M_LastBox
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// =========================================================
+// Checking the last position on main belt
+	
+	IF 		(aBoxX[1] >= (cXforAllBoxesStartPosMainBelt + 1*cBoxWidth - 0.05))
+	AND		(aBoxX[1] < (cXforAllBoxesStartPosMainBelt + 2*cBoxWidth - 0.05)) AND (aBoxY[1] = 0) THEN
+		nLastBox := 1;
+		
+	ELSIF 	(aBoxX[2] >= (cXforAllBoxesStartPosMainBelt + 2*cBoxWidth - 0.05))
+	AND 	(aBoxX[2] < (cXforAllBoxesStartPosMainBelt + 3*cBoxWidth - 0.05)) AND (aBoxY[2] = 0) THEN
+		nLastBox := 2;	
+		
+	ELSIF 	(aBoxX[3] >= (cXforAllBoxesStartPosMainBelt + 3*cBoxWidth - 0.05))
+	AND 	(aBoxX[3] < (cXforAllBoxesStartPosMainBelt + 4*cBoxWidth - 0.05)) AND (aBoxY[3] = 0) THEN
+		nLastBox := 3;	
+		
+	ELSIF 	(aBoxX[4] >= cXforAllBoxesStartPosMainBelt + 4*cBoxWidth - 0.05)
+	AND 	(aBoxX[4] < (cXforAllBoxesStartPosMainBelt + 5*cBoxWidth - 0.05)) AND (aBoxY[4] = 0) THEN
+		nLastBox := 4;	
+		
+	ELSE
+		nLastBox := 0;
+	END_IF		
+
+// =========================================================]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Metal_Plastic_Cyl" Id="{9ce6ad3b-b90d-48de-99c1-c634defea50d}">
+      <Declaration><![CDATA[METHOD PRIVATE M_Metal_Plastic_Cyl
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// =========================================================
+// Moving metal cylinder
+	
+	IF bMetalToWork THEN
+		IF NOT (aBoxMetalMove[1] OR aBoxMetalMove[2] OR aBoxMetalMove[3] OR aBoxMetalMove[4]) THEN
+			IF ((fYMetal - cMetalPlasticCylMovement) >= cYMetalPlasticCylEndPos) THEN
+				fYMetal := fYMetal - cMetalPlasticCylMovement;
+			END_IF
+			
+		ELSE
+			FOR nState := 1 TO 4 BY 1 DO
+				IF aBoxMetalMove[nState] THEN
+					IF ((fYMetal - cMetalPlasticCylMovement) >= (aBoxY[nState] - cYMetalPlasticCylOnMainBelt - 0.1))
+					AND ((fYMetal - cMetalPlasticCylMovement) >= cYMetalPlasticCylEndPos) THEN
+						fYMetal := fYMetal - cMetalPlasticCylMovement;
+					END_IF
+				END_IF
+			END_FOR
+		END_IF
+		
+	ELSE
+		IF ((fYMetal + cMetalPlasticCylMovement) < cYMetalPlasticCylStartPos) THEN
+			fYMetal := fYMetal + cMetalPlasticCylMovement;
+		ELSE
+			fYMetal := cYMetalPlasticCylStartPos;
+		END_IF
+	END_IF
+
+// =========================================================
+// Checking position of boxes related to the metal cylinder
+	
+	IF (fYMetal < (cYMetalPlasticCylOnMainBelt + 0.1)) AND (fYMetal > (cYMetalPlasticCylOnMainBelt - 0.1)) AND bMetalToWork THEN
+		FOR nState := 1 TO 4 BY 1 DO
+			// box on main belt
+			IF (aBoxY[nState] >= cYforAllBoxesOnMainBelt) THEN
+				// box in right position related to the metal cylinder
+				IF (aBoxX[nState] > (cXforAllBoxesCorrectPushMetalCyl_min + cBoxWidth*nState))
+				AND (aBoxX[nState] <= (cXforAllBoxesCorrectPushMetalCyl_max + cBoxWidth*nState)) THEN
+					aBoxMetalMove[nState] := TRUE;
+				END_IF
+				
+				// box in wrong position related to the metal cylinder >> accident
+				IF ((aBoxX[nState] > (cXforAllBoxesIncorrectPushMetalCyl_min + cBoxWidth*nState)
+						AND aBoxX[nState] <= (cXforAllBoxesCorrectPushMetalCyl_min + cBoxWidth*nState))
+					OR (aBoxX[nState] > (cXforAllBoxesCorrectPushMetalCyl_max + cBoxWidth*nState)
+						AND aBoxX[nState] < (cXforAllBoxesIncorrectPushMetalCyl_max + cBoxWidth*nState)))
+				(*AND NOT bStopped*) THEN
+					bAccident := TRUE;
+				END_IF
+			END_IF
+		END_FOR
+	END_IF
+
+// =========================================================
+// =========================================================
+// Moving plastic cylinder
+	
+	IF bPlasticToWork THEN
+		IF NOT (aBoxPlasticMove[1] OR aBoxPlasticMove[2] OR aBoxPlasticMove[3] OR aBoxPlasticMove[4]) THEN
+			IF ((fYPlastic - cMetalPlasticCylMovement) >= cYMetalPlasticCylEndPos) THEN
+				fYPlastic := fYPlastic - cMetalPlasticCylMovement;
+			END_IF
+			
+		ELSE
+			FOR nState := 1 TO 4 BY 1 DO
+				IF aBoxPlasticMove[nState] THEN
+					IF ((fYPlastic - cMetalPlasticCylMovement) >= (aBoxY[nState] - cYMetalPlasticCylOnMainBelt - 0.1))
+					AND ((fYPlastic - cMetalPlasticCylMovement) >= cYMetalPlasticCylEndPos) THEN
+						fYPlastic := fYPlastic - cMetalPlasticCylMovement;
+					END_IF
+				END_IF
+			END_FOR
+		END_IF
+		
+	ELSE
+		IF ((fYPlastic + cMetalPlasticCylMovement) < cYMetalPlasticCylStartPos) THEN
+			fYPlastic := fYPlastic + cMetalPlasticCylMovement;
+		ELSE
+			fYPlastic := cYMetalPlasticCylStartPos;
+		END_IF
+	END_IF
+
+// =========================================================
+// Checking position of boxes related to the plastic cylinder
+		
+	IF ((aBoxX[1] > (cXforAllBoxesLastPossiblePosMainBelt + 1*cBoxWidth))
+		OR (aBoxX[2] > (cXforAllBoxesLastPossiblePosMainBelt + 2*cBoxWidth))
+		OR (aBoxX[3] > (cXforAllBoxesLastPossiblePosMainBelt + 3*cBoxWidth))
+		OR (aBoxX[4] > (cXforAllBoxesLastPossiblePosMainBelt + 4*cBoxWidth)))
+	(*AND NOT bStopped*) THEN
+		bAccident := TRUE;
+	END_IF
+		
+	IF (fYPlastic < (cYMetalPlasticCylOnMainBelt + 0.1)) AND (fYPlastic > (cYMetalPlasticCylOnMainBelt - 0.1)) AND bPlasticToWork THEN
+		FOR nState := 1 TO 4 BY 1 DO
+			// box on main belt
+			IF aBoxY[nState] >= cYforAllBoxesOnMainBelt THEN
+				// box in right position related to the plastic cylinder
+				IF (aBoxX[nState] > (cXforAllBoxesCorrectPushPlasticCyl_min + cBoxWidth*nState))
+				AND (aBoxX[nState] <= (cXforAllBoxesCorrectPushPlasticCyl_max + cBoxWidth*nState)) THEN
+					aBoxPlasticMove[nState] := TRUE;
+				END_IF
+				
+				// box in wrong position related to the plastic cylinder >> accident
+				IF (aBoxX[nState] > (cXforAllBoxesIncorrectPushPlasticCyl_min + cBoxWidth*nState))
+				AND (aBoxX[nState] <= (cXforAllBoxesCorrectPushPlasticCyl_min + cBoxWidth*nState))
+				(*AND NOT bStopped*) THEN
+					bAccident := TRUE;
+				END_IF	
+			END_IF
+		END_FOR
+	END_IF
+
+// =========================================================]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_ProductCommand" Id="{f529bae9-d7a2-4813-9050-0bcc90aae43d}">
+      <Declaration><![CDATA[METHOD M_ProductCommand
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//checking if productcommand is valid
+IF	nVisuProductCommand > PackTags.Admin.ProdProcessedCount[1].Count	AND 
+	nVisuProductCommand > PackTags.Admin.ProdProcessedCount[2].Count	AND 
+	nVisuProductCommand > 0											THEN
+			bInvalidEntry						:= FALSE;
+			PackTags.Command.Parameter[2].Value := DINT_TO_REAL(nVisuProductCommand);
+ELSIF	nVisuProductCommand < PackTags.Admin.ProdProcessedCount[1].Count	OR
+		nVisuProductCommand < PackTags.Admin.ProdProcessedCount[2].Count	OR
+		nVisuProductCommand < 0											THEN
+			bInvalidEntry						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Reset" Id="{cc06cfcd-bcea-40ca-b8c1-bd9d4b28425d}">
+      <Declaration><![CDATA[METHOD PRIVATE M_Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// =========================================================
+// Resetting visu
+	
+	// Cylinder buttons
+	bButtonClampToWorkOut 		:= FALSE;
+	bButtonBarrierToWorkOut 	:= FALSE;
+	bButtonMetalToWorkOut 		:= FALSE;
+	bButtonPlasticToWorkOut 	:= FALSE;
+	
+	// Axis buttons
+	bButtonMainFwOut 			:= FALSE;
+	bButtonMetalFwOut 			:= FALSE;
+	bButtonPlasticFwOut			:= FALSE;
+	
+
+	
+	// Position of boxes and cylinders	
+	FOR nState := 1 TO 4 BY 1 DO
+		aBoxX[nState] 			:= 0;
+		aBoxY[nState] 			:= 0;
+		
+		aBoxMetalMove[nState] 	:= FALSE;
+		aBoxPlasticMove[nState]	:= FALSE;
+		aBoxMainBelt[nState]	:= FALSE;
+		aBoxMetalBelt[nState] 	:= FALSE;
+		aBoxPlasticBelt[nState]	:= FALSE;
+	END_FOR
+	
+	bAccident := FALSE;
+	
+	//set the cylinder on startposition
+	fYClamp := cYClampCylStartPos;
+	fYBarrier := cYBarrierCylStartPos;
+	fYMetal := cYMetalPlasticCylStartPos;
+	fYPlastic := cYMetalPlasticCylStartPos;
+	
+	
+	
+// =========================================================]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_SetHwIo" Id="{8bf60ffa-1548-41fa-b089-8542202bd458}">
+      <Declaration><![CDATA[METHOD M_SetHwIo
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// =========================================================
+// Cylinder feedback for base and work position
+	
+	bClampAtWork 	:= (fYClamp = cClampAtWork);
+	bClampAtBase 	:= (fYClamp = cClampAtBase);
+	bBarrierAtWork 	:= (fYBarrier = cBarrierAtWork);
+	bBarrierAtBase 	:= (fYBarrier = cBarrierAtBase);
+	bMetalAtWork 	:= (fYMetal < cMetalAtWorkMin) AND (fYMetal > cMetalAtWorkMax);
+	bMetalAtBase 	:= (fYMetal = cMetalAtBase);
+	bPlasticAtWork 	:= (fYPlastic < cPlasticAtWorkMin) AND (fYPlastic > cPlasticAtWorkMax);
+	bPlasticAtBase 	:= (fYPlastic = cPlasticAtBase);
+
+// =========================================================
+// Sensor variables
+	
+	bBarrierSensor := 	( (aBoxY[1] >= cSensorsBoxesY) AND (aBoxX[1] > cBarrierSensorBox1Xmin) 	AND (aBoxX[1] < cBarrierSensorBox1Xmax) )
+					OR 	( (aBoxY[2] >= cSensorsBoxesY) AND (aBoxX[2] > cBarrierSensorBox2Xmin) 	AND (aBoxX[2] < cBarrierSensorBox2Xmax) )
+					OR 	( (aBoxY[3] >= cSensorsBoxesY) AND (aBoxX[3] > cBarrierSensorBox3Xmin) 	AND (aBoxX[3] < cBarrierSensorBox3Xmax) )
+					OR 	( (aBoxY[4] >= cSensorsBoxesY) AND (aBoxX[4] > cBarrierSensorBox4Xmin) 	AND (aBoxX[4] < cBarrierSensorBox4Xmax) );
+					
+	bMetalSensor := 	( (aBoxY[1] >= cSensorsBoxesY) AND (aBoxX[1] > cMetalSensorBox1Xmin) 	AND (aBoxX[1] < cMetalSensorBox1Xmax) )
+					OR 	( (aBoxY[4] >= cSensorsBoxesY) AND (aBoxX[4] > cMetalSensorBox4Xmin) 	AND (aBoxX[4] < cMetalSensorBox4Xmax) );
+					
+	bPlasticSensor := 	( (aBoxY[1] >= cSensorsBoxesY) AND (aBoxX[1] > cPlasticSensorBox1Xmin) 	AND (aBoxX[1] < cPlasticSensorBox1Xmax) )
+					OR 	( (aBoxY[2] >= cSensorsBoxesY) AND (aBoxX[2] > cPlasticSensorBox2Xmin) 	AND (aBoxX[2] < cPlasticSensorBox2Xmax) )
+					OR 	( (aBoxY[3] >= cSensorsBoxesY) AND (aBoxX[3] > cPlasticSensorBox3Xmin) 	AND (aBoxX[3] < cPlasticSensorBox3Xmax) )
+					OR 	( (aBoxY[4] >= cSensorsBoxesY) AND (aBoxX[4] > cPlasticSensorBox4Xmin) 	AND (aBoxX[4] < cPlasticSensorBox4Xmax) );
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

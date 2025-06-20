@@ -1,0 +1,97 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "LRInputItem": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Input Linear Regression",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "Inputs",
+          "category": "Inputs",
+          "displayName": "Inputs",
+          "displayPriority": 1,
+          "description": "X-Values",
+          "defaultValue": [
+            {
+              "sKey": "Input00",
+              "sValue": 1
+            }
+          ],
+          "defaultValueInternal": [
+            {
+              "sKey": "Input00",
+              "sValue":1
+            }
+          ]
+        },
+        {
+          "name": "Dependent",
+          "category": "Inputs",
+          "displayName": "Dependent",
+          "displayPriority": 2,
+          "description": "Y-Value",
+          "defaultValue": 0,
+          "defaultValueInternal": 0
+        },
+        {
+          "name": "Output00",
+          "category": "Outputs",
+          "displayName": "Output00",
+          "displayPriority": 2,
+          "description": "Output00, b-Value of regression line.",
+          "defaultValue": 2,
+          "defaultValueInternal": 2
+        },
+        {
+          "name": "Output_i",
+          "category": "Outputs",
+          "displayName": "Output i",
+          "displayPriority": 2,
+          "description": "Output i, m-Value of regression line.",
+          "defaultValue": [ 1 ],
+          "defaultValueInternal": [ 1 ]
+        },
+        {
+          "name": "Result",
+          "category": "Outputs",
+          "displayName": "Result",
+          "displayPriority": 2,
+          "description": "Yi value, point on regression line.",
+          "defaultValue": 0,
+          "defaultValueInternal": 0
+        }
+      ],
+      "properties": {
+        "Inputs": {
+          "$ref": "tchmi:framework#/definitions/KeyValuePair"
+        },
+        "Dependent": {
+          "anyOf": [
+            { "type": "number" },
+            { "$ref": "tchmi:general#/definitions/Number" }
+          ]
+        },
+        "Output00": {
+          "anyOf": [
+            { "type": "number" },
+            { "$ref": "tchmi:general#/definitions/Number" }
+          ]
+        },
+        "Output_i": {
+          "anyOf": [
+            { "type": "array" },
+            { "$ref": "tchmi:general#/definitions/Array" }
+          ]
+        },
+        "Result": {
+          "anyOf": [
+            { "type": "number" },
+            { "$ref": "tchmi:general#/definitions/Number" }
+          ]
+        }
+      },
+      "required": [ "Inputs", "Result" ]
+    }
+  }
+}

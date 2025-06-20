@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="MAIN_Analytics" Id="dadcab16-edab-4bc3-ae70-971572ef9ef0" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN_Analytics
+VAR
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+CASE AnalyticsHMI.stHMI_DataSourceCtrl.nActiveConfigurationIdx OF
+	0:
+
+		;
+
+		//Map to HMI
+		MAIN_Analytics_C1.A_MapToHMI();
+END_CASE
+
+
+//Call DataSource FBs
+IF Analytics.fbT1_InputSource.bReadNewData THEN
+	Analytics.fbT1_InputSource.Call();
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_Sensor" Id="{bbb3f83e-93aa-42b1-9a45-8cab8856ea22}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Sensor EXTENDS FB_Generic
+VAR_IN_OUT
+	Axis			: AXIS_REF;
+END_VAR
+VAR_INPUT
+	tDelayTime		: TIME;			//delaytime
+	bInput			: BOOL;			//HW-Signal from Sensor
+END_VAR
+VAR_OUTPUT
+	bOutput			: BOOL;			//Output with delaytime
+END_VAR
+VAR
+	fbTimer			: Ton_Break;	//Timer for delaytime witch breakfunction
+	fbTriggerR		: R_Trig;		//Trigger to detect rising edge of HW-siganl
+	nSensorState	: INT := 0;		//State variable for sensor - process to get siganl with delaytime
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Process to get siganl with delaytime
+fbTriggerR(CLK := bInput);
+CASE nSensorState OF
+0:
+	bOutput		:= FALSE;
+	IF fbTriggerR.Q THEN
+		nSensorState := 1;
+
+	END_IF
+		
+1:
+	fbTimer.IN	:= TRUE;
+	IF fbTimer.Q THEN
+		fbTimer.IN	:= FALSE;
+		bOutput		:= TRUE;
+		nSensorState:= 0;
+	END_IF
+END_CASE
+
+
+//resetting Timer
+IF stChangeIntoProduction.bYesReset THEN
+	fbTimer.IN		:= FALSE;
+	fbTimer.Halt	:= FALSE;
+END_IF
+
+//Resetting Timer 
+IF PackTags.Status.UnitModeCurrent <> 1 THEN
+	fbTimer.IN		:= FALSE;
+	fbTimer.Halt	:= FALSE;
+END_IF
+
+
+fbTimer(PT	:= tDelayTime);
+
+
+Super^();]]></ST>
+    </Implementation>
+    <Method Name="M_Aborting" Id="{7070449e-37d1-4ef8-8bad-6e042e6592db}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Aborting'}
+METHOD M_Aborting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:
+		fbTimer.Halt := TRUE;
+		M_StateComplete();
+
+	ePMLProtUnitMode_Maintenance, ePMLProtUnitMode_Manual, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Execute" Id="{e730108c-4124-4bf3-bb0a-847cf5f1ddb4}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Execute'}
+METHOD M_Execute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		
+		IF REAL_TO_DINT(PackTags.Command.Parameter[2].Value) <= PackTags.Admin.ProdProcessedCount[1].Count 
+		  AND Axis.Status.NotMoving	
+		  AND PackTags.Status.StateCurrent = ePMLState_Execute THEN
+			M_StateComplete();
+		END_IF
+			
+		IF  AxisMain.Status.Moving THEN
+			fbTimer.Halt	:= FALSE;
+		END_IF
+	
+	ePMLProtUnitMode_Maintenance, ePMLProtUnitMode_Manual, ePMLUnitMode_Service:
+		//
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Resetting" Id="{4ca3d000-b74c-4374-a538-334d83db65d3}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Resetting'}
+METHOD M_Resetting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:
+		IF AxisMain.Status.Moving THEN
+			fbTimer.Halt	:= FALSE;
+			M_StateComplete();
+		END_IF
+		
+	ePMLProtUnitMode_Maintenance, ePMLProtUnitMode_Manual, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Stopping" Id="{fe7f8275-d939-46ac-8fb3-7d0bf3d6f6b8}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Stopping'}
+METHOD M_Stopping
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:
+		fbTimer.Halt := TRUE;
+		M_StateComplete();
+		
+	ePMLProtUnitMode_Maintenance, ePMLProtUnitMode_Manual, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Undefined" Id="{78eb1355-1f65-4216-9e92-fa8e3c8f6044}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Undefined'}
+METHOD M_Undefined
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bUndefinedDone	:= TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

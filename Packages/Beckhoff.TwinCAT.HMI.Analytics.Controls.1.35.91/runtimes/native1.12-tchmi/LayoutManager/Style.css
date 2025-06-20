@@ -1,0 +1,523 @@
+.tchmi-layout-manager-edit-header-wrapper {
+    display: grid;
+    grid-template-rows: 0fr; /* Start with no space allocated to the header */
+    transition: grid-template-rows 0.4s ease, opacity 0.3s ease; /* Smooth transition for grid row changes */
+    opacity: 0%;
+}
+
+.tchmi-layout-manager-edit-header-wrapper.opened {
+    grid-template-rows: 1fr; /* Allocate space to the header when opened */
+    opacity: 100%;
+}
+
+.tchmi-layout-manager-edit-header {
+    display: flex;
+    overflow:hidden;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0px;
+    height: auto;
+    transition: all 0.2s ease;
+    transform-origin: center top; /* Ensures scaling happens from the top center */
+}
+.tchmi-layout-manager-edit-header.opened {
+    border-bottom: 2px solid #444;
+    padding: 5px 0;
+}
+
+.tchmi-layout-manager-button-container {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+    align-self:center;
+    justify-content: flex-start;
+}
+
+.tchmi-layout-manager-left-container {
+    display: flex;
+    height: 100%;
+    padding-left: 10px;
+    flex: 1;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    justify-content: flex-start;
+}
+
+.tchmi-layout-manager-center-container {
+    position: relative;
+    justify-content: center;
+}
+
+.tchmi-layout-manager-right-container {
+    display: flex;
+    height: 100%;
+    padding-right: 10px;
+    flex: 1;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.tchmi-layout-manager-header-line {
+    pointer-events: none;
+    transition: all ease 250ms;
+}
+
+.tchmi-layout-manager-group-splitter {
+    height:90%;
+    align-self:center;
+    width:1px;
+    margin:0px 5px;
+}
+
+.tchmi-selected-indicator {
+    height: 1px;
+    width: 0; /* initial width will be changed through js*/
+    position: absolute;
+    top:100%;
+}
+
+.tchmi-layout-manager-header-button {
+    aspect-ratio: 1 / 1;
+    background: transparent;
+    /*height: 36px;*/ /* Is set through js*/
+    border: none;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin: 0px 5px;
+    transition: margin 500ms ease, scale 0.2s ease;
+    animation-duration: 0.7s;
+    animation-timing-function: ease-in-out;
+}
+.tchmi-layout-manager-header-button:hover {
+    scale: 1.1;
+}
+
+.tchmi-layout-manager-header-button-hidden {
+    width: 0px;
+    padding: 0px;
+    margin: 0px;
+    visibility: collapse;
+}
+
+.tchmi-layout-manager-header-button.tchmi-layout-manager-header-button-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    scale: 1;
+}
+
+.tchmi-layout-manager-grid-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 5px auto;
+    overflow: hidden auto;
+    transition: width 500ms, height 500ms;
+    transition:all 500ms ease;
+}
+/* Classes for the grid */
+.tchmi-layout-manager-grid {
+    perspective: inherit;
+    perspective-origin: inherit;
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(20, 4%);
+    grid-template-rows: repeat(10,50px);
+    grid-gap: 8px;
+    margin-top: 1px;
+    z-index: 3;
+    left: 0px;
+    top: 0px;
+    position: absolute; //IngmarR: Check this
+}
+
+.tchmi-layout-manager-grid-none {
+    grid-template-columns: none;
+    grid-template-rows: none;
+    grid-gap:unset;
+}
+
+.tchmi-layout-manager-grid-mobile {
+}
+
+.tchmi-layout-manager-grid-line {
+    stroke: var(--layout-manager-grid-stroke-color);
+    stroke-width: 1px;
+    stroke-dasharray: 10,10;
+}
+
+/* Classes for the container */
+.tchmi-layout-manager-tchmi-analytics-control-template-tchmi-box {
+    width: 100%;
+    height: 100%;
+}
+
+.tchmi-layout-manager-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Classes for grid-cells */
+.tchmi-layout-manager-grid-cell {
+    border-color: rgb(166, 166, 166);
+    border-width: 0px;
+    border-style: solid;
+    border-radius: 15px;
+    z-index: 5;
+    position: absolute;
+    transition: 0.2s ease;
+}
+
+.tchmi-layout-manager-grid-cell-resizing {
+    transition: none;
+}
+
+.tchmi-layout-manager-grid-cell-moving {
+    transition: none;
+    z-index: 500;
+}
+
+.tchmi-layout-manager-grid-cell-visible {
+    opacity: 1 !important;
+}
+.tchmi-layout-manager-grid-cell-transparent {
+    opacity: 0.3 !important;
+}
+.tchmi-layout-manager-grid-cell-invisible {
+    opacity: 0 !important;
+    display: none !important;
+}
+/* Classes for the blue placeholder-cell */
+.tchmi-layout-manager-grid-buffer-cell {
+    border-color: rgb(30,144,255);
+    border-width: 1px;
+    background-color: rgba(30,144,255,0.2);
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 0 1px 1px 0 rgb(130 130 130 / 40%), 0 1px 3px 1px rgb(130 130 130 / 80%);
+    z-index: 4;
+    visibility: hidden;
+    position: absolute;
+}
+
+.tchmi-layout-manager-grid-buffer-cell-moving {
+    transition: 0.2s ease;
+}
+/* Classes for the marker-cells */
+.tchmi-layout-manager-grid-position-marker-cell {
+    border-color: gray;
+    border-width: 0px;
+    background: linear-gradient( 135deg, gray 0%, darkgray 100%);
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 0 1px 1px 0 rgb(130 130 130 / 40%), 0 1px 3px 1px rgb(130 130 130 / 80%);
+    z-index: 1;
+    opacity: 0.5;
+    visibility: visible;
+    position: absolute;
+    transition: 0.2s ease;
+}
+
+/* Classes for the drop-button */
+.tchmi-layout-manager-cell-drop-button {
+    background: url(Icons/wastebasket.svg)center, red;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-size: 20px, 15px;
+    background-repeat: no-repeat;
+    padding: 3px;
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    float: right;
+    align-self: end;
+    top: -25px;
+    right: 15px;
+    z-index: 5;
+    visibility: hidden;
+}
+
+.tchmi-layout-manager-cell-drop-button-dark {
+}
+
+/* Classes for the resize-button */
+.tchmi-layout-manager-cell-resizer {
+    background: url(Icons/resize.png)center, none;
+    cursor: se-resize;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    float: right;
+    align-self: end;
+    top: -12px;
+    left: 6px;
+    z-index: 5;
+    opacity: 0.5;
+    visibility: hidden;
+}
+
+.tchmi-layout-manager-cell-resizer-dark {
+    background: url(Icons/resize-white.png)center, none;
+}
+
+/* Classes for the edit mask */
+.tchmi-layout-manager-cell-edit-mask {
+    border-color: rgb(255,255,255);
+    border-width: 1px;
+    background-color: rgba(255,255,255,0.4);
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 0 1px 1px 0 rgb(130 130 130 / 40%), 0 1px 3px 1px rgb(130 130 130 / 80%);
+    z-index: 4;
+    visibility: visible;
+    position: absolute;
+}
+
+.tchmi-layout-manager-cell-edit-mask-hidden {
+    visibility: hidden;
+}
+
+/* Classes for the visibility button */
+.tchmi-layout-manager-cell-visible-button {
+    background: url(Icons/vision-pressed.svg)center, white;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-size: 30px, 20px;
+    padding: 3px;
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    float: right;
+    align-self: end;
+    top: -25px;
+    right: 5px;
+    z-index: 5;
+    visibility: hidden;
+}
+
+.tchmi-layout-manager-cell-invisible-button {
+    background: url(Icons/vision-pressed-hidden.svg)center, white;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-size: 30px, 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    float: right;
+    align-self: end;
+    top: -25px;
+    right: 5px;
+    z-index: 5;
+    visibility: hidden;
+}
+
+/* Classes for the control storage */
+.tchmi-layout-manager-svg-grid {
+    width: 100%;
+    position: absolute;
+
+    --layout-manager-grid-stroke-color: #123;
+}
+
+/* Edit Button */
+.tchmi-layout-manager-edit-button {
+    background-image: url(Icons/EditIcon.svg);
+    background-color: transparent;
+}
+
+.tchmi-layout-manager-edit-button:hover {
+    background-image: url(Icons/EditIcon.svg);
+    background-color: #fff;
+    background-size: 100%;
+}
+
+.tchmi-layout-manager-edit-button.dark {
+    background-image: url(Icons/EditIcon_Dark.svg);
+    background-color: transparent;
+}
+
+.tchmi-layout-manager-edit-button.dark:hover {
+    background-image: url(Icons/EditIcon_Dark.svg);
+    background-color: #444;
+    background-size: 100%;
+}
+
+.tchmi-layout-manager-edit-button.active {
+    background-image: url(Icons/EditIcon_Active.svg);
+    background-size: 100%;
+}
+
+.tchmi-layout-manager-edit-button-pressed {
+    border-width: 3px
+}
+
+/* Store Button */
+.tchmi-layout-manager-store-button {
+    background-size: 90%;
+    background-position: bottom;
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/Icons/TcAnalyticsHmi_save_black.svg");
+}
+
+.tchmi-layout-manager-store-button.dark {
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/Icons/TcAnalyticsHmi_save_white.svg");
+}
+
+/* Store Exit Button */
+.tchmi-layout-manager-store-exit-button {
+    background-size: 90%;
+    background-position: bottom;
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/Icons/TcAnalyticsHmi_save_exit_black.svg");
+}
+
+.tchmi-layout-manager-store-exit-button.dark {
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/Icons/TcAnalyticsHmi_save_exit_white.svg");
+}
+
+/* Reset Button */
+.tchmi-layout-manager-reset-button {
+    background-size: 90%;
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/Icons/TcAnalyticsHmi_reset_black.svg");
+}
+
+.tchmi-layout-manager-reset-button.dark {
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/Icons/TcAnalyticsHmi_reset_white.svg");
+}
+
+.tchmi-layout-manager-reset-button:hover {
+    animation-name: resetAnimation;
+}
+
+@keyframes resetAnimation {
+    from {
+        rotate: 0deg;
+    }
+    to {
+        rotate: -360deg;
+    }
+}
+    /* Username Button */
+.tchmi-layout-manager-header-button.tchmi-layout-manager-username-button {
+    cursor: default;
+    scale: 1;
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/Icons/TcAnalyticsHmi_menu_icon_black.svg");
+}
+
+.tchmi-layout-manager-username-button.dark {
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/Icons/TcAnalyticsHmi_menu_icon.svg");
+}
+
+/* Move Up Button */
+.tchmi-layout-manager-move-up-button {
+    background-size: 85%;
+    background-image: url(Icons/MoveUpIcon.svg);
+}
+
+.tchmi-layout-manager-move-up-button.dark {
+    background-image: url(Icons/MoveUpIcon_Dark.svg);
+}
+
+.tchmi-layout-manager-move-up-button:hover {
+    animation-name: upAnimation;
+}
+
+@keyframes upAnimation {
+    30%,80% {
+        transform: translateY(-5px)
+    }
+    0%,45%,50%,95% {
+        transform: translateY(0px)
+    }
+}
+
+/*mobile button*/
+.tchmi-layout-manager-mobile-button {
+    margin-top: -1px;
+    background-size:95%;
+    background-image: url(Icons/MobileIcon.svg);
+}
+
+.tchmi-layout-manager-mobile-button.dark {
+    background-image:url(Icons/MobileIcon_Dark.svg);
+}
+
+/*desktop button*/
+.tchmi-layout-manager-desktop-button {
+    background-image: url(Icons/DesktopIcon.svg);
+}
+
+.tchmi-layout-manager-desktop-button.dark {
+    background-image: url(Icons/DesktopIcon_Dark.svg);
+}
+/* Undo Button */
+.tchmi-layout-manager-undo-button {
+    background-image: url(Icons/Undo_Redo_black.svg);
+}
+
+.tchmi-layout-manager-undo-button.dark {
+    background-image: url(Icons/Undo_Redo_white.svg);
+}
+
+/* Redo Button */
+.tchmi-layout-manager-redo-button {
+    background-image: url(Icons/Undo_Redo_black.svg);
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+}
+
+.tchmi-layout-manager-redo-button.dark {
+    background-image: url(Icons/Undo_Redo_white.svg);
+}
+
+/* Add Chart Button */
+.tchmi-layout-manager-add-chart-button {
+    background-image: url(Icons/Add_Chart_Black.svg);
+}
+
+.tchmi-layout-manager-add-chart-button.dark {
+    background-image: url(Icons/Add_Chart_White.svg);
+}
+
+/* Add Custom Control Button */
+.tchmi-layout-manager-add-custom-ctrl-button {
+    background-image: url(Icons/Add_Custom_Ctrl_Black.svg);
+}
+
+.tchmi-layout-manager-add-custom-ctrl-button.dark {
+    background-image: url(Icons/Add_Custom_Ctrl_White.svg);
+}
+
+/* Button Borders*/
+.tchmi-layout-manager-tchmi-red-border {
+    border-color: red;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.tchmi-layout-manager-tchmi-green-border {
+    border-color: green;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.tchmi-layout-manager-no-animation * {
+    animation: none;
+    transition: none;
+}
+
+@media (max-width: 300px) {
+    .tchmi-layout-manager-header-button {
+        margin: 0px;
+    }
+}
+

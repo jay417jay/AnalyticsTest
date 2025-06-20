@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_Ejector" Id="{78138076-a3a6-4c25-90a5-3d01aa9cebce}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Ejector EXTENDS FB_Generic
+VAR_IN_OUT
+	Axis							: AXIS_REF;		//Axis reference
+END_VAR
+VAR_INPUT
+	bMoveBeltFw						: BOOL;			//Variable to move Belt forward, link to FB_Visu
+	bMoveCylinder					: BOOL;			//Variable to move cylinder to workposition, link to FB_Visu
+	bSensorEjection		AT%I*		: BOOL;			//HW-Signal input, detection of boxes, link to TC3_PackML_Simu
+END_VAR
+VAR_OUTPUT
+	bMoveToWork						: BOOL;			//Varaible to outreach the actual command for the cylindermovement in the FB_Machine -> FB_Visu
+	bResetDone						: BOOL;			//TRUE, if subunits have succesfull resetting. Link to GVL: bMetalEjectionResetDone and bPlasticEjectionResetDone
+	nCounterProduct					: DINT :=0;		//Varible for counting only finished metal- and plasticboxes. Link to PackTags.Admin.ProdProcessedCount[3] AND PackTags.Admin.ProdProcessedCount[4]
+	
+	eModeSensor						: DINT;			//Mode from the subunit sensor
+	eStateSesnor					: E_PMLState;	//State from the subunit sensor
+	eModeAxis						: DINT;			//Mode from the subunit axis
+	eStateAxis						: E_PMLState;	//State from the subunit axis
+END_VAR
+VAR
+	fbCylinderEjection				: FB_Cylinder;	//Cylinder to eject boxes
+	
+	fbSensorEjection				: FB_Sensor;	//Sensor to detect boxes, with delaytime and breakfunction
+	
+	R_Trigger						: R_TRIG;		//Trigger for counting finished Boxes
+	fTrigger						: F_TRIG;		//Trigger for setting nCounterProduct to 0
+	
+
+	fbAxisEjection					: FB_AxixEjection;						//Axis to dispatch boxes
+	stSubUnitInfo					: ARRAY [1..2] OF ST_PMLSubUnitInfo;	//Informations about the subunits
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Call FB_Cylinder
+fbCylinderEjection();
+
+//Call FB_AxixEjection
+fbAxisEjection(		
+	Axis				:= Axis,
+	eModeCommand		:= eModeCommand,
+	eCommand			:= eCommand,
+	fConveyorLenght		:= 300.0,
+	bStartBelt			:= fbCylinderEjection.bAtWorkPos,
+	fConveyorVelo		:= PackTags.Command.Parameter[3].Value,
+	bMoveFw 			:= bMoveBeltFw,
+	eMode				=>,
+	eState				=> stSubUnitInfo[1].eState,
+	bResettingDone 		=> bResetDone);	
+stSubUnitInfo[1].Active			:= TRUE;
+eModeAxis						:= fbAxisEjection.eMode;
+eStateAxis						:= fbAxisEjection.eState;
+
+//Call FB_Sensor
+fbSensorEjection(	
+	Axis			:= Axis,
+	eModeCommand	:= eModeCommand,
+	eCommand		:= eCommand, 
+	tDelayTime		:= T#2S950MS,
+	eMode 			=> ,
+	eState			=> stSubUnitInfo[2].eState);
+
+stSubUnitInfo[2].Active		:= TRUE;
+eModeSensor					:= fbSensorEjection.eMode;
+eStateSesnor				:= fbSensorEjection.eState;
+
+//The fbStateMachine from FB_Ejector gets the Information about the states and activity from the subunits
+fbStateMachine.stSubUnitInfoRef.ArraySize		:= SIZEOF(stSubUnitInfo);
+fbStateMachine.stSubUnitInfoRef.NoOfSubUnits	:= 2;
+fbStateMachine.stSubUnitInfoRef.pArray			:= ADR(stSubUnitInfo);
+
+//Outreach the actual movementcommand for the cylinder in the FB_Machine -> FB_Visu
+bMoveToWork	:= fbCylinderEjection.bMoveToWorkHW;
+
+//Counting all finished plastic- and metalboxes
+R_Trigger(CLK:= fbCylinderEjection.bAtWorkPos );
+IF	R_Trigger.Q	AND fbUnitModeManager.eModeStatus = 1 THEN
+		PackTags.Admin.ProdProcessedCount[1].AccCount	:= PackTags.Admin.ProdProcessedCount[1].AccCount +1;
+		PackTags.Admin.ProdProcessedCount[1].Count		:= PackTags.Admin.ProdProcessedCount[1].Count	 +1;
+		nCounterProduct									:= nCounterProduct +1;
+END_IF
+
+//Reset the counter when production has finished
+fTrigger(CLK:= (fbStateMachine.eState = ePMLState_Complete) );
+IF fTrigger.Q OR stChangeIntoProduction.bYesReset THEN
+		nCounterProduct	:= 0;
+END_IF
+
+//Call the reset method from FB_Ejector
+this^.M_Reset();
+
+//Call FB_Generic
+SUPER^();
+
+]]></ST>
+    </Implementation>
+    <Method Name="M_Aborting" Id="{44c15a93-4917-47f3-88be-062df92751ba}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Aborting'}
+METHOD M_Aborting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production, ePMLProtUnitMode_Manual:	//Manual, Mantainance, Manual
+		//finish the actaul movement from the cylinder
+		IF fbCylinderEjection.bAtBasePos OR fbCylinderEjection.bAtWorkPos THEN
+			M_StateComplete();
+		END_IF
+		
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Completing" Id="{24ecedf4-c1bb-4d2b-af60-b8cebbf507a7}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Completing'}
+METHOD M_Completing
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:
+		//Waiting till all subunits are in the state completing
+		IF PackTags.Status.StateCurrent  = ePMLState_Completing THEN
+			M_StateComplete();
+		END_IF
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Execute" Id="{b07a6569-3e97-488f-b206-6d331d5c5819}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Execute'}
+METHOD M_Execute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Production
+		//Ejection from Metalboxes
+		fbSensorEjection.bInput			:= bSensorEjection;
+		
+		IF fbSensorEjection.bOutput  THEN
+			fbCylinderEjection.bMoveToWork			:= TRUE;
+		END_IF
+		
+		IF fbCylinderEjection.bAtWorkPos THEN
+			fbCylinderEjection.bMoveToWork		:= FALSE;
+		END_IF
+		
+		//Production of command products is finished
+		IF REAL_TO_DINT(PackTags.Command.Parameter[2].Value) <=  PackTags.Admin.ProdProcessedCount[1].Count AND
+			AxisMain.Status.NotMoving AND AxisPlastic.Status.NotMoving AND AxisMetal.Status.NotMoving AND fbCylinderEjection.bAtBasePos AND
+			PackTags.Status.StateCurrent = ePMLState_Execute THEN
+			M_StateComplete();
+		END_IF
+		
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:		
+		//
+		
+	ePMLProtUnitMode_Manual:		//Manual
+		IF bMoveCylinder THEN
+			fbCylinderEjection.bMoveToWork		:= TRUE;
+		ELSE
+			fbCylinderEjection.bMoveToWork		:= FALSE;
+		END_IF
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Holding" Id="{6d377049-0a78-49c4-ac57-f7b44ae8cbd1}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Holding'}
+METHOD M_Holding
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Production	
+		//Ejection from boxes
+		fbSensorEjection.bInput					:= bSensorEjection;
+
+		IF fbSensorEjection.bOutput  THEN
+			fbCylinderEjection.bMoveToWork		:= TRUE;
+		END_IF
+		IF fbCylinderEjection.bAtWorkPos THEN
+			fbCylinderEjection.bMoveToWork		:= FALSE;
+			
+		END_IF
+
+		//Conveyor stops working
+		IF AxisMain.Status.NotMoving AND AxisPlastic.Status.NotMoving AND AxisMetal.Status.NotMoving AND fbCylinderEjection.bAtBasePos THEN
+			fbCylinderEjection.bMoveToWork		:= FALSE;
+			M_StateComplete();
+		END_IF
+
+	ePMLProtUnitMode_Maintenance:
+		M_StateComplete();
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Reset" Id="{7be58def-97e2-463c-88d6-13a20dee2935}">
+      <Declaration><![CDATA[METHOD M_Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF stChangeIntoProduction.bYesReset THEN
+	fbCylinderEjection.bMoveToWork := FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Resetting" Id="{18805fcf-84d4-45bb-951b-99b69df6f146}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Resetting'}
+METHOD M_Resetting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF	
+	ePMLProtUnitMode_Production:		//Production, Mantainance, Manaul Mode
+		fbSensorEjection.bInput			:= bSensorEjection;
+		IF bSensorEjection THEN
+			fbSensorEjection.tDelayTime	:= T#3S;
+		END_IF
+
+		IF fbSensorEjection.bOutput  THEN
+			fbCylinderEjection.bMoveToWork			:= TRUE;
+		END_IF
+		IF fbCylinderEjection.bAtWorkPos THEN
+			fbCylinderEjection.bMoveToWork		:= FALSE;
+		END_IF
+
+		
+		
+		IF bAxisMainResetDone AND  fbCylinderEjection.bAtBasePos THEN
+			M_StateComplete();
+		END_IF
+
+	ePMLProtUnitMode_Maintenance, ePMLProtUnitMode_Manual, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Stopping" Id="{8d0c1114-d24b-438d-97a7-eac944590485}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Stopping'}
+METHOD M_Stopping
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production, ePMLProtUnitMode_Manual:
+		IF fbCylinderEjection.bAtBasePos OR fbCylinderEjection.bAtWorkPos THEN
+			M_StateComplete();
+		END_IF
+
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Suspending" Id="{86118006-a5bd-445d-bb0c-d76a7478cb62}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Suspending'}
+METHOD M_Suspending
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Production	
+		//Ejection from boxes
+		fbSensorEjection.bInput			:= bSensorEjection;
+		IF bSensorEjection THEN
+			fbSensorEjection.tDelayTime	:= T#3S;
+		END_IF
+
+		IF fbSensorEjection.bOutput  THEN
+			fbCylinderEjection.bMoveToWork			:= TRUE;
+		END_IF
+		IF fbCylinderEjection.bAtWorkPos THEN
+			fbCylinderEjection.bMoveToWork		:= FALSE;
+		END_IF
+		
+		//Conveyor stops working
+		IF AxisMain.Status.NotMoving AND AxisPlastic.Status.NotMoving AND AxisMetal.Status.NotMoving AND fbCylinderEjection.bAtBasePos THEN
+			fbCylinderEjection.bMoveToWork		:= FALSE;
+			M_StateComplete();
+		END_IF
+
+	ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Undefined" Id="{b1617ee5-c2eb-497e-9f8d-c78b527790f2}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Undefined'}
+METHOD M_Undefined
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbCylinderEjection.bMoveToWork		:= FALSE;
+IF fbAxisejection.bUndefinedDone AND fbSensorEjection.bUndefinedDone  THEN
+	bUndefinedDone					:= TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Unholding" Id="{058fd122-e984-4582-aa8b-a3b06e82c49c}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Unholding'}
+METHOD M_Unholding
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:
+		IF PackTags.Status.StateCurrent = ePMLState_Unholding THEN
+			M_StateComplete();
+		END_IF
+
+	ePMLProtUnitMode_Maintenance, ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Unsuspending" Id="{46f670b3-4352-40f8-b597-b6432be622da}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Unsuspending'}
+METHOD M_Unsuspending
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Waiting for subunits
+IF PackTags.Status.StateCurrent = ePMLState_Unsuspending THEN
+	M_StateComplete();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,49 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "PopupPieChart": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "PopupPieChart",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "PieChartData",
+        "description": "Defines a custom object in the array.",
+        "propertiesMeta": [
+
+          {
+            "name": "name",
+            "category": "Name",
+            "displayName": "Name",
+            "displayPriority": 10,
+            "description": "",
+            "defaultValue": 0,
+            "defaultValueInternal": 0
+          },
+          {
+            "name": "stateColor",
+            "category": "Colors",
+            "displayName": "State color",
+            "displayPriority": 11,
+            "description": "",
+            "defaultValue": "None",
+            "defaultValueInternal": {
+              "color": "None"
+            }
+          }
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+
+          "stateColor": {
+            "id": "tchmi:framework#/definitions/SolidColor"
+          }
+        },
+        "required": [ "value" ]
+
+      }
+    }
+  }
+}

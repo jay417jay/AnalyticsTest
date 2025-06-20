@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_T1_InputSource" Id="89554b26-04b2-44a1-934f-19f265b25844" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_T1_InputSource IMPLEMENTS I_InputSource
+VAR
+	_eDataState: E_DataSourceState;
+	
+	_nElements: UDINT;
+	_nCurrentElement: UDINT;
+	_nDataHandle: ULINT;
+	
+	_nClientListHash: LWORD;
+	_nCurrentClientHash: LWORD;
+	
+	_stInputs: ST_T1_Inputs;
+	
+	fbIotSymbol_GlobalVariables_PackTags_Status_UnitModeCurrent: FB_ALYC_IotSymbol_DINT := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.PackTags.Status.UnitModeCurrent'));
+	
+	//Target T1 = Broker:"127.0.0.1" Topic:"PackML/PlcStream1"
+	fbStreamHelper: FB_ALYC_MqttStreamHelper := (nObjectID:= 16#01010010, nNumInputBuffer:= 20);
+	bConfigured: BOOL := FALSE;
+	
+	fbTON_DataTimeout: TON;
+END_VAR
+VAR_STAT
+	_nClientIndex: INT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="I_InputSource" Id="5111ca5f-4413-4e0d-bdd7-22ce9a68f652" />
+    <Method Name="AddClient" Id="adfeaf1a-cf89-454f-9b18-678b1948f631" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[METHOD AddClient : BOOL
+VAR_OUTPUT
+	nClientID: LWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nClientID:= TO_LWORD(EXPT(2,_nClientIndex));
+_nClientIndex:= _nClientIndex + 1;
+
+_nClientListHash:= _nClientListHash + nClientID;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Call" Id="600d0b8b-3309-451f-a539-689933fc95a1" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF NOT bConfigured THEN
+	//GlobalVariables.PackTags.Status.UnitModeCurrent
+	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_PackTags_Status_UnitModeCurrent);
+
+	bConfigured:= TRUE;
+END_IF
+
+fbStreamHelper.Call();
+IF fbStreamHelper.bError THEN
+	_eDataState:= E_DataSourceState.eError;
+ELSIF NOT fbStreamHelper.bConnected THEN
+	_eDataState:= E_DataSourceState.eNotConnected;
+ELSE
+	_nElements:= fbStreamHelper.nNumElements;
+	IF _nElements > 0 THEN
+		_eDataState:= E_DataSourceState.eReceiveData;
+	END_IF
+
+	fbTON_DataTimeout(IN:= _nElements = 0, PT:= T#5S);
+	IF fbTON_DataTimeout.Q THEN
+		_eDataState:= E_DataSourceState.eWaitForData;
+	END_IF
+END_IF
+
+IF _nElements > 0 THEN
+	_nDataHandle:= _nDataHandle + 1;
+	_nCurrentClientHash:= 0;
+END_IF
+
+_nCurrentElement:= 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClientDone" Id="2d474d0f-b572-468e-97e8-baa9ec62ed4d" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[METHOD ClientDone : BOOL
+VAR_INPUT
+	nClientID: LWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_nCurrentClientHash:=  _nCurrentClientHash + nClientID;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetData" Id="ef042999-fb72-4126-9b9d-19070458a3d3" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[METHOD GetData : BOOL
+VAR_INPUT
+	nElement: UDINT;
+	pInputs: PVOID;
+	nInputsSize: UDINT;
+END_VAR
+VAR_OUTPUT
+	nTimestamp: ULINT;
+	nContext: DWORD;
+END_VAR
+VAR
+	_nElement: UDINT;
+	_pInputs: PVOID;
+	_nInputsSize: UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Analytics.fbT1_IecCriticalSection.Enter();
+
+_nElement:= nElement;
+_pInputs:= pInputs;
+_nInputsSize:= nInputsSize;
+
+nContext:= 0;
+IF nElements > 0 THEN
+	IF _nElement <= nElements THEN
+
+		IF _nCurrentElement <> _nElement THEN
+
+			//Set local raw inputs
+			IF fbIotSymbol_GlobalVariables_PackTags_Status_UnitModeCurrent.bVariableFound THEN
+				_stInputs.nGlobalVariables_PackTags_Status_UnitModeCurrent:= fbIotSymbol_GlobalVariables_PackTags_Status_UnitModeCurrent.GetValue(_nElement);
+			END_IF
+
+			nContext:= E_DataSourceContext.eContext_10000;
+			_nCurrentElement:= _nElement;
+		END_IF
+
+		//Set output values
+		IF _pInputs > 0 THEN
+			MEMCPY(_pInputs, ADR(_stInputs), _nInputsSize);
+			nTimestamp:= fbStreamHelper.GetTimestampElement(_nElement);
+		END_IF
+	END_IF
+	GetData:= TRUE;
+ELSE
+	GetData:= FALSE;
+END_IF
+
+Analytics.fbT1_IecCriticalSection.Leave();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NewDataAvailable" Id="db3c9df4-641a-4e5e-8a62-3aac5ae61c84" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[METHOD NewDataAvailable : BOOL
+VAR_INPUT
+	nLastDataHandle: ULINT;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[NewDataAvailable:= _nElements > 0 AND _nDataHandle <> nLastDataHandle;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="eDataState" Id="d4077b6a-2d6c-43f9-9929-d8250b89c64e" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[PROPERTY eDataState : E_DataSourceState]]></Declaration>
+      <Get Name="Get" Id="f0bf4d70-42c0-47e6-a1f2-e204a0b9b3f4">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eDataState:= _eDataState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bReadNewData" Id="7a75237b-1327-4c91-abda-25fec44b7f6f" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[PROPERTY bReadNewData : BOOL]]></Declaration>
+      <Get Name="Get" Id="8495440c-50d6-4e52-ae3f-f3e5862f0132">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bReadNewData:= _nElements = 0 OR _nCurrentClientHash >= _nClientListHash;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nDataHandle" Id="f856a072-7f4a-4e78-b912-91650a8aa4a4" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[PROPERTY nDataHandle : ULINT]]></Declaration>
+      <Get Name="Get" Id="c39a3d91-958d-4bbf-9c79-64c468d31cfb">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nDataHandle:= _nDataHandle;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nElements" Id="3ede310f-fa48-45fe-9fb8-5e7912c692b3" FolderPath="I_InputSource\">
+      <Declaration><![CDATA[PROPERTY nElements : UDINT]]></Declaration>
+      <Get Name="Get" Id="c3dfbc00-9b03-4f38-9c08-35c092bd2438">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nElements:= _nElements;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

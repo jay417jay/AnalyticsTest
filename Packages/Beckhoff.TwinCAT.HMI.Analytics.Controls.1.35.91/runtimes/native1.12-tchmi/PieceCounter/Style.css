@@ -1,0 +1,70 @@
+﻿.tchmi-piece-counter-svg-container {
+    height: 160px;
+    width:100%;
+    float: left;
+    margin-top: 15px;
+}
+
+.tchmi-piece-counter-svg-clock {
+    display: block;
+    margin: 0 auto;
+    float: left;
+}
+.tchmi-piece-counter-svg-full-circle{
+    stroke-width:2px;
+}
+.tchmi-piece-counter-svg-count-chart-line {
+    stroke-width: 3px;
+}
+
+.tchmi-piece-counter-svg-count-chart-text {
+    font-size: 14px;
+    text-anchor:start;
+}
+
+.tchmi-piece-counter-num-intervals {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-top: 15px;
+    width: 100%;
+}
+
+.tchmi-piece-counter-svg-count-chart {
+    display: block;
+    margin: 0 auto;
+    float: right;
+}
+
+.tchmi-piece-counter-interval-time {
+    display: block;
+    font-size: 14px;
+   
+    padding-left: 10px;
+    float: left;
+    position: relative;
+    width: 100%;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.tchmi-piece-counter-min-max-times {
+    display: block;
+    font-size: 12px;
+   
+    padding-left: 10px;
+    float: left;
+    position: relative;
+    width: 100%;
+    padding-top: 5px;
+}
+
+.tchmi-piece-counter-min-time {
+    display: block;
+    padding-top: 3px;
+}
+
+.tchmi-piece-counter-max-time {
+    display: block;
+}

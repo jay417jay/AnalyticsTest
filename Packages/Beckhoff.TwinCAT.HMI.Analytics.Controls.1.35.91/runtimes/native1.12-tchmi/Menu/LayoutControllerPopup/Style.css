@@ -1,0 +1,232 @@
+.tchmi-analytics-layout-controller-popup-modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.tchmi-analytics-layout-controller-popup-window {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    border-left: 50px;
+    margin: auto;
+    min-height: 180px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.tchmi-analytics-layout-controller-popup {
+    width: 800px;
+    float: left;
+    height: 285px;
+    background: white;
+}
+
+.tchmi-analytics-layout-controller-popup-dark {
+    background: gray !important;
+}
+
+.tchmi-analytics-layout-controllers-popup-header {
+    height: 34px;
+    width: 100%;
+    background: lightgray;
+    border-bottom: lightgray;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.tchmi-analytics-layout-controllers-popup-header-label {
+    float: left;
+    font-size: 17px;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.tchmi-analytics-layout-controller-popup-close-button {
+    float: right;
+    height: 25px;
+    min-width: 25px;
+    margin: 5px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 0px;
+    color: black;
+    font-size: 15px;
+    padding-left: 6px;
+    padding-top: 4px;
+}
+
+.tchmi-analytics-layout-controllers-popup-container {
+    height: 250px;
+}
+
+.tchmi-analytics-layout-controller-popup-users {
+    width: 235px;
+    height: 250px;
+    float: left;
+}
+
+.tchmi-analytics-layout-controller-popup-users-label {
+    height: 10%;
+    float: left;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.tchmi-analytics-layout-controller-popup-users-label-dark {
+    color: white;
+}
+
+.tchmi-analytics-layout-controller-popup-users-container {
+    width: 100%;
+    height: 85%;
+    overflow-y: auto;
+}
+
+.tchmi-analytics-layout-controller-popup-users-entry-wrapper {
+    height: 30px;
+}
+
+.tchmi-analytics-layout-controller-popup-users-entry-wrapper:hover {
+    background: lightgray;
+    cursor: pointer;
+}
+
+.tchmi-analytics-layout-controller-popup-users-entry {
+    font-size: 14px;
+    margin-left: 25px;
+    padding: 5px;
+    font-weight: normal;
+}
+
+.tchmi-analytics-layout-controller-popup-users-entry-dark {
+    color: white;
+}
+
+.tchmi-analytics-layout-controller-popup-users-entry-selected {
+    font-weight: bold;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts {
+    float: left;
+    width: 560px;
+    height: 250px;
+    border-left: lightgray;
+    border-left-style: solid;
+    border-left-width: 1px;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-selector {
+    width: 100%;
+    height: 30px;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-selector-entry {
+    float: left;
+    font-size: 15px;
+    margin-left: 15px;
+    font-weight: normal;
+    flex-shrink: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-selector-entry:first-child {
+    font-weight: bold;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-container {
+    width: 100%;
+    height: 70%;
+    max-height: 200px;
+    overflow-y: auto;
+    align-items: center;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-menu-container {
+    width: 100%;
+    height: 15%;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-menu {
+    width: 150px;
+    font-size: 14px;
+    padding: 5px;
+    font-weight: normal;
+    cursor: pointer;
+    height: 30px;
+    float: left;
+    position: relative;
+    margin: 5px;
+    margin-left: 10px;
+}
+
+.tchmi-analytics-layout-controller-popup > tbody > tr {
+    height: 26px;
+}
+
+
+.tchmi-analytics-layout-controller-popup-layouts-current-layout-label {
+
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-container{
+    width: 100%;
+}
+.tchmi-analytics-layout-controller-popup-layouts-selected-user-container {
+    height: 30px;
+}
+.tchmi-analytics-layout-controller-popup-layouts-current-layout-container {
+    height: 110px;
+}
+.tchmi-analytics-layout-controller-popup-layouts-import-layout-container {
+    height: 50px;
+}
+.tchmi-analytics-layout-controller-popup-layouts-reference-layout-container {
+    height: 50px;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-text {
+    font-size: 14px;
+    padding: 5px;
+    font-weight: normal;
+    float: left;
+    width: 150px;
+    margin-left: 5px;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-text-dark{
+    color: white;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-value-text {
+    font-weight: bold;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-menu-button {
+    width: 175px;
+    height: 30px;
+    float: left;
+    margin: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+}
+
+.tchmi-analytics-layout-controller-popup-layouts-container-hidden {
+    visibility: hidden;
+}
+

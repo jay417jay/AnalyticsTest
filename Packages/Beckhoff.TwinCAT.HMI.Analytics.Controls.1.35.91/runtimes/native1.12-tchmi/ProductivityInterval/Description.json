@@ -1,0 +1,471 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "ProductivityInterval",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Productivity Interval",
+  "version": {
+    "full": "1.0.0.0",
+    "major": 1,
+    "minor": 0,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "This description text will be used as a Tooltip in Visual Studio.",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 310,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/ProductivityInterval.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "ProductivityInterval.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.ProductivityInterval",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Productivity Interval",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-elapsed-pieces",
+      "propertyName": "ElapsedPieces",
+      "propertySetterName": "setElapsedPieces",
+      "propertyGetterName": "getElapsedPieces",
+      "displayName": "Produced Pieces",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT",
+      "category": "Analytics",
+      "description": "Elapsed Pieces for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-remaining-pieces",
+      "propertyName": "RemainingPieces",
+      "propertySetterName": "setRemainingPieces",
+      "propertyGetterName": "getRemainingPieces",
+      "displayName": "Remaining Pieces",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT",
+      "category": "Analytics",
+      "description": "Remaining Pieces for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-current-productivity",
+      "propertyName": "CurrentProductivity",
+      "propertySetterName": "setCurrentProductivity",
+      "propertyGetterName": "getCurrentProductivity",
+      "displayName": "Current Productivity",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "CurrentProductivity for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0.0,
+      "defaultValueInternal": 0.0
+    },
+    {
+      "name": "data-tchmi-expected-productivity",
+      "propertyName": "ExpectedProductivity",
+      "propertySetterName": "setExpectedProductivity",
+      "propertyGetterName": "getExpectedProductivity",
+      "displayName": "Expected Productivity",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Expected Productivity for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0.0,
+      "defaultValueInternal": 0.0
+    },
+    {
+      "name": "data-tchmi-remaining-time",
+      "propertyName": "remainingTime",
+      "propertySetterName": "setRemainingTime",
+      "propertyGetterName": "getRemainingTime",
+      "displayName": "Remaining Time",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Remaining interval time",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-elapsed-time",
+      "propertyName": "elapsedTime",
+      "propertySetterName": "setElapsedTime",
+      "propertyGetterName": "getElapsedTime",
+      "displayName": "Elapsed Time",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Elapsed interval time",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158,1)"
+      },
+      "description": "Graph color for elapsed.",
+      "displayName": "Elapsed Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-elapsed-color",
+      "propertyGetterName": "getElapsedColor",
+      "propertyName": "ElapsedColor",
+      "propertySetterName": "setElapsedColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(172,172,172,1)"
+      },
+      "description": "Graph color for the remaining.",
+      "displayName": "Remaining Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-remaining-color",
+      "propertyGetterName": "getRemainingColor",
+      "propertyName": "RemainingColor",
+      "propertySetterName": "setRemainingColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "name": "data-tchmi-remaining-alias",
+      "propertyName": "RemainingAlias",
+      "propertySetterName": "setRemainingAlias",
+      "propertyGetterName": "getRemainingAlias",
+      "displayName": "Remaining Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Remaining Alias of the control",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Remaining",
+      "defaultValueInternal": "Remaining"
+    },
+    {
+      "name": "data-tchmi-produced-alias",
+      "propertyName": "ProducedAlias",
+      "propertySetterName": "setProducedAlias",
+      "propertyGetterName": "getProducedAlias",
+      "displayName": "Produced Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Produced Alias of the control",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Elapsed",
+      "defaultValueInternal": "Elapsed"
+    },
+    {
+      "name": "data-tchmi-interval-time-alias",
+      "propertyName": "IntervalTimeAlias",
+      "propertySetterName": "setIntervalTimeAlias",
+      "propertyGetterName": "getIntervalTimeAlias",
+      "displayName": "Intervaltime Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Interval Time Alias of the control",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Interval Time",
+      "defaultValueInternal": "Interval Time"
+    },
+    {
+      "name": "data-tchmi-produced-pieces-alias",
+      "propertyName": "ProducedPiecesAlias",
+      "propertySetterName": "setProducedPiecesAlias",
+      "propertyGetterName": "getProducedPiecesAlias",
+      "displayName": "Produced Pieces Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Produced Pieces Alias of the control",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Produced Pieces",
+      "defaultValueInternal": "Produced Pieces"
+    },
+    {
+      "name": "data-tchmi-current-productivity-alias",
+      "propertyName": "CurrentProductivityAlias",
+      "propertySetterName": "setCurrentProductivityAlias",
+      "propertyGetterName": "getCurrentProductivityAlias",
+      "displayName": "Current Productivity Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Current Productivity Alias of the control",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Current Productivity",
+      "defaultValueInternal": "Current Productivity"
+    },
+    {
+      "name": "data-tchmi-expected-productivity-alias",
+      "propertyName": "ExpectedProductivityAlias",
+      "propertySetterName": "setExpectedProductivityAlias",
+      "propertyGetterName": "getExpectedProductivityAlias",
+      "displayName": "Expected Productivity Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Expected Productivity Alias of the control",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Expected Productivity",
+      "defaultValueInternal": "Expected Productivity"
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+     "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+     "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.ProductivityInterval",
+      "schema": "Schema/TypeDefinitions/ProductivityInterval.Schema.json"
+    }
+  ]
+}

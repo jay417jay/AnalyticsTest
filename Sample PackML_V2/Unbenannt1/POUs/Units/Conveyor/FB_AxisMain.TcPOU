@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="FB_AxisMain" Id="{36012f07-06f0-467c-b611-718ef50f1a27}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AxisMain EXTENDS FB_AxisGeneral
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Call the FB_Axis_General and hand over the Axis References
+SUPER^(Axis := Axis);]]></ST>
+    </Implementation>
+    <Method Name="M_Completing" Id="{83b7d633-421f-4476-b23e-f2ce7d6cf0be}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Completing'}
+METHOD M_Completing
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:
+		//The main belt run on for a box length
+		stAxis.PTP.MoveAbsolute1.Velocity		:= fConveyorVelo;
+		stAxis.PTP.MoveAbsolute1.Acceleration	:= 0;
+		stAxis.PTP.MoveAbsolute1.BufferMode		:= MC_Aborting;
+		stAxis.PTP.MoveAbsolute1.Deceleration	:= 0;
+		stAxis.PTP.MoveAbsolute1.Execute		:= TRUE;
+		stAxis.PTP.MoveAbsolute1.Jerk			:= 0;
+		stAxis.PTP.MoveAbsolute1.Position		:= (Axis.NcToPlc.ActPos + 200);
+		IF stAxis.PTP.MoveAbsolute1.Done  THEN
+			stAxis.PTP.MoveAbsolute1.Execute	:= FALSE;
+			SUPER^.M_Completing();
+		END_IF
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Execute" Id="{7327e615-c722-4f89-9db9-8a0f208525cf}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Execute'}
+METHOD M_Execute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Productionmode
+		//Move the axis with const. velocity
+		stAxis.PTP.MoveVelocitiy.Acceleration		:= 0;
+		stAxis.PTP.MoveVelocitiy.BufferMode		:= MC_Aborting;
+		stAxis.PTP.MoveVelocitiy.Deceleration		:= 0;
+		stAxis.PTP.MoveVelocitiy.Direction			:= MC_Positive_Direction;
+		stAxis.PTP.MoveVelocitiy.Execute			:= TRUE;
+		stAxis.PTP.MoveVelocitiy.Jerk				:= 0;
+		stAxis.PTP.MoveVelocitiy.Velocity			:= PackTags.Command.Parameter[1].Value;
+		
+		//If the output target is reached, the machine stops and chnage the state
+		IF  REAL_TO_DINT(PackTags.Command.Parameter[2].Value) <= PackTags.Admin.ProdProcessedCount[1].Count  THEN
+			stAxis.PTP.MoveVelocitiy.Execute	:= FALSE;
+			stAxis.PTP.Stop.Deceleration		:= 0;
+			stAxis.PTP.Stop.Execute				:= TRUE;
+			stAxis.PTP.Stop.Jerk				:= 0;
+			IF stAxis.PTP.Stop.Done AND PackTags.Status.StateCurrent = ePMLState_Execute  THEN
+				stAxis.PTP.Stop.Execute			:= FALSE;
+				M_StateComplete();
+			END_IF
+		END_IF
+		 
+	ePMLProtUnitMode_Maintenance:		//Mantainancemode
+		stAxis.PTP.Stop.Deceleration				:= 0;
+		stAxis.PTP.Stop.Execute						:= TRUE;
+		stAxis.PTP.Stop.Jerk						:= 0;
+
+	ePMLProtUnitMode_Manual:		//Manualmode
+		//Call FB_AxisGeneral
+		SUPER^.M_Execute();
+		
+	ePMLUnitMode_Service:		//UserMode
+		//Not defined
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Holding" Id="{b00f3045-7032-4bdd-8c49-f24d8b2253d9}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Holding'}
+METHOD M_Holding
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Production
+		//Move the half lenght of the belt, to bring every box to the destination
+		stAxis.PTP.MoveVelocitiy.Execute		:= FALSE;
+		stAxis.PTP.MoveAbsolute1.Acceleration	:= 0;
+		stAxis.PTP.MoveAbsolute1.BufferMode		:= MC_Aborting;
+		stAxis.PTP.MoveAbsolute1.Deceleration	:= 0;
+		stAxis.PTP.MoveAbsolute1.Execute		:= TRUE;
+		stAxis.PTP.MoveAbsolute1.Jerk			:= 0;
+		stAxis.PTP.MoveAbsolute1.Velocity		:= PackTags.Command.Parameter[1].Value;
+		stAxis.PTP.MoveAbsolute1.Position		:= (AxisMain.NcToPlc.ActPos + fConveyorLenght); //Drive actual Position + Length of Conveyor
+		
+		IF stAxis.PTP.MoveAbsolute1.Done THEN
+			stAxis.PTP.MoveAbsolute1.Execute	:= FALSE;
+			M_StateComplete();
+		END_IF
+								
+	ePMLProtUnitMode_Maintenance:		//Mantainance
+		M_StateComplete();				
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Resetting" Id="{55f6580f-9c3d-4a71-8a01-6afe8afc87be}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Resetting'}
+METHOD M_Resetting
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbStateMachine.eMode OF
+		
+	ePMLProtUnitMode_Production:
+		CASE iStateResetting OF
+			0:		
+				//SW-Enable the axis
+				bResettingDone										:= FALSE;
+				stAxis.Admin.Power.BufferMode			:= MC_Aborting;
+				stAxis.Admin.Power.Enable				:= TRUE;
+				stAxis.Admin.Power.Enable_Negative		:= TRUE;
+				stAxis.Admin.Power.Enable_Positive		:= TRUE;
+				stAxis.Admin.Power.Override				:= 100.0;
+				IF stAxis.Admin.Power.Status THEN
+					iStateResetting	:= 1;
+				END_IF
+				
+			1:
+				//Take away all Move-Commands
+				stAxis.PTP.Halt.Execute					:= FALSE;
+				stAxis.PTP.MoveAbsolute1.Execute		:= FALSE;
+				stAxis.PTP.MoveAbsolute2.Execute		:= FALSE;
+				stAxis.PTP.MoveVelocitiy.Execute		:= FALSE;
+				stAxis.PTP.Stop.Execute					:= FALSE;
+				IF AxisMetal.Status.NotMoving AND AxisPlastic.Status.NotMoving AND bPlasticEjectionResetDone AND bMetalEjectionResetDone AND NOT Axis.Status.HasJob THEN
+					iStateResetting									:= 2;
+				END_IF
+			
+			2:
+				//Move the axis for one conveyorroatation
+				stAxis.PTP.MoveAbsolute1.Acceleration	:= 0;
+				stAxis.PTP.MoveAbsolute1.BufferMode		:= MC_BlendingPrevious;
+				stAxis.PTP.MoveAbsolute1.Deceleration	:= 0;
+				stAxis.PTP.MoveAbsolute1.Execute		:= TRUE;
+				stAxis.PTP.MoveAbsolute1.Jerk			:= 0;
+				stAxis.PTP.MoveAbsolute1.Velocity		:= fConveyorVelo;
+				stAxis.PTP.MoveAbsolute1.Position		:= (AxisMain.NcToPlc.ActPos + fConveyorLenght); //Drive actual Position + Length of Conveyor
+			IF stAxis.PTP.MoveAbsolute1.Done THEN
+				bResettingDone				:= TRUE;
+				stAxis.PTP.MoveAbsolute1.Execute		:= FALSE;
+				M_StateComplete();
+			END_IF
+		END_CASE
+
+	ePMLProtUnitMode_Maintenance:
+		M_StateComplete();
+
+	ePMLProtUnitMode_Manual:	
+		SUPER^.M_Resetting();
+
+	ePMLUnitMode_Service:
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Suspending" Id="{ef908569-9c2c-4077-9f11-2a784047bad0}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Suspending'}
+METHOD M_Suspending
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		
+		//The main belt run on for the half beltlength
+		stAxis.PTP.MoveVelocitiy.Execute		:= FALSE;
+		stAxis.PTP.MoveAbsolute1.Acceleration	:= 0;
+		stAxis.PTP.MoveAbsolute1.BufferMode		:= MC_Aborting;
+		stAxis.PTP.MoveAbsolute1.Deceleration	:= 0;
+		stAxis.PTP.MoveAbsolute1.Execute		:= TRUE;		
+		stAxis.PTP.MoveAbsolute1.Jerk			:= 0;
+		stAxis.PTP.MoveAbsolute1.Velocity		:= PackTags.Command.Parameter[1].Value;
+		stAxis.PTP.MoveAbsolute1.Position		:= (AxisMain.NcToPlc.ActPos + fConveyorLenght); 
+		IF stAxis.PTP.MoveAbsolute1.Done THEN
+			stAxis.PTP.MoveAbsolute1.Execute	:= FALSE;
+			M_StateComplete();
+		END_IF
+										
+	ePMLUnitMode_Service:		
+		M_StateComplete();
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Undefined" Id="{b87a40c7-424f-48a1-97c0-6d7ad2f3d2b1}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Undefined'}
+METHOD M_Undefined
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bUndefinedDone	:= TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

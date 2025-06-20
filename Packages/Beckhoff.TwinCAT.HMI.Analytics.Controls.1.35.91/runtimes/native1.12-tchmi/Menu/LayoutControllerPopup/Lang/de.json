@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../../TcHmiServer/TcHmiSrv/schema/Language.Schema.json",
+  "locale": "de",
+  "localizedText": {
+    "Layout_Controller_Header_TextContent": "Benutzer Layouts",
+    "Layout_Controller_Users_TextContent": "Benutzer",
+    "Layout_Controller_Selected_User_TextContent": "Selektierter Benutzer:",
+    "Layout_Controller_Layout_Mode_TextContent": "Layout Modus",
+    "Layout_Controller_Import_TextContent": "Importiere Layouts von Benutzer:",
+    "Layout_Controller_Shared_TextContent": "Teile Layouts von Benutzer:",
+    "Layout_Controller_Reset_Layouts": "Layouts zurücksetzen",
+    "Layout_Controller_Reset_Success": "Layouts erfolgreich zurückgesetzet.",
+    "Layout_Controller_Reset_Error": "Layouts konnten nicht zurückgesetzt werden.",
+    "Layout_Controller_Reset_Confirm": "Wenn Sie die Layouts zurücksetzen, werden alle existierenden Layouts des selektierten Benutzers inkl. der Charts gelöscht. Sollen die Layouts trotzdem zurückgesetzt werden?",
+    "Layout_Controller_Import_Layouts": "Layouts importieren",
+    "Layout_Controller_Import_Success": "Layouts erfolgreich importiert.",
+    "Layout_Controller_Import_Error": "Layouts konnten nicht importiert werden.",
+    "Layout_Controller_Import_Confirm": "Wenn Sie die Layouts importieren, werden alle existierenden Layouts des selektierten Benutzers inkl. der Charts gelöscht. Sollen die Layouts trotzdem importiert werden?",
+    "Layout_Controller_Share_Layouts": "Layouts teilen",
+    "Layout_Controller_Share_Success": "Layouts erfolgreich geteilt.",
+    "Layout_Controller_Share_Error": "Layouts konnten nicht geteilt werden.",
+    "Layout_Controller_Share_Confirm": "Wenn Sie die Layouts teilen, werden alle existierenden Layouts des selektierten Benutzers inkl. der Charts gelöscht. Sollen die Layouts trotzdem geshared werden?",
+    "Layout_Controller_Default_Layout": "Standard Layouts",
+    "Layout_Controller_Custom_Layout": "Individuelle Layouts",
+    "Layout_Controller_Shared_Layout": "Geteilte Layouts - Besitzer: ",
+    "Layout_Controller_Multiple_User": "Unterschiedliche Besitzer",
+    "Layout_Controller_Mixed_Layout": "Geteilte und individuelle Layouts"
+  }
+}

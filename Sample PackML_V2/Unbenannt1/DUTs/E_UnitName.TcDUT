@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <DUT Name="E_UnitName" Id="{38fb3a11-736e-4cc8-89e9-4c4bd7e49aca}">
+    <Declaration><![CDATA[//Enumeration for Machineunits
+TYPE E_UnitName :
+(
+	eMachine		:= 1,
+	eSeperation		:= 2,
+	eEjectorPlastic	:= 3,
+	eAxisMain		:= 4,
+	eEjectorMetal	:= 5,
+	eSensorPlastic	:= 6,
+	eAxisPlastic	:= 7,
+	eSensorMetal	:= 8,
+	eAxisMetal		:= 9
+)DINT;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

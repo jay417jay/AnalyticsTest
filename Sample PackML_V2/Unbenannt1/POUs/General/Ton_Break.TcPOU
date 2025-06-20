@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4018.5">
+  <POU Name="Ton_Break" Id="{c62234be-b199-452e-9e15-d9e332784a8c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Ton_Break 
+VAR_INPUT
+	PT			: TIME;						//Time for Timer
+	IN			: BOOL;						//Start timer
+	Halt		: BOOL;						//halt timer
+END_VAR
+VAR_OUTPUT
+	ET			: TIME;						//Outreach ET from Timer1
+	Q			: BOOL;						//Outreach Q from Timer1
+END_VAR
+VAR
+	Timer1		: Ton;						//Timer for delaytime
+	PTintern	: TIME 	:= T#71582M47S295MS;//Max Range of Time
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//checking if Halt is TRUE
+IF Halt AND PTintern = T#71582M47S295MS THEN
+	PTintern	:= Timer1.PT - Timer1.ET;
+	Timer1.IN	:= FALSE;
+ELSIF  PTintern < PT AND NOT Halt THEN
+	Timer1.IN	:= IN;
+	Timer1.PT	:= PTintern;
+ELSIF NOT HALT THEN
+	Timer1.IN	:= IN;
+	Timer1.PT	:= PT;
+END_IF
+
+//Calling Timer
+Timer1();
+//Outreach Variables
+Q	:= Timer1.Q;
+ET	:= Timer1.ET;
+
+//Settting PT on Max Value
+IF  NOT IN  THEN
+	PTintern	:= T#71582M47S295MS; 
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
