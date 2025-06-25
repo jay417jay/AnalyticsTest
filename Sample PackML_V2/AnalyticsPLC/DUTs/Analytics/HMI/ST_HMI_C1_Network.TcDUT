@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="ST_HMI_C1_Network" Id="d35a6ee0-c6a6-40ba-a88a-3ba6d6c7c923">
+  <DUT Name="ST_HMI_C1_Network" Id="07d25048-0870-4f49-b2c1-510a2396ffc0">
     <Declaration><![CDATA[TYPE ST_HMI_C1_Network : 
 STRUCT
-	stHMI_C1_Ctrl2_Production_Timing_Analysis_1Ch: ST_HMI_C1_Ctrl2_Production_Timing_Analysis_1Ch;
+	stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE: ST_HMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE;
 	
-	stHMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch: ST_HMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch;
+	stHMI_C1_Ctrl1_Pie_Chart: ST_HMI_C1_Ctrl1_Pie_Chart;
 	
-	stHMI_C1_Ctrl1_Pareto_Analysis: ST_HMI_C1_Ctrl1_Pareto_Analysis;
+	stHMI_C1_Ctrl3_Threshold_Classifier_1Ch: ST_HMI_C1_Ctrl3_Threshold_Classifier_1Ch;
+	
+	stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis: ST_HMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis;
+	
+	fN1_N1_fInput_01: LREAL;
+	fN1_N1_fPlastic_Count: LREAL;
 END_STRUCT
 END_TYPE]]></Declaration>
   </DUT>

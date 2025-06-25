@@ -3,19 +3,19 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7d31d455-dba6-4d4a-b256-93fa72bb6cf2}</ProjectGuid>
+    <ProjectGuid>{798735fd-d580-4fc4-af93-9901fc5a290f}</ProjectGuid>
     <SubObjectsSortedByName>true</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>AnalyticsPLC</Name>
     <ProgramVersion>3.1.4026.16</ProgramVersion>
-    <Application>{dabd5369-4625-4bd3-8ecd-2bb2e6cb1ecf}</Application>
-    <TypeSystem>{830beb6f-8224-4b03-863a-cc42a6e6dc8e}</TypeSystem>
-    <Implicit_Task_Info>{149d8eaf-19f8-4c8e-a472-ae3c735428d1}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{2b42cbf9-c559-437b-92e1-0de51e5e70db}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{09efea52-e7cb-41ae-b840-92180ff6c0b0}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{fb2ab784-0529-4f73-89b8-4eb41c6eeb44}</LibraryReferences>
+    <Application>{8c988503-6f07-4b74-aadd-aba6c1f73d58}</Application>
+    <TypeSystem>{9f686ca5-a1a0-42e1-8b00-8bf1e3c981b3}</TypeSystem>
+    <Implicit_Task_Info>{f4261b9e-b3e6-4689-90c3-0194ce2fb0d3}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{7eba30c2-10c7-49cd-b10d-a6084d9d0980}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{85759c28-f59b-4e52-b034-62e35e3ad8a7}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{fee0f70a-656a-42b0-840e-d14e58093db7}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnalyticsTask.TcTTO">
@@ -45,13 +45,16 @@
     <Compile Include="DUTs\Analytics\E_VirtualInput.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl1_Pareto_Analysis.TcDUT">
+    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl1_Pie_Chart.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl2_Production_Timing_Analysis_1Ch.TcDUT">
+    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl3_Maintenance_Timing_Analysis_1Ch.TcDUT">
+    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl3_Threshold_Classifier_1Ch.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\Analytics\HMI\DataSourcePage\E_SourceType.TcDUT">
@@ -111,13 +114,22 @@
     <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\FB_N1_Network.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M1_ProductionTimingAnalysis1Ch.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M1_PackMLOverallEquipmentEffectivenessOEE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M2_MaintenanceTimingAnalysis1Ch.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M2_ProductionTimingAnalysis1Ch.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M3_ParetoAnalysis.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M3_PieChart.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M4_ThresholdClassifier1Ch.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M5_PlasticMathOperation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M6_PreventiveMaintenanceLifetimeAnalysis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Analytics\MAIN_Analytics.TcPOU">
@@ -135,10 +147,10 @@
     <Compile Include="POUs\Analytics\Sources\[Interfaces]\I_InputSourceHistorical.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\VirtualInputSources\C1_Configuration_1\FB_V1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.TcPOU">
+    <Compile Include="POUs\Analytics\VirtualInputSources\C1_Configuration_1\FB_V1_C1_VirtualInputSource.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\VirtualInputSources\[Interfaces]\I_V1_127_0_0_1_PackMLPlcStream1_10_00ms.TcIO">
+    <Compile Include="POUs\Analytics\VirtualInputSources\[Interfaces]\I_V1_VirtualInputSource.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Analytics\VirtualInputSources\[Interfaces]\I_VirtualInputSource.TcIO">

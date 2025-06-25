@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <Itf Name="I_InputSourceHistorical" Id="70da735d-50c2-4123-b575-97450fe218cb">
+  <Itf Name="I_InputSourceHistorical" Id="c83968ec-3ab1-44bf-9016-f11f0d8e069f">
     <Declaration><![CDATA[INTERFACE I_InputSourceHistorical EXTENDS I_InputSource]]></Declaration>
-    <Method Name="HistoricalCtrl" Id="f394cded-78f4-45ef-8d17-feb2823c41a6">
+    <Method Name="HistoricalCtrl" Id="6744f4a1-17e7-4ce5-850f-3a45369895ad">
       <Declaration><![CDATA[METHOD HistoricalCtrl : BOOL
 VAR_INPUT
 	stCtrl: REFERENCE TO ST_HMI_InputSourceCtrl;
@@ -10,16 +10,16 @@ VAR_INPUT
 	stRecordInfo: REFERENCE TO ST_HMI_DataSourceHistRecordInfo;
 END_VAR]]></Declaration>
     </Method>
-    <Method Name="UpdateRecordList" Id="033a7b17-9d97-4081-b3c3-187d4d446fa3">
+    <Method Name="UpdateRecordList" Id="3555caf5-9404-4964-b53e-5107d3df27b1">
       <Declaration><![CDATA[METHOD UpdateRecordList : BOOL
 VAR_INPUT
 	sStreamSystemID: GUID;
 	stHistStreamInfo: REFERENCE TO ST_HMI_DataSourceHist;
 END_VAR]]></Declaration>
     </Method>
-    <Property Name="bCtrlChanged" Id="63bdf16c-4ca3-40ad-92e2-8852802c1823">
+    <Property Name="bCtrlChanged" Id="39fc98a8-54fe-4401-95a3-cdfa5e75a3cb">
       <Declaration><![CDATA[PROPERTY bCtrlChanged : BOOL]]></Declaration>
-      <Get Name="Get" Id="ebaef1b4-57b3-4e28-8c47-1dc006514ef5">
+      <Get Name="Get" Id="610681d3-25aa-45e2-9e3c-01bdb92dce8f">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>

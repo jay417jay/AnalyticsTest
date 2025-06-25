@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="E_VirtualInput" Id="f93aabcc-ea90-4d77-a27b-5c95d83955c9">
+  <DUT Name="E_VirtualInput" Id="bbcfb4d1-ba40-44af-ba31-7bf1a8b2ac49">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 TYPE E_VirtualInput : 
 (
 	eContext_No := 0, //
-	eContext_V1_127_0_0_1_PackMLPlcStream1_10_00ms := 2#0000_0000_0000_0000_0000_0000_0000_0001, //127_0_0_1_PackMLPlcStream1_10_00ms
+	eContext_V1_VirtualInputSource := 2#0000_0000_0000_0000_0000_0000_0000_0001, //VirtualInputSource
 	eContext_Vn_Reserve1 := 2#0000_0000_0000_0000_0000_0000_0000_0010, //Reserve
 	eContext_Vn_Reserve2 := 2#0000_0000_0000_0000_0000_0000_0000_0100, //Reserve
 	eContext_Vn_Reserve3 := 2#0000_0000_0000_0000_0000_0000_0000_1000, //Reserve

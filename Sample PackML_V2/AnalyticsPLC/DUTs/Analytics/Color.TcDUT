@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="Color" Id="e2372c1c-8ae4-4c28-9fc5-f8d6b636b515">
+  <DUT Name="Color" Id="f418b0e5-2a53-4d43-a953-dbd4a0200b91">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
 TYPE Color : 

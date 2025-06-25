@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="ST_HMI_InputSourceCtrl" Id="2a6e906b-8ab2-4237-a599-8cf3cbcc36d1">
+  <DUT Name="ST_HMI_InputSourceCtrl" Id="667c39ef-2efa-4f31-b4ef-9e7c713af306">
     <Declaration><![CDATA[TYPE ST_HMI_InputSourceCtrl : 
 STRUCT
 	nActiveRecordIdx: INT;

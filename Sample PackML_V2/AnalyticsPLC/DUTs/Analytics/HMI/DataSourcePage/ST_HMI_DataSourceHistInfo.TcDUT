@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="ST_HMI_DataSourceHistInfo" Id="be3a1fef-b1b3-4c89-b115-8b425ec84cc1">
+  <DUT Name="ST_HMI_DataSourceHistInfo" Id="e8d23c33-3ffb-4c67-93aa-4e1baa212db0">
     <Declaration><![CDATA[TYPE ST_HMI_DataSourceHistInfo : 
 STRUCT
 	sSPGuid: GUID;

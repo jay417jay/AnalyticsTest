@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="F_ToANY" Id="48dc6c9d-64b8-4680-b9fa-928682bbaa74" SpecialFunc="None">
+  <POU Name="F_ToANY" Id="b8c5b31f-12f1-4beb-883c-ed0e2c818c58" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_ToANY : __SYSTEM.AnyType
 VAR_INPUT
 	Input: ANY;

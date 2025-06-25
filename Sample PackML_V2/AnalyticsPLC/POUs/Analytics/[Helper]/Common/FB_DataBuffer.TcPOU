@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="FB_DataBuffer" Id="771b055f-506c-4a24-9946-68b5f942a2ae" SpecialFunc="None">
+  <POU Name="FB_DataBuffer" Id="0c14ef56-9a09-423d-a3dd-a18323502d23" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_DataBuffer
 VAR_OUTPUT
 	nElements: UDINT;
@@ -31,7 +31,7 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="FB_init" Id="70c28580-1843-4f35-94b4-72114bdef5d5">
+    <Method Name="FB_init" Id="344a8027-b879-4722-8461-651fb7d5b6c6">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains: BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -47,7 +47,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_exit" Id="d2771a75-3fd5-4433-9d43-95d03bc90ccd">
+    <Method Name="FB_exit" Id="3e1e124c-6c4a-40bd-a957-13bcd6bd02c9">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode: BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
@@ -72,7 +72,7 @@ _nBufferIdx:= 0;
 _nBufferEntry_Add:= 0;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="_Init" Id="979e1e77-5674-4ad0-b225-bca6642f5a34">
+    <Method Name="_Init" Id="f856828b-1f9a-4a67-a44c-3c3e9e9a5437">
       <Declaration><![CDATA[METHOD PRIVATE _Init : BOOL
 VAR
 END_VAR]]></Declaration>
@@ -93,7 +93,7 @@ _nBufferIdx:= 0;
 Call();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Call" Id="7234625d-654e-42f3-b84a-7e6bcdca4f30">
+    <Method Name="Call" Id="d63a8be4-ac65-4acb-a04d-a8a5bd51843d">
       <Declaration><![CDATA[METHOD Call : BOOL
 VAR
 END_VAR]]></Declaration>
@@ -129,7 +129,7 @@ IF TestAndSet(_bLock) THEN
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddData" Id="79409082-1fd5-4ce7-8f41-07701b48207f">
+    <Method Name="AddData" Id="181dbe0a-318e-4b76-8866-5f3f90f8a271">
       <Declaration><![CDATA[METHOD AddData : BOOL
 VAR_INPUT
 	pDataIn: PVOID;
@@ -159,7 +159,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetData" Id="3ad1f01b-c4eb-419c-bcc3-ddb54f45952a">
+    <Method Name="GetData" Id="61ac8db9-8e63-482d-905d-e0ca95e12d6b">
       <Declaration><![CDATA[METHOD GetData : BOOL
 VAR_INPUT
 	nElement: UDINT(1..cEntryCount);
@@ -175,7 +175,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetTimestamp" Id="457fe021-b398-4c2d-ba0f-1d885b705de5">
+    <Method Name="GetTimestamp" Id="d3d7d746-2354-4a0b-9e47-6dd1a8942360">
       <Declaration><![CDATA[METHOD GetTimestamp : ULINT
 VAR_INPUT
 	nElement: UDINT(1..cEntryCount);

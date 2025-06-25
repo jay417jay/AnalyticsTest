@@ -260,9 +260,10 @@
     "LMCancelSave": "取消保存，因为仪表板当前正在被编辑",
     "LMCancelExit": "无法退出编辑，因为仪表板当前正在被编辑",
     "MenuPermissionsLayoutControllerAlias": "User Layouts",
-    "module_production_timing_analysis_1ch": "Production Timing Analysis 1Ch",
-    "module_maintenance_timing_analysis_1ch": "Maintenance Timing Analysis 1Ch",
-    "module_pareto_analysis": "Pareto Analysis",
+    "module_packml_overall_equipment_effectiveness__oee_": "PackML Overall Equipment Effectiveness (OEE)",
+    "module_pie_chart": "Pie Chart",
+    "module_threshold_classifier_1ch": "Threshold Classifier 1Ch",
+    "module_preventive_maintenance_lifetime_analysis": "Preventive Maintenance Lifetime Analysis",
     "LHMITitle": "Analytics Dashboard"
   }
 }

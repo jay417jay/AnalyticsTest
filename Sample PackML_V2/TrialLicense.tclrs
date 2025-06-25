@@ -2,9 +2,24 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{1AA71777-6A15-92B4-38B4-CEB9EF9AA20F}</SystemId>
-		<IssueTime>2025-06-20T00:58:00</IssueTime>
-		<ExpireTime>2025-06-28T00:00:00</ExpireTime>
-		<LicenseKey>55234d685341042ec8c0ed2c14ab249c4da5a210a99635949fb732e280ac4ff9fb2e5c3ec644635033a947b966f3e1d3ce789c41787c5cfcff5f8f146c035175db7d4c6ff8581cb3d15163191099dea79c94c62b3e99c89b9b75178aff75385db5077e0b5a6edfc736faf118c8c2ce3b547e6a72ab6e4597568ffa810b70a4edf83d5fa9b475c1f7da626c29eb1a651c0880f5d7ce650f58f0c5dca032d989ce30514dc06a72f417335be79c06cd59eef9c1324743d095e7042d52db7591d3217021c22132be8d8813198a5230f7ec44522da19742350473f6a071e6f41e2df9cecd544c46b67f790c821ca0e5504b6a9721a3fda150fe90ea51fdb9b3661fbd</LicenseKey>
+		<IssueTime>2025-06-25T02:27:00</IssueTime>
+		<ExpireTime>2025-07-03T00:00:00</ExpireTime>
+		<LicenseKey>76ad540bc2ff6b299fef770abb3e0760e1019bb06ecc2c8f43e281fcf957ab02aafa536a4cea0c36492230336affbfe6d262de528efacf988f1ff11c4c6968bfdaa127a5108f21f7c612a566c7f288c57427192fbb364de99044576376e8fab026b920046fd476785d6eba92ab55e686dd31393d60343ef3cdde896fef5992d3edf6a2d179cc6a386a383470e406c40bc5036bec2579127e903835a4fe15c42c41f32005c0017dc97a03d22d2876741d42e589f2ffecf62971906b2f1534a9a5468dcfb360cb83c3c6ea76f502d6747894540c51d821f3e55bf7ab36be577535acda728143e8bfdc880ef7bb14abb9b3e1a791966f734f7670bee114d8b476f7</LicenseKey>
+		<License>
+			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
+			<Name>TC3 PLC</Name>
+			<OrderNo>TC1200</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
+			<Name>TC3 ADS</Name>
+			<OrderNo>TC1000</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
+			<Name>TC3 IO</Name>
+			<OrderNo>TC1100</OrderNo>
+		</License>
 		<License>
 			<LicenseId>{CCA47D7F-3A22-4852-81CD-15A045A6B646}</LicenseId>
 			<Name>TC3 Analytics Runtime Base</Name>
@@ -136,11 +151,6 @@
 			<OrderNo>TF2300</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{3DDCAB25-BF0E-412C-A721-DC77C1B8099C}</LicenseId>
-			<Name>TC3 Scope Server</Name>
-			<OrderNo>TF3300</OrderNo>
-		</License>
-		<License>
 			<LicenseId>{CCE50C10-2CAA-4243-8182-080F02C5BE3D}</LicenseId>
 			<Name>TC3 Reporting Server</Name>
 		</License>
@@ -150,63 +160,9 @@
 			<OrderNo>TF3550</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{0070B910-0995-4F44-83BF-D1E141B4D8C3}</LicenseId>
-			<Name>TC3 Analytics StorageProvider</Name>
-			<OrderNo>TF3520</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{02AC2825-C3C7-4D15-AAF6-4EB45EFAA2D0}</LicenseId>
-			<Name>TC3 Analytics Logger</Name>
-			<OrderNo>TF3500</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{4989A799-AEEA-4FEE-88EF-666B99EEFB45}</LicenseId>
-			<Name>TC3 Scope View Professional</Name>
-			<OrderNo>TE1300</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{BB40055B-8333-4223-90EA-7C4559DC7C69}</LicenseId>
-			<Name>TC3 Analytics Workbench</Name>
-			<OrderNo>TE3500</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{88FA6DAB-09EF-464E-A413-EE4B97F3F185}</LicenseId>
-			<Name>TC3 Analytics Service Tool</Name>
-			<OrderNo>TE3520</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{D4390DEA-A64D-494D-9E09-275326DBB0CB}</LicenseId>
-			<Name>TC3 PLC-HMI (RT)</Name>
-		</License>
-		<License>
-			<LicenseId>{FDE02854-39A7-440C-9EAE-C234A16A3CED}</LicenseId>
-			<Name>TC3 PLC-HMI</Name>
-			<OrderNo>TF1800</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{7AFD0713-1333-4A3B-938C-7B9BD0418C8D}</LicenseId>
-			<Name>TC3 PLC-HMI Web</Name>
-			<OrderNo>TF1810</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{C21D857D-6193-4500-8FE2-026AC427DCC4}</LicenseId>
-			<Name>TC3 HMI Time Based Clients</Name>
-			<OrderNo>TF2049</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
-			<Name>TC3 ADS</Name>
-			<OrderNo>TC1000</OrderNo>
-		</License>
-		<License>
 			<LicenseId>{A19036CF-A53B-4E3A-99FF-023EF5C4798B}</LicenseId>
 			<Name>TC3 NC PTP Axis</Name>
 			<Instances>10</Instances>
-		</License>
-		<License>
-			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
-			<Name>TC3 PLC</Name>
-			<OrderNo>TC1200</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{520DE751-9DB6-47CB-8240-BD5C466E7E64}</LicenseId>
@@ -214,9 +170,19 @@
 			<OrderNo>TF5000</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
-			<Name>TC3 IO</Name>
-			<OrderNo>TC1100</OrderNo>
+			<LicenseId>{02AC2825-C3C7-4D15-AAF6-4EB45EFAA2D0}</LicenseId>
+			<Name>TC3 Analytics Logger</Name>
+			<OrderNo>TF3500</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{0070B910-0995-4F44-83BF-D1E141B4D8C3}</LicenseId>
+			<Name>TC3 Analytics StorageProvider</Name>
+			<OrderNo>TF3520</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{88FA6DAB-09EF-464E-A413-EE4B97F3F185}</LicenseId>
+			<Name>TC3 Analytics Service Tool</Name>
+			<OrderNo>TE3520</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>

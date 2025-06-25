@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <Itf Name="I_V1_VirtualInputSource" Id="7665db2c-296c-405f-8172-0c79bbfe4e81">
+    <Declaration><![CDATA[INTERFACE I_V1_VirtualInputSource EXTENDS I_VirtualInputSource]]></Declaration>
+    <Property Name="nV1_TimeLine" Id="fc8b361c-7725-4706-999d-f9c71eabbd64">
+      <Declaration><![CDATA[PROPERTY nV1_TimeLine : ULINT]]></Declaration>
+      <Get Name="Get" Id="d6b7a890-b8d7-430f-b001-bda516850054">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="bV1_bProductionMode" Id="8ae3d32f-611a-4596-8b75-ba4447afa44d">
+      <Declaration><![CDATA[PROPERTY bV1_bProductionMode : BOOL]]></Declaration>
+      <Get Name="Get" Id="c2267b10-1475-4556-86af-b78dfe0a050f">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nV1_lScheduledTime" Id="da576e35-8ffd-4e2b-a0b1-2731a9e1c22b">
+      <Declaration><![CDATA[PROPERTY nV1_lScheduledTime : LINT]]></Declaration>
+      <Get Name="Get" Id="87a58dcd-5219-4939-bdcf-c2732503ab71">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nV1_uProcessedCount" Id="beca9d5e-d11f-4371-8db9-457ff4d11819">
+      <Declaration><![CDATA[PROPERTY nV1_uProcessedCount : ULINT]]></Declaration>
+      <Get Name="Get" Id="1088f7f3-f8af-4fac-a544-8b8f876746f0">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nV1_uDefectiveCount" Id="afc1a83e-2d43-43f1-b4e4-e18a6cf7cbb1">
+      <Declaration><![CDATA[PROPERTY nV1_uDefectiveCount : ULINT]]></Declaration>
+      <Get Name="Get" Id="1970681c-82a5-42b0-a66c-8c50bad3c9e6">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nV1_uMetalCount" Id="653ba742-3897-4474-a12f-8f4843b8268a">
+      <Declaration><![CDATA[PROPERTY nV1_uMetalCount : ULINT]]></Declaration>
+      <Get Name="Get" Id="c567f787-0bc6-4498-afa8-011b133c7fe0">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

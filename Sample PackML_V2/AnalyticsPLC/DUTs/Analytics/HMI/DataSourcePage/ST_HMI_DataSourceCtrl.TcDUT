@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="ST_HMI_DataSourceCtrl" Id="e47ca695-e74f-4f0e-855c-2b5e643a5782">
+  <DUT Name="ST_HMI_DataSourceCtrl" Id="d9d0b94c-5b4d-449d-95a8-cf8f9d5e42a3">
     <Declaration><![CDATA[TYPE ST_HMI_DataSourceCtrl : 
 STRUCT
 	nActiveConfigurationIdx: INT;

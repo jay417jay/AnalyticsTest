@@ -5,7 +5,24 @@
     "KeyValueStore": {},
     "LayoutPropertiesKeyValueStore": {
         "__SystemAdministrator__Network_1__Network_LayoutManager": {
-            "keyValueEntries": [],
+            "keyValueEntries": [
+                {
+                    "key": "PieChartNameAlias",
+                    "value": "Product Type"
+                },
+                {
+                    "key": "PieChartFontsizeTitle",
+                    "value": "25"
+                },
+                {
+                    "key": "ThresholdClassifier1ChNameAlias",
+                    "value": "OEE Alarm"
+                },
+                {
+                    "key": "ThresholdClassifier1ChShowMilliSeconds",
+                    "value": "false"
+                }
+            ],
             "layoutID": "__SystemAdministrator__Network_1__Network_LayoutManager"
         }
     },
@@ -20,12 +37,20 @@
             "InteractiveControls": [],
             "LayoutHash": [
                 {
-                    "CType": "TcHmi.Controls.Analytics.ParetoChartControl",
+                    "CType": "TcHmi.Controls.Analytics.OEE",
                     "Cnt": 1
                 },
                 {
-                    "CType": "TcHmi.Controls.Analytics.TimingAnalysis",
-                    "Cnt": 2
+                    "CType": "TcHmi.Controls.Analytics.PieChart",
+                    "Cnt": 1
+                },
+                {
+                    "CType": "TcHmi.Controls.Analytics.TrafficLight",
+                    "Cnt": 1
+                },
+                {
+                    "CType": "TcHmi.Controls.Analytics.Process",
+                    "Cnt": 1
                 },
                 {
                     "CType": "",
@@ -35,35 +60,43 @@
             "LayoutID": "__SystemAdministrator__Network_1__Network_LayoutManager__2",
             "LayoutValue": [
                 {
+                    "cE": 11,
+                    "cS": 2,
+                    "id": "PackMLOverallEquipmentEffectivenessOEE_GridElement",
+                    "rE": 7,
+                    "rS": 1,
+                    "vis": true
+                },
+                {
+                    "cE": 23,
+                    "cS": 11,
+                    "id": "PieChart_GridElement",
+                    "rE": 9,
+                    "rS": 1,
+                    "vis": true
+                },
+                {
                     "cE": 6,
-                    "cS": 1,
-                    "id": "ParetoAnalysis_GridElement",
-                    "rE": 5,
-                    "rS": 1,
+                    "cS": 2,
+                    "id": "ThresholdClassifier1Ch_GridElement",
+                    "rE": 16,
+                    "rS": 7,
                     "vis": true
                 },
                 {
-                    "cE": 12,
+                    "cE": 23,
                     "cS": 6,
-                    "id": "MaintenanceTimingAnalysis1Ch_GridElement",
-                    "rE": 5,
-                    "rS": 1,
+                    "id": "PreventiveMaintenanceLifetimeAnalysis_GridElement",
+                    "rE": 16,
+                    "rS": 9,
                     "vis": true
                 },
                 {
-                    "cE": 18,
-                    "cS": 12,
-                    "id": "ProductionTimingAnalysis1Ch_GridElement",
-                    "rE": 5,
-                    "rS": 1,
-                    "vis": true
-                },
-                {
-                    "cE": 9,
-                    "cS": 1,
+                    "cE": 23,
+                    "cS": 11,
                     "id": "grid-buffer-cell-id",
-                    "rE": 11,
-                    "rS": 5,
+                    "rE": 9,
+                    "rS": 1,
                     "vis": false
                 }
             ]

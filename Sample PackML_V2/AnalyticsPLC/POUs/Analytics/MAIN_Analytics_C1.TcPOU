@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="MAIN_Analytics_C1" Id="039ed65e-df06-4371-bf1c-9237e7aa9880" SpecialFunc="None">
+  <POU Name="MAIN_Analytics_C1" Id="7c1444cf-f61b-4f8c-82ea-17a19802ba15" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN_Analytics_C1
+VAR_INPUT
+	stReset: ST_AnalysisReset;
+END_VAR
 VAR_OUTPUT
 	bError: BOOL;
 	ipTcResult: I_TcMessage;
@@ -12,19 +15,21 @@ VAR
 	bHMIResetReinit: BOOL;
 	bHMIReinitDone: BOOL;
 	
-	fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms: FB_V1_C1_127_0_0_1_PackMLPlcStream1_10_00ms(fbSource:= Analytics.fbT1_InputSource);
+	fbV1_C1_VirtualInputSource: FB_V1_C1_VirtualInputSource(fbSource:= Analytics.fbT1_InputSource);
 	
 	fbAnalysis: FB_Analysis := ( nConfigurationID:= 1, 
-								ip127_0_0_1_PackMLPlcStream1_10_00ms:= fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms );
+								ipVirtualInputSource:= fbV1_C1_VirtualInputSource );
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.SourceSync();
+      <ST><![CDATA[A_Reset();
 
-IF NOT fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.bEndOfData THEN
+fbV1_C1_VirtualInputSource.SourceSync();
 
-	WHILE NOT fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.bEndOfData DO
+IF NOT fbV1_C1_VirtualInputSource.bEndOfData THEN
 
-		fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.NextData(1);
+	WHILE NOT fbV1_C1_VirtualInputSource.bEndOfData DO
+
+		fbV1_C1_VirtualInputSource.NextData(1);
 
 		fbAnalysis.Call();
 
@@ -34,7 +39,7 @@ ELSE
 	fbAnalysis.Call();
 END_IF
 
-fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.Done();
+fbV1_C1_VirtualInputSource.Done();
 
 //Error Handling
 bError:= fbAnalysis.bError;
@@ -42,10 +47,19 @@ ipTcResult:= fbAnalysis.ipTcResult;
 
 
 //Map HMI Current Timestamp
-AnalyticsHMI.stHMI_DataSourceConfig[0].aInputSources[0].eState:= fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.fbInputSource.eDataState;
-AnalyticsHMI.stHMI_DataSourceConfig[0].aInputSources[0].dtTimestamp:= fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.dtTimestamp;]]></ST>
+AnalyticsHMI.stHMI_DataSourceConfig[0].aInputSources[0].eState:= fbV1_C1_VirtualInputSource.fbInputSource.eDataState;
+AnalyticsHMI.stHMI_DataSourceConfig[0].aInputSources[0].dtTimestamp:= fbV1_C1_VirtualInputSource.dtTimestamp;]]></ST>
     </Implementation>
-    <Action Name="A_MapToHMI" Id="eb5f5dc0-0bf6-42f7-98aa-ddd6ed43a12c">
+    <Action Name="A_Reset" Id="1b0630b5-bd44-426e-89e9-60f8da126b37">
+      <Implementation>
+        <ST><![CDATA[
+//Reset Analytics Components
+fbAnalysis.Reset(stReset);
+
+Analytics.stReset.bResetExecute:= FALSE;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="A_MapToHMI" Id="c66086bc-3c82-41a2-81ca-559882e83d86">
       <Implementation>
         <ST><![CDATA[
 //Map In-/Outputs of the Analysis to HMI Structs
@@ -55,7 +69,11 @@ CASE nHMIUpdateState OF
 		bHMIReinitDone:= fbAnalysis.SetHMIValues(1, ADR(AnalyticsHMI.stHMI_C1_Network), bHMIReinit);
 		nHMIUpdateState:= 1;
 	1:
-		AnalyticsHMI.nV1_UnitModeCurrent:= fbV1_C1_127_0_0_1_PackMLPlcStream1_10_00ms.nV1_UnitModeCurrent;
+		AnalyticsHMI.bV1_bProductionMode:= fbV1_C1_VirtualInputSource.bV1_bProductionMode;
+		AnalyticsHMI.nV1_lScheduledTime:= fbV1_C1_VirtualInputSource.nV1_lScheduledTime;
+		AnalyticsHMI.nV1_uProcessedCount:= fbV1_C1_VirtualInputSource.nV1_uProcessedCount;
+		AnalyticsHMI.nV1_uDefectiveCount:= fbV1_C1_VirtualInputSource.nV1_uDefectiveCount;
+		AnalyticsHMI.nV1_uMetalCount:= fbV1_C1_VirtualInputSource.nV1_uMetalCount;
 		nHMIUpdateState:= 2;
 	2:
 		IF bHMIResetReinit THEN

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="FB_GetSampleIndex" Id="7818a034-2474-4a9d-a459-3b9c575046e3" SpecialFunc="None">
+  <POU Name="FB_GetSampleIndex" Id="3ae5f149-51fa-42e1-a435-eebcdfde2a2d" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_GetSampleIndex
 VAR_INPUT
 	nSample: UDINT;

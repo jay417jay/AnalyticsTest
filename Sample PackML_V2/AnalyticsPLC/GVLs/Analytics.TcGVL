@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <GVL Name="Analytics" Id="2423aece-0e5c-41bd-9806-fc2db860d0b0">
+  <GVL Name="Analytics" Id="61142de6-ee99-43c0-8b13-a1ea36c4e43b">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	//DataSources
@@ -18,7 +18,7 @@ VAR_GLOBAL
 	stReset: ST_AnalysisReset;
 	
 	//Scope ADS Push Target NetID
-	sScopeServerNetID: T_AmsNetID := '10.123.1.33.1.1';
+	sScopeServerNetID: T_AmsNetID := '10.123.65.55.1.1';
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

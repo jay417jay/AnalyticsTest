@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_N1_M6_PreventiveMaintenanceLifetimeAnalysis" Id="9b9885ad-96e9-4538-85d0-86f586a0bb4a" SpecialFunc="None">
+    <Declaration><![CDATA[//The Lifetime Analysis 1Ch calculates the elapsed and the estimated remaining lifetime of a device. The input channel should provide boolean values so that every switching procedure represents a cycle which can be converted into the elapsed lifetime. Optional a boolean signal for Enable Execution can be selected, so that the algorithm is just active if the value of the selected signal is TRUE.
+FUNCTION_BLOCK FB_N1_M6_PreventiveMaintenanceLifetimeAnalysis
+VAR_INPUT
+	nDataIn: LINT;
+	tTimestamp: ULINT;
+	bEnableExecution: BOOL := TRUE;
+	bReset: BOOL;
+	bReconfigure: BOOL := TRUE;
+END_VAR
+VAR_INPUT PERSISTENT
+	stThresholdLevel: ST_ALY_Threshold;
+	tLifetimeEstimated: LTIME;
+	fTolerance: LREAL;
+END_VAR
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage;
+	bNewResult: BOOL;
+	fbLifetimeElapsed: FB_ALY_TimeSpan;
+	fbLifetimeRemaining: FB_ALY_TimeSpan;
+	bLifetimeElapsed: BOOL;
+END_VAR
+VAR
+	
+	R_TRIG_Reconfigure: R_TRIG;
+	
+	fbALY_LifeTimeAnalysis_1Ch: FB_ALY_LifeTimeAnalysis_1Ch;
+END_VAR
+VAR PERSISTENT
+	bConfigured: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="cd771c63-9ff6-491e-bbcd-3b880c7c40ed">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR_INPUT
+	nCurrentContext: DWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bConfigured THEN
+	bConfigured:= TRUE;
+
+	tLifetimeEstimated:= LTIME#4h;
+	fTolerance:= 0;
+
+	stThresholdLevel.eComparisonOperator:= E_ALY_ComparisonOperator.NotEqualTo;
+	stThresholdLevel.fThreshold:= 0;
+
+	fbALY_LifeTimeAnalysis_1Ch.fTolerance:= fTolerance;
+END_IF
+
+R_TRIG_Reconfigure(CLK:= bReconfigure);
+IF R_TRIG_Reconfigure.Q THEN
+	fbALY_LifeTimeAnalysis_1Ch.ConfigureChannel(stThresholdLevel:= stThresholdLevel);
+
+	fbALY_LifeTimeAnalysis_1Ch.Configure(tLifetimeEstimated:= tLifetimeEstimated);
+
+	bReconfigure:= FALSE;
+END_IF
+
+IF bReset THEN
+	Reset();
+END_IF
+
+IF bEnableExecution THEN
+	IF F_HasContext(nCurrentContext, nContext) THEN
+		fbALY_LifeTimeAnalysis_1Ch.SetChannelValue(Input:= nDataIn);
+
+		fbALY_LifeTimeAnalysis_1Ch.Call(tTimestamp:= tTimestamp);
+
+		bNewResult:= fbALY_LifeTimeAnalysis_1Ch.bNewResult;
+		fbLifetimeElapsed:= fbALY_LifeTimeAnalysis_1Ch.fbLifetimeElapsed;
+		fbLifetimeRemaining:= fbALY_LifeTimeAnalysis_1Ch.fbLifetimeRemaining;
+		bLifetimeElapsed:= fbALY_LifeTimeAnalysis_1Ch.bLifetimeElapsed;
+
+		bError:= fbALY_LifeTimeAnalysis_1Ch.bError;
+		ipTcResult:= fbALY_LifeTimeAnalysis_1Ch.ipResultMessage;
+	END_IF
+ELSE
+	bNewResult:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="5e279a06-eac4-4e93-97df-b482f0e50457">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset:= fbALY_LifeTimeAnalysis_1Ch.Reset();
+
+bNewResult:= fbALY_LifeTimeAnalysis_1Ch.bNewResult;
+fbLifetimeElapsed:= fbALY_LifeTimeAnalysis_1Ch.fbLifetimeElapsed;
+fbLifetimeRemaining:= fbALY_LifeTimeAnalysis_1Ch.fbLifetimeRemaining;
+bLifetimeElapsed:= fbALY_LifeTimeAnalysis_1Ch.bLifetimeElapsed;
+
+bError:= NOT Reset;
+ipTcResult:= fbALY_LifeTimeAnalysis_1Ch.ipResultMessage;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHMI" Id="60601133-425e-4624-92d6-8de4da4a51d7">
+      <Declaration><![CDATA[METHOD SetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+	bHMIReinit: BOOL;
+END_VAR
+VAR
+	pHMI_C1_Network: POINTER TO ST_HMI_C1_Network;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetHMI:= FALSE;
+
+CASE nContent OF
+	1:
+		pHMI_C1_Network:= pContent;
+
+		IF bHMIReinit AND bConfigured THEN
+			SetHMI:= TRUE;
+		END_IF
+
+		pHMI_C1_Network^.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeElapsed:= fbLifetimeElapsed.stStructured;
+		pHMI_C1_Network^.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeRemaining:= fbLifetimeRemaining.stStructured;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHMI" Id="6e0c906d-9d87-4190-a09f-00bbf3034713">
+      <Declaration><![CDATA[METHOD GetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+END_VAR
+VAR
+	pHMI_C1_Network: POINTER TO ST_HMI_C1_Network;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE nContent OF
+	1:
+		//Network
+		pHMI_C1_Network:= pContent;
+
+		IF pHMI_C1_Network^.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.bTrigReconfigure THEN
+			pHMI_C1_Network^.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.bTrigReconfigure:= FALSE;
+			bReconfigure:= TRUE;
+
+		END_IF
+END_CASE
+
+GetHMI:= bReconfigure;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nContext" Id="f871a4a3-add0-4309-86f4-74a8789f64d5">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="588a5ed8-3dc7-4d5f-87fc-95b6df6e2929">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nContext:= E_VirtualInput.eContext_V1_VirtualInputSource;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

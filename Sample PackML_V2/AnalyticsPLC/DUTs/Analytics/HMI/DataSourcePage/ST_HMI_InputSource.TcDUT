@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="ST_HMI_InputSource" Id="6d5e3ff9-cf8f-41c6-9f92-ead1c26a724b">
+  <DUT Name="ST_HMI_InputSource" Id="66b4a903-c58c-4aae-acd4-454321fa8f70">
     <Declaration><![CDATA[TYPE ST_HMI_InputSource : 
 STRUCT
 	nID: DINT;

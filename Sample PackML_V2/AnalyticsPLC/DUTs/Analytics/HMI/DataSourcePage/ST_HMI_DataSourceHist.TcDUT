@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="ST_HMI_DataSourceHist" Id="0bce22b0-74b0-4773-9b13-8c4b20751dbf">
+  <DUT Name="ST_HMI_DataSourceHist" Id="f2d92ae5-9db1-4895-af8c-e19de7f7ab86">
     <Declaration><![CDATA[TYPE ST_HMI_DataSourceHist : 
 STRUCT
 	nCurrentRecordID: DINT;

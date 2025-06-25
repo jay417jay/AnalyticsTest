@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_HMI_C1_Ctrl3_Threshold_Classifier_1Ch" Id="bf2c08c0-0611-4a70-8b7b-2be1e47d18f5">
+    <Declaration><![CDATA[TYPE ST_HMI_C1_Ctrl3_Threshold_Classifier_1Ch : 
+STRUCT
+	//Threshold Classifier 1Ch
+	bTrigReconfigure: BOOL;
+	fM4_fDataIn: LREAL; //Value
+	eM4_eClass: E_ALY_Classification_3Cls; //Classification
+	tM4_fbTimeLastEventWarning: DCTIMESTRUCT; //Last Warning
+	tM4_fbTimeLastEventAlarm: DCTIMESTRUCT; //Last Alarm
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="F_SampleTimeCheck" Id="ba2c8927-8daf-45df-8da5-38d0bd1d029e" SpecialFunc="None">
+  <POU Name="F_SampleTimeCheck" Id="3943e043-78a1-4437-9024-6a6395208cd3" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_SampleTimeCheck : BOOL
 VAR_INPUT
 	nSampleTimestamp: ULINT;
