@@ -1,0 +1,47 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "PopupHistogramMulti": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "PopupHistogramMulti",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "HistogramDataSet",
+        "description": "Defines a custom object in the array.",
+        "propertiesMeta": [
+          {
+            "name": "binColor",
+            "category": "Colors",
+            "displayName": "Bin Color",
+            "displayPriority": 2,
+            "description": "",
+            "defaultValue": "#acacac",
+            "defaultValueInternal": {
+              "color": "#acacac"
+            }
+          },
+          {
+            "name": "data",
+            "category": "Data",
+            "displayName": "Data",
+            "displayPriority": 1,
+            "description": "",
+            "defaultValue": null,
+            "defaultValueInternal": null
+          }
+        ],
+
+        "properties": {
+          "binColor": {
+            "id": "tchmi:framework#/definitions/SolidColor"
+          },
+          "data": {
+            "type": "object"
+          }
+        },
+        "required": [ "data" ]
+      }
+    }
+  }
+}

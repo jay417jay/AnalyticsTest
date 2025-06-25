@@ -1,0 +1,58 @@
+declare namespace TcHmi.Controls.Analytics {
+    class SingleValue extends TcHmi.Controls.Analytics.AnalyticsControl {
+        protected __elValueContainer: JQuery;
+        protected __elValue: JQuery;
+        protected __elLastEventContainer: JQuery;
+        protected __elLastEventAlias: JQuery;
+        protected __elLastEvent: JQuery;
+        constructor(element: JQuery, pcElement: JQuery, attrs: TcHmi.Controls.ControlAttributeList);
+        __previnit(): void;
+        __init(): void;
+        __attach(): void;
+        __detach(): void;
+        destroy(): void;
+        protected __value: string;
+        setValue(valueNew: string): void;
+        getValue(): string;
+        protected __processValue(): void;
+        protected __unit: string;
+        setUnit(valueNew: number): void;
+        getUnit(): string;
+        protected __processUnit(): void;
+        protected __showLastEvent: boolean;
+        setShowLastEvent(valueNew: boolean): void;
+        getShowLastEvent(): boolean;
+        protected __processShowLastEvent(): void;
+        protected __lastEvent: DCTimestruct;
+        setLastEvent(valueNew: object): void;
+        getLastEvent(): DCTimestruct;
+        protected __processLastEvent(): void;
+        protected __showMilliSeconds: boolean;
+        setShowMilliSeconds(valueNew: boolean): void;
+        getShowMilliSeconds(): boolean;
+        protected __processShowMilliSeconds(): void;
+        protected __textHorizontalAlign: TcHmi.HorizontalAlignment;
+        setTextHorizontalAlign(valueNew: TcHmi.HorizontalAlignment | null): void;
+        getTextHorizontalAlign(): TcHmi.HorizontalAlignment;
+        protected __processTextHorizontalAlign(): void;
+        protected __textVerticalAlign: TcHmi.VerticalAlignment;
+        setTextVerticalAlign(valueNew: TcHmi.VerticalAlignment | null): void;
+        getTextVerticalAlign(): TcHmi.VerticalAlignment;
+        protected __processTextVerticalAlign(): void;
+        protected __monthAlias: string;
+        setMonthAlias(valueNew: string): void;
+        getMonthAlias(): string;
+        protected __processMonthAlias(): void;
+        protected __lastEventAlias: string;
+        setLastEventAlias(valueNew: boolean): void;
+        getLastEventAlias(): string;
+        protected __processLastEventAlias(): void;
+        protected __drawValue(): void;
+        protected __drawLastEventAlias(): void;
+        protected __drawLastEvent(): void;
+        protected __processColorGradient(): void;
+        protected __processColor(): void;
+        protected __processAmountDecimals(): void;
+        protected __onResized: () => (evt: EventProvider.Event, ctrl: Controls.Analytics.AnalyticsControl) => void;
+    }
+}

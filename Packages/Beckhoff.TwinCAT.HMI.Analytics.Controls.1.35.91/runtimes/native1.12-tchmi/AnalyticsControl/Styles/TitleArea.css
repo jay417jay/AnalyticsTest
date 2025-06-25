@@ -1,0 +1,157 @@
+.tchmi-analytics-control-title-area {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    cursor:pointer;
+    z-index: 3;
+}
+
+.tchmi-analytics-control-title-area-empty {
+    cursor: default;
+}
+
+.tchmi-analytics-control-name-alias {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+/** Icon next to the title */
+/*
+.tchmi-analytics-control-name-alias::before {
+    content: '\f007';
+    font-family: 'FontAwesome';
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tchmi-analytics-control-name-alias::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-image: url('Icons/AvgIcon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-bottom: 3px;
+}
+*/
+
+/***** Edit Header *****/
+.tchmi-analytics-control-template:hover .tchmi-analytics-control-edit {
+    opacity: 0.5;
+}
+
+.tchmi-analytics-control-title-area:hover .tchmi-analytics-control-edit {
+    opacity: 1;
+}
+
+.tchmi-analytics-control-edit {
+    margin-left: 2px;
+    opacity: 0;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.tchmi-analytics-control-edit-active {
+    transform: rotate(180deg);
+}
+
+.tchmi-analytics-control-edit-area {
+    box-sizing: border-box;
+    visibility: hidden;
+    position: relative;
+    z-index: 2;
+    flex-basis: 100%;
+    height: 0px;
+}
+
+.tchmi-analytics-control-edit-area-active {
+    visibility: visible;
+}
+
+.tchmi-analytics-control-edit-area-list {
+    display: inline-block;
+    position: relative;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 3px;
+    border: 1px solid lightgray;
+}
+
+.tchmi-analytics-control-edit-area-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.tchmi-analytics-control-edit-area-text {
+    font-size: 16px;
+    width: max-content;
+    margin: 5px;
+}
+
+.tchmi-analytics-control-edit-area-menu-icon {
+    margin-right: 5px;
+    margin-left: auto;
+}
+
+.tchmi-analytics-control-edit-area-sublist {
+    display: none;
+    position: absolute;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    top: 0px;
+    left: 100%;
+}
+
+.tchmi-analytics-control-edit-area-item {
+    position:relative;
+}
+
+.tchmi-analytics-control-edit-area-item-container {
+    display: flex;
+    align-items: center;
+    background-color: #E8E8E8;
+    border-left: 2px solid transparent;
+}
+
+/* Hover from Mouse, Touch */
+.tchmi-analytics-control-edit-area-item:hover > .tchmi-analytics-control-edit-area-sublist,
+.tchmi-analytics-control-edit-area-item-hover > .tchmi-analytics-control-edit-area-sublist {
+    display: block;
+}
+
+
+.tchmi-analytics-control-separator {
+    height: 0px;
+    border-top: 1px solid gray;
+}
+
+/*.tchmi-analytics-control-edit-area-item-container:hover {
+    background-color: #D3D3D3;
+    border-left: 2px solid rgb(59,94,158);
+}*/
+/* Hover from Mouse, Touch */
+.tchmi-analytics-control-edit-area-item-container:hover,
+.tchmi-analytics-control-edit-area-item-container-hover {
+    background-color: #D3D3D3;
+    border-left: 2px solid rgb(59,94,158);
+}
+
+.tchmi-analytics-control-edit-area-sublist:hover + .tchmi-analytics-control-edit-area-item-container {
+    background-color: #c3c3c3;
+}
+
+.tchmi-analytics-control-edit-area-item {
+    position: relative;
+}

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_HMI_DataSourceConfig" Id="bcafa7ac-0fa5-4e3a-820e-fa2d97b95911">
+    <Declaration><![CDATA[TYPE ST_HMI_DataSourceConfig : 
+STRUCT
+	nID: DINT;
+	sDisplayName: WSTRING(80);
+	eConfigType: E_SourceType;
+	aInputSources: ARRAY [0..0] OF ST_HMI_InputSource;
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

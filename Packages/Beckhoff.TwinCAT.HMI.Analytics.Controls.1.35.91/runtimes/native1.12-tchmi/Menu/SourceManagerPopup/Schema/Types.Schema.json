@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.MyNamespace.SourceManagerPopup": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "SourceManagerPopup",
+      "frameworkControlNamespace": "TcHmi.Controls.MyNamespace"
+    }
+  }
+}

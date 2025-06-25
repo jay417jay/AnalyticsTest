@@ -1,0 +1,13 @@
+.tchmi-pie-chart-template .tchmi-analytics-control-template-container {
+    flex-direction: row;
+}
+
+.tchmi-pie-chart-svg-chart {
+    height: 100%;
+    width: 70%;
+}
+
+.tchmi-pie-chart-legend {
+    width: 30%;
+    height: 50%;
+}

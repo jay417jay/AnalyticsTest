@@ -1,0 +1,14 @@
+﻿.tchmi-binary-state-state {
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: 100px;
+    margin: auto;
+    border: 2px solid #666666;
+}
+
+.tchmi-binary-state-container {
+    height: 105px;
+    width: 100%;
+    float: left;
+}

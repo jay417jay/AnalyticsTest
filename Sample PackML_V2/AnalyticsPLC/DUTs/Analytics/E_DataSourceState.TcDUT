@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="E_DataSourceState" Id="7929264c-f2a0-4c9d-8753-ab41d8238606">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_DataSourceState : 
+(
+	eUnknown := 0,
+	eNotConnected,
+	eReceiveData,
+	eReceiveData_Cancel,
+	eReceiveData_Pause,
+	eError,
+	eReady,
+	eWaitForData
+) ;
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

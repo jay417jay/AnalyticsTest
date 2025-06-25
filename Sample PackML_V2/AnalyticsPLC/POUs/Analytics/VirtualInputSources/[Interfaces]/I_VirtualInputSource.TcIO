@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <Itf Name="I_VirtualInputSource" Id="2df3cdd2-a76b-4489-bb6e-0c10df59913f">
+    <Declaration><![CDATA[INTERFACE I_VirtualInputSource]]></Declaration>
+    <Method Name="Done" Id="3700a693-8384-4042-adc1-d44d51a995c7">
+      <Declaration><![CDATA[METHOD Done : BOOL]]></Declaration>
+    </Method>
+    <Method Name="NextData" Id="fe7139f5-7d7d-4026-974f-e22220012f99">
+      <Declaration><![CDATA[METHOD NextData : BOOL
+VAR_INPUT
+	nMaxOversampling: UDINT;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="SourceSync" Id="68aa5805-3527-4d04-a47b-b0a31aa474d1">
+      <Declaration><![CDATA[METHOD SourceSync : BOOL]]></Declaration>
+    </Method>
+    <Property Name="bEndOfData" Id="86d322d3-3d6f-459d-af76-7b48d89dbd9f">
+      <Declaration><![CDATA[PROPERTY bEndOfData : BOOL]]></Declaration>
+      <Get Name="Get" Id="9af3cd81-26b9-4d64-85a4-5b3b1b630231">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="dtTimestamp" Id="99addd1b-a059-4e2a-af91-da97e4dfeb7c">
+      <Declaration><![CDATA[PROPERTY dtTimestamp : DCTIMESTRUCT]]></Declaration>
+      <Get Name="Get" Id="618e689b-a6a5-439e-8d63-3e8d099cd904">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nContext" Id="09440b72-c0c2-434a-98c2-5cb4a1730291">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="6f3bb631-341d-4176-82a3-d909f8916a57">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nDataHandle" Id="276e62bc-c005-4d1f-9f9d-baad8fdcb71d">
+      <Declaration><![CDATA[PROPERTY nDataHandle : ULINT]]></Declaration>
+      <Get Name="Get" Id="ca61bfd5-48a3-44b4-bff6-0105276da35f">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="tTimestamp" Id="b9255e28-b873-4844-aecf-1fb1990bf682">
+      <Declaration><![CDATA[PROPERTY tTimestamp : ULINT]]></Declaration>
+      <Get Name="Get" Id="62e972e5-d73d-4064-b953-536d1c89a8aa">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nMaxOversamplingFactor" Id="2b309647-b0fb-472a-8f26-ec07fe18c9a1">
+      <Declaration><![CDATA[PROPERTY nMaxOversamplingFactor : UDINT]]></Declaration>
+      <Get Name="Get" Id="3a9d61d2-948a-47f8-9195-1d13e2427422">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="eSourceState" Id="54899550-792d-40bd-a1de-b679d52f7d59">
+      <Declaration><![CDATA[PROPERTY eSourceState : E_DataSourceState]]></Declaration>
+      <Get Name="Get" Id="84bf95a8-a488-4709-8d29-a3cb6a9ee27e">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

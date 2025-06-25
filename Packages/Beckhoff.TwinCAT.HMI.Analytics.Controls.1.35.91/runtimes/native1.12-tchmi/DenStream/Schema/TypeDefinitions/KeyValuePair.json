@@ -1,0 +1,46 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "KeyValuePair": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "KeyValuePair",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "KeyValuePair",
+        "propertiesMeta": [
+          {
+            "name": "sKey",
+            "category": "Key",
+            "displayName": "Key",
+            "displayPriority": 1,
+            "description": "Input or Output name",
+            "defaultValue": "Key",
+            "defaultValueInternal": "Key"
+          },
+          {
+            "name": "sValue",
+            "category": "Value",
+            "displayName": "Value",
+            "displayPriority": 2,
+            "description": "Value",
+            "defaultValue": 0,
+            "defaultValueInternal": 0
+          }
+        ],
+        "properties": {
+          "sKey": {
+            "type": "string"
+          },
+          "sValue": {
+            "anyOf": [
+              { "type": "number" },
+              { "$ref": "tchmi:framework#/definitions/TcHmiNumberSymbol" }
+            ]
+          }
+        }
+      },
+        "required": [ "sKey", "sValue" ]
+      }
+    }
+}

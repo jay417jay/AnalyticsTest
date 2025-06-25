@@ -1,0 +1,139 @@
+.tchmi-analytics-charting-axis-line {
+    stroke: black;
+    stroke-width: 1;
+}
+
+.tchmi-analytics-charting-axis-tick {
+    stroke: black;
+    stroke-width: 1;
+}
+
+
+.tchmi-analytics-charting-channel {
+}
+
+.tchmi-analytics-charting-hover-line {
+    stroke: black;
+    stroke-width: 1;
+}
+.tchmi-analytics-charting-hover-line-dark {
+    stroke: white;
+}
+
+.tchmi-analytics-charting-hover-window-parent-div {
+    position: fixed;
+}
+
+.tchmi-analytics-charting-hover-window-parent-svg {
+    border: 1px solid #afb4b9;
+}
+.tchmi-analytics-charting-hover-window-parent-svg-dark {
+    border: 1px solid #5c5c5c;
+}
+
+
+.tchmi-analytics-charting-hover-window {
+    fill: white;
+}
+
+.tchmi-analytics-charting-hover-window.hover-window-dark {
+    fill: #323538;
+}
+
+.tchmi-analytics-charting-hover-header {
+    font-weight: bold;
+}
+.tchmi-analytics-charting-hover-text-underlined {
+    /*font-weight: bold;*/
+    text-decoration: underline;
+} 
+
+/*Styles for the table*/
+
+.tchmi-analytics-charting-cb {
+    transform: scale(1.2);
+    float: left;
+}
+.tchmi-analytics-charting-cb-item {
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tchmi-analytics-charting-cb-text {
+    font-size: 140%;
+    float: left;
+    margin-left: 1px;
+}
+.tchmi-analytics-charting-cb-text-dark {
+    color:white
+}
+
+.tchmi-analytics-svg-text-dark{
+    fill: white;
+}
+
+.tchmi-analytics-charting-cb-color-element {
+    height: 2px;
+    width: 10px;
+}
+
+.tchmi-analytics-charting-small .tchmi-analytics-charting-cb-text {
+    font-size: 100%;
+}
+
+.tchmi-analytics-charting-svg {
+    background: #ebebec;
+}
+
+.tchmi-analytics-charting-svg-dark {
+    background: #323538;
+}
+
+.tchmi-analytics-charting-svg-data-area {
+    fill: #f2f2f2;
+}
+.tchmi-analytics-charting-svg-data-area-dark {
+    fill: #3d3d3d;
+}
+
+
+.tchmi-analytics-charting-axis-label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+.tchmi-analytics-charting-background-line {
+    stroke: #464646;
+    stroke-width: 1;
+    stroke-dasharray: 2,2;
+}
+.tchmi-analytics-charting-background-line-dark {
+    stroke: white;
+    stroke-width: 1;
+    stroke-dasharray: 2,2;
+}
+
+.tchmi-analytics-charting-axis-line-dark {
+    stroke: white;
+}
+
+.tchmi-analytics-charting-axis-tick-dark {
+    stroke: white;
+}
+
+.tchmi-analytics-charting-axis-label-text-dark {
+    fill: white;
+}
+
+.tchmi-analytics-charting-axis-label-dark {
+    fill: white;
+}
+
+.tchmi-analytics-charting-bar-channel-label-dark{
+    fill:white;
+}
+
+

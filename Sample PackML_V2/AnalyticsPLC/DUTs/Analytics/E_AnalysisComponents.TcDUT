@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="E_AnalysisComponents" Id="98403e4a-ae24-4b10-a44b-99bec812def1">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_AnalysisComponents : 
+(
+	All := -1,
+	N1_Network := 0,
+	N1_M1_PackMLOverallEquipmentEffectivenessOEE := 1,
+	N1_M2_ProductionTimingAnalysis1Ch := 2,
+	N1_M3_PieChart := 3,
+	N1_M4_ThresholdClassifier1Ch := 4,
+	N1_M5_PlasticMathOperation := 5,
+	N1_M6_PreventiveMaintenanceLifetimeAnalysis := 6,
+	V1_VirtualInputSource := 7
+) ;
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

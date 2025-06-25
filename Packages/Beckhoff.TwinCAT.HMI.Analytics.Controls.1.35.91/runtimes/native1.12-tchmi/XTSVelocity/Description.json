@@ -1,0 +1,403 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "XTSVelocity",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "XTS Velocity",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "XTS Velocity",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 310,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/XTSVelocity.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "XTSVelocity.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.XTSVelocity",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-show-title",
+      "propertyName": "ShowTitle",
+      "propertySetterName": "setShowTitle",
+      "propertyGetterName": "getShowTitle",
+     "displayName": "Show Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show title.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "XTS Velocity",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-show-reset",
+      "propertyName": "ShowReset",
+      "propertySetterName": "setShowReset",
+      "propertyGetterName": "getShowReset",
+      "displayName": "Show Reset",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate and show reset button.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-reset",
+      "propertyName": "Reset",
+      "propertySetterName": "setReset",
+      "propertyGetterName": "getReset",
+      "displayName": "Reset",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/TcHmiResetSymbol",
+      "category": "Analytics",
+      "description": "Reset of analytics module data (bind to reset variable).",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-velocity",
+      "propertyName": "Velocity",
+      "propertySetterName": "setVelocity",
+      "propertyGetterName": "getVelocity",
+      "displayName": "Velocity",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Velocity value",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-velocity-unit",
+      "propertyName": "VelocityUnit",
+      "propertySetterName": "setVelocityUnit",
+      "propertyGetterName": "getVelocityUnit",
+      "displayName": "Velocity Unit",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Specifies the velocity unit",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-range",
+      "propertyName": "Range",
+      "propertySetterName": "setRange",
+      "propertyGetterName": "getRange",
+      "displayName": "Range",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/GaugeRangeDefinitionList",
+      "category": "Analytics",
+      "description": "The range of the gauge.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [
+        {
+          "color": {
+            "color": "rgba(0, 128, 0, 1)"
+          },
+          "start": 0,
+          "end": 35
+        },
+        {
+          "color": {
+            "color": "rgba(255, 165, 0, 1)"
+          },
+          "start": 35,
+          "end": 70
+        },
+        {
+          "color": {
+            "color": "rgba(255, 0, 0, 1)"
+          },
+          "start": 70,
+          "end": 100
+        }
+      ],
+      "defaultValueInternal": [
+        {
+          "color": {
+            "color": "rgba(0, 128, 0, 1)"
+          },
+          "start": 0,
+          "end": 35
+        },
+        {
+          "color": {
+            "color": "rgba(255, 165, 0, 1)"
+          },
+          "start": 35,
+          "end": 70
+        },
+        {
+          "color": {
+            "color": "rgba(255, 0, 0, 1)"
+          },
+          "start": 70,
+          "end": 100
+        }
+      ]
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158,1)"
+      },
+      "description": "Graph color for the velocity.",
+      "displayName": "Velocity Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-velocity-color",
+      "propertyGetterName": "getVelocityColor",
+      "propertyName": "VelocityColor",
+      "propertySetterName": "setVelocityColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "name": "data-tchmi-ticks",
+      "propertyName": "Ticks",
+      "propertySetterName": "setTicks",
+      "propertyGetterName": "getTicks",
+      "displayName": "Ticks",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "Analytics",
+      "description": "Ticks for the velocity chart.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 4,
+      "defaultValueInternal": 4
+    },
+    {
+      "name": "data-tchmi-show-values",
+      "propertyName": "ShowValues",
+      "propertySetterName": "setShowValues",
+      "propertyGetterName": "getShowValues",
+      "displayName": "Show Values",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show values in canvas chart.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-velocity",
+      "propertyName": "ShowVelocity",
+      "propertySetterName": "setShowVelocity",
+      "propertyGetterName": "getShowVelocity",
+      "displayName": "Show Velocity",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show velocity in canvas chart.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-grow-only",
+      "propertyName": "GrowOnly",
+      "propertySetterName": "setGrowOnly",
+      "propertyGetterName": "getGrowOnly",
+      "displayName": "Grow Only",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate Grow Only.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+     "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.XTSVelocity",
+      "schema": "Schema/TypeDefinitions/XTSVelocity.Schema.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

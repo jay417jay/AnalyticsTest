@@ -1,0 +1,615 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "PieceCounter",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Piece Counter",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Piece Counter",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 310,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/PieceCounter.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "PieceCounter.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.PieceCounter",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Piece Counter",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-month-alias",
+      "propertyName": "MonthAlias",
+      "propertySetterName": "setMonthAlias",
+      "propertyGetterName": "getMonthAlias",
+     "displayName": "Month Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Month alias name",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+      "defaultValueInternal": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+    },
+
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158,1)"
+      },
+      "description": "Progress color for clock.",
+      "displayName": "Clock Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-clock-color",
+      "propertyGetterName": "getClockColor",
+      "propertyName": "ClockColor",
+      "propertySetterName": "setClockColor",
+      "readOnly": false,
+     
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "name": "data-tchmi-current-interval",
+      "propertyName": "CurrentInterval",
+      "propertySetterName": "setCurrentInterval",
+      "propertyGetterName": "getCurrentInterval",
+      "displayName": "Current Intervaltime",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Current Interval Time for the control.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 0,
+        "wMinutes": 0,
+        "wSeconds": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 0,
+        "wMinutes": 0,
+        "wSeconds": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-config-interval-time",
+      "propertyName": "ConfigIntervalTime",
+      "propertySetterName": "setConfigIntervalTime",
+      "propertyGetterName": "getConfigIntervalTime",
+      "displayName": "Config Intervaltime",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/LTIME",
+      "category": "Analytics",
+      "description": "Config interval time that was set in the workbench",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "LTIME#10S",
+      "defaultValueInternal": "LTIME#10S"
+    },
+    {
+      "name": "data-tchmi-executing-interval",
+      "propertyName": "ExecutingInterval",
+      "propertySetterName": "setExecutingInterval",
+      "propertyGetterName": "getExecutingInterval",
+      "displayName": "Executing Interval",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "BOOL, true if Interval is executed",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-num-intervals",
+      "propertyName": "NumIntervals",
+      "propertySetterName": "setNumIntervals",
+      "propertyGetterName": "getNumIntervals",
+      "displayName": "Number Intervals",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Number of Intervals",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-count-current",
+      "propertyName": "CountCurrent",
+      "propertySetterName": "setCountCurrent",
+      "propertyGetterName": "getCountCurrent",
+      "displayName": "Count Current",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Counts in current interval",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-count-min",
+      "propertyName": "CountMin",
+      "propertySetterName": "setCountMin",
+      "propertyGetterName": "getCountMin",
+      "displayName": "Count Min",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Min Counts in all intervals",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-count-max",
+      "propertyName": "CountMax",
+      "propertySetterName": "setCountMax",
+      "propertyGetterName": "getCountMax",
+      "displayName": "Count Max",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Max Counts in all intervals",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-count-last",
+      "propertyName": "CountLast",
+      "propertySetterName": "setCountLast",
+      "propertyGetterName": "getCountLast",
+      "displayName": "Count Last",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Counts in last interval",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-show-interval-time",
+      "propertyName": "ShowIntervalTime",
+      "propertySetterName": "setShowIntervalTime",
+      "propertyGetterName": "getShowIntervalTime",
+      "displayName": "Show Intervaltime",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "BOOL, true if ShowIntervalTime is activated",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-min-max-times",
+      "propertyName": "ShowMinMaxTimes",
+      "propertySetterName": "setShowMinMaxTimes",
+      "propertyGetterName": "getShowMinMaxTimes",
+      "displayName": "Show Min-Max Times",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate ShowMinMaxTimes.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-time-countmin",
+      "propertyName": "TimeCountMin",
+      "propertySetterName": "setTimeCountMin",
+      "propertyGetterName": "getTimeCountMin",
+      "displayName": "Time Count Min",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time of the Min value for the control.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+
+    },
+    {
+      "name": "data-tchmi-time-countmax",
+      "propertyName": "timeCountMax",
+      "propertySetterName": "setTimeCountMax",
+      "propertyGetterName": "getTimeCountMax",
+      "displayName": "Time Count Max",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time of the Max value for the control.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+
+    },
+    {
+      "name": "data-tchmi-show-milli-seconds",
+      "propertyName": "ShowMilliSeconds",
+      "propertySetterName": "setShowMilliSeconds",
+      "propertyGetterName": "getShowMilliSeconds",
+"displayName": "Show Milliseconds",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show milliseconds in time.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-num-intervals-alias",
+      "propertyName": "NumIntervalsAlias",
+      "propertySetterName": "setNumIntervalsAlias",
+      "propertyGetterName": "getNumIntervalsAlias",
+      "displayName": "Number Intervals Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Num Intervals alias for this control.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Number of Intervals",
+      "defaultValueInternal": "Number of Interval"
+    },
+    {
+      "name": "data-tchmi-interval-time-alias",
+      "propertyName": "IntervalTimeAlias",
+      "propertySetterName": "setIntervalTimeAlias",
+      "propertyGetterName": "getIntervalTimeAlias",
+      "displayName": "Intervaltime Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Interval Time alias for this control.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Rest interval time",
+      "defaultValueInternal": "Rest interval time"
+    },
+    {
+      "name": "data-tchmi-min-alias",
+      "propertyName": "MinAlias",
+      "propertySetterName": "setMinAlias",
+      "propertyGetterName": "getMinAlias",
+      "displayName": "Min Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Min alias name",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Min",
+      "defaultValueInternal": "Min"
+    },
+    {
+      "name": "data-tchmi-max-alias",
+      "propertyName": "MaxAlias",
+      "propertySetterName": "setMaxAlias",
+      "propertyGetterName": "getMaxAlias",
+      "displayName": "Max Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Max alias name",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Max",
+      "defaultValueInternal": "Max"
+    },
+    {
+      "name": "data-tchmi-cur-alias",
+      "propertyName": "CurAlias",
+      "propertySetterName": "setCurAlias",
+      "propertyGetterName": "getCurAlias",
+      "displayName": "Current Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Cur alias name",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Cur",
+      "defaultValueInternal": "Cur"
+    },
+    {
+      "name": "data-tchmi-last-alias",
+      "propertyName": "LastAlias",
+      "propertySetterName": "setLastAlias",
+      "propertyGetterName": "getLastAlias",
+      "displayName": "Last Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Last alias name",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Last",
+      "defaultValueInternal": "Last"
+    },
+    {
+      "name": "data-tchmi-day-alias",
+      "propertyName": "DayAlias",
+      "propertySetterName": "setDayAlias",
+      "propertyGetterName": "getDayAlias",
+      "displayName": "Day Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Day Alias for this control.",
+     
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Day",
+      "defaultValueInternal": "Day"
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+     
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.PieceCounter",
+      "schema": "Schema/TypeDefinitions/PieceCounter.Schema.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "EnumPieChart": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "EnumPieChart",
+      "type": "string",
+      "enum": [ "Values", "Times" ]
+    }
+  }
+}

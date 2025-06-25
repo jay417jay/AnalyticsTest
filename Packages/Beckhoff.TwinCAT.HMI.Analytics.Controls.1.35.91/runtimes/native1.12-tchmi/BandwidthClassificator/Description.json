@@ -1,0 +1,477 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "BandwidthClassificator",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Bandwidth Classifier",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Bandwidth Classifier",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 310,
+      "height": 150
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/Bandwidth.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "BandwidthClassificator.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.BandwidthClassificator",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Bandwidth Classifier",
+      "defaultValueInternal": ""
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158,1)"
+      },
+      "description": "Bandwidth Color for the bandwidth canvas.",
+      "displayName": "Bandwidth Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-bandwidth-color",
+      "propertyGetterName": "getBandwidthColor",
+      "propertyName": "BandwidthColor",
+      "propertySetterName": "setBandwidthColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "name": "data-tchmi-eclass",
+      "propertyName": "ClassificationResult",
+      "propertySetterName": "setClassificationResult",
+      "propertyGetterName": "getClassificationResult",
+      "displayName": "Classification Result",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Classification Result from Analytics.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 1,
+      "defaultValueInternal": 1
+    },
+    {
+      "name": "data-tchmi-lower-bound",
+      "propertyName": "LowerBound",
+      "propertySetterName": "setLowerBound",
+      "propertyGetterName": "getLowerBound",
+      "displayName": "Lower Bound",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Lower Bound",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-upper-bound",
+      "propertyName": "UpperBound",
+      "propertySetterName": "setUpperBound",
+      "propertyGetterName": "getUpperBound",
+      "displayName": "Upper Bound",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Upper Bound",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-current-value",
+      "propertyName": "CurrentValue",
+      "propertySetterName": "setCurrentValue",
+      "propertyGetterName": "getCurrentValue",
+      "displayName": "Current Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Current Value (input)",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-show-current-value",
+      "propertyName": "ShowCurrentValue",
+      "propertySetterName": "setShowCurrentValue",
+      "propertyGetterName": "getShowCurrentValue",
+      "displayName": "Show Current Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate showing the current value.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-show-last-event",
+      "propertyName": "ShowLastEvent",
+      "propertySetterName": "setShowLastEvent",
+      "propertyGetterName": "getShowLastEvent",
+      "displayName": "Show Last Event",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate ShowLastEvent.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-milli-seconds",
+      "propertyName": "ShowMilliSeconds",
+      "propertySetterName": "setShowMilliSeconds",
+      "propertyGetterName": "getShowMilliSeconds",
+      "displayName": "Show Milliseconds",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show milliseconds in time.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-last-event",
+      "propertyName": "lastEvent",
+      "propertySetterName": "setLastEvent",
+      "propertyGetterName": "getLastEvent",
+      "displayName": "Last Event",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "LastEvent time for the control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-amount-decimals",
+      "propertyName": "AmountDecimals",
+      "propertySetterName": "setAmountDecimals",
+      "propertyGetterName": "getAmountDecimals",
+      "displayName": "Amount Decimals",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/UINT32",
+      "category": "Analytics",
+      "description": "Amount of Decimals for numbers in the table",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 2,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-bigger-alias",
+      "propertyName": "BiggerAlias",
+      "propertySetterName": "setBiggerAlias",
+      "propertyGetterName": "getBiggerAlias",
+      "displayName": "Bigger Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Bigger alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Bigger",
+      "defaultValueInternal": "Bigger"
+    },
+    {
+      "name": "data-tchmi-smaller-alias",
+      "propertyName": "SmallerAlias",
+      "propertySetterName": "setSmallerAlias",
+      "propertyGetterName": "getSmallerAlias",
+      "displayName": "Smaller Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Smaller alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Smaller",
+      "defaultValueInternal": "Smaller"
+    },
+    {
+      "name": "data-tchmi-within-alias",
+      "propertyName": "WithinAlias",
+      "propertySetterName": "setWithinAlias",
+      "propertyGetterName": "getWithinAlias",
+      "displayName": "Within Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Within alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Within",
+      "defaultValueInternal": "Within"
+    },
+    {
+      "name": "data-tchmi-last-event-alias",
+      "propertyName": "LastEventAlias",
+      "propertySetterName": "setLastEventAlias",
+      "propertyGetterName": "getLastEventAlias",
+      "displayName": "Last Event Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Last Event alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Last Event",
+      "defaultValueInternal": "Last Event"
+    },
+    {
+      "name": "data-tchmi-month-alias",
+      "propertyName": "MonthAlias",
+      "propertySetterName": "setMonthAlias",
+      "propertyGetterName": "getMonthAlias",
+      "displayName": "Month Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Month alias name",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+      "defaultValueInternal": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+      "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+      "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.BandwidthClassificator",
+      "schema": "Schema/TypeDefinitions/BandwidthClassificator.Schema.json"
+    }
+  ]
+}

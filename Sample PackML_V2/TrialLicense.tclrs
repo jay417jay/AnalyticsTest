@@ -2,9 +2,9 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{1AA71777-6A15-92B4-38B4-CEB9EF9AA20F}</SystemId>
-		<IssueTime>2025-06-20T03:16:00</IssueTime>
-		<ExpireTime>2025-06-28T00:00:00</ExpireTime>
-		<LicenseKey>21e9a19c105568fa131fa944fc4ede4f7c54c06d1405046ba0034302408333b9a55c770f454087f786a36526133d13514352239316de51637f108fa7197d142148c9e842ee3fb85d5c5405999ffe34b4d06da9951bec499ab6631e97299d14c826bf6c95aac6f43a2a5262b0477f95479076cd05e7d7062fac03d07aae53317f5da2b5e47fef8891e8537c0c85136ee05c75b0efcff214bc8df2bbe4e925a3bef1411b48398bff6e6764d0c3f4e612490e83781866698f1acf54ed883b4b6fcdb1a5dc6b95cdeeca8b68643f3c10e998be850c0213540e2e55e03f7f272af81ef8772480a04e52c32e0af006b5f76cb849fe569d7acc7fc4d11df7b2359c46bd</LicenseKey>
+		<IssueTime>2025-06-25T02:27:00</IssueTime>
+		<ExpireTime>2025-07-03T00:00:00</ExpireTime>
+		<LicenseKey>76ad540bc2ff6b299fef770abb3e0760e1019bb06ecc2c8f43e281fcf957ab02aafa536a4cea0c36492230336affbfe6d262de528efacf988f1ff11c4c6968bfdaa127a5108f21f7c612a566c7f288c57427192fbb364de99044576376e8fab026b920046fd476785d6eba92ab55e686dd31393d60343ef3cdde896fef5992d3edf6a2d179cc6a386a383470e406c40bc5036bec2579127e903835a4fe15c42c41f32005c0017dc97a03d22d2876741d42e589f2ffecf62971906b2f1534a9a5468dcfb360cb83c3c6ea76f502d6747894540c51d821f3e55bf7ab36be577535acda728143e8bfdc880ef7bb14abb9b3e1a791966f734f7670bee114d8b476f7</LicenseKey>
 		<License>
 			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
 			<Name>TC3 PLC</Name>
@@ -151,11 +151,6 @@
 			<OrderNo>TF2300</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{3DDCAB25-BF0E-412C-A721-DC77C1B8099C}</LicenseId>
-			<Name>TC3 Scope Server</Name>
-			<OrderNo>TF3300</OrderNo>
-		</License>
-		<License>
 			<LicenseId>{CCE50C10-2CAA-4243-8182-080F02C5BE3D}</LicenseId>
 			<Name>TC3 Reporting Server</Name>
 		</License>
@@ -178,16 +173,6 @@
 			<LicenseId>{02AC2825-C3C7-4D15-AAF6-4EB45EFAA2D0}</LicenseId>
 			<Name>TC3 Analytics Logger</Name>
 			<OrderNo>TF3500</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{4989A799-AEEA-4FEE-88EF-666B99EEFB45}</LicenseId>
-			<Name>TC3 Scope View Professional</Name>
-			<OrderNo>TE1300</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{BB40055B-8333-4223-90EA-7C4559DC7C69}</LicenseId>
-			<Name>TC3 Analytics Workbench</Name>
-			<OrderNo>TE3500</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{0070B910-0995-4F44-83BF-D1E141B4D8C3}</LicenseId>

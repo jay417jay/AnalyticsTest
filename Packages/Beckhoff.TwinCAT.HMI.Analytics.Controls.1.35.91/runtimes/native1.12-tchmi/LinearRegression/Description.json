@@ -1,0 +1,445 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "LinearRegression",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Linear Regression",
+  "version": {
+    "full": "1.0.0.0",
+    "major": 1,
+    "minor": 0,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "This description text will be used as a Tooltip in Visual Studio.",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 630,
+      "height": 470
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/LinearRegression.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "LinearRegression.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.LinearRegression",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Linear Regression",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-control-type",
+      "propertyName": "ControlType",
+      "propertySetterName": "setControlType",
+      "propertyGetterName": "getControlType",
+      "displayName": "Control Type",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/EnumLinearRegression",
+      "category": "Analytics",
+      "description": "Choose Control Type",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Curve Fitting",
+      "defaultValueInternal": "Curve Fitting"
+    },
+    {
+      "name": "data-tchmi-input-item-lr",
+      "propertyName": "InputItemLR",
+      "propertySetterName": "setInputItemLR",
+      "propertyGetterName": "getInputItemLR",
+      "displayName": "Input Linear Regression",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/LRInputItem",
+      "category": "Analytics",
+      "description": "Input Item Linear Regression: Dependent and Input(i) value.",
+      "allowSymbolExpressionsInObject": true,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-count-values",
+      "propertyName": "CountValues",
+      "propertySetterName": "setCountValues",
+      "propertyGetterName": "getCountValues",
+      "displayName": "Counted Values",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/UDINT",
+      "category": "Analytics",
+      "description": "Counted values which will be shown in line chart.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 100,
+      "defaultValueInternal": 100
+    },
+    {
+      "name": "data-tchmi-down-sizing-factor",
+      "propertyName": "DownSizingFactor",
+      "propertySetterName": "setDownSizingFactor",
+      "propertyGetterName": "getDownSizingFactor",
+      "displayName": "Downsizing Factor",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/UDINT",
+      "category": "Analytics",
+      "description": "Down Sizing Factor for the input data to reduce chart data (all data = 1)",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 1,
+      "defaultValueInternal": 1
+    },
+    {
+      "name": "data-tchmi-axis-range-scaling",
+      "propertyName": "AxisRangeScaling",
+      "propertySetterName": "setAxisRangeScaling",
+      "propertyGetterName": "getAxisRangeScaling",
+      "displayName": "Axis Range Scaling",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:framework#/definitions/LREnumAxisRange",
+      "category": "Analytics",
+      "description": "Axis Range scaling option. If manual, set axis ranges.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Auto",
+      "defaultValueInternal": "Auto"
+    },
+    {
+      "name": "data-tchmi-x-axis-ranges",
+      "propertyName": "XAxisRanges",
+      "propertySetterName": "setXAxisRanges",
+      "propertyGetterName": "getXAxisRanges",
+      "displayName": "X-Axis-Ranges",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 14,
+      "type": "tchmi:framework#/definitions/LRAxisRanges",
+      "category": "Analytics",
+      "description": "X Axis Ranges Min/Max",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "Min": 0.0,
+        "Max": 100.0
+      },
+      "defaultValueInternal": {
+        "Min": 0.0,
+        "Max": 100.0
+      }
+    },
+    {
+      "name": "data-tchmi-y-axis-ranges",
+      "propertyName": "YAxisRanges",
+      "propertySetterName": "setYAxisRanges",
+      "propertyGetterName": "getYAxisRanges",
+      "displayName": "Y-Axis-Ranges",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 14,
+      "type": "tchmi:framework#/definitions/LRAxisRanges",
+      "category": "Analytics",
+      "description": "Y Axis Ranges Min/Max",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "Min": 0.0,
+        "Max": 100.0
+      },
+      "defaultValueInternal": {
+        "Min": 0.0,
+        "Max": 100.0
+      }
+    },
+    {
+      "name": "data-tchmi-input-alias",
+      "propertyName": "InputAlias",
+      "propertySetterName": "setInputAlias",
+      "propertyGetterName": "getInputAlias",
+      "displayName": "Input Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Input alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Input",
+      "defaultValueInternal": "Input"
+    },
+    {
+      "name": "data-tchmi-line-color",
+      "propertyName": "LineColor",
+      "propertySetterName": "setLineColor",
+      "propertyGetterName": "getLineColor",
+      "displayName": "Line Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 20,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Regression Line Color.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 0, 255, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-point-color",
+      "propertyName": "PointColor",
+      "propertySetterName": "setPointColor",
+      "propertyGetterName": "getPointColor",
+      "displayName": "Point Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 20,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Regression Point Color.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(30,144,255,1)"
+      }
+    },
+    {
+      "name": "data-tchmi-highlight-color",
+      "propertyName": "HighlightColor",
+      "propertySetterName": "setHighlightColor",
+      "propertyGetterName": "getHighlightColor",
+      "displayName": "Highlight Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 20,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Highlight Color for new point.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(239, 0, 0, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-dark",
+      "description": "Control Color Dark",
+      "displayName": "Control Color Dark",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorDark",
+      "propertyName": "ControlColorDark",
+      "propertySetterName": "setControlColorDark",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102, 102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+      "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+      "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(172, 172,172, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": false,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "schema": "Schema/TypeDefinitions/LinearRegression.Schema.json"
+    },
+    {
+      "schema": "Schema/TypeDefinitions/LRInputItem.json"
+    },
+    {
+      "schema": "Schema/TypeDefinitions/KeyValuePair.json"
+    },
+    {
+      "schema": "Schema/TypeDefinitions/TcHmiNumberSymbol.Schema.json"
+    },
+    {
+      "schema": "Schema/TypeDefinitions/LREnumAxisRange.json"
+    },
+    {
+      "schema": "Schema/TypeDefinitions/LRAxisRanges.json"
+    },
+    {
+      "schema": "Schema/TypeDefinitions/EnumLinearRegression.json"
+    }
+  ]
+}

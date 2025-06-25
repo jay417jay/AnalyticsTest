@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.XYGateMonitor": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "XYGateMonitor",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    }
+  }
+}

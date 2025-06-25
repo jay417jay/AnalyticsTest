@@ -1,0 +1,60 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "PopupSankeyInOut": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "SankeyInOut",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Data",
+        "description": "Defines a custom object in the array.",
+        "propertiesMeta": [
+          {
+            "name": "name",
+            "category": "Common",
+            "displayName": "Name",
+            "displayPriority": 1,
+            "description": "",
+            "defaultValue": "",
+            "defaultValueInternal": ""
+          },
+          {
+            "name": "value",
+            "category": "Common",
+            "displayName": "Value",
+            "displayPriority": 2,
+            "description": "",
+            "bindable": true,
+            "defaultValue": 0,
+            "defaultValueInternal": 0
+          },
+          {
+            "name": "percentage",
+            "category": "Common",
+            "displayName": "Percentage",
+            "displayPriority": 3,
+            "description": "",
+            "bindable": true,
+            "defaultValue": 0,
+            "defaultValueInternal": 0
+          }
+        ],
+        "properties": {
+
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "percentage": {
+            "type": "number"
+          }
+        },
+        "required": [ "name", "value", "percentage" ]
+
+      }
+    }
+  }
+}

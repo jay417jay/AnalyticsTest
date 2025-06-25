@@ -1,0 +1,39 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "LRAxisRanges": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "LRAxisRanges",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "Min",
+          "category": "Range",
+          "displayName": "Min",
+          "displayPriority": 1,
+          "description": "Min-Value",
+          "defaultValue": 0,
+          "defaultValueInternal": 0
+        },
+        {
+          "name": "Max",
+          "category": "Range",
+          "displayName": "Max",
+          "displayPriority": 2,
+          "description": "Max-Value",
+          "defaultValue": 100,
+          "defaultValueInternal": 100
+        }
+      ],
+      "properties": {
+        "Min": {
+          "type": "number"
+        },
+        "Max": {
+          "type": "number"
+        }
+      },
+      "required": [ "Min", "Max" ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_KeyValuePair" Id="7c1f97ac-a753-462e-9640-4ce39d23b0de">
+    <Declaration><![CDATA[TYPE ST_KeyValuePair : 
+STRUCT
+	sKey: WSTRING(127);
+	sValue: STRING(255);
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,370 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "Integrator",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Integrator",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Integrator",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 470,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/Integrator.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "Integrator.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.Integrator",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Integrator",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-chart-type",
+      "propertyName": "ChartType",
+      "propertySetterName": "setChartType",
+      "propertyGetterName": "getChartType",
+      "displayName": "Chart Type",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/renderTypes",
+      "category": "Analytics",
+      "description": "Choose if you want to have a line, point or line&point chart",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Lines & Points",
+      "defaultValueInternal": "Lines & Points"
+    },
+    {
+      "name": "data-tchmi-y-value",
+      "propertyName": "YValue",
+      "propertySetterName": "setYValue",
+      "propertyGetterName": "getYValue,",
+      "displayName": "Y-Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Result value / Y Value",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-value-size",
+      "propertyName": "ValueSize",
+      "propertySetterName": "setValueSize",
+      "propertyGetterName": "getValueSize",
+      "displayName": "Value Size",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Amount of values to be shown in the chart",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 12,
+      "defaultValueInternal": 12
+    },
+    {
+      "name": "data-tchmi-show-axis-labels",
+      "propertyName": "ShowAxisLabels",
+      "propertySetterName": "setShowAxisLabels",
+      "propertyGetterName": "getShowAxisLabels",
+      "displayName": "Show Axis Labels",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show axis labels",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-x-label",
+      "propertyName": "XLabel",
+      "propertySetterName": "setXLabel",
+      "propertyGetterName": "getXLabel",
+      "displayName": "X-Label",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "X Label for the chart.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "X Axis",
+      "defaultValueInternal": "X Axis"
+    },
+    {
+      "name": "data-tchmi-y-label",
+      "propertyName": "YLabel",
+      "propertySetterName": "setYLabel",
+      "propertyGetterName": "getYLabel",
+      "displayName": "Y-Label",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Y Label for the chart.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Y Axis",
+      "defaultValueInternal": "Y Axis"
+    },
+    {
+      "name": "data-tchmi-axis-label-size",
+      "propertyName": "AxisLabelSize",
+      "propertySetterName": "setAxisLabelSize",
+      "propertyGetterName": "getAxisLabelSize",
+      "displayName": "Axis Label Fontsize",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Axis Label Fontsize for the chart in pt",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 14,
+      "defaultValueInternal": 14
+    },
+    {
+      "name": "data-tchmi-point-size",
+      "propertyName": "PointSize",
+      "propertySetterName": "setPointSize",
+      "propertyGetterName": "getPointSize",
+      "displayName": "Point Size",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Point Size for the chart in pt",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 5,
+      "defaultValueInternal": 5
+    },
+    {
+      "name": "data-tchmi-line-width",
+      "propertyName": "LineWidth",
+      "propertySetterName": "setLineWidth",
+      "propertyGetterName": "getLineWidth",
+      "displayName": "Line Width",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Line width for the line in the chart",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 2,
+      "defaultValueInternal": 2
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158,1)"
+      },
+      "description": "Point color for the chart points",
+      "displayName": "Point Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-point-color",
+      "propertyGetterName": "getPointColor",
+      "propertyName": "PointColor",
+      "propertySetterName": "setPointColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "name": "data-tchmi-control-color-dark",
+      "description": "Control Color Dark",
+     "displayName": "Control Color Dark",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorDark",
+      "propertyName": "ControlColorDark",
+      "propertySetterName": "setControlColorDark",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102, 102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+     "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.Integrator",
+      "schema": "Schema/TypeDefinitions/Integrator.Schema.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/renderTypes",
+      "schema": "Schema/TypeDefinitions/renderTypes.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

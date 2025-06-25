@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.ParetoChart": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.Analytics.AnalyticsControl",
+      "frameworkControlType": "ParetoChart",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    },
+    "TcHmi.Controls.Analytics.ParetoChart.YAxisScaling": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "TcHmi.Controls.Analytics.ParetoChart.YAxisScaling",
+      "type": "string",
+      "enum": [ "Cumulative Scaling", "Bar Maximization" ]
+    },
+    "TcHmi.Controls.Analytics.ParetoChart.ParetoMode": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "TcHmi.Controls.Analytics.ParetoChart.ParetoMode",
+      "type": "string",
+      "enum": [ "Count", "Timespan" ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "EnumProcess": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "EnumProcess",
+      "type": "string",
+      "enum": [ "Values", "Times" ]
+    }
+  }
+}

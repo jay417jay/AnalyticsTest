@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="MAIN_Analytics" Id="5636446d-8e5a-4b09-9bad-f6762394dab4" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN_Analytics
+VAR
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+//Reset Analytics Components
+A_Reset();
+
+CASE AnalyticsHMI.stHMI_DataSourceCtrl.nActiveConfigurationIdx OF
+	0:
+
+		//Reset
+		MAIN_Analytics_C1.A_Reset(stReset := Analytics.stReset);
+
+		//Map to HMI
+		MAIN_Analytics_C1.A_MapToHMI();
+END_CASE
+
+
+//Call DataSource FBs
+IF Analytics.fbT1_InputSource.bReadNewData THEN
+	Analytics.fbT1_InputSource.Call();
+END_IF]]></ST>
+    </Implementation>
+    <Action Name="A_Reset" Id="e8908d10-0296-49b1-95f9-89c0bbbb5660">
+      <Implementation>
+        <ST><![CDATA[
+IF AnalyticsHMI.bN1_Network_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_Network;
+	Analytics.stReset.bResetExecute:= TRUE;
+	AnalyticsHMI.bN1_Network_Reset:= FALSE;
+END_IF
+
+IF AnalyticsHMI.bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M1_PackMLOverallEquipmentEffectivenessOEE;
+	Analytics.stReset.bResetExecute:= TRUE;
+	AnalyticsHMI.bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset:= FALSE;
+END_IF
+
+IF AnalyticsHMI.bN1_M2_ProductionTimingAnalysis1Ch_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M2_ProductionTimingAnalysis1Ch;
+	Analytics.stReset.bResetExecute:= TRUE;
+	AnalyticsHMI.bN1_M2_ProductionTimingAnalysis1Ch_Reset:= FALSE;
+END_IF
+
+IF AnalyticsHMI.bN1_M3_PieChart_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M3_PieChart;
+	Analytics.stReset.bResetExecute:= TRUE;
+	AnalyticsHMI.bN1_M3_PieChart_Reset:= FALSE;
+END_IF
+
+IF AnalyticsHMI.bN1_M4_ThresholdClassifier1Ch_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M4_ThresholdClassifier1Ch;
+	Analytics.stReset.bResetExecute:= TRUE;
+	AnalyticsHMI.bN1_M4_ThresholdClassifier1Ch_Reset:= FALSE;
+END_IF
+
+IF AnalyticsHMI.bN1_M5_PlasticMathOperation_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M5_PlasticMathOperation;
+	Analytics.stReset.bResetExecute:= TRUE;
+	AnalyticsHMI.bN1_M5_PlasticMathOperation_Reset:= FALSE;
+END_IF
+
+IF AnalyticsHMI.bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M6_PreventiveMaintenanceLifetimeAnalysis;
+	Analytics.stReset.bResetExecute:= TRUE;
+	AnalyticsHMI.bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

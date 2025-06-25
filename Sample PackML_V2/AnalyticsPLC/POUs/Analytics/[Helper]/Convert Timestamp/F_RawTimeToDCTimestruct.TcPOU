@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="F_RawTimeToDCTimestruct" Id="4deec397-7847-47a4-a685-853fd415c929" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_RawTimeToDCTimestruct : DCTimestruct
+VAR_INPUT
+	nRaw: ULINT;
+	nUtcTimeBias: INT;
+END_VAR
+VAR
+	fbTime: FB_ALY_DateTime;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbTime.nRaw:= nRaw;
+fbTime.nUtcTimeBias:= nUtcTimeBias;
+F_RawTimeToDCTimestruct:= fbTime.stStructured;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

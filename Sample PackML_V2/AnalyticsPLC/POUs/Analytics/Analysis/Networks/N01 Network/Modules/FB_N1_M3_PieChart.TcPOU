@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_N1_M3_PieChart" Id="a00faa60-7701-4fae-b4b7-c9aed6af1c2d" SpecialFunc="None">
+    <Declaration><![CDATA[//This Module is used for the One-click Dashboard to generate a pie chart from the inputs. Optional the output can be set to be percentaged.
+FUNCTION_BLOCK FB_N1_M3_PieChart
+VAR_INPUT
+	nDataInCh1: ULINT;
+	fDataInCh2: LREAL;
+	bEnableExecution: BOOL := TRUE;
+	bReset: BOOL;
+	bReconfigure: BOOL := TRUE;
+END_VAR
+VAR_INPUT PERSISTENT
+	bRelativeOutput: BOOL;
+	aChannelNames: ARRAY [1..2] OF STRING(255);
+END_VAR
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage;
+	bNewResult: BOOL;
+	aResult: ARRAY [1..2] OF LREAL;
+END_VAR
+VAR
+	
+	R_TRIG_Reconfigure: R_TRIG;
+	
+	fbALY_PieChart: FB_ALY_PieChart(nNumChannels:=2);
+END_VAR
+VAR PERSISTENT
+	bConfigured: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="d6916918-72b6-4114-a564-129fd16a8fa1">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR_INPUT
+	nCurrentContext: DWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bConfigured THEN
+	bConfigured:= TRUE;
+
+	bRelativeOutput:= TRUE;
+	aChannelNames[1]:= 'Metal';
+	aChannelNames[2]:= 'Plastic';
+
+END_IF
+
+R_TRIG_Reconfigure(CLK:= bReconfigure);
+IF R_TRIG_Reconfigure.Q THEN
+	fbALY_PieChart.ConfigureChannel(nChannel:= 1, sChannelName:= aChannelNames[1]);
+	fbALY_PieChart.ConfigureChannel(nChannel:= 2, sChannelName:= aChannelNames[2]);
+
+	fbALY_PieChart.Configure(bRelativeOutput:= bRelativeOutput);
+
+	bReconfigure:= FALSE;
+END_IF
+
+IF bReset THEN
+	Reset();
+END_IF
+
+IF bEnableExecution THEN
+	IF F_HasContext(nCurrentContext, nContext) THEN
+		fbALY_PieChart.SetChannelValue(nChannel:= 1, Input:= nDataInCh1);
+		fbALY_PieChart.SetChannelValue(nChannel:= 2, Input:= fDataInCh2);
+
+		fbALY_PieChart.Call();
+
+		bNewResult:= fbALY_PieChart.bNewResult;
+
+		fbALY_PieChart.GetOutputArray(pArrayOut:= ADR(aResult), nArrayOutSize:= SIZEOF(aResult));
+
+		bError:= fbALY_PieChart.bError;
+		ipTcResult:= fbALY_PieChart.ipResultMessage;
+	END_IF
+ELSE
+	bNewResult:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="052b3543-9e9d-4aa4-8309-ea42982cd7f6">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset:= fbALY_PieChart.Reset();
+
+bNewResult:= fbALY_PieChart.bNewResult;
+
+fbALY_PieChart.GetOutputArray(pArrayOut:= ADR(aResult), nArrayOutSize:= SIZEOF(aResult));
+
+bError:= NOT Reset;
+ipTcResult:= fbALY_PieChart.ipResultMessage;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHMI" Id="37619105-736a-43a1-b019-2899a1e6b753">
+      <Declaration><![CDATA[METHOD SetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+	bHMIReinit: BOOL;
+END_VAR
+VAR
+	pHMI_C1_Network: POINTER TO ST_HMI_C1_Network;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetHMI:= FALSE;
+
+CASE nContent OF
+	1:
+		pHMI_C1_Network:= pContent;
+
+		IF bHMIReinit AND bConfigured THEN
+			pHMI_C1_Network^.stHMI_C1_Ctrl1_Pie_Chart.bM3_bRelativeOutput:= bRelativeOutput;
+			pHMI_C1_Network^.stHMI_C1_Ctrl1_Pie_Chart.aM3_aChannelNames:= aChannelNames;
+			SetHMI:= TRUE;
+		END_IF
+
+		pHMI_C1_Network^.stHMI_C1_Ctrl1_Pie_Chart.fM3_nDataInCh1:= TO_LREAL(nDataInCh1);
+		pHMI_C1_Network^.stHMI_C1_Ctrl1_Pie_Chart.fM3_fDataInCh2:= fDataInCh2;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHMI" Id="bd30a9c5-ad94-40d8-a24b-4332f0dfc27c">
+      <Declaration><![CDATA[METHOD GetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+END_VAR
+VAR
+	pHMI_C1_Network: POINTER TO ST_HMI_C1_Network;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE nContent OF
+	1:
+		//Network
+		pHMI_C1_Network:= pContent;
+
+		IF pHMI_C1_Network^.stHMI_C1_Ctrl1_Pie_Chart.bTrigReconfigure THEN
+			pHMI_C1_Network^.stHMI_C1_Ctrl1_Pie_Chart.bTrigReconfigure:= FALSE;
+			bReconfigure:= TRUE;
+
+			//bRelativeOutput not mapped (pHMI_C1_Network^.stHMI_C1_Ctrl1_Pie_Chart.bM3_bRelativeOutput). Write back of parameters is only supported for numeric values.
+			//aChannelNames not mapped (pHMI_C1_Network^.stHMI_C1_Ctrl1_Pie_Chart.aM3_aChannelNames). Write back of parameters is only supported for numeric values.
+		END_IF
+END_CASE
+
+GetHMI:= bReconfigure;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nContext" Id="25bb6e2a-bcba-4172-96c8-ff2c742faff4">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="1dc44eaf-dd12-4a25-ab0d-7f1a267f7013">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nContext:= E_VirtualInput.eContext_V1_VirtualInputSource;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

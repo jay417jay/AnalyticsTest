@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "EnumMultivalueType": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "EnumMultivalueType",
+      "type": "string",
+      "enum": [ "Multiplexer", "Arraytype" ]
+    }
+  }
+}

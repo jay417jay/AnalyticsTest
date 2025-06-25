@@ -1,0 +1,97 @@
+.tchmi-trend-line-chart-button {
+    float: left;
+    min-width: 110px;
+    height: 30px;
+    border: none;
+    background-color: rgba(128, 128, 128, 0.3);
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: 1px solid rgba(64,64,64,0);
+    border-radius: 3px;
+}
+
+.tchmi-trend-line-chart-button0 {
+    border: 1px solid rgba(64,64,64,0.5);
+    background-color: rgba(128, 128, 128, 0.7);
+}
+
+.tchmi-trend-line-chart-button{
+    margin-left:0px;
+    display: inline-block;
+}
+
+.tchmi-trend-line-chart-buttons {
+    display: inline-block;
+}
+
+.tchmi-trend-line-chart-buttons-container {
+    width: 100%;
+    text-align: center;
+}
+
+.tchmi-trend-line-chart-charting-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.tchmi-trend-line-chart-cb-item {
+    display: inline-block;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tchmi-trend-line-chart-cb {
+    transform: scale(1.2);
+    float: left;
+}
+
+.tchmi-trend-line-chart-cb-color-element {
+    height: 2px;
+    width: 10px;
+}
+
+.tchmi-trend-line-chart-cb-text {
+    font-size: 140%;
+    float: left;
+    margin-left:1px;
+}
+
+.tchmi-trend-line-chart-charting {
+    box-shadow: none !important;
+}
+
+.tchmi-trend-line-chart-charting .tchmi-line-chart-template-chart {
+    background-color: transparent;
+}
+
+.tchmi-trend-line-chart-timestamps-box {
+    margin-left:50px;
+    margin-right:0px;
+}
+
+.tchmi-trend-line-chart-timestamps {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Styles for small height */
+.tchmi-trend-line-chart-small .tchmi-trend-line-chart-button {
+    font-size: 14px;
+    min-width: 60px;
+}
+
+.tchmi-trend-line-chart-small .tchmi-trend-line-chart-cb-text {
+    font-size: 100%;
+}
+
+.tchmi-trend-line-chart-small .tchmi-trend-line-chart-cb {
+    transform: initial;
+}

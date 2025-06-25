@@ -1,0 +1,66 @@
+﻿.tchmi-linear-regression-chart-button {
+    float: left;
+    min-width: 110px;
+    height: 30px;
+    border: none;
+    background-color: rgba(128, 128, 128, 0.3);
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: 1px solid rgba(64,64,64,0);
+    border-radius: 3px;
+    margin-left: 0px;
+    display: inline-block;
+}
+
+.tchmi-linear-regression-chart-button0 {
+    border: 1px solid rgba(64,64,64,0.5);
+    background-color: rgba(128, 128, 128, 0.7);
+}
+
+.tchmi-linear-regression-chart-buttons {
+    display: inline-block;
+}
+
+.tchmi-linear-regression-chart-buttons-container {
+    width: 100%;
+    text-align: center;
+}
+
+.tchmi-linear-regression-chart-charting-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.tchmi-linear-regression-chart-cb {
+    transform: scale(1.2);
+}
+
+.tchmi-linear-regression-chart-cb-text {
+    font-size: 140%;
+    display: inline;
+    margin-left: 1px;
+}
+
+.tchmi-linear-regression-chart-charting {
+    box-shadow: none !important;
+}
+
+.tchmi-linear-regression-chart-charting .tchmi-line-chart-template-chart {
+    background-color: transparent;
+}
+
+.tchmi-linear-regression-chart-timestamps-box {
+    margin-left: 75px;
+    margin-right: 0px;
+}
+
+.tchmi-linear-regression-chart-timestamps {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,645 @@
+{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "LayoutManager",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "LayoutManager",
+  "version": {
+    "full": "1.0.0.1",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.System.TcHmiContainerControl",
+  "description": "This description text will be used as a Tooltip in Visual Studio.",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 150,
+      "height": 150
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/LayoutManager.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "Helper/HelperObjects.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/LayoutElement.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/Layout.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/UndoRedoManager.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/MovementExaminer.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/LayoutRestorer.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/LayoutEditor.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/LayoutProperties.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/HotKeyEventlistener.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/LayoutGenerator.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/MobileLayoutGenerator.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/InteractiveControlHandler.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/DesktopLayoutGenerator.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Helper/LayoutStoreHandler.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "LayoutManager.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-header-color-light",
+      "propertyName": "HeaderColorLight",
+      "propertySetterName": "setHeaderColorLight",
+      "propertyGetterName": "getHeaderColorLight",
+      "displayName": "Header Color Light",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Color of header in light mode.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(249, 250, 251,1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(249, 250, 251,1)"
+      }
+    },
+    {
+      "name": "data-tchmi-header-color-dark",
+      "propertyName": "HeaderColorDark",
+      "propertySetterName": "setHeaderColorDark",
+      "propertyGetterName": "getHeaderColorDark",
+      "displayName": "Header Color Dark",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Color of header in dark mode.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(68, 68, 68, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(68, 68, 68, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-grid-line-color",
+      "propertyName": "GridLineColor",
+      "propertySetterName": "setGridLineColor",
+      "propertyGetterName": "getGridLineColor",
+      "displayName": "Grid Line Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 20,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Defines the color of the lines in the grid while in edit mode.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(135, 134, 134, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(135, 134, 134, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-dark-mode",
+      "propertyName": "data-tchmi-dark-mode",
+      "propertySetterName": "setDarkMode",
+      "propertyGetterName": "getDarkMode",
+      "displayName": "DarkMode",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Sets the Dark Mode for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-menu-control-symbol",
+      "propertyName": "MenuControlSymbol",
+      "propertySetterName": "setMenuControlSymbol",
+      "propertyGetterName": "getMenuControlSymbol",
+      "displayName": "MenuControlSymbol",
+      "visible": true,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.Menu",
+      "category": "Slave Controls",
+      "description": "Optional linked menu control.",
+      "requiredOnCompile": false,
+      "themeable": "Standard",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-mobile-view-width",
+      "propertyName": "MobileViewWidth",
+      "propertySetterName": "setMobileViewWidth",
+      "propertyGetterName": "getMobileViewWidth",
+      "displayName": "Mobile View Width",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "Analytics",
+      "description": "A display width lower this width activates the smartphone view.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 600,
+      "defaultValueInternal": 600
+    },
+    {
+      "name": "data-tchmi-column-number",
+      "propertyName": "ColumnNumber",
+      "propertySetterName": "setColumnNumber",
+      "propertyGetterName": "getColumnNumber",
+      "displayName": "Number of columns in the normal view",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "Analytics",
+      "description": "Number of columns",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 20,
+      "defaultValueInternal": 20
+    },
+    {
+      "name": "data-tchmi-default-control-distance",
+      "propertyName": "DefaultControlDistance",
+      "propertySetterName": "setDefaultControlDistance",
+      "propertyGetterName": "getDefaultControlDistance",
+      "displayName": "Grid Gap",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "Analytics",
+      "description": "Default Grid Gap in the normal view",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 10,
+      "defaultValueInternal": 10
+    },
+    {
+      "name": "data-tchmi-monitor-view-width",
+      "propertyName": "MonitorViewWidth",
+      "propertySetterName": "setMonitorViewWidth",
+      "propertyGetterName": "getMonitorViewWidth",
+      "displayName": "Monitor View Width",
+      "visible": false,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "Analytics",
+      "description": "A display width larger this width activates the monitor view",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 1000,
+      "defaultValueInternal": 1000
+    },
+    {
+      "name": "data-tchmi-default-viewport-width",
+      "propertyName": "DefaultViewportWidth",
+      "propertySetterName": "setDefaultViewportWidth",
+      "propertyGetterName": "getDefaultViewportWidth",
+      "displayName": "Default Viewport Width",
+      "visible": false,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "Analytics",
+      "description": "",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-default-viewport-height",
+      "propertyName": "DefaultViewportHeight",
+      "propertySetterName": "setDefaultViewportHeight",
+      "propertyGetterName": "getDefaultViewportHeight",
+      "displayName": "Default Viewport Height",
+      "visible": false,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "Analytics",
+      "description": "",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-sorting-type",
+      "propertyName": "SortingType",
+      "propertySetterName": "setSortingType",
+      "propertyGetterName": "getSortingType",
+      "displayName": "SortingType",
+      "visible": false,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-allow-layout-edit",
+      "propertyName": "AllowLayoutEdit",
+      "propertyGetterName": "getAllowLayoutEdit",
+      "propertySetterName": "setAllowLayoutEdit",
+      "displayName": "AllowLayoutEdit",
+      "visible": false,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Property to allow or forbid Layout-Edit",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-interactivity-lock",
+      "propertyName": "InteractivityLock",
+      "propertyGetterName": "getInteractivityLock",
+      "propertySetterName": "setInteractivityLock",
+      "displayName": "Disable Interaction",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Enables or disables event interactions (like touch or click) for child controls while allowing movement and scaling. Useful for editing layout without triggering events.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-always-show-edit-button",
+      "propertyName": "AlwaysShowEditButton",
+      "propertyGetterName": "getAlwaysShowEditButton",
+      "propertySetterName": "setAlwaysShowEditButton",
+      "displayName": "Always Show Edit Button",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Determines if the edit button should always be visible.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-edit-button-top-right",
+      "propertyName": "ShowEditButtonTopRight",
+      "propertyGetterName": "getShowEditButtonTopRight",
+      "propertySetterName": "setShowEditButtonTopRight",
+      "displayName": "Show Edit Button top right",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Determines if the edit button should be displayed on the top right.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-username-button",
+      "propertyName": "ShowUsernameButton",
+      "propertyGetterName": "getShowUsernameButton",
+      "propertySetterName": "setShowUsernameButton",
+      "displayName": "Show username Button",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Determines if a button that displays the username should be shown in the header.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-disable-animations",
+      "propertyName": "DisableAnimations",
+      "propertyGetterName": "getDisableAnimations",
+      "propertySetterName": "setDisableAnimations",
+      "displayName": "Disable Animations",
+      "visible": true,
+      "displayPriority": 100,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "If true all animations and transitions of the Layout Manager Control are disabled.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-button-size",
+      "propertyName": "ButtonSize",
+      "propertyGetterName": "getButtonSize",
+      "propertySetterName": "setButtonSize",
+      "displayName": "Button Size",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Number",
+      "category": "Analytics",
+      "description": "Sets the size of the buttons in the header in pixels. Allows precise control over the appearance of header buttons.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": 35,
+      "defaultValueInternal": 35
+    },
+    {
+      "name": "data-tchmi-use-custom-row-height",
+      "propertyName": "UseCustomRowHeight",
+      "propertyGetterName": "getUseCustomRowHeight",
+      "propertySetterName": "setUseCustomRowHeight",
+      "displayName": "Use custom row height",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "If true the row height won't be responsive anymore.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-custom-row-height",
+      "propertyName": "CustomRowHeight",
+      "propertyGetterName": "getCustomRowHeight",
+      "propertySetterName": "setCustomRowHeight",
+      "displayName": "Custom row height",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "Analytics",
+      "description": "Custom row height in pixel.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": 50,
+      "defaultValueInternal": 50
+    },
+    {
+      "name": "data-tchmi-default-layout",
+      "propertyName": "DefaultLayout",
+      "propertySetterName": "setDefaultLayout",
+      "propertyGetterName": "getDefaultLayout",
+      "displayName": "SortingType",
+      "visible": false,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-show-popup-messages",
+      "propertyName": "data-tchmi-show-popup-messages",
+      "propertySetterName": "setShowPopupMessages",
+      "propertyGetterName": "getShowPopupMessages",
+      "displayName": "Show Popup Messages",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Show Popup Messages.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-add-chart-button",
+      "propertyName": "ShowAddChartButton",
+      "propertyGetterName": "getShowAddChartButton",
+      "propertySetterName": "setShowAddChartButton",
+      "displayName": "Show add chart Button",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Determines if the add chart control button is displayed in the header.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-add-custom-ctrl-button",
+      "propertyName": "ShowAddCustomCtrlButton",
+      "propertyGetterName": "getShowAddCustomCtrlButton",
+      "propertySetterName": "setShowAddCustomCtrlButton",
+      "displayName": "Show add custom controls Button",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Determines if the add custom control button is displayed in the header.",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-custom-ctrl-types",
+      "propertyName": "CustomCtrlTypes",
+      "propertyGetterName": "getCustomCtrlTypes",
+      "propertySetterName": "setCustomCtrlTypes",
+      "displayName": "Custom Controls List",
+      "visible": true,
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/TcHmiControlList",
+      "category": "Analytics",
+      "description": "Specify the the controls which can be added via the custom button. NOTE: Currently only one control is supported!",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-allow-keyboard-shortcuts",
+      "propertyName": "AllowKeyboardShortcuts",
+      "propertyGetterName": "getAllowKeyboardShortcuts",
+      "propertySetterName": "setAllowKeyboardShortcuts",
+      "displayName": "AllowKeyboardShortcuts",
+      "visible": true,
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Property to allow or forbid Keyboard Shortcuts",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "schema": "Schema/Types.Schema.json"
+    }
+  ],
+  "languages": {
+    "en":  "Lang/en.json",
+    "de":  "Lang/de.json"
+  }
+}

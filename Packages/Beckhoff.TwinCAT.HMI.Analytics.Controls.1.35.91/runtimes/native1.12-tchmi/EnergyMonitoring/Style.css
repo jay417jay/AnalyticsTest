@@ -1,0 +1,75 @@
+﻿.tchmi-energy-monitoring-svg {
+    display: block;
+}
+
+
+.tchmi-energy-monitoring-text {
+    text-anchor: middle;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.tchmi-energy-monitoring-text-current-value {
+    text-anchor: start;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tchmi-energy-monitoring-text-timestamp {
+    text-anchor: start;
+}
+
+tchmi-energy-monitoring-min-max-value-marker {
+    stroke: none;
+}
+
+.tchmi-energy-monitoring-min-max-button {
+    stroke-width: 2px;
+    fill: transparent;
+    cursor: pointer;
+}
+
+
+.tchmi-energy-monitoring-animated-text {
+    -webkit-animation: fadeinout 5s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadeinout 5s; /* Firefox < 16 */
+    -ms-animation: fadeinout 5s; /* Internet Explorer */
+    -o-animation: fadeinout 5s; /* Opera < 12.1 */
+    animation: fadeinout 5s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeinout {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadeinout {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeinout {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

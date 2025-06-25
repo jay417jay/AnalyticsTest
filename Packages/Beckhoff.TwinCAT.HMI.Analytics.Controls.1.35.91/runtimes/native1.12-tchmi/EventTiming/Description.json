@@ -1,0 +1,809 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "EventTiming",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Event Timing",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Event Timing",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 310,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/EventTiming.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "EventTiming.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.EventTiming",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Event Timing",
+      "defaultValueInternal": ""
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(150, 150, 150,1)"
+      },
+      "description": "Color for inactive.",
+     "displayName": "Off Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-off-color",
+      "propertyGetterName": "getOffColor",
+      "propertyName": "OffColor",
+      "propertySetterName": "setOffColor",
+      "readOnly": false,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158, 1)"
+      },
+      "description": "Color for active",
+     "displayName": "On Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-on-color",
+      "propertyGetterName": "getOnColor",
+      "propertyName": "OnColor",
+      "propertySetterName": "setOnColor",
+      "readOnly": false,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255,153,0,1)"
+      },
+      "description": "Color for min",
+      "displayName": "Min Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-min-color",
+      "propertyGetterName": "getMinColor",
+      "propertyName": "MinColor",
+      "propertySetterName": "setMinColor",
+      "readOnly": false,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(77, 77, 255, 1)"
+      },
+      "description": "Color for max",
+      "displayName": "Max Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-max-color",
+      "propertyGetterName": "getMaxColor",
+      "propertyName": "MaxColor",
+      "propertySetterName": "setMaxColor",
+      "readOnly": false,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(8,138,8,1)"
+      },
+      "description": "Color for avg",
+      "displayName": "Avg Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-avg-color",
+      "propertyGetterName": "getAvgColor",
+      "propertyName": "AvgColor",
+      "propertySetterName": "setAvgColor",
+      "readOnly": false,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "name": "data-tchmi-is-on",
+      "propertyName": "IsOn",
+      "propertySetterName": "setIsOn",
+      "propertyGetterName": "getIsOn",
+      "displayName": "Is On",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "BOOL, true if Timer is on",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-on-min",
+      "propertyName": "onMin",
+      "propertySetterName": "setOnMin",
+      "propertyGetterName": "getOnMin",
+      "displayName": "On Min",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time min on for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 1,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 1,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-on-max",
+      "propertyName": "onMax",
+      "propertySetterName": "setOnMax",
+      "propertyGetterName": "getOnMax",
+      "displayName": "On Max",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time max on for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 3,
+        "wHours": 3,
+        "wMinutes": 3,
+        "wSeconds": 3,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 3,
+        "wHours": 3,
+        "wMinutes": 3,
+        "wSeconds": 3,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+
+    {
+      "name": "data-tchmi-on-avg",
+      "propertyName": "onAvg",
+      "propertySetterName": "setOnAvg",
+      "propertyGetterName": "getOnAvg",
+      "displayName": "On Avg",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time avg on for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 2,
+        "wHours": 2,
+        "wMinutes": 2,
+        "wSeconds": 2,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 2,
+        "wHours": 2,
+        "wMinutes": 2,
+        "wSeconds": 2,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+
+    {
+      "name": "data-tchmi-off-min",
+      "propertyName": "offMin",
+      "propertySetterName": "setOffMin",
+      "propertyGetterName": "getOffMin",
+      "displayName": "Off Min",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time min off for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-off-max",
+      "propertyName": "offMax",
+      "propertySetterName": "setOffMax",
+      "propertyGetterName": "getOffMax",
+      "displayName": "Off Max",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time max off for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 3,
+        "wMinutes": 3,
+        "wSeconds": 3,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 3,
+        "wMinutes": 3,
+        "wSeconds": 3,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-off-avg",
+      "propertyName": "offAvg",
+      "propertySetterName": "setOffAvg",
+      "propertyGetterName": "getOffAvg",
+      "displayName": "Off Avg",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time avg off for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 2,
+        "wMinutes": 2,
+        "wSeconds": 2,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 2,
+        "wMinutes": 2,
+        "wSeconds": 2,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-show-total",
+      "propertyName": "showTotal",
+      "propertySetterName": "setShowTotal",
+      "propertyGetterName": "getShowTotal",
+      "displayName": "Show Total",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Show Total on/off times",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-on-total",
+      "propertyName": "onTotal",
+      "propertySetterName": "setOnTotal",
+      "propertyGetterName": "getOnTotal",
+      "displayName": "On Total",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time On Total on for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 5,
+        "wHours": 5,
+        "wMinutes": 5,
+        "wSeconds": 5,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 5,
+        "wHours": 5,
+        "wMinutes": 5,
+        "wSeconds": 5,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-off-total",
+      "propertyName": "ofTotal",
+      "propertySetterName": "setOffTotal",
+      "propertyGetterName": "getOffTotal",
+      "displayName": "Off Total",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time Off Total on for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 1,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 1,
+        "wHours": 1,
+        "wMinutes": 1,
+        "wSeconds": 1,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+
+    {
+      "name": "data-tchmi-current",
+      "propertyName": "current",
+      "propertySetterName": "setCurrent",
+      "propertyGetterName": "getCurrent",
+      "displayName": "Current",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Time current on for the control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 1,
+        "wMinutes": 12,
+        "wSeconds": 12,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "bIsNegative": 0,
+        "wDays": 0,
+        "wHours": 1,
+        "wMinutes": 12,
+        "wSeconds": 12,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-show-milli-seconds",
+      "propertyName": "ShowMilliSeconds",
+      "propertySetterName": "setShowMilliSeconds",
+      "propertyGetterName": "getShowMilliSeconds",
+      "displayName": "Show Milliseconds",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show milliseconds in time.",  
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-min-alias",
+      "propertyName": "MinAlias",
+      "propertySetterName": "setMinAlias",
+      "propertyGetterName": "getMinAlias",
+      "displayName": "Min Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Min alias name",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Min",
+      "defaultValueInternal": "Min"
+    },
+    {
+      "name": "data-tchmi-max-alias",
+      "propertyName": "MaxAlias",
+      "propertySetterName": "setMaxAlias",
+      "propertyGetterName": "getMaxAlias",
+      "displayName": "Max Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Max alias name",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Max",
+      "defaultValueInternal": "Max"
+    },
+    {
+      "name": "data-tchmi-avg-alias",
+      "propertyName": "AvgAlias",
+      "propertySetterName": "setAvgAlias",
+      "propertyGetterName": "getAvgAlias",
+      "displayName": "Avg Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Average alias name",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Avg",
+      "defaultValueInternal": "Avg"
+    },
+    {
+      "name": "data-tchmi-on-alias",
+      "propertyName": "OnAlias",
+      "propertySetterName": "setOnAlias",
+      "propertyGetterName": "getOnAlias",
+      "displayName": "On Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "On Alias for this control.",
+      
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "On",
+      "defaultValueInternal": "On"
+    },
+    {
+      "name": "data-tchmi-off-alias",
+      "propertyName": "OffAlias",
+      "propertySetterName": "setOffAlias",
+      "propertyGetterName": "getOffAlias",
+      "displayName": "Off Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Off Alias for this control.",  
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Off",
+      "defaultValueInternal": "Off"
+    },
+    {
+      "name": "data-tchmi-day-alias",
+      "propertyName": "DayAlias",
+      "propertySetterName": "setDayAlias",
+      "propertyGetterName": "getDayAlias",
+      "displayName": "Day Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Day Alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Day",
+      "defaultValueInternal": "Day"
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+     "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": true,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+     "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": true,
+      
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.EventTiming",
+      "schema": "Schema/TypeDefinitions/EventTiming.Schema.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

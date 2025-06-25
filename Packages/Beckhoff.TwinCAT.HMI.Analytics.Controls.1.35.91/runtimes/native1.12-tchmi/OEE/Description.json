@@ -1,0 +1,567 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "OEE",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "OEE",
+  "version": {
+    "full": "1.0.0.0",
+    "major": 1,
+    "minor": 0,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Control to display OEE data.",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 630,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/16x16.png",
+      "width": 16,
+      "height": 16
+    },
+    {
+      "name": "Icons/24x24.png",
+      "width": 24,
+      "height": 24
+    },
+    {
+      "name": "Icons/32x32.png",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "name": "Icons/64x64.png",
+      "width": 64,
+      "height": 64
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "OEE.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Overall Equipment Effectiveness",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-oee-design",
+      "propertyName": "OEEDesign",
+      "propertySetterName": "setOEEDesign",
+      "propertyGetterName": "getOEEDesign",
+      "displayName": "OEE Design",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/TcHmi.Controls.Analytic.OEE.Design",
+      "category": "Analytics",
+      "description": "The OEE design.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Default",
+      "defaultValueInternal": "Default"
+    },
+    {
+      "name": "data-tchmi-oee",
+      "propertyName": "OEE",
+      "propertySetterName": "setOEE",
+      "propertyGetterName": "getOEE",
+      "displayName": "Overall equipment effectiveness (OEE)",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "The OEE value (%) to be displayed.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-availability",
+      "propertyName": "Availability",
+      "propertySetterName": "setAvailability",
+      "propertyGetterName": "getAvailability",
+      "displayName": "Availability",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "The Availability value (%) to be displayed.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-performance",
+      "propertyName": "Performance",
+      "propertySetterName": "setPerformance",
+      "propertyGetterName": "getPerformance",
+      "displayName": "Performance",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "The Performance value (%) to be displayed.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-quality",
+      "propertyName": "Quality",
+      "propertySetterName": "setQuality",
+      "propertyGetterName": "getQuality",
+      "displayName": "Quality",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "The Quality value (%) to be displayed.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-level-ok-warning",
+      "propertyName": "LevelOkWarning",
+      "propertySetterName": "setLevelOkWarning",
+      "propertyGetterName": "getLevelOkWarning",
+      "displayName": "Level Ok / Warning",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "The Level Ok / Warning threshold (%).",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 90,
+      "defaultValueInternal": 90
+    },
+    {
+      "name": "data-tchmi-level-warning-alarm",
+      "propertyName": "LevelWarningAlarm",
+      "propertySetterName": "setLevelWarningAlarm",
+      "propertyGetterName": "getLevelWarningAlarm",
+      "displayName": "Level Warning / Alarm",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "The Level Warning / Alarm threshold (%).",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 75,
+      "defaultValueInternal": 75
+    },
+    {
+      "name": "data-tchmi-classification",
+      "propertyName": "Classification",
+      "propertySetterName": "setClassification",
+      "propertyGetterName": "getClassification",
+      "displayName": "OEE Classification",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "OEE Classification. 0 = eNotInitilized, 1 = eOk, 2 = eWarning, 3 = eAlarm.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-show-levels",
+      "propertyName": "ShowLevels",
+      "propertySetterName": "setShowLevels",
+      "propertyGetterName": "getShowLevels",
+      "displayName": "Show Levels",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Show the threshold levels.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-show-classification",
+      "propertyName": "ShowClassification",
+      "propertySetterName": "setShowClassification",
+      "propertyGetterName": "getShowClassification",
+      "displayName": "Show Classification",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Show the classification.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-use-threshold-color",
+      "propertyName": "UseThresholdColor",
+      "propertySetterName": "setUseThresholdColor",
+      "propertyGetterName": "getUseThresholdColor",
+      "displayName": "Use Threshold Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Whether color of threshold state is used or static OEE Color.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-oee-alias",
+      "propertyName": "OEEAlias",
+      "propertySetterName": "setOEEAlias",
+      "propertyGetterName": "getOEEAlias",
+      "displayName": "Overall Equipment Effectiveness Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Overall Equipment Effectiveness alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Overall Equipment Effectiveness",
+      "defaultValueInternal": "Overall Equipment Effectiveness"
+    },
+    {
+      "name": "data-tchmi-oee-short-alias",
+      "propertyName": "OEEShortAlias",
+      "propertySetterName": "setOEEShortAlias",
+      "propertyGetterName": "getOEEShortAlias",
+      "displayName": "OEE Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "OEE (Overall Equipment Effectiveness) alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "OEE",
+      "defaultValueInternal": "OEE"
+    },
+    {
+      "name": "data-tchmi-availability-alias",
+      "propertyName": "AvailabilityAlias",
+      "propertySetterName": "setAvailabilityAlias",
+      "propertyGetterName": "getAvailabilityAlias",
+      "displayName": "Availability Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Availability alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Availability",
+      "defaultValueInternal": "Availability"
+    },
+    {
+      "name": "data-tchmi-performance-alias",
+      "propertyName": "PerformanceAlias",
+      "propertySetterName": "setPerformanceAlias",
+      "propertyGetterName": "getPerformanceAlias",
+      "displayName": "Performance Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Performance alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Performance",
+      "defaultValueInternal": "Performance"
+    },
+    {
+      "name": "data-tchmi-quality-alias",
+      "propertyName": "QualityAlias",
+      "propertySetterName": "setQualityAlias",
+      "propertyGetterName": "getQualityAlias",
+      "displayName": "Quality Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Quality alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Quality",
+      "defaultValueInternal": "Quality"
+    },
+    {
+      "name": "data-tchmi-oee-color",
+      "propertyName": "OEEColor",
+      "propertySetterName": "setOEEColor",
+      "propertyGetterName": "getOEEColor",
+      "displayName": "OEE Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "OEE Color of ring",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(0, 200, 200, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(0, 200, 200, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-availability-color",
+      "propertyName": "AvailabilityColor",
+      "propertySetterName": "setAvailabilityColor",
+      "propertyGetterName": "getAvailabilityColor",
+      "displayName": "Availability Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Availability Color of multi layer ring",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 0, 255, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 0, 255, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-performance-color",
+      "propertyName": "PerformanceColor",
+      "propertySetterName": "setPerformanceColor",
+      "propertyGetterName": "getPerformanceColor",
+      "displayName": "Performance Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Performance color of multi layer ring",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255, 0, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255, 0, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-quality-color",
+      "propertyName": "QualityColor",
+      "propertySetterName": "setQualityColor",
+      "propertyGetterName": "getQualityColor",
+      "displayName": "Quality Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "category": "Colors",
+      "description": "Quality Color of multi layer ring",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 99, 97, 1)"
+      },
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 99, 97, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+      "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+      "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": true,
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "schema": "Schema/Types.Schema.json"
+    }
+  ]
+}

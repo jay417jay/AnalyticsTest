@@ -1,0 +1,63 @@
+﻿.tchmi-time-based-t-p-chart-percentage-svg {
+    position: relative;
+    display: block;
+    margin-left: 10px;
+    float: left;
+    border: 0;
+    border-radius: 75px;
+}
+
+.tchmi-time-based-t-p-chart-percentage-outer-circle {
+    stroke-width: 2px;
+}
+
+.tchmi-time-based-t-p-chart-percentage-written-values-circle {
+    fill: none;
+    stroke-width: 20px;
+}
+
+.tchmi-time-based-t-p-chart-percentage-values-file-circle {
+    fill: none;
+    stroke-width: 20px;
+}
+
+.tchmi-time-based-t-p-chart-percentage-text {
+    font-size: 14px;
+    text-align: center;
+    text-anchor: middle;
+    font-weight: bold;
+}
+
+.tchmi-time-based-t-p-chart-percentage-stroke-circle-outer {
+    stroke-width: 2px;
+}
+
+.tchmi-time-based-t-p-chart-percentage-stroke-circle {
+    stroke-width: 2px;
+}
+
+
+.tchmi-time-based-t-p-legend-rect-written-values {
+    stroke-width: 2px;
+}
+
+.tchmi-time-based-t-p-legend-rect-values-file {
+    stroke-width: 2px;
+}
+
+.tchmi-time-based-t-p-legend-svg {
+    position: relative;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.tchmi-time-based-t-p-legend-text {
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: start;
+    text-align: center;
+    display: block;
+    margin-left: 10px;
+    float: left;
+}

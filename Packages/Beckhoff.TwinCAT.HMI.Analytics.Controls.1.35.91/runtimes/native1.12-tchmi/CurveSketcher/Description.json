@@ -1,0 +1,508 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "CurveSketcher",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Curve Sketcher",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Curve Sketcher",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 310,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/CurveSketcher.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "CurveSketcher.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.CurveSketcher",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Curve Sketcher",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-last-peak",
+      "propertyName": "LastPeak",
+      "propertySetterName": "setLastPeak",
+      "propertyGetterName": "getLastPeak",
+      "displayName": "Last Peak Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Last Peak value",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-count-peak",
+      "propertyName": "CountPeak",
+      "propertySetterName": "setCountPeak",
+      "propertyGetterName": "getCountPeak",
+      "displayName": "Count Peak",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Count value for peaks",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-last-time-peak",
+      "propertyName": "LastTimePeak",
+      "propertySetterName": "setLastTimePeak",
+      "propertyGetterName": "getLastTimePeak",
+      "displayName": "Last Time Peak",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Last Peak time for the control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-last-valley",
+      "propertyName": "LastValley",
+      "propertySetterName": "setLastValley",
+      "propertyGetterName": "getLastValley",
+      "displayName": "Last Valley Value",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Last Valley value",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-count-valley",
+      "propertyName": "CountValley",
+      "propertySetterName": "setCountValley",
+      "propertyGetterName": "getCountValley",
+      "displayName": "Count Valley",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Count value for valleys",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-last-time-valley",
+      "propertyName": "LastTimeValley",
+      "propertySetterName": "setLastTimeValley",
+      "propertyGetterName": "getLastTimeValley",
+      "displayName": "Last Time Valley",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Last Valley time for the control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-show-max-rate-of-change",
+      "propertyName": "ShowMaxRateOfChange",
+      "propertySetterName": "setShowMaxRateOfChange",
+      "propertyGetterName": "getShowMaxRateOfChange",
+      "displayName": "Show Max Rate of Change",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show max rate of change.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-max-rate-of-change",
+      "propertyName": "MaxRateOfChange",
+      "propertySetterName": "setMaxRateOfChange",
+      "propertyGetterName": "getMaxRateOfChange",
+      "displayName": "Max Rate of Change",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Max rate of change y-value",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-count-max-rate-of-change",
+      "propertyName": "CountMaxRateOfChange",
+      "propertySetterName": "setCountMaxRateOfChange",
+      "propertyGetterName": "getCountMaxRateOfChange",
+      "displayName": "Count Max Rate of Change",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Count value for max rate of change",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-time-max-rate-of-change",
+      "propertyName": "TimeMaxRateOfChange",
+      "propertySetterName": "setTimeMaxRateOfChange",
+      "propertyGetterName": "getTimeMaxRateOfChange",
+      "displayName": "Time Max Rate of Change",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Max rate of change time for the control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      },
+      "defaultValueInternal": {
+        "wYear": 1900,
+        "wMonth": 1,
+        "wDayOfWeek": 1,
+        "wDay": 1,
+        "wHour": 12,
+        "wMinute": 0,
+        "wSecond": 0,
+        "wMilliseconds": 0,
+        "wMicroseconds": 0,
+        "wNanoseconds": 0
+      }
+    },
+    {
+      "name": "data-tchmi-show-milli-seconds",
+      "propertyName": "ShowMilliSeconds",
+      "propertySetterName": "setShowMilliSeconds",
+      "propertyGetterName": "getShowMilliSeconds",
+      "displayName": "Show Milliseconds",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show milliseconds in time.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-counter-alias",
+      "propertyName": "CounterAlias",
+      "propertySetterName": "setCounterAlias",
+      "propertyGetterName": "getCounterAlias",
+      "displayName": "Counter Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Counter alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Count",
+      "defaultValueInternal": "Count"
+    },
+    {
+      "name": "data-tchmi-month-alias",
+      "propertyName": "MonthAlias",
+      "propertySetterName": "setMonthAlias",
+      "propertyGetterName": "getMonthAlias",
+     "displayName": "Month Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Month alias name",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+      "defaultValueInternal": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+     "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+     "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.CurveSketcher",
+      "schema": "Schema/TypeDefinitions/CurveSketcher.Schema.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

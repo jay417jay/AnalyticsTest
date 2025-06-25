@@ -2,6 +2,19 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.16">
 	<DataTypes>
 		<DataType>
+			<Name GUID="{965D5AD3-64D0-4FE6-9FDA-75A8894F7EA0}" TcBaseType="true">ANALYTICS_FORMAT</Name>
+			<BitSize>32</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[ANALYTICS_FORMAT_FILE]]></Text>
+				<Enum>1</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ANALYTICS_FORMAT_MQTT_BINARY]]></Text>
+				<Enum>3</Enum>
+			</EnumInfo>
+		</DataType>
+		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-000000000035}" TcBaseType="true" HideType="true">UINTARR2</Name>
 			<BitSize>32</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
@@ -2195,18 +2208,20 @@ External Setpoint Generation:
 			</Hides>
 		</DataType>
 	</DataTypes>
+	<ImageDatas>
+		<ImageData Id="1000">424de6000000000000007600000028000000100000000e00000001000400000000000000000000000000000000000000000000000000ff00ff00bcbcbc008d8d8d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001222222222210001222222222222101222222222222221222222222222222222222222222222221222222222222221022222222222222000222222222222000012210222222100000110001222100000000000011100000000000000000000</ImageData>
+	</ImageDatas>
 	<Project ProjectGUID="{C94A9355-FB08-40A8-834D-42A680523688}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
-			<Settings MaxCpus="12" NonWinCpus="2" PCoreAffinity="513" ECoreAffinity="3582">
+			<Settings MaxCpus="12" NonWinCpus="2" RouterMemory="268435456" MaxStackSize="512" PCoreAffinity="513" ECoreAffinity="3582">
 				<Cpu CpuId="10"/>
-				<Cpu CpuId="11"/>
 			</Settings>
 			<Licenses>
 				<Target>
-					<ManualSelect>{EE499E71-9522-4C05-86B4-8AD0F904E0C4}</ManualSelect>
 					<ManualSelect>{BB40055B-8333-4223-90EA-7C4559DC7C69}</ManualSelect>
-					<ManualSelect>{0070B910-0995-4F44-83BF-D1E141B4D8C3}</ManualSelect>
+					<ManualSelect>{EE499E71-9522-4C05-86B4-8AD0F904E0C4}</ManualSelect>
 					<ManualSelect>{88FA6DAB-09EF-464E-A413-EE4B97F3F185}</ManualSelect>
+					<ManualSelect>{0070B910-0995-4F44-83BF-D1E141B4D8C3}</ManualSelect>
 					<ManualSelect>{CCA47D7F-3A22-4852-81CD-15A045A6B646}</ManualSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x71010002" DongleLevel="90" DongleSystemId="{13C1689E-75CB-9F2B-8B7B-F81967CF83DC}" DongleSerialNumber="000br4wr" DongleCacheLicense="false"/>
 				</Target>
@@ -2215,7 +2230,380 @@ External Setpoint Generation:
 				<Task Id="2" Priority="20" CycleTime="100000" AmsPort="350">
 					<Name>PlcTask</Name>
 				</Task>
+				<Task Id="6" Priority="21" CycleTime="100000" AmsPort="351" AdtTasks="true">
+					<Name>PlcTask1</Name>
+				</Task>
+				<Task Id="7" Priority="1" CycleTime="100000" AmsPort="352" Affinity="#x00000400" DisableFpExceptions="true" WatchdogStackCapacity="10" AdtTasks="true">
+					<Name>AnalyticsTask</Name>
+				</Task>
+				<Task Id="8" Priority="22" CycleTime="100000" AmsPort="353" Affinity="#x00000400" DisableFpExceptions="true" WatchdogStackCapacity="10" AdtTasks="true">
+					<Name>AnalyticsTask_C1</Name>
+				</Task>
 			</Tasks>
+			<Modules>
+				<Module Id="#x01010010" KeepUnrestoredLinks="2" ClassFactoryId="Beckhoff Automation GmbH|TcAnalytics|3.2.10.0">
+					<Name>127.0.0.1 (StreamHelper)</Name>
+					<ImageId>1000</ImageId>
+					<TmcDesc GUID="{66B6E2FE-1F4E-46BB-91BE-0C4173FFB44E}" ClassFactoryId="Beckhoff Automation GmbH|TcAnalytics|3.2.10.0">
+						<Name>StreamHelper</Name>
+						<CLSID ClassFactory="TcAnalytics">{66B6E2FE-1F4E-46BB-91BE-0C4173FFB44E}</CLSID>
+						<Info>
+							<ImageData>424de6000000000000007600000028000000100000000e00000001000400000000000000000000000000000000000000000000000000ff00ff00bcbcbc008d8d8d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001222222222210001222222222222101222222222222221222222222222222222222222222222221222222222222221022222222222222000222222222222000012210222222100000110001222100000000000011100000000000000000000</ImageData>
+						</Info>
+						<Licenses>
+							<License>
+								<LicenseId>{CCA47D7F-3A22-4852-81CD-15A045A6B646}</LicenseId>
+							</License>
+							<License>
+								<LicenseId>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</LicenseId>
+							</License>
+						</Licenses>
+						<InitSequence>SO</InitSequence>
+						<Contexts>
+							<Context>
+								<Id>1</Id>
+							</Context>
+						</Contexts>
+						<Interfaces>
+							<Interface DisableCodeGeneration="true">
+								<Type GUID="{00000012-0000-0000-E000-000000000064}">ITComObject</Type>
+							</Interface>
+							<Interface DisableCodeGeneration="true">
+								<Type GUID="{9A71A723-3928-4C02-AC02-EFD30999A041}">ITcIotMqttOwner</Type>
+							</Interface>
+							<Interface DisableCodeGeneration="true">
+								<Type GUID="{493BC32D-8F33-4336-B722-BCBCA9618723}">ITcIotSymbolAccess</Type>
+							</Interface>
+						</Interfaces>
+						<Parameters>
+							<Group><![CDATA[General]]></Group>
+							<Group><![CDATA[MQTT]]></Group>
+							<Group><![CDATA[Tls]]></Group>
+							<Group><![CDATA[Filemode]]></Group>
+							<Parameter Group="General">
+								<Name>Operational Mode</Name>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{965D5AD3-64D0-4FE6-9FDA-75A8894F7EA0}">ANALYTICS_FORMAT</BaseType>
+								<Default>
+									<Value>3</Value>
+								</Default>
+								<PTCID>#x0203803b</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Autostart Receiving</Name>
+								<BitSize>8</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+								<Default>
+									<Value>1</Value>
+								</Default>
+								<PTCID>#x02038036</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Host Name</Name>
+								<BitSize>648</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000100000050}">STRING(80)</BaseType>
+								<Default>
+									<String><![CDATA[127.0.0.1]]></String>
+								</Default>
+								<PTCID>#x02020113</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>TcpPort</Name>
+								<BitSize>16</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
+								<Default>
+									<Value>1883</Value>
+								</Default>
+								<PTCID>#x02020103</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Topic Prefix</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x02030008</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Client ID</Name>
+								<BitSize>648</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000100000050}">STRING(80)</BaseType>
+								<PTCID>#x02020101</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Username</Name>
+								<BitSize>648</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000100000050}">STRING(80)</BaseType>
+								<PTCID>#x02020106</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Password</Name>
+								<BitSize>648</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000100000050}">STRING(80)</BaseType>
+								<PTCID>#x02020107</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Max Handles</Name>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+								<Default>
+									<Value>100</Value>
+								</Default>
+								<PTCID>#x02030020</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Fifo Exponent</Name>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+								<Default>
+									<Value>6</Value>
+								</Default>
+								<PTCID>#x02030021</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="MQTT">
+								<Name>Max Message Size</Name>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+								<Default>
+									<Value>#x40000</Value>
+								</Default>
+								<PTCID>#x02020147</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>CaFile</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x02020116</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>CertFile</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x02020118</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>KeyFile</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x02020119</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>KeyPw</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x02020124</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>CrlFile</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x02020125</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>PskId</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x02020127</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>PskPwd</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x02020129</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>Insecure</Name>
+								<BitSize>8</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+								<PTCID>#x0202011a</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Tls">
+								<Name>Version</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<PTCID>#x0202011b</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter OnlineParameter="true">
+								<Name>Is Connected</Name>
+								<BitSize>8</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+								<Default>
+									<Value>0</Value>
+								</Default>
+								<PTCID>#x02020112</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Filemode">
+								<Name>Aly File Directory</Name>
+								<BitSize>2048</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-0001000000FF}">STRING(255)</BaseType>
+								<Default>
+									<String><![CDATA[e.g. C:\TwinCAT\3.1\Boot\Analytics\8B650132-8E38-8295-D3D2-485D8BB304A2\]]></String>
+								</Default>
+								<PTCID>#x02038040</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Filemode">
+								<Name>Read Buffer Size [samples]</Name>
+								<BitSize>16</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
+								<Default>
+									<Value>32</Value>
+								</Default>
+								<PTCID>#x0203803c</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Filemode">
+								<Name>Stream Buffer Size [read-buffers]</Name>
+								<BitSize>16</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
+								<Default>
+									<Value>32</Value>
+								</Default>
+								<PTCID>#x0203803d</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+							<Parameter Group="Filemode">
+								<Name>Read Files Cyclically</Name>
+								<BitSize>8</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+								<Default>
+									<Value>1</Value>
+								</Default>
+								<PTCID>#x02030043</PTCID>
+								<ContextId>1</ContextId>
+							</Parameter>
+						</Parameters>
+						<Deployment>
+							<DependsOn>
+								<CLSID ClassFactory="TcIotDrivers">{978857F8-4A76-4AC4-A0C3-F303E3E39C57}</CLSID>
+							</DependsOn>
+						</Deployment>
+						<Properties>
+							<Property>
+								<Name>Category</Name>
+								<Value>Analytics Object</Value>
+							</Property>
+						</Properties>
+						<ParameterValues>
+							<Value>
+								<Name>Operational Mode</Name>
+								<EnumText>ANALYTICS_FORMAT_MQTT_BINARY</EnumText>
+							</Value>
+							<Value>
+								<Name>Autostart Receiving</Name>
+								<EnumText>TRUE</EnumText>
+							</Value>
+							<Value>
+								<Name>Host Name</Name>
+								<String>127.0.0.1</String>
+							</Value>
+							<Value>
+								<Name>TcpPort</Name>
+								<Value>1883</Value>
+							</Value>
+							<Value>
+								<Name>Topic Prefix</Name>
+								<String>PackMLDemo/PlcStream1</String>
+							</Value>
+							<Value>
+								<Name>Client ID</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>Username</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>Password</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>Max Handles</Name>
+								<Value>55</Value>
+							</Value>
+							<Value>
+								<Name>Fifo Exponent</Name>
+								<Value>9</Value>
+							</Value>
+							<Value>
+								<Name>Max Message Size</Name>
+								<Value>104857600</Value>
+							</Value>
+							<Value>
+								<Name>CaFile</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>CertFile</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>KeyFile</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>KeyPw</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>CrlFile</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>PskId</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>PskPwd</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>Insecure</Name>
+								<EnumText>FALSE</EnumText>
+							</Value>
+							<Value>
+								<Name>Version</Name>
+								<String></String>
+							</Value>
+							<Value>
+								<Name>Aly File Directory</Name>
+								<String>e.g. C:\TwinCAT\3.1\Boot\Analytics\8B650132-8E38-8295-D3D2-485D8BB304A2\</String>
+							</Value>
+							<Value>
+								<Name>Read Buffer Size [samples]</Name>
+								<Value>32</Value>
+							</Value>
+							<Value>
+								<Name>Stream Buffer Size [read-buffers]</Name>
+								<Value>32</Value>
+							</Value>
+							<Value>
+								<Name>Read Files Cyclically</Name>
+								<EnumText>TRUE</EnumText>
+							</Value>
+						</ParameterValues>
+					</TmcDesc>
+				</Module>
+			</Modules>
 		</System>
 		<Motion>
 			<NC>
@@ -2682,7 +3070,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{81FEA7DA-109B-4B19-A359-7A020BFED536}" Name="Unbenannt1" PrjFilePath="Unbenannt1\Unbenannt1.plcproj" TmcFilePath="Unbenannt1\Unbenannt1.tmc" ReloadTmc="true" AmsPort="851" TargetArchiveSettings="#x0002" FileArchiveSettings="#x0002">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{6F461DD9-4C81-0572-75F1-B135D0C2B8DB}" TmcPath="Unbenannt1\Unbenannt1.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{F37DC3F2-776A-2BA0-48E8-9D0B58692D6B}" TmcPath="Unbenannt1\Unbenannt1.tmc">
 					<Name>Unbenannt1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2878,6 +3266,61 @@ External Setpoint Generation:
 					</TaskPouOids>
 				</Instance>
 			</Project>
+			<Project GUID="{798735FD-D580-4FC4-AF93-9901FC5A290F}" Name="AnalyticsPLC" PrjFilePath="AnalyticsPLC\AnalyticsPLC.plcproj" TmcFilePath="AnalyticsPLC\AnalyticsPLC.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{CCC3FCB0-8642-2B8B-3108-8E63823F64D2}">
+					<Name>AnalyticsPLC Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>AnalyticsTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010070</OTCID>
+							</ManualConfig>
+							<Priority>1</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+						<Context>
+							<Id>1</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010060</OTCID>
+							</ManualConfig>
+							<Priority>21</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+						<Context>
+							<Id>2</Id>
+							<Name>AnalyticsTask_C1</Name>
+							<ManualConfig>
+								<OTCID>#x02010080</OTCID>
+							</ManualConfig>
+							<Priority>22</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<InitSymbols>
+						<InitSymbol>
+							<Name>Analytics.fbT1_InputSource.fbStreamHelper.nObjectID</Name>
+							<Type GUID="{18071995-0000-0000-0000-00000000000F}">OTCID</Type>
+							<Comment><![CDATA[ Object ID of referenced StreamHelper]]></Comment>
+							<AreaNo>#x00000003</AreaNo>
+							<Data>00000000</Data>
+							<Properties>
+								<Property>
+									<Name>ItemType</Name>
+									<Value>Input</Value>
+								</Property>
+							</Properties>
+						</InitSymbol>
+					</InitSymbols>
+					<TaskPouOids>
+						<TaskPouOid Prio="1" OTCID="#x08502041"/>
+						<TaskPouOid Prio="21" OTCID="#x08502042"/>
+						<TaskPouOid Prio="22" OTCID="#x08502043"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
 		</Plc>
 		<Analytics>
 			<Name>ANALYTICS</Name>
@@ -2916,19 +3359,19 @@ External Setpoint Generation:
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Outputs.GlobalVariables.AxisPlastic.PlcToNc</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Outputs.GlobalVariables.AxisMetal.PlcToNc</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.bScheduleDownTime</Symbol>
+				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.nVisuProductCommand</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.bUnscheduleDownTime</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.lScheduledTime</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uDefectiveCount</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uProcessedCount</Symbol>
-				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.nVisuProductCommand</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uPlasticCount</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uMetalCount</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.bProductionMode</Symbol>
 			</Symbols>
 			<DriverVersion>3.2.10.0</DriverVersion>
 			<AddiStreamDescription>
-				<Address>Beckhoff Singapore</Address>
-				<Longitude>1.327177413989332</Longitude>
+				<Address>3 International Business Park, #05-07/08 Nordic European Centre, Singapore 609927</Address>
+				<Longitude>1.3272203178196935</Longitude>
 				<Latitude>103.74832760987765</Latitude>
 			</AddiStreamDescription>
 			<DeviceProperties>{
@@ -2937,7 +3380,7 @@ External Setpoint Generation:
 	...
 }</DeviceProperties>
 			<SystemAlias></SystemAlias>
-			<DataLogger GUID="{12C9C41C-5E0D-02A0-BF0A-34C7363F6CCE}">
+			<DataLogger GUID="{88E83C0E-70FB-9A21-3FBC-4C5B8515734E}">
 				<Name>Data Logger 1</Name>
 				<Name>Data Logger 1</Name>
 				<ParameterValues>
@@ -2963,7 +3406,7 @@ External Setpoint Generation:
 					</Value>
 					<Value>
 						<Name>MQTT Main Topic</Name>
-						<String>Analytics2.0</String>
+						<String>PackMLDemo</String>
 					</Value>
 					<Value>
 						<Name>MQTT Client ID</Name>
@@ -2983,7 +3426,7 @@ External Setpoint Generation:
 	"name2": "valueString",
 	...
 }</LoggerProperties>
-				<Stream Caller="#x08502001" Adi="#x08502000" Id="#x02040002" CntAds="#x00000020" CntFile="#x00000010" CntRing="#x00000002" CntQueue="#x0000003e" SamplingDivider="1" CycleTime="#x000186a0" Category="0">
+				<Stream Caller="#x08502001" Adi="#x08502000" Id="#x02040001" CntAds="#x00000020" CntFile="#x00000010" CntRing="#x00000002" SamplingDivider="1" CycleTime="#x000186a0" Category="0">
 					<Name>Unbenannt1.Unbenannt1 Instance.PlcTask</Name>
 					<DisplayName>PlcStream1</DisplayName>
 					<FileDir>%TC_BOOTPRJPATH%</FileDir>
@@ -3083,14 +3526,14 @@ External Setpoint Generation:
 								</SymTreeItem>
 							</SymTreeItem>
 						</SymTreeItem>
-						<SymTreeItem Name="PlcTask Internal" HierName="PlcTask Internal" SymHierName="" Checked="true" IndentationLevel="0" Icon="271">
+						<SymTreeItem Name="PlcTask Internal" HierName="PlcTask Internal" SymHierName="" IndentationLevel="0" Icon="271">
 							<SymTreeItem Name="GlobalVariables" HierName="PlcTask Internal.GlobalVariables" SymHierName="" Checked="true" IndentationLevel="1" Icon="271">
 								<SymTreeItem Name="bScheduleDownTime" HierName="PlcTask Internal.GlobalVariables.bScheduleDownTime" SymHierName="PlcTask Internal.GlobalVariables.bScheduleDownTime" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
+								<SymTreeItem Name="nVisuProductCommand" HierName="PlcTask Internal.GlobalVariables.nVisuProductCommand" SymHierName="PlcTask Internal.GlobalVariables.nVisuProductCommand" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="bUnscheduleDownTime" HierName="PlcTask Internal.GlobalVariables.bUnscheduleDownTime" SymHierName="PlcTask Internal.GlobalVariables.bUnscheduleDownTime" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="lScheduledTime" HierName="PlcTask Internal.GlobalVariables.lScheduledTime" SymHierName="PlcTask Internal.GlobalVariables.lScheduledTime" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="uDefectiveCount" HierName="PlcTask Internal.GlobalVariables.uDefectiveCount" SymHierName="PlcTask Internal.GlobalVariables.uDefectiveCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="uProcessedCount" HierName="PlcTask Internal.GlobalVariables.uProcessedCount" SymHierName="PlcTask Internal.GlobalVariables.uProcessedCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
-								<SymTreeItem Name="nVisuProductCommand" HierName="PlcTask Internal.GlobalVariables.nVisuProductCommand" SymHierName="PlcTask Internal.GlobalVariables.nVisuProductCommand" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="uPlasticCount" HierName="PlcTask Internal.GlobalVariables.uPlasticCount" SymHierName="PlcTask Internal.GlobalVariables.uPlasticCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="uMetalCount" HierName="PlcTask Internal.GlobalVariables.uMetalCount" SymHierName="PlcTask Internal.GlobalVariables.uMetalCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="bProductionMode" HierName="PlcTask Internal.GlobalVariables.bProductionMode" SymHierName="PlcTask Internal.GlobalVariables.bProductionMode" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>

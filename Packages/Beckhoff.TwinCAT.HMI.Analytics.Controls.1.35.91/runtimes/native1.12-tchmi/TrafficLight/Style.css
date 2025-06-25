@@ -1,0 +1,51 @@
+﻿.tchmi-traffic-light-svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.tchmi-traffic-light-svg-outer-rect {
+    stroke-width: 2;
+}
+
+.tchmi-traffic-light-svg-lamp {
+    stroke-width: 2;
+}
+
+
+.tchmi-traffic-light-message {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tchmi-traffic-light-value-alias {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+   
+    font-weight: bold;
+}
+
+.tchmi-traffic-light-value {
+    display: block;
+    font-size: 14px;
+   
+    text-align: center;
+    font-weight: bold;
+}
+
+.tchmi-traffic-light-last-alarm {
+    display: block;
+   
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.tchmi-traffic-light-last-warning {
+    display: block;
+   
+    font-size: 12px;
+    padding-left: 5px;
+}

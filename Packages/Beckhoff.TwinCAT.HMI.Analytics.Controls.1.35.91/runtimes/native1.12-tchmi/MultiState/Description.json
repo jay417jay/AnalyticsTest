@@ -1,0 +1,390 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "MultiState",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Multi State",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Multi State",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 150,
+      "height": 150
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/MultiState.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "MultiState.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.MultiState",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Multi State",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-shape",
+      "propertyName": "Shape",
+      "propertySetterName": "setShape",
+      "propertyGetterName": "getShape",
+      "displayName": "Shape",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/MultiStateEnum",
+      "category": "Analytics",
+      "description": "Choose Shape of the element in the control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Circle",
+      "defaultValueInternal": "Circle"
+    },
+    {
+      "name": "data-tchmi-state-colors",
+      "propertyName": "StateColors",
+      "propertySetterName": "setStateColors",
+      "propertyGetterName": "getStateColors",
+      "displayName": "State Colors",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/PopupMultiState",
+      "category": "Analytics",
+      "description": "States and colors.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [
+        {
+          "state": 0,
+          "stateColor": { "color": "rgba(102, 102,102, 1)" }
+        },
+        {
+          "state": 1,
+          "stateColor": { "color": "rgba(8, 138,8,1)" }
+        },
+        {
+          "state": 2,
+          "stateColor": { "color": "rgba(255,244,0,1)" }
+        },
+        {
+          "state": 3,
+          "stateColor": { "color": "rgba(239,0,0,1)" }
+        }
+      ],
+      "defaultValueInternal": [
+        {
+          "state": 0,
+          "stateColor": { "color": "rgba(102, 102,102, 1)" }
+        },
+        {
+          "state": 1,
+          "stateColor": { "color": "rgba(8, 138,8,1)" }
+        },
+        {
+          "state": 2,
+          "stateColor": { "color": "rgba(255,244,0,1)" }
+        },
+        {
+          "state": 3,
+          "stateColor": { "color": "rgba(239,0,0,1)" }
+        }
+      ]
+    },
+
+    {
+      "name": "data-tchmi-current-state",
+      "propertyName": "CurrentState",
+      "propertySetterName": "setCurrentState",
+      "propertyGetterName": "getCurrentState",
+      "displayName": "Current State",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "CurrentState",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-show-smiley",
+      "propertyName": "ShowSmiley",
+      "propertySetterName": "setShowSmiley",
+      "propertyGetterName": "getShowSmiley",
+      "displayName": "Show Smiley",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show Smiley.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-show-text",
+      "propertyName": "ShowText",
+      "propertySetterName": "setShowText",
+      "propertyGetterName": "getShowText",
+      "displayName": "Show Text",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show text.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-text-alias",
+      "propertyName": "TextAlias",
+      "propertySetterName": "setTextAlias",
+      "propertyGetterName": "getTextAlias",
+      "displayName": "Text Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Text alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "",
+      "defaultValueInternal": "Text"
+    },
+    {
+      "name": "data-tchmi-text-info",
+      "propertyName": "TextInfo",
+      "propertySetterName": "setTextInfo",
+      "propertyGetterName": "getTextInfo",
+      "displayName": "Text Info",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Value text for displaying additional information in this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-message-alias",
+      "propertyName": "MessageAlias",
+      "propertySetterName": "setMessageAlias",
+      "propertyGetterName": "getMessageAlias",
+      "displayName": "Message Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Message alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "NotInitialized,Ok,Warning,Alarm",
+      "defaultValueInternal": "NotInitialized,Ok,Warning,Alarm"
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+      "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+      "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.MultiState",
+      "schema": "Schema/TypeDefinitions/MultiState.Schema.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/PopupMultiState",
+      "schema": "Schema/TypeDefinitions/PopupMultiState.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/MultiStateEnum",
+      "schema": "Schema/TypeDefinitions/MultiStateEnum.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

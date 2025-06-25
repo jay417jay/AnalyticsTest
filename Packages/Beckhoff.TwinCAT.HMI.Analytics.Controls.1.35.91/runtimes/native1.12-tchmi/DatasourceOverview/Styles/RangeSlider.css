@@ -1,0 +1,117 @@
+﻿
+
+.tchmi-analytics-range-slider-container {
+    position: relative;
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 40px;
+    width: 220px;
+}
+
+.tchmi-analytics-full-range-slider {
+    width: auto;
+    height: auto;
+    background: rgba(195, 195, 195, 0.5);
+    display: inline-block;
+}
+
+.tchmi-analytics-range-slider {
+    position: relative;
+    pointer-events: none;
+    /* Margin in Code */
+    cursor: pointer;
+    padding-left: 30%;
+    padding-right: 30%;
+    box-sizing: border-box;
+    /* transition-duration: 0.4s; */
+}
+
+    .tchmi-analytics-range-slider.focusable {
+        border: 1px solid #222
+    }
+
+.tchmi-analytics-slider-controls {
+    position: absolute;
+    top: 0px;
+    left: 24px;
+}
+
+.tchmi-analytics-range-slider-thumb {
+    cursor:grab; /*pointer*/
+    border-color: #999;
+    border-style: solid;
+    border-radius: 4px;
+    height: 28px;
+    background-color: rgba(204, 204, 204, 1);/*204 == 0xCC*/
+    position: absolute;
+    /*opacity: 0.6;*/
+}
+
+.tchmi-analytics-range-slider-thumb-lines {
+    width: 7px;
+    height: 16px;
+    margin: auto;
+    margin-top: 8px;
+    border-left: 1.5px solid rgba(0, 0, 0, 0.5);
+    border-right: 1.5px solid rgba(0, 0, 0, 0.5);
+}
+
+.tchmi-analytics-range-slider-t1 {
+    z-index:1;
+}
+
+.tchmi-analytics-range-slider-thumb-disabled {
+    cursor: default; /*pointer*/
+    background-color: #bbb;
+}
+
+.tchmi-analytics-range-slider-thumb-disabled > .tchmi-analytics-range-slider-thumb-lines {
+    border-color:rgba(128,128,128,0.5) /*gray == 128, ..*/
+}
+
+
+.tchmi-analytics-range-slider-track {
+    pointer-events: none;
+    background-color: #3b5e9e;
+    height: 100%;
+    padding-top: 4px;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+    .tchmi-analytics-range-slider-track > p {
+        margin: 0px;
+        display: inline-block;
+        width: fit-content;
+    }
+
+.tchmi-analytics-range-slider-marker {
+    display: none;
+    position: absolute;
+    top: -29px;
+    left: 58px;
+}
+
+.tchmi-analytics-range-slider-marker-progress {
+    white-space:nowrap;
+}
+
+.tchmi-analytics-range-slider-marker-svg {
+    fill: #000;
+    stroke: #000;
+    stroke-width: 1;
+}
+
+.tchmi-analytics-range-slider-interval-container {
+    position: relative;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.tchmi-analytics-range-slider-interval-text {
+    position: absolute;
+    left: 120px;
+    top: 0px;
+}

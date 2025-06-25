@@ -1,0 +1,346 @@
+﻿.tchmi-ds-overview-template {
+    /*background-color: #eee;*/
+    width: 100%;
+    height: 100%;
+    padding:10px;
+}
+
+.tchmi-ds-overview-template > .tchmi-analytics-control-template-container {
+    padding: 0px;
+}
+
+.tchmi-ds-overview-template * {
+    box-sizing: border-box;
+}
+
+.tchmi-ds-overview-template h1, .tchmi-ds-overview-template h2, .tchmi-ds-overview-template h3 {
+    margin: 0 0 20px 0;
+}
+
+.tchmi-ds-overview-machine-switched {
+    display: none; /* Will be visible for some seconds on machine switched */
+    /*min-width: 380px;*/
+    max-width: 780px;
+    height: 80px;
+    font-size: 24px;
+    font-style: oblique;
+    text-align: center;
+    padding: 0 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.tchmi-ds-overview-wrong-config {
+    display: none; /* Will be visible on wrong configuration */
+    height: 100%;
+    width: 100%;
+    font-size: 24px;
+    font-style: oblique;
+    text-align: center;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tchmi-ds-overview-machines-area {
+    overflow-y: auto;
+    min-height: 200px;
+    background-color: white; /**/
+    width: 200px;
+    position: relative;
+    float: left;
+    height: 100%;
+}
+
+.tchmi-ds-overview-machine-box {
+    margin:10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.tchmi-ds-overview-machine {
+    background-color: #cccccc;
+    padding: 20px;
+    text-align: left;
+    cursor: pointer;
+    border-left: 4px solid rgba(180, 180, 180, 0.6);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.tchmi-ds-overview-machine:hover {
+    color: #3b5e9e;
+}
+
+/* Selected Machine */
+.tchmi-ds-overview-machine-selected {
+    opacity: 1;
+    border-left: 4px solid #3b5e9e;
+}
+
+/* Currently Active Machine */
+.tchmi-ds-overview-machine-active {
+    font-weight: bold !important;
+    color: #1a9934 !important;
+}
+
+.tchmi-ds-overview-content {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y:auto;
+}
+
+
+.tchmi-ds-overview-main-content {
+    display: flex;
+    flex-flow: column nowrap;
+    float: right;
+    height: 100%;
+    width: 100%;
+    padding-left: 10px;
+    position: relative;
+}
+
+.tchmi-ds-overview-live-historical {
+    position: relative;
+    background-color: #fff;
+    padding: 10px;
+    height: 100px
+}
+
+.tchmi-ds-overview-transparent {
+    background-color: transparent !important;
+    min-height:0;
+    min-width:0;
+}
+
+/*** Toggle Switch ***/
+.tchmi-ds-overview-switch {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 34px;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+.tchmi-ds-overview-switch input {
+    display: none;
+}
+
+.tchmi-ds-overview-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(59,94,158);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.tchmi-ds-overview-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .tchmi-ds-overview-slider {
+    background-color: #2ab934 !important;
+}
+
+input:focus + .tchmi-ds-overview-slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .tchmi-ds-overview-slider:before {
+    -webkit-transform: translateX(165px);
+    -ms-transform: translateX(165px);
+    transform: translateX(165px);
+}
+
+/*------ ADDED CSS ---------*/
+.tchmi-ds-overview-live {
+    display: none;
+}
+
+.tchmi-ds-overview-live, .tchmi-ds-overview-hist {
+    color: white;
+    position: absolute;
+    transform: translate(-25%,-50%);
+    top: 50%;
+    left: 40%;
+    font-size: 14px;
+    font-family: Verdana, sans-serif;
+}
+
+.tchmi-ds-overview-slider-icon {
+    width: 1.5em;
+    height: 1.5em;
+    float: left;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.tchmi-ds-overview-slider-icon-live {
+    background-image: url("../Images/LiveData.png");
+}
+
+.tchmi-ds-overview-slider-icon-hist {
+    background-image: url("../Images/HistData.png");
+}
+
+.tchmi-ds-overview-slider-text {
+    float: left;
+    margin-left: 5px;
+}
+
+input:checked + .tchmi-ds-overview-slider .tchmi-ds-overview-live {
+    display: block;
+}
+
+input:checked + .tchmi-ds-overview-slider .tchmi-ds-overview-hist {
+    display: none;
+}
+
+/* Rounded sliders */
+.tchmi-ds-overview-slider.tchmi-ds-overview-round {
+    border-radius: 34px;
+}
+
+    .tchmi-ds-overview-slider.tchmi-ds-overview-round:before {
+        border-radius: 50%;
+    }
+
+/*--------- Toogle Switch END --------*/
+
+
+
+/*** Historical Data ***/
+
+.tchmi-ds-overview-historical-data {
+    align-items: stretch;
+    background-color: white;
+    margin-top: 10px;
+    min-height: 270px;
+    height: calc(100% - 110px);
+}
+
+.tchmi-ds-overview-activate-changes {
+    height: auto;
+    position: absolute;
+    /*right: 35px;
+    top: 15px;*/
+    right: -4px;
+    top: 45px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.6);
+    background-color: rgb(204, 204, 204);
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    float: left;
+    width: 70px;
+    transition-duration: 0.4s;
+    text-align: center;
+    font-size: 14px;
+    padding-top: 1px;
+    cursor: pointer;
+    opacity: 1;
+    
+}
+
+.tchmi-ds-overview-activate-changes:active:not(.tchmi-ds-overview-disabled) {
+    box-shadow: 0 1px rgba(0,0,0,0.6);
+    transform: translateY(2px);
+}
+
+.tchmi-ds-overview-activate-changes:not(.tchmi-ds-overview-disabled) {
+    color: rgba(59,94,158, 1) !important;
+    box-shadow: 0px 0px 15px 0px rgba(59,94,158, 0.6);
+}
+
+.tchmi-ds-overview-disabled {
+    animation: none;
+    opacity: 0.6;
+    cursor: default;
+}
+
+/* Not in use */
+@keyframes tchmi-ds-overview-flashing {
+    0% {
+    }
+
+    50% {
+        background-color: rgb(224, 224, 224);
+        background-color: rgb(222, 222, 222);
+        color: rgba(59,94,158, 1);
+        box-shadow: 0px 0px 25px 0px rgba(59,94,158, 0.6);
+    }
+
+    100% {
+    }
+}
+
+.tchmi-ds-overview-maximize, .tchmi-ds-overview-minimize {
+    stroke: #222;
+    overflow: visible;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    transition-duration: 0.4s;
+}
+
+.tchmi-ds-overview-maximize:hover, .tchmi-ds-overview-minimize:hover {
+    stroke: rgba(59,94,158, 1);
+    cursor: pointer;
+}
+
+
+.tchmi-ds-overview-maximize {
+    opacity: 0;
+}
+
+.tchmi-ds-overview-minimize {
+    opacity: 1;
+}
+
+.tchmi-ds-overview-minmaximize-trans {
+    transition-duration: 0s;
+}
+
+.tchmi-ds-overview-not-activated {
+    color: rgba(59,94,158, 0.8) !important;
+    font-style: italic;
+}
+
+.tchmi-ds-overview-not-activated::after {
+    content:"*";
+}
+
+.tchmi-ds-overview-selected-machine-not-active {
+    color: rgba(59,94,158, 0.8) !important;
+    font-style: italic;
+}
+
+.tchmi-ds-overview-selected-machine-global {
+    position: fixed;
+    bottom: 1px;
+    right: 5px;
+    -webkit-transition: 2s;
+    transition: 2s;
+    font-size:small;
+}

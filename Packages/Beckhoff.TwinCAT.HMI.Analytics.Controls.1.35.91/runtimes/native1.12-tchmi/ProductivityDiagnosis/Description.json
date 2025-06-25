@@ -1,0 +1,314 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "ProductivityDiagnosis",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Productivity Diagnosis",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Productivity Diagnosis",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 310,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/ProductivityDiagnosis.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "ProductivityDiagnosis.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.ProductivityDiagnosis",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Productivity Diagnosis",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-productivity",
+      "propertyName": "Productivity",
+      "propertySetterName": "setProductivity",
+      "propertyGetterName": "getProductivity",
+      "displayName": "Productivity",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Productivity value",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 50,
+      "defaultValueInternal": 50
+    },
+    {
+      "name": "data-tchmi-productivity-last-cycle",
+      "propertyName": "ProductivityLastCycle",
+      "propertySetterName": "setProductivityLastCycle",
+      "propertyGetterName": "getProductivityLastCycle",
+      "displayName": "Productivity Last Cycle",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Productivity value from last cycle",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 50,
+      "defaultValueInternal": 50
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158,1)"
+      },
+      "description": "Graph color for the productivity.",
+      "displayName": "Productivity Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-productivity-color",
+      "propertyGetterName": "getProductivityColor",
+      "propertyName": "ProductivityColor",
+      "propertySetterName": "setProductivityColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(172,172,172,1)"
+      },
+      "description": "Graph color for the productivity of the last cycle.",
+      "displayName": "Productivity Color Last Cycle",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-productivity-color-last-cycle",
+      "propertyGetterName": "getProductivityColorLastCycle",
+      "propertyName": "ProductivityColorLastCycle",
+      "propertySetterName": "setProductivityColorLastCycle",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "name": "data-tchmi-show-productivity",
+      "propertyName": "ShowProductivity",
+      "propertySetterName": "setShowProductivity",
+      "propertyGetterName": "getShowProductivity",
+      "displayName": "Show Productivity",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/ProductivityEnum",
+      "category": "Analytics",
+      "description": "Choose what to print inside the circle",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Both",
+      "defaultValueInternal": "Both"
+    },
+    {
+      "name": "data-tchmi-last-cycle-alias",
+      "propertyName": "LastCycleAlias",
+      "propertySetterName": "setLastCycleAlias",
+      "propertyGetterName": "getLastCycleAlias",
+      "displayName": "Last Cycle Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Last Cycle Alias of the control",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Last cycle",
+      "defaultValueInternal": "Last cycle"
+    },
+    {
+      "name": "data-tchmi-current-cycle-alias",
+      "propertyName": "CurrentCycleAlias",
+      "propertySetterName": "setCurrentCycleAlias",
+      "propertyGetterName": "getCurrentCycleAlias",
+      "displayName": "Current Cycle Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Current Cycle Alias of the control",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Current cycle",
+      "defaultValueInternal": "Current cycle"
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+     "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+     "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light-plus",
+      "description": "Control Color Light Plus",
+      "displayName": "Control Color Light Plus",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLightPlus",
+      "propertyName": "ControlColorLightPlus",
+      "propertySetterName": "setControlColorLightPlus",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(204, 204,204, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.ProductivityDiagnosis",
+      "schema": "Schema/TypeDefinitions/ProductivityDiagnosis.Schema.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/ProductivityEnum",
+      "schema": "Schema/TypeDefinitions/ProductivityEnum.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

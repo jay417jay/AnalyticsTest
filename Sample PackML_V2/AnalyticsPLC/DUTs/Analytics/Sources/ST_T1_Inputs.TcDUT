@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_T1_Inputs" Id="4e81a086-4f64-43bb-bb35-9127078dba2c">
+    <Declaration><![CDATA[TYPE ST_T1_Inputs : 
+STRUCT
+	bGlobalVariables_bProductionMode: BOOL; //GlobalVariables.bProductionMode
+	nGlobalVariables_lScheduledTime: LINT; //GlobalVariables.lScheduledTime
+	nGlobalVariables_uProcessedCount: ULINT; //GlobalVariables.uProcessedCount
+	nGlobalVariables_uDefectiveCount: ULINT; //GlobalVariables.uDefectiveCount
+	nGlobalVariables_uMetalCount: ULINT; //GlobalVariables.uMetalCount
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <Itf Name="I_InputSource" Id="eab3ba12-2b34-4309-8253-8d2655868ba7">
+    <Declaration><![CDATA[INTERFACE I_InputSource]]></Declaration>
+    <Method Name="AddClient" Id="cccb7723-70e6-4120-8b3c-8c5381caeb91">
+      <Declaration><![CDATA[METHOD AddClient : BOOL
+VAR_OUTPUT
+	nClientID: LWORD;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="Call" Id="428459df-9036-4cb8-bf66-9051db543df5">
+      <Declaration><![CDATA[METHOD Call : BOOL]]></Declaration>
+    </Method>
+    <Method Name="ClientDone" Id="51c0ed6c-7086-4e85-af34-f26a7d767a94">
+      <Declaration><![CDATA[METHOD ClientDone : BOOL
+VAR_INPUT
+	nClientID: LWORD;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="GetData" Id="3e1c17b3-f5dd-4194-b0ec-eb6724247956">
+      <Declaration><![CDATA[METHOD GetData : BOOL
+VAR_INPUT
+	nElement: UDINT;
+	pInputs: PVOID;
+	nInputsSize: UDINT;
+END_VAR
+VAR_OUTPUT
+	nTimestamp: ULINT;
+	nContext: DWORD;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="NewDataAvailable" Id="5d78ae1a-706b-4733-bff4-ab6e99a1a544">
+      <Declaration><![CDATA[METHOD NewDataAvailable : BOOL
+VAR_INPUT
+	nLastDataHandle: ULINT;
+END_VAR]]></Declaration>
+    </Method>
+    <Property Name="eDataState" Id="d5ccac1d-cfd7-4b5b-9a8d-199766c439be">
+      <Declaration><![CDATA[PROPERTY eDataState : E_DataSourceState]]></Declaration>
+      <Get Name="Get" Id="6f284543-d11e-4574-9fbc-9c307e1d0fe1">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="bReadNewData" Id="b91347d1-445c-461d-aa57-f30dca5d7c30">
+      <Declaration><![CDATA[PROPERTY bReadNewData : BOOL]]></Declaration>
+      <Get Name="Get" Id="18a24e86-6742-4f09-b775-a0fa85397c98">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nDataHandle" Id="93e8006a-65e0-43f4-9772-757b73828abb">
+      <Declaration><![CDATA[PROPERTY nDataHandle : ULINT]]></Declaration>
+      <Get Name="Get" Id="03494a5d-0e88-463f-9e00-d2879d761017">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nElements" Id="07393704-d060-481f-89b2-359a8da8708b">
+      <Declaration><![CDATA[PROPERTY nElements : UDINT]]></Declaration>
+      <Get Name="Get" Id="8a3160b0-e3cf-4a4d-9b71-27480662686b">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

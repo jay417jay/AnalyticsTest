@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_HMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis" Id="ef698f0a-5a4e-49f0-8d18-243aa02194b3">
+    <Declaration><![CDATA[TYPE ST_HMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis : 
+STRUCT
+	//Preventive Maintenance Lifetime Analysis
+	bTrigReconfigure: BOOL;
+	tM6_fbLifetimeElapsed: ST_ALY_TimeSpan; //Elapsed (Times)
+	tM6_fbLifetimeRemaining: ST_ALY_TimeSpan; //Remaining (Times)
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,409 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "PieChart",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Pie Chart",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "Pie Chart",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 470,
+      "height": 310
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/PieChart.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "PieChart.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.PieChart",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Pie Chart",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-labels",
+      "propertyName": "Labels",
+      "propertySetterName": "setLabels",
+      "propertyGetterName": "getLabels",
+      "displayName": "Labels",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "Labels for Pie Chart legend",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [
+        "string1",
+        "string2",
+        "string3",
+        "string4"
+      ],
+      "defaultValueInternal": [
+        "string1",
+        "string2",
+        "string3",
+        "string4"
+      ]
+    },
+    {
+      "name": "data-tchmi-label-2-st",
+      "propertyName": "Label2ST",
+      "propertySetterName": "setLabel2ST",
+      "propertyGetterName": "getLabel2ST",
+      "displayName": "Label 2 for S.T.",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/INT32",
+      "category": "Analytics",
+      "description": "Lower Bound for section timer",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-show-invalid",
+      "propertyName": "ShowInvalid",
+      "propertySetterName": "setShowInvalid",
+      "propertyGetterName": "getShowInvalid",
+      "displayName": "Show Outer States",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 20,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Show outer (first and last) states which are probably not in the defined interval.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-value-type",
+      "propertyName": "ValueType",
+      "propertySetterName": "setValueType",
+      "propertyGetterName": "getValueType",
+      "displayName": "Value Type",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/EnumPieChart",
+      "category": "Analytics",
+      "description": "Choose Value Type",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Values",
+      "defaultValueInternal": "Values"
+    },
+    {
+      "name": "data-tchmi-values",
+      "propertyName": "Values",
+      "propertySetterName": "setValues",
+      "propertyGetterName": "getValues",
+      "displayName": "Values",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:general#/definitions/Array",
+      "allowSymbolExpressionsInObject": true,
+      "category": "Analytics",
+      "description": "Pie Chart Values",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [ 0, 50, 100, 0 ],
+      "defaultValueInternal": [ 0, 50, 100, 0 ]
+    },
+    {
+      "name": "data-tchmi-times",
+      "propertyName": "Times",
+      "propertySetterName": "setTimes",
+      "propertyGetterName": "getTimes",
+      "displayName": "Times",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 12,
+      "type": "tchmi:general#/definitions/Array",
+      "category": "Analytics",
+      "description": "Input time data",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": [ "0", "00:25:00", "00:35:00", "0" ],
+      "defaultValueInternal": [ "0", "00:25:00", "00:35:00", "0" ]
+    },
+    {
+      "name": "data-tchmi-unit",
+      "propertyName": "Unit",
+      "propertySetterName": "setUnit",
+      "propertyGetterName": "getUnit",
+      "displayName": "Unit",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Unit of the input and output values",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-relative",
+      "propertyName": "Relative",
+      "propertySetterName": "setRelative",
+      "propertyGetterName": "getRelative",
+      "displayName": "Relative",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 20,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Relative values or not.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-amount-decimals",
+      "propertyName": "AmountDecimals",
+      "propertySetterName": "setAmountDecimals",
+      "propertyGetterName": "getAmountDecimals",
+      "displayName": "Amount Decimals",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 11,
+      "type": "tchmi:general#/definitions/UINT32",
+      "category": "Analytics",
+      "description": "Amount of Decimals for numbers in the table",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-value-alias",
+      "propertyName": "ValueAlias",
+      "propertySetterName": "setValueAlias",
+      "propertyGetterName": "getValueAlias",
+      "displayName": "Value Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Value alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Value",
+      "defaultValueInternal": "Value"
+    },
+    {
+      "name": "data-tchmi-section-alias",
+      "propertyName": "SectionAlias",
+      "propertySetterName": "setSectionAlias",
+      "propertyGetterName": "getSectionAlias",
+      "displayName": "Section Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Section alias for this control.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Section",
+      "defaultValueInternal": "Section"
+    },
+    {
+      "name": "data-tchmi-invalid-alias",
+      "propertyName": "InvalidAlias",
+      "propertySetterName": "setInvalidAlias",
+      "propertyGetterName": "getInvalidAlias",
+      "displayName": "Invalid Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Invalid alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Invalid",
+      "defaultValueInternal": "Invalid"
+    },
+
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+      "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-dark",
+      "description": "Control Color Dark",
+      "displayName": "Control Color Dark",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorDark",
+      "propertyName": "ControlColorDark",
+      "propertySetterName": "setControlColorDark",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102, 102, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-chart-color",
+      "description": "Control Chart Color",
+      "displayName": "Control Chart Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlChartColor",
+      "propertyName": "ControlChartColor",
+      "propertySetterName": "setControlChartColor",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(255, 255,255, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.PieChart",
+      "schema": "Schema/TypeDefinitions/PieChart.Schema.json"
+    },
+    {
+      "name": "tchmi:framework#/definitions/EnumPieChart",
+      "schema": "Schema/TypeDefinitions/EnumPieChart.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

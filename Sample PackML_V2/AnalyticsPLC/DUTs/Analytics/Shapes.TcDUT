@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="Shapes" Id="23be5359-7bf0-4dc6-abeb-2c74cebdd190">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE Shapes : 
+(
+	Rectangle := 0,
+	Triangle,
+	Pentagon,
+	Hexagon,
+	Circle
+) ;
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

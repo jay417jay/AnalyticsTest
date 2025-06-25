@@ -1,0 +1,47 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "PopupMultiState": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "PopupMultiStates",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "PopupMultiState",
+        "description": "Defines a custom object in the array.",
+        "propertiesMeta": [
+          {
+            "name": "state",
+            "category": "State",
+            "displayName": "State",
+            "displayPriority": 9,
+            "description": "",
+            "defaultValue": 0,
+            "defaultValueInternal": 0
+          },
+          {
+            "name": "stateColor",
+            "category": "Colors",
+            "displayName": "State color",
+            "displayPriority": 11,
+            "description": "",
+            "bindable": true,
+            "defaultValue": "#acadad",
+            "defaultValueInternal": "#acadad"
+          }
+        ],
+        "properties": {
+
+          "state": {
+            "type": "number"
+          },
+          "stateColor": {
+            "id": "tchmi:framework#/definitions/SolidColor"
+          }
+        },
+        "required": [ "state" ]
+
+      }
+    }
+  }
+}

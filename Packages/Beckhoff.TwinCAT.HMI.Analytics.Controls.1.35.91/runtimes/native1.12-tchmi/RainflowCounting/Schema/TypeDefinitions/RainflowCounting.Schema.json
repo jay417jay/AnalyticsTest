@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Analytics.RainflowCounting": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "RainflowCounting",
+      "frameworkControlNamespace": "TcHmi.Controls.Analytics"
+    }
+  }
+}

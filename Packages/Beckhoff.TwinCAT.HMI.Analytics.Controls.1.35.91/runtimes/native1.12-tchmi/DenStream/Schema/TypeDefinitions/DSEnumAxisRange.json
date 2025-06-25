@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "DSEnumAxisRange": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "DSEnumAxisRange",
+      "type": "string",
+      "enum": [ "Auto", "Manual" ]
+    }
+  }
+}

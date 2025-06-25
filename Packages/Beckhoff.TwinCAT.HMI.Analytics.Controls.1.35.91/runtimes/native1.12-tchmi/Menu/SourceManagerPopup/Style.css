@@ -1,0 +1,398 @@
+.tchmi-analytics-source-manager-popup-modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.tchmi-analytics-source-manager-popup-window {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    border-left: 50px;
+    margin: auto;
+    min-height: 180px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.tchmi-analytics-source-manager-popup {
+    width: 800px;
+    float: left;
+    height: 400px;
+    background: white;
+}
+
+.tchmi-analytics-source-manager-popup-dark {
+    background: gray !important;
+}
+
+.tchmi-analytics-source-managers-popup-header {
+    height: 34px;
+    width: 100%;
+    background: lightgray;
+    border-bottom: lightgray;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.tchmi-analytics-source-managers-popup-header-label {
+    float: left;
+    font-size: 17px;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.tchmi-analytics-source-manager-popup-close-button {
+    float: right;
+    height: 25px;
+    min-width: 25px;
+    margin: 5px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 0px;
+    color: black;
+    font-size: 15px;
+    padding-left: 6px;
+    padding-top: 4px;
+}
+
+.tchmi-analytics-source-managers-popup-container {
+    height: 320px;
+}
+
+.tchmi-analytics-source-manager-popup-datasources {
+    width: 100%;
+    height: 320px;
+    float: left;
+}
+
+.tchmi-analytics-source-manager-popup-datasources-label {
+    float: left;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 5px;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.tchmi-analytics-source-manager-popup-datasources-label-dark {
+    color: white;
+}
+
+.tchmi-analytics-source-manager-popup-datasources-container {
+    width: 100%;
+    height: 85%;
+    overflow-y: auto;
+}
+
+.tchmi-analytics-source-manager-popup-datasources-entry-wrapper {
+/*    height: 30px;
+*/}
+
+
+.tchmi-analytics-source-manager-popup-datasources-entry {
+    font-size: 14px;
+    margin-left: 25px;
+    padding: 5px;
+    font-weight: normal;
+}
+
+.tchmi-analytics-source-manager-popup-datasources-entry-dark {
+    color: white;
+}
+
+.tchmi-analytics-source-manager-popup-datasources-entry-selected {
+    font-weight: bold;
+}
+
+.tchmi-analytics-source-manager-popup-permissions {
+    float: left;
+    width: 560px;
+    height: 250px;
+    border-left: lightgray;
+    border-left-style: solid;
+    border-left-width: 1px;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-selector {
+    width: 100%;
+    height: 30px;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-selector-entry {
+    float: left;
+    font-size: 15px;
+    margin-left: 15px;
+    font-weight: normal;
+    flex-shrink: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-selector-entry-dark {
+    color: white !important;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-selector-entry:first-child {
+    font-weight: bold;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-label {
+    height: 0px;
+    float: left;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-container {
+    width: 100%;
+    height: 70%;
+    max-height: 200px;
+    overflow-y: auto;
+    align-items: center;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-entry {
+    padding-left: 20px;
+    margin: 10px;
+}
+
+.tchmi-analytics-source-manager-popup-permission-label {
+    position: relative;
+    float: left;
+    width: 150px;
+    font-size: 14px;
+    padding: 5px;
+    font-weight: normal;
+    height: 30px;
+}
+
+.tchmi-analytics-source-manager-popup-permission-select {
+    width: 150px;
+    font-size: 14px;
+    margin-left: 155px;
+    padding: 5px;
+    font-weight: normal;
+    cursor: pointer;
+    height: 30px;
+    position: relative;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-menu-container {
+    width: 100%;
+    height: 15%;
+}
+
+.tchmi-analytics-source-manager-popup-permissions-menu {
+    width: 175px;
+    height: 30px;
+    float: left;
+    margin: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+}
+
+.tchmi-analytics-source-manager-popup > tbody > tr {
+    height: 26px;
+}
+
+.tchmi-analytics-source-manager-popup-label{
+    float:left;
+    font-weight: normal;
+    width: 120px;
+    font-size: 15px;
+}
+
+.tchmi-analytics-source-manager-popup-label-dark {
+    color: white;
+}
+
+.tchmi-analytics-source-manager-popup-entry {
+    width: 98%;
+    float: left;
+    margin-left: 2%;
+    margin-top: 6px;
+}
+
+.tchmi-analytics-source-manager-popup-input {
+    float: left;
+    font-weight: normal;
+    width: 630px;
+}
+
+.tchmi-analytics-source-manager-popup-input-small {
+    float: left;
+    font-weight: normal;
+    width: 630px;
+    overflow-x: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 5px;
+}
+
+.tchmi-analytics-source-manager-popup-cert-button {
+    width: 15px;
+    height: 15px;
+    background: green;
+    float: right;
+    margin-bottom: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 0 rgb(130 130 130 / 40%), 0 1px 3px 1px rgb(130 130 130 / 80%)
+}
+
+.tchmi-analytics-source-manager-popup-cert-button:hover {
+    cursor:pointer;
+}
+
+.tchmi-analytics-source-manager-popup-cert-reset {
+    background: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/LayoutManager/Icons/wastebasket.svg") center center / 15px no-repeat, 0% 0% / 15px lightgray;
+}
+
+.tchmi-analytics-source-manager-popup-cert-upload {
+    background: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/SourceManagerPopup/Icons/upload.svg") center center / 15px no-repeat, 0% 0% / 15px lightgray;
+}
+
+.tchmi-analytics-source-manager-popup-cert-text {
+    text-overflow: ellipsis;
+    width: 550px;
+}
+
+.tchmi-analytics-source-manager-popup-cert-file-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+.tchmi-analytics-source-manager-popup-cert-file-centered {
+    width: 500px;
+    height: 200px;
+    background: white;
+    border: 1px solid black;
+}
+.tchmi-analytics-source-manager-popup-cert-file-centered-dark {
+    background: gray;
+}
+
+.tchmi-analytics-source-manager-popup-cert-file-items {
+    width: 350px !important;
+}
+
+.tchmi-analytics-source-manager-popup-cert-submit {
+    width: 90% !important;
+    height: 40px;
+    margin-left: 5% !important;
+    margin-top: 10px;
+    background: lightgray;
+}
+
+
+.tchmi-analytics-source-manager-popup-details {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.tchmi-analytics-source-manager-popup-summary {
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+    margin: 5px;
+}
+
+.tchmi-analytics-source-manager-popup-button {
+    width: 30px;
+    height: 30px;
+    margin-left: 1%;
+    float: right;
+    border-radius: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    box-shadow: 0 1px 1px 0 rgb(130 130 130 / 40%), 0 1px 3px 1px rgb(130 130 130 / 80%);
+    border: 0px;
+}
+
+.tchmi-analytics-source-manager-refresh-popup-button {
+    background: url(/Beckhoff.TwinCAT.HMI.Analytics.Controls/DatasourceOverviewV2/Images/refresh_black.svg) center/contain no-repeat, lightgray
+}
+
+.tchmi-analytics-source-manager-save-popup-button {
+    background: url(/Beckhoff.TwinCAT.HMI.Analytics.Controls/LayoutManager/Icons/floppy-disc-pressed.svg) center/contain no-repeat, #339900
+}
+
+.tchmi-analytics-source-manager-drop-popup-button {
+    background: url(/Beckhoff.TwinCAT.HMI.Analytics.Controls/LayoutManager/Icons/wastebasket.svg) center/contain no-repeat, #cc3300
+}
+
+.tchmi-analytics-source-manager-reset-popup-button {
+    background: url(/Beckhoff.TwinCAT.HMI.Analytics.Controls/AnalyticsControl/Icons/reset.svg) center/contain no-repeat, #3498db
+}
+
+.tchmi-analytics-source-manager-popup-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 1%;
+    float: right;
+    border-radius: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    border: 0px;
+}
+
+.tchmi-analytics-source-manager-popup-add {
+    width: 100%;
+    height: 40px;
+    float: left;
+}
+
+.tchmi-analytics-source-manager-popup-add-area {
+    height: 30px;
+    background-color: lightgray;
+    width: 705px;
+    float: left;
+    margin-left: 1%;
+    border-radius: 5px;
+    margin-top: 5px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 1px 1px 0 rgb(130 130 130 / 40%), 0 1px 3px 1px rgb(130 130 130 / 80%);
+    border: 0px;
+}
+
+.tchmi-analytics-source-manager-popup-button-style {
+    width: 30px;
+    height: 30px;
+    margin-left: 1%;
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: lightgray;
+    cursor: pointer;
+    float:left;
+    box-shadow: 0 1px 1px 0 rgb(130 130 130 / 40%), 0 1px 3px 1px rgb(130 130 130 / 80%);
+    border: 0px;
+}
+
+.tchmi-analytics-source-manager-popup-upload-button {
+    background-image: url("/Beckhoff.TwinCAT.HMI.Analytics.Controls/Menu/SourceManagerPopup/Icons/upload.svg");
+    background-size: 20px,20px;
+    background-repeat:no-repeat;
+    background-position: center;
+}

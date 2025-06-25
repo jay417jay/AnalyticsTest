@@ -1,0 +1,37 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "DSInputItem": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Input DenStream",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "Inputs",
+          "category": "Inputs",
+          "displayName": "Inputs",
+          "displayPriority": 1,
+          "description": "Input Channels",
+          "defaultValue": [
+            {
+              "sKey": "Input00",
+              "sValue": 1
+            }
+          ],
+          "defaultValueInternal": [
+            {
+              "sKey": "Input00",
+              "sValue": 1
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "Inputs": {
+          "$ref": "tchmi:framework#/definitions/KeyValuePair"
+        }
+      },
+      "required": [ "Inputs" ]
+    }
+  }
+}

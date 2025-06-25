@@ -1,0 +1,19 @@
+{  
+ "$schema": "../../../TcHmiFramework/Schema/LocalizationDescription.Schema.json",  
+ "locale": "de",
+  "localizedText": {
+    "Temperature": "Temperatur",
+    "Humidity": "Luftfeuchtigkeit",
+    "XRmsAcceleration": "RMS Beschleunigung X",
+    "YRmsAcceleration": "RMS Beschleunigung Y",
+    "XKurtosisAcceleration": "Kurtosis Beschleunigung X",
+    "YKurtosisAcceleration": "Kurtosis Beschleunigung Y",
+    "XPeakPeakAcceleration": "Spitze-Spitze Beschleunigung X",
+    "YPeakPeakAcceleration": "Spitze-Spitze Beschleunigung Y",
+    "CountTotalShocks": "Gesamtanzahl der Schocks",
+    "CountXShocks": "Schocks X",
+    "CountYShocks": "Schocks Y",
+    "LastXShockEvent": "Letzter X Schock",
+    "LastYShockEvent": "Letzter Y Schock"
+  }  
+}

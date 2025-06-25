@@ -1,0 +1,52 @@
+{
+    "ENABLE_TWO_FACTOR_AUTHENTICATION": 0,
+    "PASSWORD_BLACKLIST": "",
+    "PASSWORD_ENABLE_AGING": false,
+    "PASSWORD_FORCE_COMPLEX": 0,
+    "PASSWORD_MAXIMUM_AGE": "P90D",
+    "PASSWORD_MINIMUM_LENGTH": 1,
+    "USERS": {
+        "__SystemAdministrator": {
+            "ALGORITHM": 1,
+            "ENABLED": true,
+            "LAST_PASSWORD_CHANGE": "2025-06-25T03:53:54.0583803Z",
+            "PASSWORD": "86250ad720695e1d7eef2f2575374335634e259d2bd289a8b63a42711b3382a2bb68d83b98c9236b42d7e3ff20e01c5c50d30e3722951c7e7797ed537090f82e",
+            "SALT": "443R+Xu8yCtLsTOroJQsPGRKp/t4DYEk/WirJKJCJETNOgJV6SczPZSiWNFU/QB2zRuXN1HesLg+d9TOH/9fuQ==",
+            "SECRET": {
+                "algorithm": 0,
+                "configuration": 0,
+                "iv": "",
+                "value": ""
+            },
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        },
+        "__SystemGuest": {
+            "ALGORITHM": 0,
+            "ENABLED": true,
+            "LAST_PASSWORD_CHANGE": "1970-01-01T00:00:00Z",
+            "PASSWORD": "",
+            "SALT": "",
+            "SECRET": {
+                "algorithm": 0,
+                "configuration": 0,
+                "iv": "",
+                "value": ""
+            },
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        },
+        "__SystemUser": {
+            "ALGORITHM": 0,
+            "ENABLED": true,
+            "LAST_PASSWORD_CHANGE": "1970-01-01T00:00:00Z",
+            "PASSWORD": "",
+            "SALT": "",
+            "SECRET": {
+                "algorithm": 0,
+                "configuration": 0,
+                "iv": "",
+                "value": ""
+            },
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        }
+    }
+}

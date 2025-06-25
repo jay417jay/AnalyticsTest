@@ -1,0 +1,389 @@
+﻿{
+  "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "XTSDistance",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "XTS Distance",
+  "version": {
+    "full": "1.1.0.0",
+    "major": 1,
+    "minor": 1,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": true,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.Analytics.AnalyticsControl",
+  "description": "XTS Distance",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 470,
+      "height": 150
+    }
+  },
+  "icons": [
+    {
+      "name": "Icons/XTSDistance.png",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "XTSDistance.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-type",
+      "displayName": "",
+      "propertyName": "type",
+      "propertySetterName": "",
+      "propertyGetterName": "getType",
+      "visible": false,
+      "type": "tchmi:framework#/definitions/ControlType",
+      "category": "None",
+      "description": "Type of the control.",
+      "requiredOnCompile": true,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": false,
+      "defaultValue": "TcHmi.Controls.Analytics.XTSDistance",
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-name-alias",
+      "propertyName": "NameAlias",
+      "propertySetterName": "setNameAlias",
+      "propertyGetterName": "getNameAlias",
+      "displayName": "Title",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Name alias for this control.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "XTS Distance Analysis",
+      "defaultValueInternal": ""
+    },
+    {
+      "name": "data-tchmi-distance",
+      "propertyName": "Distance",
+      "propertySetterName": "setDistance",
+      "propertyGetterName": "getDistance",
+      "displayName": "Distance",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "Distance",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-distance-pos",
+      "propertyName": "DistancePos",
+      "propertySetterName": "setDistancePos",
+      "propertyGetterName": "getDistancePos",
+      "displayName": "Distance Positive",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "DistancePos",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-distance-neg",
+      "propertyName": "DistanceNeg",
+      "propertySetterName": "setDistanceNeg",
+      "propertyGetterName": "getDistanceNeg",
+      "displayName": "Distance Negative",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/REAL",
+      "category": "Analytics",
+      "description": "DistanceNeg",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 0,
+      "defaultValueInternal": 0
+    },
+    {
+      "name": "data-tchmi-show-negative-distance",
+      "propertyName": "ShowNegativeDistance",
+      "propertySetterName": "setShowNegativeDistance",
+      "propertyGetterName": "getShowNegativeDistance",
+      "displayName": "Show Negative Distance",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show Negative Distance.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-show-distance",
+      "propertyName": "ShowOnlyDistance",
+      "propertySetterName": "setShowOnlyDistance",
+      "propertyGetterName": "getShowOnlyDistance",
+      "displayName": "Show Only Distance",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show only whole distance.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": false,
+      "defaultValueInternal": false
+    },
+    {
+      "name": "data-tchmi-show-values",
+      "propertyName": "ShowValues",
+      "propertySetterName": "setShowValues",
+      "propertyGetterName": "getShowValues",
+      "displayName": "Show Values",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate show values in canvas chart.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-ticks",
+      "propertyName": "Ticks",
+      "propertySetterName": "setTicks",
+      "propertyGetterName": "getTicks",
+      "displayName": "Ticks",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "Analytics",
+      "description": "Ticks for the distance chart.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 4,
+      "defaultValueInternal": 4
+    },
+    {
+      "name": "data-tchmi-sub-ticks",
+      "propertyName": "SubTicks",
+      "propertySetterName": "setSubTicks",
+      "propertyGetterName": "getSubTicks",
+      "displayName": "Sub Ticks",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "Analytics",
+      "description": "SubTicks for the distance chart.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": 3,
+      "defaultValueInternal": 3
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158, 1)"
+      },
+      "description": "Color for negative distance.",
+      "displayName": "Distance Negative Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-distance-neg-color",
+      "propertyGetterName": "getDistanceNegColor",
+      "propertyName": "DistanceNegColor",
+      "propertySetterName": "setDistanceNegColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158, 1)"
+      },
+      "description": "Color for positive distance.",
+      "displayName": "Distance Positive Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-distance-pos-color",
+      "propertyGetterName": "getDistancePosColor",
+      "propertyName": "DistancePosColor",
+      "propertySetterName": "setDistancePosColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+    {
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(59, 94, 158, 1)"
+      },
+      "description": "Color for distance.",
+      "displayName": "Distance Color",
+      "displayPriority": 10,
+      "heritable": true,
+      "name": "data-tchmi-distance-color",
+      "propertyGetterName": "getDistanceColor",
+      "propertyName": "DistanceColor",
+      "propertySetterName": "setDistanceColor",
+      "readOnly": false,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": true
+    },
+   
+    {
+      "name": "data-tchmi-grow-only",
+      "propertyName": "GrowOnly",
+      "propertySetterName": "setGrowOnly",
+      "propertyGetterName": "getGrowOnly",
+      "displayName": "Grow Only",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Boolean",
+      "category": "Analytics",
+      "description": "Activate Grow Only.",
+
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": true,
+      "defaultValueInternal": true
+    },
+    {
+      "name": "data-tchmi-control-color-middle",
+      "description": "Control Color Middle",
+     "displayName": "Control Color Middle",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorMiddle",
+      "propertyName": "ControlColorMiddle",
+      "propertySetterName": "setControlColorMiddle",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "name": "data-tchmi-control-color-light",
+      "description": "Control Color Light",
+     "displayName": "Control Color Light",
+      "displayPriority": 10,
+      "heritable": true,
+      "propertyGetterName": "getControlColorLight",
+      "propertyName": "ControlColorLight",
+      "propertySetterName": "setControlColorLight",
+      "readOnly": true,
+
+      "themeable": "Standard",
+      "type": "tchmi:framework#/definitions/SolidColor",
+      "visible": false,
+      "bindable": true,
+      "category": "Colors",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "objectType": "SolidColor",
+        "color": "rgba(102, 102,102, 1)"
+      }
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [],
+  "dataTypes": [
+    {
+      "name": "tchmi:framework#/definitions/TcHmi.Controls.Analytics.XTSDistance",
+      "schema": "Schema/TypeDefinitions/XTSDistance.Schema.json"
+    },
+    {
+     
+    
+    }
+  ]
+}

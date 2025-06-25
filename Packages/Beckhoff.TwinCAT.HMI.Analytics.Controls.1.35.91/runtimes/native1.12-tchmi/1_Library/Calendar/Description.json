@@ -1,0 +1,192 @@
+﻿{
+  "$schema": "../../.hmiframework/Schema/ControlDescription.Schema.json",
+  "apiVersion": 1,
+  "name": "Calendar",
+  "namespace": "TcHmi.Controls.Analytics",
+  "displayName": "Calendar",
+  "version": {
+    "full": "1.0.0.0",
+    "major": 1,
+    "minor": 0,
+    "revision": 0,
+    "build": 0
+  },
+  "visible": false,
+  "themeable": "Standard",
+  "base": "TcHmi.Controls.System.TcHmiControl",
+  "description": "This description text will be used as a Tooltip in Visual Studio.",
+  "properties": {
+    "containerControl": false,
+    "geometry": {
+      "width": 0,
+      "height": 0
+    }
+  },
+  "icons": [
+  ],
+  "template": "Template.html",
+  "dependencyFiles": [
+    {
+      "name": "Calendar.js",
+      "type": "JavaScript",
+      "description": "Contains all the main logic."
+    },
+    {
+      "name": "Style.css",
+      "type": "Stylesheet",
+      "description": "Theme independent style"
+    }
+  ],
+  "themes": {
+    "Base": {
+      "resources": [
+      ]
+    }
+  },
+  "attributes": [
+    {
+      "name": "data-tchmi-record",
+      "propertyName": "Record",
+      "propertySetterName": "setRecord",
+      "propertyGetterName": "getRecord",
+      "displayName": "Record",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/Object",
+      "category": "Analytics",
+      "description": "The record with the time range information. The record will be modified after user selection.",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-full-months-alias",
+      "propertyName": "FullMonthsAlias",
+      "propertySetterName": "setFullMonthsAlias",
+      "propertyGetterName": "getFullMonthseAlias",
+      "displayName": "Full Months Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Full months names alias names",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "January,February,March,April,May,June,July,August,September,October,November,December",
+      "defaultValueInternal": "January,February,March,April,May,June,July,August,September,October,November,December"
+    },
+    {
+      "name": "data-tchmi-days-of-week-alias",
+      "propertyName": "DaysOfWeekAlias",
+      "propertySetterName": "setDaysOfWeekAlias",
+      "propertyGetterName": "getDaysOfWeekAlias",
+      "displayName": "Days Of Week Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Days of week alias names",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Mon,Tue,Wed,Thu,Fri,Sat,Sun",
+      "defaultValueInternal": "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
+    },
+    {
+      "name": "data-tchmi-start-time-alias",
+      "propertyName": "StartTimeAlias",
+      "propertySetterName": "setStartTimeAlias",
+      "propertyGetterName": "getStartTimeAlias",
+      "displayName": "Start Time Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Start time alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Start Time",
+      "defaultValueInternal": "Start Time"
+    },
+    {
+      "name": "data-tchmi-stop-time-alias",
+      "propertyName": "StopTimeAlias",
+      "propertySetterName": "setStopTimeAlias",
+      "propertyGetterName": "getStopTimeAlias",
+      "displayName": "Stop Time Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Stop time alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Stop Time",
+      "defaultValueInternal": "Stop Time"
+    },
+    {
+      "name": "data-tchmi-cancel-alias",
+      "propertyName": "CancelAlias",
+      "propertySetterName": "setCancelAlias",
+      "propertyGetterName": "getCancelAlias",
+      "displayName": "Cancel Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "Cancel alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Cancel",
+      "defaultValueInternal": "Cancel"
+    },
+    {
+      "name": "data-tchmi-set-time-alias",
+      "propertyName": "SetTimeAlias",
+      "propertySetterName": "setSetTimeAlias",
+      "propertyGetterName": "getSetTimeAlias",
+      "displayName": "Set Time Alias",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 200,
+      "type": "tchmi:general#/definitions/String",
+      "category": "Analytics",
+      "description": "SetTime alias name",
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "defaultValue": "Set Time",
+      "defaultValueInternal": "Set Time"
+    }
+  ],
+  "attributeCategories": [],
+  "functions": [],
+  "events": [
+    {
+      "name": ".onClosed",
+      "displayName": ".onClosed",
+      "visible": true,
+      "displayPriority": 10,
+      "category": "Control",
+      "description": "The onClosed event is fired when the calendar popup has been closed.",
+      "heritable": true
+    }
+  ],
+  "dataTypes": [
+    {
+      "schema": "Schema/Types.Schema.json"
+    }
+  ]
+}

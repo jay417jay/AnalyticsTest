@@ -1,0 +1,30 @@
+﻿.tchmi-x-t-s-velocity-chart-svg {
+    float: left;
+    margin-top: 40px;
+}
+
+.tchmi-velocity-chart-svg-background-circle{
+    stroke-width:4px;
+}
+
+.tchmi-velocity-chart-svg-inner-circle {
+    stroke-width: 3px;
+}
+
+.tchmi-velocity-chart-svg-process{
+    stroke-width : 38px;
+    fill:none;
+}
+
+.tchmi-velocity-chart-svg-needle {
+    stroke-linecap:round;
+}
+.tchmi-velocity-chart-svg-scale-text{
+    font-size:18px;
+}
+
+.tchmi-velocity-value{
+    text-anchor:middle;
+    font-size:22px;
+    font-weight:bold;
+}
