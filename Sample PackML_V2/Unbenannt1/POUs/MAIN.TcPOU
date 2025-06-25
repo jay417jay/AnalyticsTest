@@ -112,7 +112,16 @@ M_CallVisu();
 fbMachine(eModeCommand:= PackTags.Command.UnitMode,  eMode => PackTags.Status.UnitModeCurrent, eState =>PackTags.Status.StateCurrent);
 
 //for analytics conversion
-uProcessedCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[1].Count);]]></ST>
+lScheduledTime:= ULINT_TO_LINT(uScheduleTime*60*60*1000000000);
+uProcessedCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[1].Count);
+uPlasticCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[3].Count);
+uMetalCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[4].Count);
+
+IF PackTags.Status.UnitModeCurrent = 1 THEN
+	bProductionMode:= TRUE;
+ELSE
+	bProductionMode:= FALSE;
+END_IF]]></ST>
     </Implementation>
     <Action Name="A_UnitModeConfig" Id="{22b649e9-a085-4601-8ad9-54522ade47b0}">
       <Implementation>
@@ -391,7 +400,14 @@ END_IF
       <LineId Id="3" Count="71" />
       <LineId Id="2" Count="0" />
       <LineId Id="76" Count="1" />
+      <LineId Id="82" Count="0" />
       <LineId Id="75" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="79" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="85" Count="1" />
+      <LineId Id="84" Count="0" />
     </LineIds>
     <LineIds Name="MAIN.A_UnitModeConfig">
       <LineId Id="2" Count="25" />

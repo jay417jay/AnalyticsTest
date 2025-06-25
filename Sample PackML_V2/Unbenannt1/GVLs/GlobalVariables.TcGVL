@@ -10,11 +10,11 @@
 		bPlasticEjectionResetDone	: BOOL;							//True if plasticejection ressetting is finished 
 		bMetalEjectionResetDone		: BOOL;							//True if metalejection ressetting is finished 
 		
-		//analytics testing
-		{attribute 'TcAnalytics'}
 		PackTags					: ST_PackMLv30;					//PackTags
-
-		nVisuProductCommand			: DINT;							//Products to produce
+		
+		//analytics testing//2.1
+		{attribute 'TcAnalytics'}
+		nVisuProductCommand			: DINT;							//Schedule products to produce
 
 		bButtonProductionReq		: BOOL;							//TRUE when a mode change to PRODUCTION is requested
 		stChangeIntoProduction		: ST_ChangeIntoProduction;		//Result of command box "Change to Production requested"
@@ -23,21 +23,27 @@
 		aCaption					: ARRAY [1..12] OF STRING := ['F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12'];
 		aKeyPressed					: ARRAY [1..12] OF BOOL;	
 		
-		//analytics testing//2.1
-		{attribute 'TcAnalytics'}
-		tScheduledTime 				: LTIME	:= LTIME#3H30M0S;
 		
+		uScheduleTime	 			: ULINT	:= 2 ;//for OEE 
 		//analytics testing//2.1//3600000000000
 		{attribute 'TcAnalytics'}			
 		lScheduledTime 				: LINT	:= 3600000000000;//1 hours=1×60×60×1,000,000,000=3,600,000,000,000 nanoseconds
 		
 		//analytics testing//2.1
 		{attribute 'TcAnalytics'}
-		uDefectiveCount 			: ULINT	:= 0 ;
+		uDefectiveCount 			: ULINT	:= 0 ;//for OEE 
 		
 		//analytics testing//2.1
 		{attribute 'TcAnalytics'}
-		uProcessedCount 			: ULINT	:= 0 ;
+		uProcessedCount 			: ULINT	:= 0 ;//for OEE 
+		
+		//analytics testing//2.1
+		{attribute 'TcAnalytics'}
+		uPlasticCount 	 			: ULINT	:= 0 ;//for plastic items 
+		
+		//analytics testing//2.1
+		{attribute 'TcAnalytics'}
+		uMetalCount 	 			: ULINT	:= 0 ;//for metal items 
 		
 		//analytics testing//2.1
 		{attribute 'TcAnalytics'}
@@ -45,6 +51,10 @@
 		//analytics testing//2.1
 		{attribute 'TcAnalytics'}
 		bUnscheduleDownTime			: BOOL	:= FALSE ;//else if under manual mode or unknown will be under this categories
+		
+		//analytics testing//2.1
+		{attribute 'TcAnalytics'}
+		bProductionMode				: BOOL	:= FALSE ;//else if under manual mode or unknown will be under this categories
 		
 END_VAR
 ]]></Declaration>
