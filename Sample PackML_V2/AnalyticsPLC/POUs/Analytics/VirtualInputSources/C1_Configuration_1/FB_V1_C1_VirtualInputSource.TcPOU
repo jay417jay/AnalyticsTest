@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="FB_V1_C1_VirtualInputSource" Id="efff4686-d355-420b-a7b3-61b33543b787" SpecialFunc="None">
+  <POU Name="FB_V1_C1_VirtualInputSource" Id="b1c18c6e-f0ea-47ad-b188-e217b8fa44e4" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_V1_C1_VirtualInputSource IMPLEMENTS I_VirtualInputSource, I_V1_VirtualInputSource
 VAR
 	_fbSource: I_InputSource;
@@ -22,9 +22,9 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="I_VirtualInputSource" Id="0ffac56e-bbd9-4acd-86ae-d522b0126d33" />
-    <Folder Name="I_V1_VirtualInputSource" Id="dfa9c974-2492-4f6a-bb11-44693b137a7d" />
-    <Method Name="Done" Id="d8af47fb-b05b-4f26-a89c-fed846c2b9fb" FolderPath="I_VirtualInputSource\">
+    <Folder Name="I_VirtualInputSource" Id="ce1ca6b2-e001-4504-8d74-4fc625416946" />
+    <Folder Name="I_V1_VirtualInputSource" Id="9a1f3316-245c-4370-a80b-15a877358a54" />
+    <Method Name="Done" Id="003acaef-6e43-413b-9d9b-8ca9291dcb1a" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[METHOD Done : BOOL
 VAR
 END_VAR]]></Declaration>
@@ -37,7 +37,7 @@ END_IF
 _nContext:= 0;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="NextData" Id="ce0e460f-8228-4abb-a36f-4ad3015fbec5" FolderPath="I_VirtualInputSource\">
+    <Method Name="NextData" Id="a1af587e-856a-44f3-bef6-426491cae5a4" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[METHOD NextData : BOOL
 VAR_INPUT
 	nMaxOversampling: UDINT;
@@ -58,7 +58,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SourceSync" Id="77347aeb-18ee-4a9a-bb79-48c7ec69b4f7" FolderPath="I_VirtualInputSource\">
+    <Method Name="SourceSync" Id="b28a7815-b842-44b2-9b69-96e97860f158" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[METHOD SourceSync : BOOL
 VAR
 END_VAR]]></Declaration>
@@ -72,7 +72,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="d086f03c-5c41-4571-b6e6-b39eb00041ae">
+    <Method Name="FB_init" Id="c48f1cd0-bc3e-42f6-87d2-55fe55c7592f">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains: BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -88,9 +88,9 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Property Name="bEndOfData" Id="8dd489b8-1529-48a9-9478-f515ca0f01d1" FolderPath="I_VirtualInputSource\">
+    <Property Name="bEndOfData" Id="a2671fd2-5839-47e7-b1d7-652ce02a8584" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY bEndOfData : BOOL]]></Declaration>
-      <Get Name="Get" Id="d12cb06e-6ff2-4308-869a-796e6e66a080">
+      <Get Name="Get" Id="cf48a95b-97f8-4886-87b7-782fe39dfae2">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -98,9 +98,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="dtTimestamp" Id="b5aa23f5-fc82-46b1-9f7d-a1dca045c6fa" FolderPath="I_VirtualInputSource\">
+    <Property Name="dtTimestamp" Id="46d337df-d0ce-46e4-bad5-f2675a959a30" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY dtTimestamp : DCTIMESTRUCT]]></Declaration>
-      <Get Name="Get" Id="f594a13f-df97-4541-9f45-7b5597a74e2c">
+      <Get Name="Get" Id="37e03d6a-ec43-403c-ac02-2f374b9843d6">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -108,9 +108,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nContext" Id="573c2cd8-9ffd-4028-a626-bbf6df9c907e" FolderPath="I_VirtualInputSource\">
+    <Property Name="nContext" Id="91724342-c8b7-4408-9f3e-95d9e18e0699" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
-      <Get Name="Get" Id="a3ce3160-5245-4225-9c3c-7b4d788757d0">
+      <Get Name="Get" Id="7859682f-0f57-4fb9-a778-af668b64314d">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -118,9 +118,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nDataHandle" Id="9de6c450-c7e5-429d-9b59-19b5e77774f5" FolderPath="I_VirtualInputSource\">
+    <Property Name="nDataHandle" Id="0f274769-b77b-4d75-a7a6-adbd4b001338" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY nDataHandle : ULINT]]></Declaration>
-      <Get Name="Get" Id="24c39400-8f39-4443-8c1f-665d2148d137">
+      <Get Name="Get" Id="4835ca3f-dd5d-4609-a41a-dffe6dda071a">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -128,9 +128,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="tTimestamp" Id="f06690ac-ca88-46ad-8421-c1dac2671b0f" FolderPath="I_VirtualInputSource\">
+    <Property Name="tTimestamp" Id="cb4e6b21-d6ff-49e3-a14a-264183c120ab" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY tTimestamp : ULINT]]></Declaration>
-      <Get Name="Get" Id="d43042f0-0891-4bd1-8b93-63dd9a324a64">
+      <Get Name="Get" Id="7930ee41-90a8-42ad-9feb-006b63432068">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -138,9 +138,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nMaxOversamplingFactor" Id="c3505ae9-c0c8-441e-96ba-9b619a2b7c7e" FolderPath="I_VirtualInputSource\">
+    <Property Name="nMaxOversamplingFactor" Id="2ada916d-8d29-412e-ad03-9b03fc09f9c3" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY nMaxOversamplingFactor : UDINT]]></Declaration>
-      <Get Name="Get" Id="483a1a80-1c29-4d41-ad74-6791a021ce24">
+      <Get Name="Get" Id="d9b02ab7-f77d-4b91-b536-5769e0a68fac">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -148,9 +148,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="eSourceState" Id="5306cb4e-a453-42d2-9b98-b75044accfdc" FolderPath="I_VirtualInputSource\">
+    <Property Name="eSourceState" Id="08bc7242-0299-4bcc-ad67-492afa486498" FolderPath="I_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY eSourceState : E_DataSourceState]]></Declaration>
-      <Get Name="Get" Id="1e050029-c37f-47db-9e50-92e6c7598cc7">
+      <Get Name="Get" Id="244e2afa-8572-4196-87ef-5c55326f40c6">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -158,9 +158,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nV1_TimeLine" Id="6805a3bc-6e67-4b27-926f-9ab393a32150" FolderPath="I_V1_VirtualInputSource\">
+    <Property Name="nV1_TimeLine" Id="57b7c1f9-7a78-4787-ad43-04c7047d3113" FolderPath="I_V1_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY nV1_TimeLine : ULINT]]></Declaration>
-      <Get Name="Get" Id="19bbc3aa-205a-431c-837d-d24070da55de">
+      <Get Name="Get" Id="1fb24f1e-e88c-4ae9-8e90-3cef3282d22b">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -169,9 +169,9 @@ nV1_TimeLine:= _nTimestamp;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="bV1_bProductionMode" Id="c84faa96-234d-4952-9769-92d8baf4d6be" FolderPath="I_V1_VirtualInputSource\">
+    <Property Name="bV1_bProductionMode" Id="ce14ac5d-e825-42e1-8bfd-14d13b60c571" FolderPath="I_V1_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY bV1_bProductionMode : BOOL]]></Declaration>
-      <Get Name="Get" Id="a0d46f5d-b62b-4970-b761-e680d6583203">
+      <Get Name="Get" Id="5d73faab-7417-422f-a650-f344fdf1e7eb">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -179,9 +179,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nV1_lScheduledTime" Id="e69a795e-180c-4c0f-ad1c-b93f8e1046f7" FolderPath="I_V1_VirtualInputSource\">
+    <Property Name="nV1_lScheduledTime" Id="a4a3872d-0895-481a-99c5-6b31585a1947" FolderPath="I_V1_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY nV1_lScheduledTime : LINT]]></Declaration>
-      <Get Name="Get" Id="6cb3cf38-60d9-47e8-8381-65d689432de1">
+      <Get Name="Get" Id="26e3ae25-414f-4207-987b-e7f8836958c5">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -189,19 +189,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nV1_uProcessedCount" Id="e22a8791-1756-40b9-b713-adf2ffd816d4" FolderPath="I_V1_VirtualInputSource\">
-      <Declaration><![CDATA[PROPERTY nV1_uProcessedCount : ULINT]]></Declaration>
-      <Get Name="Get" Id="5614c1bf-d0aa-41c5-a052-65b19a927c28">
-        <Declaration><![CDATA[VAR
-END_VAR]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[nV1_uProcessedCount:= _stInputs.nGlobalVariables_uProcessedCount;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
-    <Property Name="nV1_uDefectiveCount" Id="019fad5d-0571-41be-80a5-3efa9ebaac44" FolderPath="I_V1_VirtualInputSource\">
+    <Property Name="nV1_uDefectiveCount" Id="8b8beba8-c8df-4e1a-81c0-9c062d8cec33" FolderPath="I_V1_VirtualInputSource\">
       <Declaration><![CDATA[PROPERTY nV1_uDefectiveCount : ULINT]]></Declaration>
-      <Get Name="Get" Id="16b049bd-ef9c-4354-b00f-dcc31882c09e">
+      <Get Name="Get" Id="ed4514cc-2d1f-4425-b9d7-b71e0267c710">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -209,19 +199,69 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nV1_uMetalCount" Id="644f358a-4c90-4ddc-a624-803402a3cb7a" FolderPath="I_V1_VirtualInputSource\">
-      <Declaration><![CDATA[PROPERTY nV1_uMetalCount : ULINT]]></Declaration>
-      <Get Name="Get" Id="989f7aaa-7bb5-4e53-b5de-5477320a504a">
+    <Property Name="nV1_lStartTime" Id="9626509c-1a4f-4eae-ab19-81364f54fac2" FolderPath="I_V1_VirtualInputSource\">
+      <Declaration><![CDATA[PROPERTY nV1_lStartTime : LWORD]]></Declaration>
+      <Get Name="Get" Id="5c7c6696-71ea-4377-afe2-a526c47df900">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
-          <ST><![CDATA[nV1_uMetalCount:= _stInputs.nGlobalVariables_uMetalCount;]]></ST>
+          <ST><![CDATA[nV1_lStartTime:= _stInputs.nGlobalVariables_lStartTime;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="fbInputSource" Id="2bd2785e-e281-4837-9665-0791ee53346f">
+    <Property Name="nV1_lStopTime" Id="33e0ea92-bfaa-4bc9-b077-378a0d2e9670" FolderPath="I_V1_VirtualInputSource\">
+      <Declaration><![CDATA[PROPERTY nV1_lStopTime : LWORD]]></Declaration>
+      <Get Name="Get" Id="819ff155-c4f8-45c4-820c-11d2efe3dd6c">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nV1_lStopTime:= _stInputs.nGlobalVariables_lStopTime;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bV1_bConfigure" Id="6f8f56d8-7e25-4938-9ee5-f1ea650cd771" FolderPath="I_V1_VirtualInputSource\">
+      <Declaration><![CDATA[PROPERTY bV1_bConfigure : BOOL]]></Declaration>
+      <Get Name="Get" Id="37de9a83-e2dc-40f4-882d-32c29e533c4a">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bV1_bConfigure:= _stInputs.bGlobalVariables_bConfigure;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bV1_bReset" Id="3a6d0a29-e23d-4589-a87d-905fee2add60" FolderPath="I_V1_VirtualInputSource\">
+      <Declaration><![CDATA[PROPERTY bV1_bReset : BOOL]]></Declaration>
+      <Get Name="Get" Id="6e2dd7ea-5b1d-4021-b646-e15705e8f828">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bV1_bReset:= _stInputs.bGlobalVariables_bReset;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bV1_bTest" Id="5333dcff-9364-406a-8735-994a61b43225" FolderPath="I_V1_VirtualInputSource\">
+      <Declaration><![CDATA[PROPERTY bV1_bTest : BOOL]]></Declaration>
+      <Get Name="Get" Id="a067fe8b-9901-4f80-871c-9ff4734ea196">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bV1_bTest:= _stInputs.bGlobalVariables_bTest;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nV1_uTotalCount" Id="886f1d01-35ee-450b-b49a-773413a0f80f" FolderPath="I_V1_VirtualInputSource\">
+      <Declaration><![CDATA[PROPERTY nV1_uTotalCount : ULINT]]></Declaration>
+      <Get Name="Get" Id="1a1813db-f80a-4bbe-91ae-72129af00ca1">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nV1_uTotalCount:= _stInputs.nGlobalVariables_uTotalCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fbInputSource" Id="fac1c770-cd52-4327-9808-089518effebb">
       <Declaration><![CDATA[PROPERTY fbInputSource : I_InputSource]]></Declaration>
-      <Get Name="Get" Id="9421d87c-d1e6-4da3-ae74-502dbc759bbf">
+      <Get Name="Get" Id="bd0fd7d5-7ccf-4bf8-b1e5-0750fdbc9e18">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>

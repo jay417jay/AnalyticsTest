@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_N1_M4_ProductionQuantityAnalysis" Id="56198558-b46b-4126-8d83-8a59c7582d3b" SpecialFunc="None">
+    <Declaration><![CDATA[//The Lifecycle Analysis 1Ch calculates the elapsed and the estimated remaining cycles of a device. The input channel should provide boolean values so that every switching procedure represents a cycle. Optional a boolean signal for Enable Execution can be selected, so that the algorithm is just active if the value of the selected signal is TRUE.
+FUNCTION_BLOCK FB_N1_M4_ProductionQuantityAnalysis
+VAR_INPUT
+	nDataIn: ULINT;
+	bEnableExecution: BOOL := TRUE;
+	bReset: BOOL;
+	bReconfigure: BOOL := TRUE;
+END_VAR
+VAR_INPUT PERSISTENT
+	stThresholdEdge: ST_ALY_Threshold;
+	nCyclesEstimated: ULINT;
+	fTolerance: LREAL;
+END_VAR
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage;
+	bNewResult: BOOL;
+	nCyclesElapsed: ULINT;
+	nCyclesRemaining: LINT;
+	bLifecyclesElapsed: BOOL;
+END_VAR
+VAR
+	
+	R_TRIG_Reconfigure: R_TRIG;
+	
+	fbALY_LifecycleAnalysis_1Ch: FB_ALY_LifecycleAnalysis_1Ch;
+END_VAR
+VAR PERSISTENT
+	bConfigured: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="85d2530d-bd45-4a5e-8b14-0bb3c06c4a74">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR_INPUT
+	nCurrentContext: DWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bConfigured THEN
+	bConfigured:= TRUE;
+
+	nCyclesEstimated:= 1000;
+	fTolerance:= 0;
+
+	stThresholdEdge.eComparisonOperator:= E_ALY_ComparisonOperator.Equals;
+	stThresholdEdge.fThreshold:= 1;
+
+	fbALY_LifecycleAnalysis_1Ch.fTolerance:= fTolerance;
+END_IF
+
+R_TRIG_Reconfigure(CLK:= bReconfigure);
+IF R_TRIG_Reconfigure.Q THEN
+	fbALY_LifecycleAnalysis_1Ch.ConfigureChannel(stThresholdEdge:= stThresholdEdge);
+
+	fbALY_LifecycleAnalysis_1Ch.Configure(nCyclesEstimated:= nCyclesEstimated);
+
+	bReconfigure:= FALSE;
+END_IF
+
+IF bReset THEN
+	Reset();
+END_IF
+
+IF bEnableExecution THEN
+	IF F_HasContext(nCurrentContext, nContext) THEN
+		fbALY_LifecycleAnalysis_1Ch.SetChannelValue(Input:= nDataIn);
+
+		fbALY_LifecycleAnalysis_1Ch.Call();
+
+		bNewResult:= fbALY_LifecycleAnalysis_1Ch.bNewResult;
+		nCyclesElapsed:= fbALY_LifecycleAnalysis_1Ch.nCyclesElapsed;
+		nCyclesRemaining:= fbALY_LifecycleAnalysis_1Ch.nCyclesRemaining;
+		bLifecyclesElapsed:= fbALY_LifecycleAnalysis_1Ch.bLifecyclesElapsed;
+
+		bError:= fbALY_LifecycleAnalysis_1Ch.bError;
+		ipTcResult:= fbALY_LifecycleAnalysis_1Ch.ipResultMessage;
+	END_IF
+ELSE
+	bNewResult:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="a25b44ca-0053-440b-9a33-74937cf06ca2">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset:= fbALY_LifecycleAnalysis_1Ch.Reset();
+
+bNewResult:= fbALY_LifecycleAnalysis_1Ch.bNewResult;
+nCyclesElapsed:= fbALY_LifecycleAnalysis_1Ch.nCyclesElapsed;
+nCyclesRemaining:= fbALY_LifecycleAnalysis_1Ch.nCyclesRemaining;
+bLifecyclesElapsed:= fbALY_LifecycleAnalysis_1Ch.bLifecyclesElapsed;
+
+bError:= NOT Reset;
+ipTcResult:= fbALY_LifecycleAnalysis_1Ch.ipResultMessage;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHMI" Id="03155844-bf52-40db-aaf4-d4109916f75a">
+      <Declaration><![CDATA[METHOD SetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+	bHMIReinit: BOOL;
+END_VAR
+VAR
+	pHMI_C1_OEE_Status: POINTER TO ST_HMI_C1_OEE_Status;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetHMI:= FALSE;
+
+CASE nContent OF
+	1:
+		pHMI_C1_OEE_Status:= pContent;
+
+		IF bHMIReinit AND bConfigured THEN
+			SetHMI:= TRUE;
+		END_IF
+
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesElapsed:= TO_LREAL(nCyclesElapsed);
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesRemaining:= TO_LREAL(nCyclesRemaining);
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHMI" Id="0b76f849-4fc7-4c08-b248-5d1a3c5ff89e">
+      <Declaration><![CDATA[METHOD GetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+END_VAR
+VAR
+	pHMI_C1_OEE_Status: POINTER TO ST_HMI_C1_OEE_Status;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE nContent OF
+	1:
+		//OEE_Status
+		pHMI_C1_OEE_Status:= pContent;
+
+		IF pHMI_C1_OEE_Status^.stHMI_C1_Ctrl1_Production_Quantity_Analysis.bTrigReconfigure THEN
+			pHMI_C1_OEE_Status^.stHMI_C1_Ctrl1_Production_Quantity_Analysis.bTrigReconfigure:= FALSE;
+			bReconfigure:= TRUE;
+
+		END_IF
+END_CASE
+
+GetHMI:= bReconfigure;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nContext" Id="9ae7ad47-080c-4300-96a6-493aa5d36a75">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="db16b3f0-ffe5-4205-a7c0-e363b98a892a">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nContext:= E_VirtualInput.eContext_V1_VirtualInputSource;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

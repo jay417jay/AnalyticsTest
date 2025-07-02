@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="ST_HMI_MapItem" Id="7aa311d5-49f8-4b47-b01d-d52498f69083">
+  <DUT Name="ST_HMI_MapItem" Id="1b53cc8a-7ec7-49b6-816f-89ce0acd12ad">
     <Declaration><![CDATA[TYPE ST_HMI_MapItem : 
 STRUCT
 	sName: WSTRING(127);

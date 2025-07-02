@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="MAIN_Analytics" Id="5636446d-8e5a-4b09-9bad-f6762394dab4" SpecialFunc="None">
+  <POU Name="MAIN_Analytics" Id="04e9558e-bb97-468b-9f3c-e70a24bc7fec" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN_Analytics
 VAR
 END_VAR]]></Declaration>
@@ -25,49 +25,43 @@ IF Analytics.fbT1_InputSource.bReadNewData THEN
 	Analytics.fbT1_InputSource.Call();
 END_IF]]></ST>
     </Implementation>
-    <Action Name="A_Reset" Id="e8908d10-0296-49b1-95f9-89c0bbbb5660">
+    <Action Name="A_Reset" Id="de694feb-ce95-4a24-9c1b-29be73f0cbfb">
       <Implementation>
         <ST><![CDATA[
-IF AnalyticsHMI.bN1_Network_Reset THEN
-	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_Network;
+IF AnalyticsHMI.bN1_OEEStatus_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_OEEStatus;
 	Analytics.stReset.bResetExecute:= TRUE;
-	AnalyticsHMI.bN1_Network_Reset:= FALSE;
+	AnalyticsHMI.bN1_OEEStatus_Reset:= FALSE;
 END_IF
 
-IF AnalyticsHMI.bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset THEN
-	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M1_PackMLOverallEquipmentEffectivenessOEE;
+IF AnalyticsHMI.bN1_M1_OverallEquipmentEffectivenessOEE_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M1_OverallEquipmentEffectivenessOEE;
 	Analytics.stReset.bResetExecute:= TRUE;
-	AnalyticsHMI.bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset:= FALSE;
+	AnalyticsHMI.bN1_M1_OverallEquipmentEffectivenessOEE_Reset:= FALSE;
 END_IF
 
-IF AnalyticsHMI.bN1_M2_ProductionTimingAnalysis1Ch_Reset THEN
-	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M2_ProductionTimingAnalysis1Ch;
+IF AnalyticsHMI.bN1_M2_ProductionModeTimingAnalysis_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M2_ProductionModeTimingAnalysis;
 	Analytics.stReset.bResetExecute:= TRUE;
-	AnalyticsHMI.bN1_M2_ProductionTimingAnalysis1Ch_Reset:= FALSE;
+	AnalyticsHMI.bN1_M2_ProductionModeTimingAnalysis_Reset:= FALSE;
 END_IF
 
-IF AnalyticsHMI.bN1_M3_PieChart_Reset THEN
-	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M3_PieChart;
+IF AnalyticsHMI.bN1_M3_OEETrendLine_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M3_OEETrendLine;
 	Analytics.stReset.bResetExecute:= TRUE;
-	AnalyticsHMI.bN1_M3_PieChart_Reset:= FALSE;
+	AnalyticsHMI.bN1_M3_OEETrendLine_Reset:= FALSE;
 END_IF
 
-IF AnalyticsHMI.bN1_M4_ThresholdClassifier1Ch_Reset THEN
-	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M4_ThresholdClassifier1Ch;
+IF AnalyticsHMI.bN1_M4_ProductionQuantityAnalysis_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M4_ProductionQuantityAnalysis;
 	Analytics.stReset.bResetExecute:= TRUE;
-	AnalyticsHMI.bN1_M4_ThresholdClassifier1Ch_Reset:= FALSE;
+	AnalyticsHMI.bN1_M4_ProductionQuantityAnalysis_Reset:= FALSE;
 END_IF
 
-IF AnalyticsHMI.bN1_M5_PlasticMathOperation_Reset THEN
-	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M5_PlasticMathOperation;
+IF AnalyticsHMI.bN1_M5_ProductivityInterval_Reset THEN
+	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M5_ProductivityInterval;
 	Analytics.stReset.bResetExecute:= TRUE;
-	AnalyticsHMI.bN1_M5_PlasticMathOperation_Reset:= FALSE;
-END_IF
-
-IF AnalyticsHMI.bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset THEN
-	Analytics.stReset.eResetComponent:= E_AnalysisComponents.N1_M6_PreventiveMaintenanceLifetimeAnalysis;
-	Analytics.stReset.bResetExecute:= TRUE;
-	AnalyticsHMI.bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset:= FALSE;
+	AnalyticsHMI.bN1_M5_ProductivityInterval_Reset:= FALSE;
 END_IF]]></ST>
       </Implementation>
     </Action>

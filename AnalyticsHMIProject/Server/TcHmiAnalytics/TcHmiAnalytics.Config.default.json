@@ -2,50 +2,50 @@
     "ContentPermissionStore": {},
     "DataSourcesStorage": {},
     "InteractiveChartStorage": {},
-    "KeyValueStore": {},
-    "LayoutPropertiesKeyValueStore": {
-        "__SystemAdministrator__Network_1__Network_LayoutManager": {
+    "KeyValueStore": {
+        "__SystemAdministrator": {
             "keyValueEntries": [
                 {
-                    "key": "PieChartNameAlias",
-                    "value": "Product Type"
+                    "key": "Dashboard_Localization",
+                    "value": "en-US"
                 },
                 {
-                    "key": "PieChartFontsizeTitle",
-                    "value": "25"
-                },
-                {
-                    "key": "ThresholdClassifier1ChNameAlias",
-                    "value": "OEE Alarm"
-                },
-                {
-                    "key": "ThresholdClassifier1ChShowMilliSeconds",
-                    "value": "false"
+                    "key": "Dashboard_Theme",
+                    "value": "DarkRound"
                 }
             ],
-            "layoutID": "__SystemAdministrator__Network_1__Network_LayoutManager"
+            "userID": "__SystemAdministrator"
+        }
+    },
+    "LayoutPropertiesKeyValueStore": {
+        "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager": {
+            "keyValueEntries": [
+                {
+                    "key": "ProductivityIntervalFontsizeTitle",
+                    "value": "20"
+                },
+                {
+                    "key": "ProductivityIntervalShowTitle",
+                    "value": "true"
+                }
+            ],
+            "layoutID": "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager"
         }
     },
     "LayoutStore": {
-        "__SystemAdministrator__Network_1__Network_LayoutManager__0": {
-            "InteractiveControls": [],
-            "LayoutHash": [],
-            "LayoutID": "__SystemAdministrator__Network_1__Network_LayoutManager__0",
-            "LayoutValue": []
-        },
-        "__SystemAdministrator__Network_1__Network_LayoutManager__2": {
+        "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__0": {
             "InteractiveControls": [],
             "LayoutHash": [
+                {
+                    "CType": "TcHmi.Controls.Analytics.TrendLineChart",
+                    "Cnt": 1
+                },
                 {
                     "CType": "TcHmi.Controls.Analytics.OEE",
                     "Cnt": 1
                 },
                 {
-                    "CType": "TcHmi.Controls.Analytics.PieChart",
-                    "Cnt": 1
-                },
-                {
-                    "CType": "TcHmi.Controls.Analytics.TrafficLight",
+                    "CType": "TcHmi.Controls.Analytics.ProductivityInterval",
                     "Cnt": 1
                 },
                 {
@@ -57,43 +57,111 @@
                     "Cnt": 1
                 }
             ],
-            "LayoutID": "__SystemAdministrator__Network_1__Network_LayoutManager__2",
+            "LayoutID": "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__0",
             "LayoutValue": [
                 {
-                    "cE": 11,
-                    "cS": 2,
-                    "id": "PackMLOverallEquipmentEffectivenessOEE_GridElement",
-                    "rE": 7,
+                    "cE": 3,
+                    "cS": 1,
+                    "id": "OEETrendLine_GridElement",
+                    "rE": 5,
                     "rS": 1,
                     "vis": true
                 },
                 {
-                    "cE": 23,
-                    "cS": 11,
-                    "id": "PieChart_GridElement",
+                    "cE": 3,
+                    "cS": 1,
+                    "id": "OverallEquipmentEffectivenessOEE_GridElement",
+                    "rE": 11,
+                    "rS": 5,
+                    "vis": true
+                },
+                {
+                    "cE": 3,
+                    "cS": 1,
+                    "id": "ProductivityInterval_GridElement",
+                    "rE": 18,
+                    "rS": 11,
+                    "vis": true
+                },
+                {
+                    "cE": 3,
+                    "cS": 1,
+                    "id": "ProductionQuantityAnalysis_GridElement",
+                    "rE": 19,
+                    "rS": 18,
+                    "vis": false
+                },
+                {
+                    "cE": 3,
+                    "cS": 1,
+                    "id": "grid-buffer-cell-id",
+                    "rE": 11,
+                    "rS": 5,
+                    "vis": false
+                }
+            ]
+        },
+        "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__2": {
+            "InteractiveControls": [],
+            "LayoutHash": [
+                {
+                    "CType": "TcHmi.Controls.Analytics.TrendLineChart",
+                    "Cnt": 1
+                },
+                {
+                    "CType": "TcHmi.Controls.Analytics.OEE",
+                    "Cnt": 1
+                },
+                {
+                    "CType": "TcHmi.Controls.Analytics.ProductivityInterval",
+                    "Cnt": 1
+                },
+                {
+                    "CType": "TcHmi.Controls.Analytics.Process",
+                    "Cnt": 1
+                },
+                {
+                    "CType": "",
+                    "Cnt": 1
+                }
+            ],
+            "LayoutID": "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__2",
+            "LayoutValue": [
+                {
+                    "cE": 24,
+                    "cS": 13,
+                    "id": "OEETrendLine_GridElement",
                     "rE": 9,
                     "rS": 1,
                     "vis": true
                 },
                 {
-                    "cE": 6,
-                    "cS": 2,
-                    "id": "ThresholdClassifier1Ch_GridElement",
-                    "rE": 16,
-                    "rS": 7,
+                    "cE": 8,
+                    "cS": 1,
+                    "id": "OverallEquipmentEffectivenessOEE_GridElement",
+                    "rE": 9,
+                    "rS": 1,
                     "vis": true
                 },
                 {
-                    "cE": 23,
-                    "cS": 6,
-                    "id": "PreventiveMaintenanceLifetimeAnalysis_GridElement",
-                    "rE": 16,
-                    "rS": 9,
+                    "cE": 13,
+                    "cS": 8,
+                    "id": "ProductivityInterval_GridElement",
+                    "rE": 6,
+                    "rS": 1,
                     "vis": true
                 },
                 {
-                    "cE": 23,
-                    "cS": 11,
+                    "cE": 13,
+                    "cS": 8,
+                    "id": "ProductionQuantityAnalysis_GridElement",
+                    "rE": 9,
+                    "rS": 6,
+                    "vis": false
+                },
+                {
+                    "cE": 24,
+                    "cS": 13,
                     "id": "grid-buffer-cell-id",
                     "rE": 9,
                     "rS": 1,
@@ -103,19 +171,19 @@
         }
     },
     "UserLayoutStore": {
-        "__SystemAdministrator__Network_1__Network_LayoutManager__0": {
-            "ContentID": "Network_1",
+        "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__0": {
+            "ContentID": "OEE_Status_1",
             "DisplayMode": "SMARTPHONE",
-            "LayoutID": "__SystemAdministrator__Network_1__Network_LayoutManager__0",
+            "LayoutID": "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__0",
             "UserID": "__SystemAdministrator",
-            "UserLayoutID": "__SystemAdministrator__Network_1__Network_LayoutManager__0"
+            "UserLayoutID": "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__0"
         },
-        "__SystemAdministrator__Network_1__Network_LayoutManager__2": {
-            "ContentID": "Network_1",
+        "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__2": {
+            "ContentID": "OEE_Status_1",
             "DisplayMode": "MONITOR",
-            "LayoutID": "__SystemAdministrator__Network_1__Network_LayoutManager__2",
+            "LayoutID": "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__2",
             "UserID": "__SystemAdministrator",
-            "UserLayoutID": "__SystemAdministrator__Network_1__Network_LayoutManager__2"
+            "UserLayoutID": "__SystemAdministrator__OEE_Status_1__OEE_Status_LayoutManager__2"
         }
     }
 }

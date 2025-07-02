@@ -1,58 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <Itf Name="I_VirtualInputSource" Id="2df3cdd2-a76b-4489-bb6e-0c10df59913f">
+  <Itf Name="I_VirtualInputSource" Id="b6ac0ddf-0f70-4d0a-8caa-129991d616f0">
     <Declaration><![CDATA[INTERFACE I_VirtualInputSource]]></Declaration>
-    <Method Name="Done" Id="3700a693-8384-4042-adc1-d44d51a995c7">
+    <Method Name="Done" Id="b905f392-6377-4f77-a3af-b93c053c9f8f">
       <Declaration><![CDATA[METHOD Done : BOOL]]></Declaration>
     </Method>
-    <Method Name="NextData" Id="fe7139f5-7d7d-4026-974f-e22220012f99">
+    <Method Name="NextData" Id="cc8965cf-889b-422a-9ab1-1976d217a026">
       <Declaration><![CDATA[METHOD NextData : BOOL
 VAR_INPUT
 	nMaxOversampling: UDINT;
 END_VAR]]></Declaration>
     </Method>
-    <Method Name="SourceSync" Id="68aa5805-3527-4d04-a47b-b0a31aa474d1">
+    <Method Name="SourceSync" Id="9253be6b-8025-4727-9975-cf03217fa24e">
       <Declaration><![CDATA[METHOD SourceSync : BOOL]]></Declaration>
     </Method>
-    <Property Name="bEndOfData" Id="86d322d3-3d6f-459d-af76-7b48d89dbd9f">
+    <Property Name="bEndOfData" Id="a261f79a-01ad-4998-b511-678eb3ea668c">
       <Declaration><![CDATA[PROPERTY bEndOfData : BOOL]]></Declaration>
-      <Get Name="Get" Id="9af3cd81-26b9-4d64-85a4-5b3b1b630231">
+      <Get Name="Get" Id="7d771ad1-a124-4842-a669-9824f1e5c29e">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="dtTimestamp" Id="99addd1b-a059-4e2a-af91-da97e4dfeb7c">
+    <Property Name="dtTimestamp" Id="44364ccf-8260-4977-96d7-a58bd3c3d073">
       <Declaration><![CDATA[PROPERTY dtTimestamp : DCTIMESTRUCT]]></Declaration>
-      <Get Name="Get" Id="618e689b-a6a5-439e-8d63-3e8d099cd904">
+      <Get Name="Get" Id="1a689282-c795-4887-a2db-816e6e1c83b9">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="nContext" Id="09440b72-c0c2-434a-98c2-5cb4a1730291">
+    <Property Name="nContext" Id="e316ed5c-edf7-46b6-9e3f-d01f833917d5">
       <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
-      <Get Name="Get" Id="6f3bb631-341d-4176-82a3-d909f8916a57">
+      <Get Name="Get" Id="27eb60a0-b207-4d1a-9998-2a857dda32d5">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="nDataHandle" Id="276e62bc-c005-4d1f-9f9d-baad8fdcb71d">
+    <Property Name="nDataHandle" Id="7629cbe9-bb3f-4ac9-90d6-9724caa3469e">
       <Declaration><![CDATA[PROPERTY nDataHandle : ULINT]]></Declaration>
-      <Get Name="Get" Id="ca61bfd5-48a3-44b4-bff6-0105276da35f">
+      <Get Name="Get" Id="942ac920-513f-4bfc-b835-1dffd967bc2e">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="tTimestamp" Id="b9255e28-b873-4844-aecf-1fb1990bf682">
+    <Property Name="tTimestamp" Id="23fc2e53-95e5-4e5a-bde3-f9eb89f9e05e">
       <Declaration><![CDATA[PROPERTY tTimestamp : ULINT]]></Declaration>
-      <Get Name="Get" Id="62e972e5-d73d-4064-b953-536d1c89a8aa">
+      <Get Name="Get" Id="b388b519-163f-4574-b84f-15e7c3642640">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="nMaxOversamplingFactor" Id="2b309647-b0fb-472a-8f26-ec07fe18c9a1">
+    <Property Name="nMaxOversamplingFactor" Id="a497882d-5130-4f9d-8f86-8bdade5fa69d">
       <Declaration><![CDATA[PROPERTY nMaxOversamplingFactor : UDINT]]></Declaration>
-      <Get Name="Get" Id="3a9d61d2-948a-47f8-9195-1d13e2427422">
+      <Get Name="Get" Id="1480194b-158b-4fb0-b7ac-545f6f4976ad">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="eSourceState" Id="54899550-792d-40bd-a1de-b679d52f7d59">
+    <Property Name="eSourceState" Id="fbec15b3-6c91-4f8c-8fcf-d698efe4dac4">
       <Declaration><![CDATA[PROPERTY eSourceState : E_DataSourceState]]></Declaration>
-      <Get Name="Get" Id="84bf95a8-a488-4709-8d29-a3cb6a9ee27e">
+      <Get Name="Get" Id="b815043f-ffe1-4b50-9a0d-fe19394a9d47">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>

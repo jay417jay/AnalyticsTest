@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="FB_Analysis" Id="56a21d61-526d-4edc-a52e-a26faa099f72" SpecialFunc="None">
+  <POU Name="FB_Analysis" Id="3057e627-6a54-45e6-8b34-817e9f7583ec" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Analysis
 VAR_INPUT
 	nConfigurationID: INT;
@@ -17,12 +17,12 @@ VAR
 	R_TRIG_Reset: R_TRIG;
 	bResetBusy: BOOL;
 	
-	fbN1_Network: FB_N1_Network;
+	fbN1_OEEStatus: FB_N1_OEEStatus;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Reset" Id="e4492fc7-e5a7-4110-bfbc-873952f72057">
+    <Method Name="Reset" Id="a9feb18c-dfe0-490c-bb8b-b187fe1e2987">
       <Declaration><![CDATA[METHOD Reset : BOOL
 VAR_IN_OUT
 	stReset: ST_AnalysisReset;
@@ -37,28 +37,25 @@ IF R_TRIG_Reset.Q OR bResetBusy THEN
 
 	CASE stReset.eResetComponent OF
 		E_AnalysisComponents.All:
-			bResetBusy:= bResetBusy AND fbN1_Network.Reset();
-		E_AnalysisComponents.N1_Network:
-			bResetBusy:= bResetBusy AND fbN1_Network.Reset();
-		E_AnalysisComponents.N1_M1_PackMLOverallEquipmentEffectivenessOEE:
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM1_PackMLOverallEquipmentEffectivenessOEE.Reset();
-		E_AnalysisComponents.N1_M2_ProductionTimingAnalysis1Ch:
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM2_ProductionTimingAnalysis1Ch.Reset();
-		E_AnalysisComponents.N1_M3_PieChart:
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM3_PieChart.Reset();
-		E_AnalysisComponents.N1_M4_ThresholdClassifier1Ch:
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM4_ThresholdClassifier1Ch.Reset();
-		E_AnalysisComponents.N1_M5_PlasticMathOperation:
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM5_PlasticMathOperation.Reset();
-		E_AnalysisComponents.N1_M6_PreventiveMaintenanceLifetimeAnalysis:
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM6_PreventiveMaintenanceLifetimeAnalysis.Reset();
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.Reset();
+		E_AnalysisComponents.N1_OEEStatus:
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.Reset();
+		E_AnalysisComponents.N1_M1_OverallEquipmentEffectivenessOEE:
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM1_OverallEquipmentEffectivenessOEE.Reset();
+		E_AnalysisComponents.N1_M2_ProductionModeTimingAnalysis:
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM2_ProductionModeTimingAnalysis.Reset();
+		E_AnalysisComponents.N1_M3_OEETrendLine:
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM3_OEETrendLine.Reset();
+		E_AnalysisComponents.N1_M4_ProductionQuantityAnalysis:
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM4_ProductionQuantityAnalysis.Reset();
+		E_AnalysisComponents.N1_M5_ProductivityInterval:
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM5_ProductivityInterval.Reset();
 		E_AnalysisComponents.V1_VirtualInputSource:
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM1_PackMLOverallEquipmentEffectivenessOEE.Reset();
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM2_ProductionTimingAnalysis1Ch.Reset();
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM3_PieChart.Reset();
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM4_ThresholdClassifier1Ch.Reset();
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM5_PlasticMathOperation.Reset();
-			bResetBusy:= bResetBusy AND fbN1_Network.fbM6_PreventiveMaintenanceLifetimeAnalysis.Reset();
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM1_OverallEquipmentEffectivenessOEE.Reset();
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM2_ProductionModeTimingAnalysis.Reset();
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM3_OEETrendLine.Reset();
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM4_ProductionQuantityAnalysis.Reset();
+			bResetBusy:= bResetBusy AND fbN1_OEEStatus.fbM5_ProductivityInterval.Reset();
 	END_CASE
 
 	bResetBusy:= NOT bResetBusy;
@@ -67,28 +64,27 @@ IF R_TRIG_Reset.Q OR bResetBusy THEN
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Call" Id="6056d5e5-73bc-4afd-a6c5-acf9bd777948">
+    <Method Name="Call" Id="da555bb0-a1bf-4246-9455-5e8294281b73">
       <Declaration><![CDATA[METHOD Call : BOOL
 VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-//Analytics Network "Network" with ID: 1
-fbN1_Network.fInput_01:= fbN1_Network.fPlastic_Count;
-fbN1_Network.Call(THIS);
+//Analytics Network "OEEStatus" with ID: 1
+fbN1_OEEStatus.Call(THIS);
 
 
 //Error Handling
-IF fbN1_Network.bError THEN
+IF fbN1_OEEStatus.bError THEN
 	bError:= TRUE;
-	ipTcResult:= fbN1_Network.ipTcResult;
+	ipTcResult:= fbN1_OEEStatus.ipTcResult;
 ELSE
 	bError:= FALSE;
 	ipTcResult:= fbTcMsgSuccess;
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetHMIValues" Id="5aa9d32a-ce5e-4fac-b99c-2f7e3964ec9a">
+    <Method Name="SetHMIValues" Id="bbffb5e8-20d7-4cd3-928d-559bc51bc45c">
       <Declaration><![CDATA[METHOD SetHMIValues : BOOL
 VAR_INPUT
 	nContentID: DINT;
@@ -101,15 +97,14 @@ END_VAR]]></Declaration>
         <ST><![CDATA[
 CASE nContentID OF
 	1:
-		SetHMIValues:= fbN1_Network.fbM1_PackMLOverallEquipmentEffectivenessOEE.SetHMI(1, pContent, bHMIReinit);
-		SetHMIValues:= SetHMIValues AND fbN1_Network.fbM3_PieChart.SetHMI(1, pContent, bHMIReinit);
-		SetHMIValues:= SetHMIValues AND fbN1_Network.fbM4_ThresholdClassifier1Ch.SetHMI(1, pContent, bHMIReinit);
-		SetHMIValues:= SetHMIValues AND fbN1_Network.fbM6_PreventiveMaintenanceLifetimeAnalysis.SetHMI(1, pContent, bHMIReinit);
-		SetHMIValues:= SetHMIValues AND fbN1_Network.SetHMI(1, pContent, bHMIReinit);
+		SetHMIValues:= fbN1_OEEStatus.fbM1_OverallEquipmentEffectivenessOEE.SetHMI(1, pContent, bHMIReinit);
+		SetHMIValues:= SetHMIValues AND fbN1_OEEStatus.fbM3_OEETrendLine.SetHMI(1, pContent, bHMIReinit);
+		SetHMIValues:= SetHMIValues AND fbN1_OEEStatus.fbM4_ProductionQuantityAnalysis.SetHMI(1, pContent, bHMIReinit);
+		SetHMIValues:= SetHMIValues AND fbN1_OEEStatus.fbM5_ProductivityInterval.SetHMI(1, pContent, bHMIReinit);
 END_CASE]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetHMIValues" Id="d03bdfd7-ce4a-47a5-94a0-cfdb628bb659">
+    <Method Name="GetHMIValues" Id="21901a64-72d4-4895-9852-52f2474d5d38">
       <Declaration><![CDATA[METHOD GetHMIValues : BOOL
 VAR_INPUT
 	nContentID: DINT;
@@ -121,14 +116,14 @@ END_VAR]]></Declaration>
         <ST><![CDATA[
 CASE nContentID OF
 	1:
-		GetHMIValues:= fbN1_Network.fbM1_PackMLOverallEquipmentEffectivenessOEE.GetHMI(1, pContent);
-		GetHMIValues:= GetHMIValues OR fbN1_Network.fbM3_PieChart.GetHMI(1, pContent);
+		GetHMIValues:= fbN1_OEEStatus.fbM1_OverallEquipmentEffectivenessOEE.GetHMI(1, pContent);
+		GetHMIValues:= GetHMIValues OR fbN1_OEEStatus.fbM3_OEETrendLine.GetHMI(1, pContent);
 END_CASE]]></ST>
       </Implementation>
     </Method>
-    <Property Name="nContext" Id="b7929be4-7c2a-4109-87a7-4a46f5a64b0f">
+    <Property Name="nContext" Id="69e30036-5220-4785-b5a7-a2b50fb77990">
       <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
-      <Get Name="Get" Id="c1a2605f-329a-4abc-8bf3-5c3f776c7b97">
+      <Get Name="Get" Id="d436ab24-f013-4f6b-a1fc-228702041096">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>

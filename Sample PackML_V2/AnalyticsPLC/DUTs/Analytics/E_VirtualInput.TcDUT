@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="E_VirtualInput" Id="bbcfb4d1-ba40-44af-ba31-7bf1a8b2ac49">
+  <DUT Name="E_VirtualInput" Id="eb1f2529-e292-4df0-ae08-25787009fcad">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 TYPE E_VirtualInput : 
 (

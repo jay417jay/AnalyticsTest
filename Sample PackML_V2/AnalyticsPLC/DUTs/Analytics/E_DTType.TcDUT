@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="E_DTType" Id="836d6c93-7a8b-49f5-b226-fce1046b6001">
+  <DUT Name="E_DTType" Id="9903e9d1-ad46-4106-8a38-e0fb8fc82196">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
 TYPE E_DTType : 

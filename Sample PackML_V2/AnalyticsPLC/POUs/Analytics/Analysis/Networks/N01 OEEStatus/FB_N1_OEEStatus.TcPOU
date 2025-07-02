@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_N1_OEEStatus" Id="0710d1d1-a772-4740-96be-a4bb09ec0465" SpecialFunc="None">
+    <Declaration><![CDATA[//Analytics Network "OEEStatus" with ID: 1
+FUNCTION_BLOCK FB_N1_OEEStatus
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage := fbTcMsgSuccess;
+END_VAR
+VAR
+	fbTcMsgSuccess: FB_TcMessageSuccess;
+	
+	//Modules
+	fbM1_OverallEquipmentEffectivenessOEE: FB_N1_M1_OverallEquipmentEffectivenessOEE;
+	fbM2_ProductionModeTimingAnalysis: FB_N1_M2_ProductionModeTimingAnalysis;
+	fbM3_OEETrendLine: FB_N1_M3_OEETrendLine;
+	fbM4_ProductionQuantityAnalysis: FB_N1_M4_ProductionQuantityAnalysis;
+	fbM5_ProductivityInterval: FB_N1_M5_ProductivityInterval;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="1c10cd05-4710-493a-be33-8a7f0cec39a4">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR_INPUT
+	pAnalysis: POINTER TO FB_Analysis;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ValueMapping(pAnalysis);
+
+//The Overall Equipment Effectiveness (OEE) algorithm calculates key values to compare the current manufacturing process with its full potential. Optional a boolean signal for Enable Execution can be selected, so that the algorithm is just active if the value of the selected signal is TRUE.
+fbM1_OverallEquipmentEffectivenessOEE.tOperatingTime:= fbM2_ProductionModeTimingAnalysis.fbTimeOnTotal.nRaw;
+fbM1_OverallEquipmentEffectivenessOEE.Call(pAnalysis^.nContext);
+
+//The Timing Analysis 1Ch measures time difference between on- and off-periods and counts the amount of on-periods. The on-period starts when the condition of operator and threshold is met. Optional a boolean signal for Enable Execution can be selected, so that the algorithm is just active if the value of the selected signal is TRUE.
+fbM2_ProductionModeTimingAnalysis.Call(pAnalysis^.nContext);
+
+//This Module is used for the One-click Dashboard to generate a special analytics trend chart.
+fbM3_OEETrendLine.fDataInCh1:= fbM1_OverallEquipmentEffectivenessOEE.fOEE;
+fbM3_OEETrendLine.fDataInCh2:= fbM1_OverallEquipmentEffectivenessOEE.fAvailability;
+fbM3_OEETrendLine.fDataInCh3:= fbM1_OverallEquipmentEffectivenessOEE.fPerformance;
+fbM3_OEETrendLine.fDataInCh4:= fbM1_OverallEquipmentEffectivenessOEE.fQuality;
+fbM3_OEETrendLine.Call(pAnalysis^.nContext);
+
+//The Lifecycle Analysis 1Ch calculates the elapsed and the estimated remaining cycles of a device. The input channel should provide boolean values so that every switching procedure represents a cycle. Optional a boolean signal for Enable Execution can be selected, so that the algorithm is just active if the value of the selected signal is TRUE.
+fbM4_ProductionQuantityAnalysis.Call(pAnalysis^.nContext);
+
+//The Productivity interval 1Ch counts the amount of triggers within a timespan to calculate the productivity. Threfore the timespan is set by time inputs and the expected number of pieces is configured. Optional a boolean signal for Enable Execution can be selected, so that the algorithm is just active if the value of the selected signal is TRUE.
+fbM5_ProductivityInterval.Call(pAnalysis^.nContext);
+
+
+//Error Handling
+IF fbM1_OverallEquipmentEffectivenessOEE.bError THEN
+	bError:= TRUE;
+	ipTcResult:= fbM1_OverallEquipmentEffectivenessOEE.ipTcResult;
+ELSIF fbM2_ProductionModeTimingAnalysis.bError THEN
+	bError:= TRUE;
+	ipTcResult:= fbM2_ProductionModeTimingAnalysis.ipTcResult;
+ELSIF fbM3_OEETrendLine.bError THEN
+	bError:= TRUE;
+	ipTcResult:= fbM3_OEETrendLine.ipTcResult;
+ELSIF fbM4_ProductionQuantityAnalysis.bError THEN
+	bError:= TRUE;
+	ipTcResult:= fbM4_ProductionQuantityAnalysis.ipTcResult;
+ELSIF fbM5_ProductivityInterval.bError THEN
+	bError:= TRUE;
+	ipTcResult:= fbM5_ProductivityInterval.ipTcResult;
+ELSE
+	bError:= FALSE;
+	ipTcResult:= fbTcMsgSuccess;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="2b2f0547-4314-4b7c-8f23-8134455ab6aa">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR
+	bResult: BOOL := TRUE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult:= bResult AND fbM1_OverallEquipmentEffectivenessOEE.Reset();
+bResult:= bResult AND fbM2_ProductionModeTimingAnalysis.Reset();
+bResult:= bResult AND fbM3_OEETrendLine.Reset();
+bResult:= bResult AND fbM4_ProductionQuantityAnalysis.Reset();
+bResult:= bResult AND fbM5_ProductivityInterval.Reset();
+Reset:= bResult;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ValueMapping" Id="fb2cba74-8a75-45a2-8094-427a7d581350">
+      <Declaration><![CDATA[METHOD PRIVATE ValueMapping : BOOL
+VAR_INPUT
+	pAnalysis: POINTER TO FB_Analysis;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+//Module fbM1_OverallEquipmentEffectivenessOEE
+fbM1_OverallEquipmentEffectivenessOEE.tTimestamp:= pAnalysis^.ipVirtualInputSource.tTimestamp;
+fbM1_OverallEquipmentEffectivenessOEE.tScheduledTime:= pAnalysis^.ipVirtualInputSource.nV1_lScheduledTime;
+fbM1_OverallEquipmentEffectivenessOEE.nUnitsProduced:= pAnalysis^.ipVirtualInputSource.nV1_uTotalCount;
+fbM1_OverallEquipmentEffectivenessOEE.nDefectiveUnits:= pAnalysis^.ipVirtualInputSource.nV1_uDefectiveCount;
+
+
+//Module fbM2_ProductionModeTimingAnalysis
+fbM2_ProductionModeTimingAnalysis.tTimestamp:= pAnalysis^.ipVirtualInputSource.tTimestamp;
+fbM2_ProductionModeTimingAnalysis.bDataIn:= pAnalysis^.ipVirtualInputSource.bV1_bProductionMode;
+
+
+//Module fbM3_OEETrendLine
+fbM3_OEETrendLine.tTimestamp:= pAnalysis^.ipVirtualInputSource.tTimestamp;
+
+//Module fbM4_ProductionQuantityAnalysis
+fbM4_ProductionQuantityAnalysis.nDataIn:= pAnalysis^.ipVirtualInputSource.nV1_uTotalCount;
+
+
+//Module fbM5_ProductivityInterval
+fbM5_ProductivityInterval.tTimestamp:= pAnalysis^.ipVirtualInputSource.tTimestamp;
+fbM5_ProductivityInterval.bDataIn:= pAnalysis^.ipVirtualInputSource.bV1_bTest;
+fbM5_ProductivityInterval.tTimeStart:= pAnalysis^.ipVirtualInputSource.nV1_lStartTime;
+fbM5_ProductivityInterval.tTimeStop:= pAnalysis^.ipVirtualInputSource.nV1_lStopTime;
+fbM5_ProductivityInterval.bEnableExecution:= pAnalysis^.ipVirtualInputSource.bV1_bConfigure;
+fbM5_ProductivityInterval.bReset:= pAnalysis^.ipVirtualInputSource.bV1_bReset;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

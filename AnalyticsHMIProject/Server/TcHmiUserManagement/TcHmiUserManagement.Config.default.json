@@ -9,9 +9,9 @@
         "__SystemAdministrator": {
             "ALGORITHM": 1,
             "ENABLED": true,
-            "LAST_PASSWORD_CHANGE": "2025-06-25T03:53:54.0583803Z",
-            "PASSWORD": "86250ad720695e1d7eef2f2575374335634e259d2bd289a8b63a42711b3382a2bb68d83b98c9236b42d7e3ff20e01c5c50d30e3722951c7e7797ed537090f82e",
-            "SALT": "443R+Xu8yCtLsTOroJQsPGRKp/t4DYEk/WirJKJCJETNOgJV6SczPZSiWNFU/QB2zRuXN1HesLg+d9TOH/9fuQ==",
+            "LAST_PASSWORD_CHANGE": "2025-07-02T01:30:28.5061824Z",
+            "PASSWORD": "69f06160839d05ee1d15e105373a9c969d3aba383214c5f90c8f60b5547c586b57f5e9757940e071c751aa79264d49182862675f774956ff081242e94d072341",
+            "SALT": "aOl+b5fglwaBvhEUC/63fG0xkS8++lNXbhA18yi8d0HCZSQBGDFJdUiu1yX9l6IgGXfo+k5+XWYDMXD3jJFJmw==",
             "SECRET": {
                 "algorithm": 0,
                 "configuration": 0,

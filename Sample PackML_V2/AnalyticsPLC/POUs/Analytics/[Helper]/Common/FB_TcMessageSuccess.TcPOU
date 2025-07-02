@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="FB_TcMessageSuccess" Id="bd97662d-c5fa-4826-bd68-8c39c619dd3d" SpecialFunc="None">
+  <POU Name="FB_TcMessageSuccess" Id="764f8c59-3664-4a1d-a4d1-dcd3533d3b46" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_TcMessageSuccess EXTENDS FB_TcMessage
 VAR
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="FB_init" Id="f1e04add-15ea-4350-bb10-d6f3c3c04512">
+    <Method Name="FB_init" Id="b71f0de6-2b15-4b45-926a-02c488256cdb">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains: BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)

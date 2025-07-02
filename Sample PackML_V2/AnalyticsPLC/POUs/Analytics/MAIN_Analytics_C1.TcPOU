@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="MAIN_Analytics_C1" Id="7c1444cf-f61b-4f8c-82ea-17a19802ba15" SpecialFunc="None">
+  <POU Name="MAIN_Analytics_C1" Id="7f667675-ac64-4b49-8d49-d8291fd654a1" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN_Analytics_C1
 VAR_INPUT
 	stReset: ST_AnalysisReset;
@@ -50,7 +50,7 @@ ipTcResult:= fbAnalysis.ipTcResult;
 AnalyticsHMI.stHMI_DataSourceConfig[0].aInputSources[0].eState:= fbV1_C1_VirtualInputSource.fbInputSource.eDataState;
 AnalyticsHMI.stHMI_DataSourceConfig[0].aInputSources[0].dtTimestamp:= fbV1_C1_VirtualInputSource.dtTimestamp;]]></ST>
     </Implementation>
-    <Action Name="A_Reset" Id="1b0630b5-bd44-426e-89e9-60f8da126b37">
+    <Action Name="A_Reset" Id="ceabd968-1ebe-45da-8796-3647ffc98d01">
       <Implementation>
         <ST><![CDATA[
 //Reset Analytics Components
@@ -59,21 +59,25 @@ fbAnalysis.Reset(stReset);
 Analytics.stReset.bResetExecute:= FALSE;]]></ST>
       </Implementation>
     </Action>
-    <Action Name="A_MapToHMI" Id="c66086bc-3c82-41a2-81ca-559882e83d86">
+    <Action Name="A_MapToHMI" Id="88434879-e05e-4ce1-8f19-b3bce10fbf92">
       <Implementation>
         <ST><![CDATA[
 //Map In-/Outputs of the Analysis to HMI Structs
 CASE nHMIUpdateState OF
 	0:
-		bHMIReinit:= bHMIReinit OR fbAnalysis.GetHMIValues(1, ADR(AnalyticsHMI.stHMI_C1_Network));
-		bHMIReinitDone:= fbAnalysis.SetHMIValues(1, ADR(AnalyticsHMI.stHMI_C1_Network), bHMIReinit);
+		bHMIReinit:= bHMIReinit OR fbAnalysis.GetHMIValues(1, ADR(AnalyticsHMI.stHMI_C1_OEE_Status));
+		bHMIReinitDone:= fbAnalysis.SetHMIValues(1, ADR(AnalyticsHMI.stHMI_C1_OEE_Status), bHMIReinit);
 		nHMIUpdateState:= 1;
 	1:
 		AnalyticsHMI.bV1_bProductionMode:= fbV1_C1_VirtualInputSource.bV1_bProductionMode;
 		AnalyticsHMI.nV1_lScheduledTime:= fbV1_C1_VirtualInputSource.nV1_lScheduledTime;
-		AnalyticsHMI.nV1_uProcessedCount:= fbV1_C1_VirtualInputSource.nV1_uProcessedCount;
 		AnalyticsHMI.nV1_uDefectiveCount:= fbV1_C1_VirtualInputSource.nV1_uDefectiveCount;
-		AnalyticsHMI.nV1_uMetalCount:= fbV1_C1_VirtualInputSource.nV1_uMetalCount;
+		AnalyticsHMI.nV1_lStartTime:= fbV1_C1_VirtualInputSource.nV1_lStartTime;
+		AnalyticsHMI.nV1_lStopTime:= fbV1_C1_VirtualInputSource.nV1_lStopTime;
+		AnalyticsHMI.bV1_bConfigure:= fbV1_C1_VirtualInputSource.bV1_bConfigure;
+		AnalyticsHMI.bV1_bReset:= fbV1_C1_VirtualInputSource.bV1_bReset;
+		AnalyticsHMI.bV1_bTest:= fbV1_C1_VirtualInputSource.bV1_bTest;
+		AnalyticsHMI.nV1_uTotalCount:= fbV1_C1_VirtualInputSource.nV1_uTotalCount;
 		nHMIUpdateState:= 2;
 	2:
 		IF bHMIResetReinit THEN

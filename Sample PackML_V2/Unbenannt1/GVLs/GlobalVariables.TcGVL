@@ -14,7 +14,7 @@
 		
 		//analytics testing//2.1
 		{attribute 'TcAnalytics'}
-		nVisuProductCommand			: DINT;							//Schedule products to produce
+		nVisuProductCommand			: DINT:=1512000;							//Schedule products to produce
 
 		bButtonProductionReq		: BOOL;							//TRUE when a mode change to PRODUCTION is requested
 		stChangeIntoProduction		: ST_ChangeIntoProduction;		//Result of command box "Change to Production requested"
@@ -35,7 +35,7 @@
 		
 		//analytics testing//2.1
 		{attribute 'TcAnalytics'}
-		uProcessedCount 			: ULINT	:= 0 ;//for OEE 
+		uTotalCount 				: ULINT	:= 0 ;//for OEE 
 		
 		//analytics testing//2.1
 		{attribute 'TcAnalytics'}
@@ -56,6 +56,21 @@
 		{attribute 'TcAnalytics'}
 		bProductionMode				: BOOL	:= FALSE ;//else if under manual mode or unknown will be under this categories
 		
+		//analytics testing//2.2
+		{attribute 'TcAnalytics'}
+		lStartTime 					: LWORD	:= 3600000000000 ;//Productivity internal
+		//analytics testing//2.2
+		{attribute 'TcAnalytics'}
+		lStopTime 					: LWORD	:= 7200000000000 ;//Productivity internal
+		
+		//analytics testing//2.2
+		{attribute 'TcAnalytics'}
+		bConfigure 					: BOOL := TRUE;//Productivity internal
+		
+		{attribute 'TcAnalytics'}
+		bReset	 					: BOOL := FALSE;//Productivity internal
+		{attribute 'TcAnalytics'}
+		bTest	 					: BOOL :=FALSE;//Productivity internal
 END_VAR
 ]]></Declaration>
   </GVL>

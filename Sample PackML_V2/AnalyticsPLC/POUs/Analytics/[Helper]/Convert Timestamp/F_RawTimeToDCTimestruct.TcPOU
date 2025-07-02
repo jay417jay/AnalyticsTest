@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="F_RawTimeToDCTimestruct" Id="4deec397-7847-47a4-a685-853fd415c929" SpecialFunc="None">
+  <POU Name="F_RawTimeToDCTimestruct" Id="9ffe5815-89f7-4e3b-8730-f18c943c09e2" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_RawTimeToDCTimestruct : DCTimestruct
 VAR_INPUT
 	nRaw: ULINT;

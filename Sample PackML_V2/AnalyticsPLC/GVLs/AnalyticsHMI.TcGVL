@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <GVL Name="AnalyticsHMI" Id="f7c1e2e5-20fa-4e1e-b006-3dd9a286d63b">
+  <GVL Name="AnalyticsHMI" Id="ac9906d6-5f73-411d-bc6a-7a2c395c723d">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	//Switch between historical and live data
@@ -12,29 +12,32 @@ VAR_GLOBAL
 																				sTopic:= 'PackMLDemo/PlcStream1', eSourceType:= E_SourceType.eLive, eState:= E_DataSourceState.eUnknown ) ] ) ];
 	
 	//Reset
-	bN1_Network_Reset: BOOL;
-	bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset: BOOL;
-	bN1_M2_ProductionTimingAnalysis1Ch_Reset: BOOL;
-	bN1_M3_PieChart_Reset: BOOL;
-	bN1_M4_ThresholdClassifier1Ch_Reset: BOOL;
-	bN1_M5_PlasticMathOperation_Reset: BOOL;
-	bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset: BOOL;
+	bN1_OEEStatus_Reset: BOOL;
+	bN1_M1_OverallEquipmentEffectivenessOEE_Reset: BOOL;
+	bN1_M2_ProductionModeTimingAnalysis_Reset: BOOL;
+	bN1_M3_OEETrendLine_Reset: BOOL;
+	bN1_M4_ProductionQuantityAnalysis_Reset: BOOL;
+	bN1_M5_ProductivityInterval_Reset: BOOL;
 	
 	//Virtual Inputs
 	bV1_bProductionMode: BOOL;
 	nV1_lScheduledTime: LINT;
-	nV1_uProcessedCount: ULINT;
 	nV1_uDefectiveCount: ULINT;
-	nV1_uMetalCount: ULINT;
+	nV1_lStartTime: LWORD;
+	nV1_lStopTime: LWORD;
+	bV1_bConfigure: BOOL;
+	bV1_bReset: BOOL;
+	bV1_bTest: BOOL;
+	nV1_uTotalCount: ULINT;
 	
 	//HMI Structs
-	stHMI_C1_Network: ST_HMI_C1_Network;
+	stHMI_C1_OEE_Status: ST_HMI_C1_OEE_Status;
 	
 	//HMI Map Items
 	aMapItems: ARRAY [0..0] OF ST_HMI_MapItem := [(sName:="1aa71777-6a15-92b4-38b4-ceb9ef9aa20f", sDescription:="", sPosition:="3 International Business Park, #05-07/08 Nordic European Centre, Singapore 609927", nStatus:= 0)];
 END_VAR
 VAR_GLOBAL CONSTANT
-	nInstanceId: ULINT := 7971237869275680912;
+	nInstanceId: ULINT := 12860370723493188529;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

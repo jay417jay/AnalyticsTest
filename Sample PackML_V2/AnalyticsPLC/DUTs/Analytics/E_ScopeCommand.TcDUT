@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="E_ScopeCommand" Id="460ed60e-d99b-4830-b9de-8ecb66263991">
+  <DUT Name="E_ScopeCommand" Id="6f7a7fcc-5365-47e7-af55-9b3f038ad35a">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
 TYPE E_ScopeCommand : 

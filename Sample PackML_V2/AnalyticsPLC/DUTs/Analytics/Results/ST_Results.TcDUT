@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_Results" Id="a28eba75-c787-4fd2-bac5-d2b34f4a1fc4">
+    <Declaration><![CDATA[TYPE ST_Results : 
+STRUCT
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

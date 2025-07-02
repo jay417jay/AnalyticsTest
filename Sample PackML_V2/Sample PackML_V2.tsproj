@@ -2223,6 +2223,8 @@ External Setpoint Generation:
 					<ManualSelect>{EE499E71-9522-4C05-86B4-8AD0F904E0C4}</ManualSelect>
 					<ManualSelect>{88FA6DAB-09EF-464E-A413-EE4B97F3F185}</ManualSelect>
 					<ManualSelect>{0070B910-0995-4F44-83BF-D1E141B4D8C3}</ManualSelect>
+					<ManualSelect>{FDE02854-39A7-440C-9EAE-C234A16A3CED}</ManualSelect>
+					<ManualSelect>{7AFD0713-1333-4A3B-938C-7B9BD0418C8D}</ManualSelect>
 					<ManualSelect>{CCA47D7F-3A22-4852-81CD-15A045A6B646}</ManualSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x71010002" DongleLevel="90" DongleSystemId="{13C1689E-75CB-9F2B-8B7B-F81967CF83DC}" DongleSerialNumber="000br4wr" DongleCacheLicense="false"/>
 				</Target>
@@ -2237,7 +2239,7 @@ External Setpoint Generation:
 				<Task Id="7" Priority="1" CycleTime="100000" AmsPort="352" Affinity="#x00000400" DisableFpExceptions="true" WatchdogStackCapacity="10" AdtTasks="true">
 					<Name>AnalyticsTask</Name>
 				</Task>
-				<Task Id="8" Priority="22" CycleTime="100000" AmsPort="353" Affinity="#x00000400" DisableFpExceptions="true" WatchdogStackCapacity="10" AdtTasks="true">
+				<Task Id="8" Priority="22" CycleTime="100000" AmsPort="353" Affinity="#x00000800" DisableFpExceptions="true" WatchdogStackCapacity="10" AdtTasks="true">
 					<Name>AnalyticsTask_C1</Name>
 				</Task>
 			</Tasks>
@@ -2539,7 +2541,7 @@ External Setpoint Generation:
 							</Value>
 							<Value>
 								<Name>Max Handles</Name>
-								<Value>55</Value>
+								<Value>61</Value>
 							</Value>
 							<Value>
 								<Name>Fifo Exponent</Name>
@@ -3071,7 +3073,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{81FEA7DA-109B-4B19-A359-7A020BFED536}" Name="Unbenannt1" PrjFilePath="Unbenannt1\Unbenannt1.plcproj" TmcFilePath="Unbenannt1\Unbenannt1.tmc" ReloadTmc="true" AmsPort="851" TargetArchiveSettings="#x0002" FileArchiveSettings="#x0002">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{F37DC3F2-776A-2BA0-48E8-9D0B58692D6B}" TmcPath="Unbenannt1\Unbenannt1.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{0FFE261C-6779-8C3F-0D24-CD1EBA1081ED}" TmcPath="Unbenannt1\Unbenannt1.tmc">
 					<Name>Unbenannt1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -3267,8 +3269,8 @@ External Setpoint Generation:
 					</TaskPouOids>
 				</Instance>
 			</Project>
-			<Project GUID="{798735FD-D580-4FC4-AF93-9901FC5A290F}" Name="AnalyticsPLC" PrjFilePath="AnalyticsPLC\AnalyticsPLC.plcproj" TmcFilePath="AnalyticsPLC\AnalyticsPLC.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{CCC3FCB0-8642-2B8B-3108-8E63823F64D2}">
+			<Project GUID="{4B4EBDC7-91AB-4A83-87D4-4016A4C02A99}" Name="AnalyticsPLC" PrjFilePath="AnalyticsPLC\AnalyticsPLC.plcproj" TmcFilePath="AnalyticsPLC\AnalyticsPLC.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{CC4A22E4-1973-89D4-071A-38152A135D0C}">
 					<Name>AnalyticsPLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
@@ -3364,10 +3366,15 @@ External Setpoint Generation:
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.bUnscheduleDownTime</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.lScheduledTime</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uDefectiveCount</Symbol>
-				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uProcessedCount</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uPlasticCount</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uMetalCount</Symbol>
 				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.bProductionMode</Symbol>
+				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.lStartTime</Symbol>
+				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.lStopTime</Symbol>
+				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.bConfigure</Symbol>
+				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.bReset</Symbol>
+				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.bTest</Symbol>
+				<Symbol AdiOid="139468800" CallerOid="139468801" Category="0">PlcTask Internal.GlobalVariables.uTotalCount</Symbol>
 			</Symbols>
 			<DriverVersion>3.2.10.0</DriverVersion>
 			<AddiStreamDescription>
@@ -3534,10 +3541,15 @@ External Setpoint Generation:
 								<SymTreeItem Name="bUnscheduleDownTime" HierName="PlcTask Internal.GlobalVariables.bUnscheduleDownTime" SymHierName="PlcTask Internal.GlobalVariables.bUnscheduleDownTime" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="lScheduledTime" HierName="PlcTask Internal.GlobalVariables.lScheduledTime" SymHierName="PlcTask Internal.GlobalVariables.lScheduledTime" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="uDefectiveCount" HierName="PlcTask Internal.GlobalVariables.uDefectiveCount" SymHierName="PlcTask Internal.GlobalVariables.uDefectiveCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
-								<SymTreeItem Name="uProcessedCount" HierName="PlcTask Internal.GlobalVariables.uProcessedCount" SymHierName="PlcTask Internal.GlobalVariables.uProcessedCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="uPlasticCount" HierName="PlcTask Internal.GlobalVariables.uPlasticCount" SymHierName="PlcTask Internal.GlobalVariables.uPlasticCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="uMetalCount" HierName="PlcTask Internal.GlobalVariables.uMetalCount" SymHierName="PlcTask Internal.GlobalVariables.uMetalCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 								<SymTreeItem Name="bProductionMode" HierName="PlcTask Internal.GlobalVariables.bProductionMode" SymHierName="PlcTask Internal.GlobalVariables.bProductionMode" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
+								<SymTreeItem Name="lStartTime" HierName="PlcTask Internal.GlobalVariables.lStartTime" SymHierName="PlcTask Internal.GlobalVariables.lStartTime" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
+								<SymTreeItem Name="lStopTime" HierName="PlcTask Internal.GlobalVariables.lStopTime" SymHierName="PlcTask Internal.GlobalVariables.lStopTime" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
+								<SymTreeItem Name="bConfigure" HierName="PlcTask Internal.GlobalVariables.bConfigure" SymHierName="PlcTask Internal.GlobalVariables.bConfigure" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
+								<SymTreeItem Name="bReset" HierName="PlcTask Internal.GlobalVariables.bReset" SymHierName="PlcTask Internal.GlobalVariables.bReset" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
+								<SymTreeItem Name="bTest" HierName="PlcTask Internal.GlobalVariables.bTest" SymHierName="PlcTask Internal.GlobalVariables.bTest" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
+								<SymTreeItem Name="uTotalCount" HierName="PlcTask Internal.GlobalVariables.uTotalCount" SymHierName="PlcTask Internal.GlobalVariables.uTotalCount" Checked="true" Enabled="true" IsSymbol="true" IndentationLevel="2" Icon="271"/>
 							</SymTreeItem>
 						</SymTreeItem>
 					</SymbolTree>
