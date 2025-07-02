@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_HMI_C1_OEE_Status" Id="16bbdf6c-a6e4-4698-8617-76327c11db2f">
+    <Declaration><![CDATA[TYPE ST_HMI_C1_OEE_Status : 
+STRUCT
+	stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE: ST_HMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE;
+	
+	stHMI_C1_Ctrl2_OEE_Trend_Line: ST_HMI_C1_Ctrl2_OEE_Trend_Line;
+	
+	stHMI_C1_Ctrl1_Production_Quantity_Analysis: ST_HMI_C1_Ctrl1_Production_Quantity_Analysis;
+	
+	stHMI_C1_Ctrl3_Productivity_Interval: ST_HMI_C1_Ctrl3_Productivity_Interval;
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

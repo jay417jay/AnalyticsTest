@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="FB_T1_InputSource" Id="5043337d-e58c-43c0-b64f-7598b2d7e413" SpecialFunc="None">
+  <POU Name="FB_T1_InputSource" Id="0b8011b4-9821-4250-a060-ea6737be41df" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_T1_InputSource IMPLEMENTS I_InputSource
 VAR
 	_eDataState: E_DataSourceState;
@@ -17,8 +17,14 @@ VAR
 	fbIotSymbol_GlobalVariables_bProductionMode: FB_ALYC_IotSymbol_BOOL := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.bProductionMode'));
 	fbIotSymbol_GlobalVariables_lScheduledTime: FB_ALYC_IotSymbol_LINT := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.lScheduledTime'));
 	fbIotSymbol_GlobalVariables_uProcessedCount: FB_ALYC_IotSymbol_ULINT := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.uProcessedCount'));
+	fbIotSymbol_GlobalVariables_nVisuProductCommand: FB_ALYC_IotSymbol_DINT := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.nVisuProductCommand'));
 	fbIotSymbol_GlobalVariables_uDefectiveCount: FB_ALYC_IotSymbol_ULINT := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.uDefectiveCount'));
-	fbIotSymbol_GlobalVariables_uMetalCount: FB_ALYC_IotSymbol_ULINT := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.uMetalCount'));
+	fbIotSymbol_GlobalVariables_lStartTime: FB_ALYC_IotSymbol_LWORD := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.lStartTime'));
+	fbIotSymbol_GlobalVariables_lStopTime: FB_ALYC_IotSymbol_LWORD := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.lStopTime'));
+	fbIotSymbol_GlobalVariables_bConfigure: FB_ALYC_IotSymbol_BOOL := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.bConfigure'));
+	fbIotSymbol_GlobalVariables_bReset: FB_ALYC_IotSymbol_BOOL := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.bReset'));
+	fbIotSymbol_GlobalVariables_bTest: FB_ALYC_IotSymbol_BOOL := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.bTest'));
+	fbIotSymbol_GlobalVariables_uTotalCount: FB_ALYC_IotSymbol_ULINT := (stInitialConfig:= (sSymbolName:= 'GlobalVariables.uTotalCount'));
 	
 	//Target T1 = Broker:"127.0.0.1" Topic:"PackMLDemo/PlcStream1"
 	fbStreamHelper: FB_ALYC_MqttStreamHelper := (nObjectID:= 16#01010010, nNumInputBuffer:= 20);
@@ -32,8 +38,8 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="I_InputSource" Id="d9c6d6dd-7522-494e-8585-622a81ccd55e" />
-    <Method Name="AddClient" Id="e298a91d-cbdf-42e0-ac1b-af7af2995343" FolderPath="I_InputSource\">
+    <Folder Name="I_InputSource" Id="9f1ffc91-e340-4c04-b0f8-4bb5132dfd73" />
+    <Method Name="AddClient" Id="84e86353-ff8e-4b52-a637-9d49bbb3e7b5" FolderPath="I_InputSource\">
       <Declaration><![CDATA[METHOD AddClient : BOOL
 VAR_OUTPUT
 	nClientID: LWORD;
@@ -47,7 +53,7 @@ _nClientIndex:= _nClientIndex + 1;
 _nClientListHash:= _nClientListHash + nClientID;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Call" Id="a408b847-a018-4daf-af78-03987e86a76f" FolderPath="I_InputSource\">
+    <Method Name="Call" Id="8894c65c-7063-4c36-acb7-878437e85b30" FolderPath="I_InputSource\">
       <Declaration><![CDATA[METHOD Call : BOOL
 VAR
 END_VAR]]></Declaration>
@@ -60,10 +66,22 @@ IF NOT bConfigured THEN
 	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_lScheduledTime);
 	//GlobalVariables.uProcessedCount
 	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_uProcessedCount);
+	//GlobalVariables.nVisuProductCommand
+	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_nVisuProductCommand);
 	//GlobalVariables.uDefectiveCount
 	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_uDefectiveCount);
-	//GlobalVariables.uMetalCount
-	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_uMetalCount);
+	//GlobalVariables.lStartTime
+	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_lStartTime);
+	//GlobalVariables.lStopTime
+	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_lStopTime);
+	//GlobalVariables.bConfigure
+	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_bConfigure);
+	//GlobalVariables.bReset
+	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_bReset);
+	//GlobalVariables.bTest
+	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_bTest);
+	//GlobalVariables.uTotalCount
+	fbStreamHelper.AddIotSymbol(fbIotSymbol_GlobalVariables_uTotalCount);
 
 	bConfigured:= TRUE;
 END_IF
@@ -93,7 +111,7 @@ END_IF
 _nCurrentElement:= 0;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ClientDone" Id="46dc5dc6-dd97-4b71-a317-9a91d48cc747" FolderPath="I_InputSource\">
+    <Method Name="ClientDone" Id="baefdfb3-3794-456d-91e2-f53e4e99611f" FolderPath="I_InputSource\">
       <Declaration><![CDATA[METHOD ClientDone : BOOL
 VAR_INPUT
 	nClientID: LWORD;
@@ -104,7 +122,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[_nCurrentClientHash:=  _nCurrentClientHash + nClientID;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetData" Id="374bbd97-c72f-4710-aed2-b30e24e80ede" FolderPath="I_InputSource\">
+    <Method Name="GetData" Id="898522ed-03e1-495d-98dd-ce639da04f6d" FolderPath="I_InputSource\">
       <Declaration><![CDATA[METHOD GetData : BOOL
 VAR_INPUT
 	nElement: UDINT;
@@ -143,11 +161,29 @@ IF nElements > 0 THEN
 			IF fbIotSymbol_GlobalVariables_uProcessedCount.bVariableFound THEN
 				_stInputs.nGlobalVariables_uProcessedCount:= fbIotSymbol_GlobalVariables_uProcessedCount.GetValue(_nElement);
 			END_IF
+			IF fbIotSymbol_GlobalVariables_nVisuProductCommand.bVariableFound THEN
+				_stInputs.nGlobalVariables_nVisuProductCommand:= fbIotSymbol_GlobalVariables_nVisuProductCommand.GetValue(_nElement);
+			END_IF
 			IF fbIotSymbol_GlobalVariables_uDefectiveCount.bVariableFound THEN
 				_stInputs.nGlobalVariables_uDefectiveCount:= fbIotSymbol_GlobalVariables_uDefectiveCount.GetValue(_nElement);
 			END_IF
-			IF fbIotSymbol_GlobalVariables_uMetalCount.bVariableFound THEN
-				_stInputs.nGlobalVariables_uMetalCount:= fbIotSymbol_GlobalVariables_uMetalCount.GetValue(_nElement);
+			IF fbIotSymbol_GlobalVariables_lStartTime.bVariableFound THEN
+				_stInputs.nGlobalVariables_lStartTime:= fbIotSymbol_GlobalVariables_lStartTime.GetValue(_nElement);
+			END_IF
+			IF fbIotSymbol_GlobalVariables_lStopTime.bVariableFound THEN
+				_stInputs.nGlobalVariables_lStopTime:= fbIotSymbol_GlobalVariables_lStopTime.GetValue(_nElement);
+			END_IF
+			IF fbIotSymbol_GlobalVariables_bConfigure.bVariableFound THEN
+				_stInputs.bGlobalVariables_bConfigure:= fbIotSymbol_GlobalVariables_bConfigure.GetValue(_nElement);
+			END_IF
+			IF fbIotSymbol_GlobalVariables_bReset.bVariableFound THEN
+				_stInputs.bGlobalVariables_bReset:= fbIotSymbol_GlobalVariables_bReset.GetValue(_nElement);
+			END_IF
+			IF fbIotSymbol_GlobalVariables_bTest.bVariableFound THEN
+				_stInputs.bGlobalVariables_bTest:= fbIotSymbol_GlobalVariables_bTest.GetValue(_nElement);
+			END_IF
+			IF fbIotSymbol_GlobalVariables_uTotalCount.bVariableFound THEN
+				_stInputs.nGlobalVariables_uTotalCount:= fbIotSymbol_GlobalVariables_uTotalCount.GetValue(_nElement);
 			END_IF
 
 			nContext:= E_DataSourceContext.eContext_10000;
@@ -168,7 +204,7 @@ END_IF
 Analytics.fbT1_IecCriticalSection.Leave();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="NewDataAvailable" Id="087f4382-44fe-457c-8a3c-d2fc440416a1" FolderPath="I_InputSource\">
+    <Method Name="NewDataAvailable" Id="2a0a8205-2da1-4b6b-9b2a-4800c20ff2be" FolderPath="I_InputSource\">
       <Declaration><![CDATA[METHOD NewDataAvailable : BOOL
 VAR_INPUT
 	nLastDataHandle: ULINT;
@@ -179,9 +215,9 @@ END_VAR]]></Declaration>
         <ST><![CDATA[NewDataAvailable:= _nElements > 0 AND _nDataHandle <> nLastDataHandle;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="eDataState" Id="4e6509dd-a7a1-4bd4-88d3-100cbf443db5" FolderPath="I_InputSource\">
+    <Property Name="eDataState" Id="72ad1c51-cd1f-4cf6-9738-c26d78b39b41" FolderPath="I_InputSource\">
       <Declaration><![CDATA[PROPERTY eDataState : E_DataSourceState]]></Declaration>
-      <Get Name="Get" Id="74608116-042b-4e1c-b1c9-5755f0fda9aa">
+      <Get Name="Get" Id="60700cd2-a0ca-434d-81a2-31d5687b62cc">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -189,9 +225,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="bReadNewData" Id="bb63cd77-87b9-418a-8bee-a2d29139f67d" FolderPath="I_InputSource\">
+    <Property Name="bReadNewData" Id="b0ef5a4e-c01c-404c-a600-25d12e7e9e75" FolderPath="I_InputSource\">
       <Declaration><![CDATA[PROPERTY bReadNewData : BOOL]]></Declaration>
-      <Get Name="Get" Id="a1bfc26f-1dc3-47af-ad34-76ff268276fa">
+      <Get Name="Get" Id="4c615cc5-2310-4e4c-8fef-02c78942e10b">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -199,9 +235,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nDataHandle" Id="d63c4ecb-0eaf-43e3-869c-698e5d0f30da" FolderPath="I_InputSource\">
+    <Property Name="nDataHandle" Id="0bd226a1-a0cd-469c-bc2b-06a5db79cfa2" FolderPath="I_InputSource\">
       <Declaration><![CDATA[PROPERTY nDataHandle : ULINT]]></Declaration>
-      <Get Name="Get" Id="642c1183-7026-4cce-ad8e-3f02f3fb0c89">
+      <Get Name="Get" Id="8aa3acae-1d4c-43c2-9049-62ebdb49d3dc">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>
@@ -209,9 +245,9 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="nElements" Id="0ff7885c-4e36-4aa1-9101-52660ee3a2b7" FolderPath="I_InputSource\">
+    <Property Name="nElements" Id="007cd0cb-82a0-422b-ada2-687213128345" FolderPath="I_InputSource\">
       <Declaration><![CDATA[PROPERTY nElements : UDINT]]></Declaration>
-      <Get Name="Get" Id="5e1b47e6-f28b-4fb0-b475-c18a5565322e">
+      <Get Name="Get" Id="eb4b2095-2682-44c9-9304-8c1a928a22cd">
         <Declaration><![CDATA[VAR
 END_VAR]]></Declaration>
         <Implementation>

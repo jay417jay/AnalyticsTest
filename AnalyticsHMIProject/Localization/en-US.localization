@@ -260,10 +260,11 @@
     "LMCancelSave": "Cancel saving because the dashboard is currently being edited.",
     "LMCancelExit": "Exit editing canceled because the dashboard is currently being edited.",
     "MenuPermissionsLayoutControllerAlias": "User Layouts",
-    "module_packml_overall_equipment_effectiveness__oee_": "PackML Overall Equipment Effectiveness (OEE)",
-    "module_pie_chart": "Pie Chart",
-    "module_threshold_classifier_1ch": "Threshold Classifier 1Ch",
-    "module_preventive_maintenance_lifetime_analysis": "Preventive Maintenance Lifetime Analysis",
+    "oee_status": "OEE Status",
+    "module_overall_equipment_effectiveness__oee_": "Overall Equipment Effectiveness (OEE)",
+    "module_oee_trend_line": "OEE Trend Line",
+    "module_production_quantity_analysis": "Production Quantity Analysis",
+    "module_productivity_interval": "Productivity Interval",
     "LHMITitle": "Analytics Dashboard"
   }
 }

@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <POU Name="FB_N1_M3_OEETrendLine" Id="6d771e3c-8d11-4a4d-a4e5-e1d6efd50131" SpecialFunc="None">
+    <Declaration><![CDATA[//This Module is used for the One-click Dashboard to generate a special analytics trend chart.
+FUNCTION_BLOCK FB_N1_M3_OEETrendLine
+VAR_INPUT
+	fDataInCh1: LREAL;
+	fDataInCh2: LREAL;
+	fDataInCh3: LREAL;
+	fDataInCh4: LREAL;
+	tTimestamp: ULINT;
+	bEnableExecution: BOOL := TRUE;
+	bReset: BOOL;
+	aChannelNames: ARRAY [0..3] OF STRING(255);
+END_VAR
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage;
+	bNewResult: BOOL;
+	fbLastValue: FB_ALY_DateTime;
+END_VAR
+VAR_OUTPUT PERSISTENT
+	aTrendData: ARRAY [1..4] OF ARRAY [1..10080] OF LREAL;
+	nCountValues: UDINT;
+END_VAR
+VAR
+	
+	bConfigured: BOOL;
+	
+	fbALY_TrendLine: FB_ALY_TrendLine(nNumChannels:=4);
+END_VAR
+VAR PERSISTENT
+	nLastValueTimestamp: ULINT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="898e826b-9f33-46de-980b-03e8511efc09">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR_INPUT
+	nCurrentContext: DWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bConfigured THEN
+	bConfigured:= TRUE;
+
+	aChannelNames[0]:= 'OEE ';
+	aChannelNames[1]:= 'Availability';
+	aChannelNames[2]:= 'Performance';
+	aChannelNames[3]:= 'Quality';
+
+
+	fbALY_TrendLine.SetChannelInitial(nChannel:=1, pArrayIn:= ADR(aTrendData[1]), nArrayInSize:= SIZEOF(aTrendData[1]));
+	fbALY_TrendLine.SetChannelInitial(nChannel:=2, pArrayIn:= ADR(aTrendData[2]), nArrayInSize:= SIZEOF(aTrendData[2]));
+	fbALY_TrendLine.SetChannelInitial(nChannel:=3, pArrayIn:= ADR(aTrendData[3]), nArrayInSize:= SIZEOF(aTrendData[3]));
+	fbALY_TrendLine.SetChannelInitial(nChannel:=4, pArrayIn:= ADR(aTrendData[4]), nArrayInSize:= SIZEOF(aTrendData[4]));
+	fbALY_TrendLine.SetInitial(tLastValue:= nLastValueTimestamp, nCountValues:= nCountValues);
+END_IF
+
+IF bReset THEN
+	Reset();
+END_IF
+
+IF bEnableExecution THEN
+	IF F_HasContext(nCurrentContext, nContext) THEN
+		fbALY_TrendLine.SetChannelValue(nChannel:= 1, Input:= fDataInCh1);
+		fbALY_TrendLine.SetChannelValue(nChannel:= 2, Input:= fDataInCh2);
+		fbALY_TrendLine.SetChannelValue(nChannel:= 3, Input:= fDataInCh3);
+		fbALY_TrendLine.SetChannelValue(nChannel:= 4, Input:= fDataInCh4);
+
+		fbALY_TrendLine.Call(tTimestamp:= tTimestamp);
+
+		bNewResult:= fbALY_TrendLine.bNewResult;
+		fbLastValue:= fbALY_TrendLine.fbLastValue;
+		nCountValues:= fbALY_TrendLine.nCountValues;
+
+		bError:= fbALY_TrendLine.bError;
+		ipTcResult:= fbALY_TrendLine.ipResultMessage;
+
+		IF bNewResult THEN
+			fbALY_TrendLine.GetChannelOutputArray(nChannel:=1, pArrayOut:= ADR(aTrendData[1]), nArrayOutSize:= SIZEOF(aTrendData[1]));
+			fbALY_TrendLine.GetChannelOutputArray(nChannel:=2, pArrayOut:= ADR(aTrendData[2]), nArrayOutSize:= SIZEOF(aTrendData[2]));
+			fbALY_TrendLine.GetChannelOutputArray(nChannel:=3, pArrayOut:= ADR(aTrendData[3]), nArrayOutSize:= SIZEOF(aTrendData[3]));
+			fbALY_TrendLine.GetChannelOutputArray(nChannel:=4, pArrayOut:= ADR(aTrendData[4]), nArrayOutSize:= SIZEOF(aTrendData[4]));
+		END_IF
+
+		nLastValueTimestamp:= fbLastValue.nRaw;
+	END_IF
+ELSE
+	bNewResult:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="e5793e9a-b89c-4704-ac7c-42ff4e9a63e3">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset:= fbALY_TrendLine.Reset();
+
+bNewResult:= fbALY_TrendLine.bNewResult;
+fbLastValue:= fbALY_TrendLine.fbLastValue;
+nCountValues:= fbALY_TrendLine.nCountValues;
+
+bError:= NOT Reset;
+ipTcResult:= fbALY_TrendLine.ipResultMessage;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHMI" Id="472e8eaf-a6b9-4bb1-8dc1-4145868c382f">
+      <Declaration><![CDATA[METHOD SetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+	bHMIReinit: BOOL;
+END_VAR
+VAR
+	pHMI_C1_OEE_Status: POINTER TO ST_HMI_C1_OEE_Status;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetHMI:= FALSE;
+
+CASE nContent OF
+	1:
+		pHMI_C1_OEE_Status:= pContent;
+
+
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aTrendData:= aTrendData;
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl2_OEE_Trend_Line.tM3_fbLastValue:= F_RawTimeToDCTimestruct(nRaw:= fbLastValue.nRaw, nUtcTimeBias:= -480);; //UTC Offset [(UTC+08:00) Kuala Lumpur, Singapore]
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl2_OEE_Trend_Line.nM3_nCountValues:= nCountValues;
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aChannelNames:= aChannelNames;
+END_CASE
+
+SetHMI:= TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHMI" Id="2ef9eea7-d3d5-4b97-b9d4-48d4ec980b37">
+      <Declaration><![CDATA[METHOD GetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nContext" Id="fac07137-ed15-4f54-b091-8274ee1b3a9f">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="85924df5-0147-4956-bdb2-a8b01f83ba53">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nContext:= E_VirtualInput.eContext_V1_VirtualInputSource;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

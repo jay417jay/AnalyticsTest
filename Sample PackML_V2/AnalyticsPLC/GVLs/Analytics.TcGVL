@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <GVL Name="Analytics" Id="61142de6-ee99-43c0-8b13-a1ea36c4e43b">
+  <GVL Name="Analytics" Id="19d082b0-3e05-4c8e-be7e-bd53966b1692">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	//DataSources

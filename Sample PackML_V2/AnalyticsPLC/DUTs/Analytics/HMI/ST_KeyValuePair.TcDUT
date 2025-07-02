@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="ST_KeyValuePair" Id="7c1f97ac-a753-462e-9640-4ce39d23b0de">
+  <DUT Name="ST_KeyValuePair" Id="4cb61a58-7a6c-4415-83b0-056faa8bc789">
     <Declaration><![CDATA[TYPE ST_KeyValuePair : 
 STRUCT
 	sKey: WSTRING(127);

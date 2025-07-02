@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.2.0.0">
+  <POU Name="FB_N1_M5_ProductivityInterval" Id="{e9f984ef-f7fa-48ed-8302-a6128cc15a9a}" SpecialFunc="None">
+    <Declaration><![CDATA[//The Productivity interval 1Ch counts the amount of triggers within a timespan to calculate the productivity. Threfore the timespan is set by time inputs and the expected number of pieces is configured. Optional a boolean signal for Enable Execution can be selected, so that the algorithm is just active if the value of the selected signal is TRUE.
+FUNCTION_BLOCK FB_N1_M5_ProductivityInterval
+VAR_INPUT
+	bDataIn: BOOL;
+	tTimeStart: LWORD;
+	tTimeStop: LWORD;
+	tTimestamp: ULINT;
+	bEnableExecution: BOOL := TRUE;
+	bReset: BOOL;
+	bReconfigure: BOOL := TRUE;
+END_VAR
+VAR_INPUT PERSISTENT
+	stThresholdEdge: ST_ALY_Threshold;
+	nExpectedPieces: ULINT:=3840;
+	fTolerance: LREAL;
+END_VAR
+VAR_OUTPUT
+	bError: BOOL;
+	ipTcResult: I_TcMessage;
+	bNewResult: BOOL;
+	bWithinInterval: BOOL;
+	fbCurrentTimestamp: FB_ALY_DateTime;
+	fbIntervalLength: FB_ALY_TimeSpan;
+	fbElapsedTime: FB_ALY_TimeSpan;
+	fbRemainingTime: FB_ALY_TimeSpan;
+	nProducedInInterval: ULINT;
+	nRemainingInInterval: ULINT;
+	fCurrentProductivity: LREAL;
+	fExpectedProductivity: LREAL;
+	fLastFullPeriodProductivity: LREAL;
+END_VAR
+VAR
+	
+	R_TRIG_Reconfigure: R_TRIG;
+	
+	fbALY_ProductivityInterval_1Ch: FB_ALY_ProductivityInterval_1Ch := ( bPersistent:= TRUE );
+END_VAR
+VAR PERSISTENT
+	bConfigured: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Call" Id="{a7b5f6a3-a02b-472d-9841-30527be8ed0e}">
+      <Declaration><![CDATA[METHOD Call : BOOL
+VAR_INPUT
+	nCurrentContext: DWORD;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bConfigured THEN
+	bConfigured:= TRUE;
+
+	nExpectedPieces:= 1000;
+	fTolerance:= 0;
+
+	stThresholdEdge.eComparisonOperator:= E_ALY_ComparisonOperator.GreaterThanOrEqualTo;
+	stThresholdEdge.fThreshold:= 1;
+
+	fbALY_ProductivityInterval_1Ch.fTolerance:= fTolerance;
+END_IF
+
+R_TRIG_Reconfigure(CLK:= bReconfigure);
+IF R_TRIG_Reconfigure.Q THEN
+	fbALY_ProductivityInterval_1Ch.ConfigureChannel(stThresholdEdge:= stThresholdEdge);
+
+	fbALY_ProductivityInterval_1Ch.Configure(nExpectedPieces:= nExpectedPieces);
+
+	bReconfigure:= FALSE;
+END_IF
+
+IF bReset THEN
+	Reset();
+END_IF
+
+IF bEnableExecution THEN
+	IF F_HasContext(nCurrentContext, nContext) THEN
+		fbALY_ProductivityInterval_1Ch.SetChannelValue(Input:= bDataIn);
+
+		fbALY_ProductivityInterval_1Ch.Call(tTimeStart:= TO_LTIME(tTimeStart), tTimeStop:= TO_LTIME(tTimeStop), tTimestamp:= tTimestamp);
+
+		bNewResult:= fbALY_ProductivityInterval_1Ch.bNewResult;
+		bWithinInterval:= fbALY_ProductivityInterval_1Ch.bWithinInterval;
+		fbCurrentTimestamp:= fbALY_ProductivityInterval_1Ch.fbCurrentTimestamp;
+		fbIntervalLength:= fbALY_ProductivityInterval_1Ch.fbIntervalLength;
+		fbElapsedTime:= fbALY_ProductivityInterval_1Ch.fbElapsedTime;
+		fbRemainingTime:= fbALY_ProductivityInterval_1Ch.fbRemainingTime;
+		nProducedInInterval:= fbALY_ProductivityInterval_1Ch.nProducedInInterval;
+		nRemainingInInterval:= fbALY_ProductivityInterval_1Ch.nRemainingInInterval;
+		fCurrentProductivity:= fbALY_ProductivityInterval_1Ch.fCurrentProductivity;
+		fExpectedProductivity:= fbALY_ProductivityInterval_1Ch.fExpectedProductivity;
+		fLastFullPeriodProductivity:= fbALY_ProductivityInterval_1Ch.fLastFullPeriodProductivity;
+
+		bError:= fbALY_ProductivityInterval_1Ch.bError;
+		ipTcResult:= fbALY_ProductivityInterval_1Ch.ipResultMessage;
+	END_IF
+ELSE
+	bNewResult:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHMI" Id="{c457b35e-e4a5-47be-80e2-df447b65419f}">
+      <Declaration><![CDATA[METHOD GetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+END_VAR
+VAR
+	pHMI_C1_OEE_Status: POINTER TO ST_HMI_C1_OEE_Status;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+CASE nContent OF
+	1:
+		//OEE_Status
+		pHMI_C1_OEE_Status:= pContent;
+
+		IF pHMI_C1_OEE_Status^.stHMI_C1_Ctrl3_Productivity_Interval.bTrigReconfigure THEN
+			pHMI_C1_OEE_Status^.stHMI_C1_Ctrl3_Productivity_Interval.bTrigReconfigure:= FALSE;
+			bReconfigure:= TRUE;
+
+		END_IF
+END_CASE
+
+GetHMI:= bReconfigure;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nContext" Id="{2fc4c610-9bf6-4fb1-8734-ab0d90d43059}">
+      <Declaration><![CDATA[PROPERTY nContext : DWORD]]></Declaration>
+      <Get Name="Get" Id="{2a29e177-450d-43ee-84da-c6fcb862f6e2}">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nContext:= E_VirtualInput.eContext_V1_VirtualInputSource;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Reset" Id="{c19ed03b-a9f3-42f1-b6fb-921aa5298768}">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset:= fbALY_ProductivityInterval_1Ch.Reset();
+
+bNewResult:= fbALY_ProductivityInterval_1Ch.bNewResult;
+bWithinInterval:= fbALY_ProductivityInterval_1Ch.bWithinInterval;
+fbCurrentTimestamp:= fbALY_ProductivityInterval_1Ch.fbCurrentTimestamp;
+fbIntervalLength:= fbALY_ProductivityInterval_1Ch.fbIntervalLength;
+fbElapsedTime:= fbALY_ProductivityInterval_1Ch.fbElapsedTime;
+fbRemainingTime:= fbALY_ProductivityInterval_1Ch.fbRemainingTime;
+nProducedInInterval:= fbALY_ProductivityInterval_1Ch.nProducedInInterval;
+nRemainingInInterval:= fbALY_ProductivityInterval_1Ch.nRemainingInInterval;
+fCurrentProductivity:= fbALY_ProductivityInterval_1Ch.fCurrentProductivity;
+fExpectedProductivity:= fbALY_ProductivityInterval_1Ch.fExpectedProductivity;
+fLastFullPeriodProductivity:= fbALY_ProductivityInterval_1Ch.fLastFullPeriodProductivity;
+
+bError:= NOT Reset;
+ipTcResult:= fbALY_ProductivityInterval_1Ch.ipResultMessage;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHMI" Id="{0120bd48-fc59-4a36-836c-84d528f9bae4}">
+      <Declaration><![CDATA[METHOD SetHMI : BOOL
+VAR_INPUT
+	nContent: DINT;
+	pContent: PVOID;
+	bHMIReinit: BOOL;
+END_VAR
+VAR
+	pHMI_C1_OEE_Status: POINTER TO ST_HMI_C1_OEE_Status;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetHMI:= FALSE;
+
+CASE nContent OF
+	1:
+		pHMI_C1_OEE_Status:= pContent;
+
+		IF bHMIReinit AND bConfigured THEN
+			SetHMI:= TRUE;
+		END_IF
+
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nProducedInInterval:= TO_LREAL(nProducedInInterval);
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nRemainingInInterval:= TO_LREAL(nRemainingInInterval);
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbElapsedTime:= fbElapsedTime.stStructured;
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbRemainingTime:= fbRemainingTime.stStructured;
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fCurrentProductivity:= fCurrentProductivity;
+		pHMI_C1_OEE_Status^.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fExpectedProductivity:= fExpectedProductivity;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_N1_M5_ProductivityInterval">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_N1_M5_ProductivityInterval.Call">
+      <LineId Id="1" Count="48" />
+    </LineIds>
+    <LineIds Name="FB_N1_M5_ProductivityInterval.GetHMI">
+      <LineId Id="1" Count="13" />
+    </LineIds>
+    <LineIds Name="FB_N1_M5_ProductivityInterval.nContext.Get">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_N1_M5_ProductivityInterval.Reset">
+      <LineId Id="1" Count="15" />
+    </LineIds>
+    <LineIds Name="FB_N1_M5_ProductivityInterval.SetHMI">
+      <LineId Id="1" Count="16" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

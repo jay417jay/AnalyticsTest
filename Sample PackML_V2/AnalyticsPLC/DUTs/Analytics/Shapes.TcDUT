@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <DUT Name="Shapes" Id="23be5359-7bf0-4dc6-abeb-2c74cebdd190">
+  <DUT Name="Shapes" Id="39893427-8efd-46f9-ab50-a2756138f8a8">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
 TYPE Shapes : 

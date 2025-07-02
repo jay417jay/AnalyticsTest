@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_HMI_C1_Ctrl1_Production_Quantity_Analysis" Id="8568938f-2d97-4098-a1f3-e6fcd66044ec">
+    <Declaration><![CDATA[TYPE ST_HMI_C1_Ctrl1_Production_Quantity_Analysis : 
+STRUCT
+	//Production Quantity Analysis
+	bTrigReconfigure: BOOL;
+	fM4_nCyclesElapsed: LREAL; //Elapsed (Values)
+	fM4_nCyclesRemaining: LREAL; //Remaining (Values)
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

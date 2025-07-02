@@ -34,6 +34,19 @@ VAR
 	fbTriggerErrorPlasticAxis	: R_TRIG;								//Trigger for detecting Error on Plasticaxis and write into PackTags
 	
 	nStateCommandCheck			: DINT;									//State to handle with statecommands
+	//OEE UI
+	todStart     				: TIME_OF_DAY:= TOD#00:00:00.000000000; // 8 AM
+	//todStart     				: DT:=DT#2025-06-30-13:55:00;
+	////todStart     				:  TIME := TIME#14H;
+	//OEE UI
+	todStop     				: TIME_OF_DAY:=TOD#09:00:00.000000000; // 5 PM
+	//todStop     				: DT:=DT#2025-06-30-14:00:00;
+	////todStop     				:  TIME := TIME#16H;
+
+  	iLocalCount					: DINT;
+
+	bTest1	:	BOOL;
+	Test1	: TON;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -113,7 +126,7 @@ fbMachine(eModeCommand:= PackTags.Command.UnitMode,  eMode => PackTags.Status.Un
 
 //for analytics conversion
 lScheduledTime:= ULINT_TO_LINT(uScheduleTime*60*60*1000000000);
-uProcessedCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[1].Count);
+uTotalCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[1].Count);
 uPlasticCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[3].Count);
 uMetalCount:= DINT_TO_ULINT(PackTags.Admin.ProdProcessedCount[4].Count);
 
@@ -121,7 +134,24 @@ IF PackTags.Status.UnitModeCurrent = 1 THEN
 	bProductionMode:= TRUE;
 ELSE
 	bProductionMode:= FALSE;
-END_IF]]></ST>
+END_IF
+
+//packml 2.2
+// Convert to LWORD (100-ns ticks), then multiply
+lStartTime := TO_LWORD(todStart) * 1000000;
+lStopTime := TO_LWORD(todStop) * 1000000;
+
+Test1(in:= bTest1,pt:= T#0.5S);
+IF iLocalCount <> PackTags.Admin.ProdProcessedCount[1].Count THEN
+	bTest:= TRUE;
+	bTest1:= TRUE;
+	iLocalCount := PackTags.Admin.ProdProcessedCount[1].Count;
+ELSIF iLocalCount = PackTags.Admin.ProdProcessedCount[1].Count AND Test1.q THEN
+	bTest:= FALSE;
+	bTest1:= FALSE;
+END_IF
+
+]]></ST>
     </Implementation>
     <Action Name="A_UnitModeConfig" Id="{22b649e9-a085-4601-8ad9-54522ade47b0}">
       <Implementation>
@@ -150,8 +180,7 @@ END_IF]]></ST>
 	bEnableUnitModeChangeComplete	:= FALSE, 
 	bError							=> , 
 	nErrorId						=> );
-	
-]]></ST>
+	]]></ST>
       </Implementation>
     </Action>
     <Method Name="M_CallVisu" Id="{1e59b2a3-52d5-45b9-816e-b9175fe8bcf5}">
@@ -408,10 +437,26 @@ END_IF
       <LineId Id="83" Count="0" />
       <LineId Id="85" Count="1" />
       <LineId Id="84" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="120" Count="0" />
+      <LineId Id="148" Count="0" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="143" Count="0" />
     </LineIds>
     <LineIds Name="MAIN.A_UnitModeConfig">
       <LineId Id="2" Count="25" />
-      <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="MAIN.M_CallVisu">
       <LineId Id="3" Count="31" />

@@ -1369,20 +1369,6 @@
             "imageHeightUnit": "px"
           }
         ]
-      },
-      {
-        "name": "",
-        "showColumnName": true,
-        "children": [
-          {
-            "name": "%l%KeyL_German%/l%",
-            "page": "",
-            "parameter": "de-DE",
-            "image": "Images/Icons/Flags/de.png",
-            "imageWidthUnit": "px",
-            "imageHeightUnit": "px"
-          }
-        ]
       }
     ]
   }
@@ -2376,8 +2362,8 @@
             </script>
         <script data-tchmi-target-attribute="data-tchmi-menu-source-data" type="application/json">[
   {
-    "name": "%l%Network%/l%",
-    "page": "Content/Network.content",
+    "name": "%l%oee_status%/l%",
+    "page": "Content/OEE_Status.content",
     "parameter": "",
     "subtitle": "",
     "image": "",

@@ -36,7 +36,7 @@
   <Import Project="$(TwinCATHmi_Targets)" />
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>36fe838c-f28a-43b9-8c59-01ac6cf78c58</ProjectGuid>
+    <ProjectGuid>c6faef0f-6409-4ec1-a70a-151f3531a3c8</ProjectGuid>
     <RootNamespace>TwinCAT3HmiProject</RootNamespace>
     <AssemblyName>TwinCAT3HmiProject</AssemblyName>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
@@ -228,7 +228,7 @@
     <Content Include="Content\AdditionalInformation.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\Network.content">
+    <Content Include="Content\OEE_Status.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\Options.content">

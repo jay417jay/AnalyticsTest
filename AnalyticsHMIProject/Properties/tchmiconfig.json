@@ -211,7 +211,7 @@
       "preloadBindings": false
     },
     {
-      "url": "Content/Network.content",
+      "url": "Content/OEE_Status.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,

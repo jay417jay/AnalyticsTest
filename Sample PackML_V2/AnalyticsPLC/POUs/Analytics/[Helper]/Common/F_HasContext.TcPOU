@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <POU Name="F_HasContext" Id="0f378c4d-9ea6-4349-a6f6-3a335eee26ce" SpecialFunc="None">
+  <POU Name="F_HasContext" Id="8797fec5-2773-443c-a342-57136dda5ce3" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_HasContext : BOOL
 VAR_INPUT
 	nContext: DWORD;

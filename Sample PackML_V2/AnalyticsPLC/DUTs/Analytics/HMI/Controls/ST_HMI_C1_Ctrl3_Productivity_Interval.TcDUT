@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_HMI_C1_Ctrl3_Productivity_Interval" Id="6df7eba0-20b1-42ea-8eca-092b9efccd33">
+    <Declaration><![CDATA[TYPE ST_HMI_C1_Ctrl3_Productivity_Interval : 
+STRUCT
+	//Productivity Interval
+	bTrigReconfigure: BOOL;
+	fM5_nProducedInInterval: LREAL; //Produced Pieces
+	fM5_nRemainingInInterval: LREAL; //Remaining Pieces
+	tM5_fbElapsedTime: ST_ALY_TimeSpan; //Elapsed Time
+	tM5_fbRemainingTime: ST_ALY_TimeSpan; //Remaining Time
+	fM5_fCurrentProductivity: LREAL; //Current Productivity
+	fM5_fExpectedProductivity: LREAL; //Expected Productivity
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

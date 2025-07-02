@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Productversion="">
+  <DUT Name="ST_HMI_C1_Ctrl2_OEE_Trend_Line" Id="8346d49e-548a-4f88-b822-b5262c7ef5f6">
+    <Declaration><![CDATA[TYPE ST_HMI_C1_Ctrl2_OEE_Trend_Line : 
+STRUCT
+	//OEE Trend Line
+	bTrigReconfigure: BOOL;
+	aM3_aTrendData: ARRAY [1..4] OF ARRAY [1..10080] OF LREAL; //Raw Data
+	tM3_fbLastValue: DCTIMESTRUCT; //Last Value Timestamp
+	nM3_nCountValues: UDINT; //Counted Values
+	aM3_aChannelNames: ARRAY [0..3] OF STRING(255); //Display Names
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

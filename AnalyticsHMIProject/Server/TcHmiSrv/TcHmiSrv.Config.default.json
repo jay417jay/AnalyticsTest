@@ -7,7 +7,7 @@
     "CACHEMAXAGE": "P30D",
     "CACHEMAXENTRYSIZE": 1048576,
     "CACHEMAXSIZE": 2097152,
-    "CERTIFICATE": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURzRENDQXBpZ0F3SUJBZ0lKQUlJWUZ2YVZ3NVc0TUEwR0NTcUdTSWIzRFFFQkN3VUFNRWN4Q3pBSkJnTlYKQkFZVEFrUkZNUnN3R1FZRFZRUUtEQkpVZDJsdVEwRlVJRWhOU1NCVFpYSjJaWEl4R3pBWkJnTlZCQU1NRWtwcApZV05vZVdsWkxVNUNNREpmY205dmREQWdGdzB5TlRBMk1qVXdNelV5TVRKYUdBOHlNRFl6TVRBeU5EQXpOVEl4Ck1sb3dRakVMTUFrR0ExVUVCaE1DUkVVeEd6QVpCZ05WQkFvTUVsUjNhVzVEUVZRZ1NFMUpJRk5sY25abGNqRVcKTUJRR0ExVUVBd3dOU21saFkyaDVhVmt0VGtJd01qQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQwpBUW9DZ2dFQkFNSDM3Tm1mcEV3cjk5TTk2azlEMFZhSUVqa2xtZmRMWnIrRm1tRVFzVVlZTzViZ2k3a2x5dEZ6CmpSZWpma2J1UWVJNlpZcUFwM3JLR1BjVVpEcno5WHFpdGpRV0hBQmNITUQ5NzFPOU9xWGxVYys5NHNDYlZRbUYKTUlHa1ppM2lCV0RWMzdxU24zSEFDYkJRYnk0UGpvYjAvZVpyREJXUEdoUVpHL0w3SjJZajZFclpVQ24yQ0hqNApnT0N6L0ZPTi9zSW5XbnpmdFpIaXNYeVYyeEd2OEtKSkRKL1A1dzlsNDA1RTMxS0s5MEs5OEFNVWdHa3orWDFnCk9CY0oyWXdmeEhOa3pWbzlmS3pJcWkxdCs0OVJ2cTJ1T3VqY1VaZVFKais4UU1TU0ZNQlNLSk9RSGVYRWNyT0wKWmFZOTcyZGoyWEVUVnh1dUowV0o4cjJjU3lBL1B0VUNBd0VBQWFPQm9UQ0JuakJ2QmdOVkhSRUVhREJtZ2dscwpiMk5oYkdodmMzU0hCSDhBQUFHSEVBQUFBQUFBQUFBQUFBQUFBQUFBQUFHQ0RVcHBZV05vZVdsWkxVNUNNREtDCkdrcHBZV05vZVdsWkxVNUNNREl1WW1WamEyaHZabVl1WTI5dGh3UUtlME1EaHhEK2dBQUFBQUFBQUxvdnBiNUkKanZ2Z01CMEdBMVVkRGdRV0JCVEppUjBva2dvbkwwaEF6UDFadDVCb0NTWFVYekFNQmdOVkhSTUJBZjhFQWpBQQpNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNSa01FOGQ3VXdBQUZvVE1MdzZjWElTb0QrRmRCM3lxd0lsckQzClVpa3Z6Q1R1UVBSWURzUlRZNXJCQm5nSUM5MmVRVTl4cm5yQjF0djRNU0lyRmxLcFovQVZOWlVqSVpWZ1JJWWkKWlZPWE43bjBueEk1NXhxcWdldFNnNlNHT0VRcXFYdUY4dmV0SzVqSjhONnJOQUlWRWx2OHpQd3k1K095OEFobQpnd1ZZWnJxcnA2eW8zcnk3QUJUZXZWeWNrUHBNN3pFRW94SC9IOXd4V3pRUWZhQW10T2FjYlJZak1VL2tlOFhMCjU4eGVhTE9mWThxd2M5ZzAwQ0ZFcHg5UktzbE9ENTVrc0lISCsvc0ozSk1ISHU3cVFYRXZKdXRLRUV4aEFRNncKSXc1Ly9NNEpuczRuT0k4MnQyR1hBbC80RzN3V2Z4bGdwNzlBQVNhM0h5RzlFSEp6Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR1RENDQXFDZ0F3SUJBZ0lKQU0vYXN5ZWFZTzU2TUEwR0NTcUdTSWIzRFFFQkN3VUFNRWN4Q3pBSkJnTlYKQkFZVEFrUkZNUnN3R1FZRFZRUUtEQkpVZDJsdVEwRlVJRWhOU1NCVFpYSjJaWEl4R3pBWkJnTlZCQU1NRWtwcApZV05vZVdsWkxVNUNNREpmY205dmREQWdGdzB5TlRBMk1qVXdNelV5TVRKYUdBOHlNRFl6TVRBeU5EQXpOVEl4Ck1sb3dSekVMTUFrR0ExVUVCaE1DUkVVeEd6QVpCZ05WQkFvTUVsUjNhVzVEUVZRZ1NFMUpJRk5sY25abGNqRWIKTUJrR0ExVUVBd3dTU21saFkyaDVhVmt0VGtJd01sOXliMjkwTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQwpBUThBTUlJQkNnS0NBUUVBc0RhV2ZoZ3h5V2dJaUEyRVE5TGF3aXZnS1NPdWRsaVdKamhST0pUTUg5Znp6RllZCnlBbnltbHhJZDdoUjJyeVhRU2dUNlJNVXlTWDQvRDRVbEVjeTNPQXFhb1ZFdFY4QnE3dFpaTTcvYWROVDdjUWIKYlc2MGlNd1hxVjZhSlJVZ1lSY1B3Z0ZrQ09OTEs0TVNmOWRrQ0FUL3lVTDJFc09UNkdhMW9YWEVxekZXRkp0Vgo3T3BTd1MvUmtKdHpObHRNTXBvSG8xMTJRWFRONmV4R3pxaUlwME5yVlFxL0RvUkxzTG5BZG5sbEcvbHFwUENKClI5dWZ6c1hMZkFiVVdSQ2g5ZC93SSt2a2d5SW16dGY3eDd6Z09KRUt6WlhqYjd5UmJ4UzdoUGhZemRDa3ZoNlkKWk5uMnNOcEc5aThIb1JheXpBVFFKd24xNERaN3ZHNFlzbUJOSndJREFRQUJvNEdrTUlHaE1HOEdBMVVkRVFSbwpNR2FDQ1d4dlkyRnNhRzl6ZEljRWZ3QUFBWWNRQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUlOU21saFkyaDVhVmt0ClRrSXdNb0lhU21saFkyaDVhVmt0VGtJd01pNWlaV05yYUc5bVppNWpiMjJIQkFwN1F3T0hFUDZBQUFBQUFBQUEKdWkrbHZraU8rK0F3SFFZRFZSME9CQllFRk4rWGxMR0w4cWVldXhBZVVpN3NYalpUdFBQRk1BOEdBMVVkRXdFQgovd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQjZReThHRUY2VC9TWlp5TUF5aWlmaUx4ellhCmxZL2JLRlkzT3pRc1cvZ1ZHZDhiZCtBWGFUS245ZS9SUElvazVsZjdhaS9Xa21QNEQxbE55WFFvREZDUFdxM2oKRDdQQmx1anZzOTRlbHRQWHVtRjBCYWQ1VTFVc2wvTElQTkZCWEM3T0FiYnpUcmtTdnIrekpJczF5TUkyU2Z5cAp5b1lXYm94bWpMNlFQQ1UxQWRzbmM1OWJLY3A4SXkzTHFxYWtVK2MvdFh0dmVRNkxvVFNldzA1RmE5SU5MQUNHCk10NUsxTjdIQ1RTdGQzSDhzby9CUUVNT2lBaXZaZjZSYUg5cFhyaUtxdmM2Vmt3VFB2d3puajZFOWpGM3dUZ3kKQXMzeXh2OFdyS0ZGaHpoM0dWWmR5cGF3OThkODR2TURDdUZEM3JGV2xsYzZmYWdLZ1ptbnJxUnJRQkk9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+    "CERTIFICATE": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURzRENDQXBpZ0F3SUJBZ0lKQU11TVo0WHNycDB6TUEwR0NTcUdTSWIzRFFFQkN3VUFNRWN4Q3pBSkJnTlYKQkFZVEFrUkZNUnN3R1FZRFZRUUtEQkpVZDJsdVEwRlVJRWhOU1NCVFpYSjJaWEl4R3pBWkJnTlZCQU1NRWtwcApZV05vZVdsWkxVNUNNREpmY205dmREQWdGdzB5TlRBM01ESXdNVEkzTURoYUdBOHlNRFl6TVRBek1UQXhNamN3Ck9Gb3dRakVMTUFrR0ExVUVCaE1DUkVVeEd6QVpCZ05WQkFvTUVsUjNhVzVEUVZRZ1NFMUpJRk5sY25abGNqRVcKTUJRR0ExVUVBd3dOU21saFkyaDVhVmt0VGtJd01qQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQwpBUW9DZ2dFQkFKeitTVlZjNDJXZG15QWpWb00xcFd5eFpQd3NXNG1iSmNuTjIzTFN4aHAwNWZTOVdlcy9lYVl0Cm1VYVF5NDVKUEtwSmlIWTNxNDVNZzNmNTRXbFMvTTZld3k1d1UwTlVXcXFQd1FRcG5PREVGdmRXRTVWM1V2TTMKRjFBNTRObkE0R3FUbXhOTFJuY0kzam0xelJBSXVFYkVKUnpXVnlqd1NnQ2Q3UlJCaEJ3RDFYUUJ3VHFsMFprdgp1N3lrd2VjS0FRR0pYd3VMSm94ZzZVMHIvSGtNREkwQ0R6ZU5raEk5aUZJc3BySmpJcUd5R3VJRDRGYi9uQ1hEClZXR2hVSTQzVW45UlFZeHpTcC9hY1psM1F4cjdnWFd6V3hWbitOakhMeGxKM0E1R2xYdkZ0N3JHaDZuL0N3V0kKQWo5S3hzYWwzT2k4cTVLaUtoemFSQ1VsZTZsK05vOENBd0VBQWFPQm9UQ0JuakJ2QmdOVkhSRUVhREJtZ2dscwpiMk5oYkdodmMzU0hCSDhBQUFHSEVBQUFBQUFBQUFBQUFBQUFBQUFBQUFHQ0RVcHBZV05vZVdsWkxVNUNNREtDCkdrcHBZV05vZVdsWkxVNUNNREl1WW1WamEyaHZabVl1WTI5dGh3UUtld0ViaHhEK2dBQUFBQUFBQUx6TEN4aGoKRFFwVE1CMEdBMVVkRGdRV0JCVEo5VXlpYVNFQndkcFBKb3ZSY2Z4YldQYWxQakFNQmdOVkhSTUJBZjhFQWpBQQpNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUURBQ3pLbnNkS1pIMmhHZmtmUzZ0MHd4N2J0bUl5VnlCZ09xTGN0CmlESDFkd0lVakNPUlEzYVlXMXZvOGZVOUhvMW55a05HRU1ncktxSWNpTGw3SGl4MVNJMFRXMURoQUV2bmh4R1UKalJ6WHNvYnA4d0h2d2ZNaVI4ZkNkV3ArVG83TEhJWDduR1k0R3AvS2plT2FvQXlPa0NhUnJWM29nNkdUOTZaZwpKK01UTGUycmo1dXFYYThNa1ZqQkZ1V1dDNHI0MXcxeGRLQk5vdmZ2dWIvWGhUdGUvcnFxRXNNRUw0THkwTlorCkpmWnkrc1NMNDA1UjBBZFpOeUxMLzN1cnVrd1pTS3pWTWNJVysxUDBSY1ZSUGQ2STMwaEVaTlcyOVJUTlFFd2cKOVNmTUU2Q3dBT0NIODNJNDhRK1NkbkUrWkkwTGVRMzd0V3ZwalM1bVFWTFQ2L1ZFCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR1RENDQXFDZ0F3SUJBZ0lKQU9mWTUvOTd4bzN1TUEwR0NTcUdTSWIzRFFFQkN3VUFNRWN4Q3pBSkJnTlYKQkFZVEFrUkZNUnN3R1FZRFZRUUtEQkpVZDJsdVEwRlVJRWhOU1NCVFpYSjJaWEl4R3pBWkJnTlZCQU1NRWtwcApZV05vZVdsWkxVNUNNREpmY205dmREQWdGdzB5TlRBM01ESXdNVEkzTURoYUdBOHlNRFl6TVRBek1UQXhNamN3Ck9Gb3dSekVMTUFrR0ExVUVCaE1DUkVVeEd6QVpCZ05WQkFvTUVsUjNhVzVEUVZRZ1NFMUpJRk5sY25abGNqRWIKTUJrR0ExVUVBd3dTU21saFkyaDVhVmt0VGtJd01sOXliMjkwTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQwpBUThBTUlJQkNnS0NBUUVBeERWdUt4MzFHTU1GWllBOGxudlhBZDJxWXZzRGVpdHBTb1hhMXZyNU9sZWxCWkVBClEyVEdHTkl1MWtDTnlhTnEzeVJvL0RBYk5qbklLSGluS1ZGMGVqSFQyVVdxT3NWREtUTnFkOGNPd2daNXR6dzkKYkpSaUlBQ3ZaNWE0bnJIaXI2dVJWc0VNK1FMTnJoazVIdExmS2U4alNuRUZqc0tyL3BTNjl5STNGeGFlNUlpVgpnUWFudkRPK3FLNkdQUXQrRE44bmszRTdlTGNUK2RKY1R5cHBBK3FYMFhTVDgyWS9DYTh4ME0zNlZMWTY0bzNNCmNzVXEvdU01cVcvSFFQS2trYWxwVzlVdGV1VmRpbnV3cTNTTXZ4K1VYNXZUbnRvYjdzeG0zb1A4NEZkMk5JWnQKZjliTXBEUldpMnA1dFNUM2E3aUZtYnVDWHRRYlFHTEJCMFFnRFFJREFRQUJvNEdrTUlHaE1HOEdBMVVkRVFSbwpNR2FDQ1d4dlkyRnNhRzl6ZEljRWZ3QUFBWWNRQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUlOU21saFkyaDVhVmt0ClRrSXdNb0lhU21saFkyaDVhVmt0VGtJd01pNWlaV05yYUc5bVppNWpiMjJIQkFwN0FSdUhFUDZBQUFBQUFBQUEKdk1zTEdHTU5DbE13SFFZRFZSME9CQllFRktsR3lVK3NKc3o2dmZ6ZHRqRXAydFRMYmZmeE1BOEdBMVVkRXdFQgovd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBR3pFUitvRHh0M1luaWtEVEgrd0hWdHZ0VXduClRJeTQ3b1ZjQmJIVmdQcEk0b29SZTc1V2QrQnZDS2MvajZKank1bzkrcW5yOU91aFRiVHJyakJYbVhoRy9OVEUKeStQSGRXWnU4Yy9oTDNQNTU2RHpheC9iVk1oQWg1WllQMkg1NDcyeVR3UThpdTNsNzEzYlVhTEZxOGljV1J5ZgpLOFNPZCt5L0FFY3hqMkJuMWcycmpYVksrdWJnN0d3TzVtWmV6NS9PdDF5NWI2QmpuaGdIdmthckdZSXNWM2VaCmZYa05DZ2RIWGFuM3pJZHlzcE85aldnMndnUjlaQmdWYlA4V3dLRkp3K3hBMk5WUU5UdnNxYVlVVEs3RlVmeFcKdXdTeHRlNFRkdHVjdzRXTjUvbmxvOXlXSjZxVXdkMWdtTGwwWTFtOERPNVBqRVp6ayt4cFBDK0FtTmc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
     "CERTIFICATEEXPIRATION": "P14000D",
     "CHECKSUMENABLED": true,
     "CHUNKSIZE": 1048576,
@@ -37,12 +37,29 @@
                 "minItems": 1,
                 "type": "array"
             },
-            "ADS-PLC1.ARRAY_1..2_OF-STRING-255": {
+            "ADS-PLC1.ARRAY_0..3_OF-STRING-255": {
                 "items": {
                     "$ref": "tchmi:server#/definitions/ADS-PLC1.STRING-255"
                 },
-                "maxItems": 2,
-                "minItems": 2,
+                "maxItems": 4,
+                "minItems": 4,
+                "type": "array"
+            },
+            "ADS-PLC1.ARRAY_1..10080_OF-LREAL": {
+                "items": {
+                    "$ref": "tchmi:general#/definitions/LREAL"
+                },
+                "maxItems": 10080,
+                "minItems": 10080,
+                "startOffset": 1,
+                "type": "array"
+            },
+            "ADS-PLC1.ARRAY_1..4_OF-ARRAY_1..10080_OF-LREAL": {
+                "items": {
+                    "$ref": "tchmi:server#/definitions/ADS-PLC1.ARRAY_1..10080_OF-LREAL"
+                },
+                "maxItems": 4,
+                "minItems": 4,
                 "startOffset": 1,
                 "type": "array"
             },
@@ -606,7 +623,7 @@
     "HTTP_FLOODPROTECTION": 100,
     "INITTIMEOUT": "PT10S",
     "KEEP_ALIVE": "PT40S",
-    "KEY": "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRREI5K3pabjZSTUsvZlQKUGVwUFE5RldpQkk1SlpuM1MyYS9oWnBoRUxGR0dEdVc0SXU1SmNyUmM0MFhvMzVHN2tIaU9tV0tnS2Q2eWhqMwpGR1E2OC9WNm9yWTBGaHdBWEJ6QS9lOVR2VHFsNVZIUHZlTEFtMVVKaFRDQnBHWXQ0Z1ZnMWQrNmtwOXh3QW13ClVHOHVENDZHOVAzbWF3d1ZqeG9VR1J2eSt5ZG1JK2hLMlZBcDlnaDQrSURncy94VGpmN0NKMXA4MzdXUjRyRjgKbGRzUnIvQ2lTUXlmeitjUFplTk9STjlTaXZkQ3ZmQURGSUJwTS9sOVlEZ1hDZG1NSDhSelpNMWFQWHlzeUtvdApiZnVQVWI2dHJqcm8zRkdYa0NZL3ZFREVraFRBVWlpVGtCM2x4SEt6aTJXbVBlOW5ZOWx4RTFjYnJpZEZpZks5Cm5Fc2dQejdWQWdNQkFBRUNnZ0VBQVJCaW1Ma0M5allCaUlPYzd1MWd6eGcwL1dKQzYzUGE3dThGTDBZZnF0SkUKTldvcTZndVdocnFiQ2dlb0VDeUxhUG5JQjgvMzJ6a1RsUHRrSjF5aU9wZDg1MkU5cXhUV1JZcS9EdGNKWk5LUwp0ZENGVjJnaXVjZ2t3WGxNNURDS3RnTEdWT2dyL3J3K2NWeW5sM21YWHc4bCsyY1g3R0JhRk1Va2ZaczZGcG5XClg3SVFqenJBcVNEdWVkOXJ5UmNzYWorM2kxbzhrMjg4TlVHc1RoeFo0OE9ZaUl5cHdCUWwrMzl6d3F2UVc2dkIKV0RuQzBraHp4WEMyV0tDTDJWdi9jTE93T0tCVWhUQm83VjRTOTVHVUh0bC9DOGhhVUFRTkN4SDRqNE51Q1hnaQpHd1ZGWkxVZ2x1OUxoRmFMbEpucG5QTDFWVWJVMW9nb29WclU5aXlHNndLQmdRRHR4dnZRSzlUMUZvVHc1MmhICkg5eDdYSmdBYSsvVHZYeVBTOTRZTWIrV1liZnBLUXY3aSszUHRmaVltQ0U0bEN2ZTBteTdtTnJ6dXpuaXBiNngKRlNHUkd2OTdwQXYxWitScDZFTXROQmZSZGUxMm44dDBvdnUyV3NidlpUbG94d3pTRDFzTXp2NVl3L2NyZGIwaAo2R0p5dHJZc1dmK005R1pWYzVZV0hnTEVqd0tCZ1FEUTFYSEtqY0JPN2ZVWERtQSsvQzNGVWoxQVlZOXhqVkxPCkt4c09KNy90N2xSbDhSdExlWkpoZHp0YnBiV1FETmZYaGdnNWtTSEx6SHltWVZrUG04Wnhnd2U3bHk0NE5sZmkKYm5mVXFlRjkwME9DN2YwMmF1SzUzZFBCaWhSR054b3ozcnRiMysxcFNuUTNtalNxZjdqNGMzV0lsaUIxQjNCbgozengxRi9hZ1d3S0JnRVh2bk9raHUwVkxGbGIwK1VyU0tEdHdoSlM3S3BNUXpLNHBGbTN2VS9hYlQwaVk5aGxLCmt1dmhEZmx6NVhHS3cweUtmOGk5c01pM2JOTXBCT2w0MmFLZ1dqeTNoM3pxemRnSXBKbUxGT1phMVRscXpxREQKdjExblhkUFQ1Z3JYWVFIMzJrUHVMZ2xWdWtGaUkvcnhLdU9xc2ZKaGxqU1RQZllzUlJ6RVB2UXBBb0dBUjgwcgplNjR6TWJBbE5aRXV6RmtlVDVyUURvTzhzeGtaSUdPM3dLMHdFMWwvVVRHTjVleGR4UDhldklzRUd3d2ZaaTNpClJCQy9ZdmZpMzczV3hrUVQvZEZFWmw0N2VQNU9SejhlR2xOeWdUV1RIOEE5OEdqZG5YUkVxMldUUlBVTElFeHoKZE1wUU1ZUjA0dTAxTUc0THBmamtyMXFXdkVZYmdzdEJXUzB0RWNNQ2dZRUF2SkN1ZzJrWXlMdStwbTAwUm4raAp1czhEZkNhT3krVWw2SkQwdjJ6c0djeUUxQ0FmV053VXRHWW12Y0MxRmdKOVcvSEIzWGlNRmgwNE1KTmpVNVRqCkRYT3k3SWhQdEJCdDFvcTk1L3BCcE14bThNRmptNGdSTG5ONTZ4REEvZVdFWGpEejU2VDFGaGp4K245RXlOU1gKT3NkaWJpT1V3SmpEZW50M1gxN3QydVk9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K",
+    "KEY": "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ2Mva2xWWE9ObG5ac2cKSTFhRE5hVnNzV1Q4TEZ1Sm15WEp6ZHR5MHNZYWRPWDB2Vm5yUDNtbUxabEdrTXVPU1R5cVNZaDJONnVPVElOMworZUZwVXZ6T25zTXVjRk5EVkZxcWo4RUVLWnpneEJiM1ZoT1ZkMUx6TnhkUU9lRFp3T0JxazVzVFMwWjNDTjQ1CnRjMFFDTGhHeENVYzFsY284RW9BbmUwVVFZUWNBOVYwQWNFNnBkR1pMN3U4cE1IbkNnRUJpVjhMaXlhTVlPbE4KSy94NURBeU5BZzgzalpJU1BZaFNMS2F5WXlLaHNocmlBK0JXLzV3bHcxVmhvVkNPTjFKL1VVR01jMHFmMm5HWgpkME1hKzRGMXMxc1ZaL2pZeHk4WlNkd09ScFY3eGJlNnhvZXAvd3NGaUFJL1NzYkdwZHpvdkt1U29pb2Mya1FsCkpYdXBmamFQQWdNQkFBRUNnZ0VBUG1PdHgvODRuVTdqY1lPcG8wNGo5Z3lQYWNuRS9Pd0x1ZVdWd3MxeGpkMEwKNzlWNkVRdXlML0NxRzRsNlk0ckdVWlFVWjRxYklsdFUyYzZUbm5RczVIM2lhaWVZWjBiMEd4a3k1eEVVZDV4bAoxaGcrZ3lVZThXbmcyWENPNDJxTHBMOFJIenRJZnhDbW83K1VoVDA1NG1HYnNCaWNIYmhVYUdkYWFyVFlwL3JjClFuWXU3VWRpclNJcnFjQitxMFRFT3hkNG5FR1RlSEUxYUdOdVJLc2hXcEdmSk8ra056ZVEyMVRjUlYrOVh1Ri8KSS8wYmFyUTJtK0xnQXloVzRuVStGWDJVMmFFTFAyOU5jbDNwcGdiMks5elVHclVBeTUvTzFLWVhUajhMSktjagowaEJIdjBlQVlzVlN3d01TN0ZUdGc0SytHL3k4OElJQmRQT2l6Rm5WeFFLQmdRRFlQUXRpZnhKK2VFVnFrNi9hCkZ5emNlQmlUZGR0UmxYeUhFRVR1VmJDTU9mZ09GaFhkVVIwNURWckkxOXBLSEJmSmdLS2RyU0hTZGdSSWR2WWsKaS9rMTN2cWVIRjNFMDdkZTdGR29TZHN4Tk9ZSkdwQWVPOGJMRWNtMnNlRXJqM0hZRW9BaWhtUlBEb3AwRFNhRwpFRkMvY0s1ek9mNUQzaFlrNkZvbVZsQnNJd0tCZ1FDNTNHZkRKa2VWMDBlamdZYjNHVkd0NUxHeVF4cVlpZGEvClBMWmt3aFBab3ZueU5FN0FMQ3kzN0RkUWFzZWwzRDZuZlluY2c1cTZwRWtUTFhtaTl4Nld1QlJkb0xzQUtiZDIKYlhxUnYvdVlGU3R0TTZ1Zk4rTGRKdEtQZHhsWWZTajRDWGRtcS8rcVE3RUxLdWRucXJOd1d2dVhvNnlHZlliagorMVcrR0l1c3BRS0JnQmd6cE4yT1NWeWNTM0NsUE81VTM3R0JRNGJsanZsdm1MTnBMNzNaRzF4bWRJdm5EdVZwCldiTHorckExOEhtUThWeWRLQllydFhoZnV4VDlNNGxkblRQWlZBVjBPVTU1UDdIQkUxYVpoWTNaVk5HNkJsMUwKNVhEKythdVg5eEt3Q0ZiZG96ZTZBT29VUDR6RG1BY3pOa1ptN3k5NFV5djNaRlVYS0ZmWUcwSXZBb0dCQUpjNQpxb095aGRSMlVIZk5VRStGbmx2ckZGcURGd1MrUXFqZmNWaVNRU3gzMnY4amFHQWNrVllsTU95UnRWaFMxL2ZYCndYQlc5SEtnY1lUVkgzOWxxdEhmZlZLaEVRYVU2dDNGUGxHUTc5bFNnRDhlSjZvcEFzSUdjSlNpeDFDa3BjMEwKaHNkWGMzTEtHU2VKQlRmb1FKQk90eDh1NFpXY1ZVRHlvMVZGQzRDeEFvR0FYbWk0bFpodG1NcVpzTjZoWnFUcgozVEtvWEo3dmQzTU5EY2ZhSmtmZEVFdFFoTUpLaUdoejdIODR1WnlZM0V6KzJOODJvTXRxbmVMUHNLT2xJNnJ0CkNIaW4rRXgycEZPdjdSYlhPNkRJU2t2TXRLU0hjT2M2WHZncWpUWEVpR3cvdlNjUEpoN0VscUV3WTNCeUxCUnMKMEh2ZUhPejRaWHl4UFVZeS8yZ2lrZGc9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K",
     "KEYPASSWORD": "",
     "MAXCONNECTIONSPERCLIENT": 32,
     "MAXHTTPHEADERSIZE": 32768,
@@ -621,8 +638,8 @@
     "REQUIREAUTH": 0,
     "REQUIRE_CLIENT_CERTIFICATE": false,
     "SAMESITE_ATTRIBUTE": 2,
-    "SELFSIGNEDROOTCA": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR1RENDQXFDZ0F3SUJBZ0lKQU0vYXN5ZWFZTzU2TUEwR0NTcUdTSWIzRFFFQkN3VUFNRWN4Q3pBSkJnTlYKQkFZVEFrUkZNUnN3R1FZRFZRUUtEQkpVZDJsdVEwRlVJRWhOU1NCVFpYSjJaWEl4R3pBWkJnTlZCQU1NRWtwcApZV05vZVdsWkxVNUNNREpmY205dmREQWdGdzB5TlRBMk1qVXdNelV5TVRKYUdBOHlNRFl6TVRBeU5EQXpOVEl4Ck1sb3dSekVMTUFrR0ExVUVCaE1DUkVVeEd6QVpCZ05WQkFvTUVsUjNhVzVEUVZRZ1NFMUpJRk5sY25abGNqRWIKTUJrR0ExVUVBd3dTU21saFkyaDVhVmt0VGtJd01sOXliMjkwTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQwpBUThBTUlJQkNnS0NBUUVBc0RhV2ZoZ3h5V2dJaUEyRVE5TGF3aXZnS1NPdWRsaVdKamhST0pUTUg5Znp6RllZCnlBbnltbHhJZDdoUjJyeVhRU2dUNlJNVXlTWDQvRDRVbEVjeTNPQXFhb1ZFdFY4QnE3dFpaTTcvYWROVDdjUWIKYlc2MGlNd1hxVjZhSlJVZ1lSY1B3Z0ZrQ09OTEs0TVNmOWRrQ0FUL3lVTDJFc09UNkdhMW9YWEVxekZXRkp0Vgo3T3BTd1MvUmtKdHpObHRNTXBvSG8xMTJRWFRONmV4R3pxaUlwME5yVlFxL0RvUkxzTG5BZG5sbEcvbHFwUENKClI5dWZ6c1hMZkFiVVdSQ2g5ZC93SSt2a2d5SW16dGY3eDd6Z09KRUt6WlhqYjd5UmJ4UzdoUGhZemRDa3ZoNlkKWk5uMnNOcEc5aThIb1JheXpBVFFKd24xNERaN3ZHNFlzbUJOSndJREFRQUJvNEdrTUlHaE1HOEdBMVVkRVFSbwpNR2FDQ1d4dlkyRnNhRzl6ZEljRWZ3QUFBWWNRQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUlOU21saFkyaDVhVmt0ClRrSXdNb0lhU21saFkyaDVhVmt0VGtJd01pNWlaV05yYUc5bVppNWpiMjJIQkFwN1F3T0hFUDZBQUFBQUFBQUEKdWkrbHZraU8rK0F3SFFZRFZSME9CQllFRk4rWGxMR0w4cWVldXhBZVVpN3NYalpUdFBQRk1BOEdBMVVkRXdFQgovd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQjZReThHRUY2VC9TWlp5TUF5aWlmaUx4ellhCmxZL2JLRlkzT3pRc1cvZ1ZHZDhiZCtBWGFUS245ZS9SUElvazVsZjdhaS9Xa21QNEQxbE55WFFvREZDUFdxM2oKRDdQQmx1anZzOTRlbHRQWHVtRjBCYWQ1VTFVc2wvTElQTkZCWEM3T0FiYnpUcmtTdnIrekpJczF5TUkyU2Z5cAp5b1lXYm94bWpMNlFQQ1UxQWRzbmM1OWJLY3A4SXkzTHFxYWtVK2MvdFh0dmVRNkxvVFNldzA1RmE5SU5MQUNHCk10NUsxTjdIQ1RTdGQzSDhzby9CUUVNT2lBaXZaZjZSYUg5cFhyaUtxdmM2Vmt3VFB2d3puajZFOWpGM3dUZ3kKQXMzeXh2OFdyS0ZGaHpoM0dWWmR5cGF3OThkODR2TURDdUZEM3JGV2xsYzZmYWdLZ1ptbnJxUnJRQkk9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
-    "SELFSIGNEDROOTCAKEY": "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2QUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktZd2dnU2lBZ0VBQW9JQkFRQ3dOcForR0RISmFBaUkKRFlSRDB0ckNLK0FwSTY1MldKWW1PRkU0bE13ZjEvUE1WaGpJQ2ZLYVhFaDN1RkhhdkpkQktCUHBFeFRKSmZqOApQaFNVUnpMYzRDcHFoVVMxWHdHcnUxbGt6djlwMDFQdHhCdHRiclNJekJlcFhwb2xGU0JoRncvQ0FXUUk0MHNyCmd4Si8xMlFJQlAvSlF2WVN3NVBvWnJXaGRjU3JNVllVbTFYczZsTEJMOUdRbTNNMlcwd3ltZ2VqWFhaQmRNM3AKN0ViT3FJaW5RMnRWQ3I4T2hFdXd1Y0IyZVdVYitXcWs4SWxIMjUvT3hjdDhCdFJaRUtIMTMvQWo2K1NESWliTwoxL3ZIdk9BNGtRck5sZU52dkpGdkZMdUUrRmpOMEtTK0hwaGsyZmF3MmtiMkx3ZWhGckxNQk5BbkNmWGdObnU4CmJoaXlZRTBuQWdNQkFBRUNnZ0VBTCtwQUJMeVdlU0l4UTdHTk9CWVRSdjVBUDErRTlvaERGOVJ6ZlhPMGg2b2sKa0hrTzF3SWhka2pHcWNzMGNzcWFSR3pkOFNBdnBEeVBsaU5aWERKNkNhWm8wanMzd2l1NTNCVWZDekxnTDhuMwpoZTB2MmhOaXd0bmdTejArby91NUtMMXBHd05lekszbGlFamxWRjdndys5OEVDR0ZvUGVPZGdETHZjSTB2cW5BCmRlQng1UU1ZMXZvcmFBanpkdElKemRKMTFZR1dZbWJjT0ljblplMjRCWXQ4L0N4clo4aWl0VGxFcWxIak8rWEcKK0JlMzE5TzFjL0FVVk92ZVRjN3ByZ3J2bmxDcGxpcklDc09YMkdwWlpYa1Zqc0VUV0Ftc29Za2RreGRvcGNneQpBR2I3V2VteGF6dkZCK3FyZVNabG5JVGpwcXJUN05QOWRWb2Y2WWd6OFFLQmdRRDF3QmY0ZXNmWlNSOGJ2dUFZCktwMkpmcm0wUU1nWTdYSUptV2xudGhTTXMvN0pFWkdBK1I0MVA0WnkzcVl5WjVCU3NEZlhOVVBWWEZsc0Vmb20KSGg5NzJnRTlWNjdsK2htaGQ0V2d1cGNCL0dOdmo2VzZja0RacmppazExOTk3TE11Y3Y1MnZjRnBHcEx1dDFwMgpBVFJEOHdkVkl0MUlMcHNsM0JzOWRwQXU5d0tCZ1FDM2tBbXhWV3NPNWN1OGJuOUhlNzNkMDZDYSs2MXZmSDA4CjYrV3ZldjZJblAwb2NTWm5JVWtlcXg5U2d4RHMvZjJHMi9zK25kdTZjdXNoTzdmT1hQL2FJejZ6V3IxaFJZdlIKZmVtaE9DdHpxUDgyY1JQSzBxVW81bWhVZWJXUG05TlJXZW8rTHg4NmJ2cXQ5aWpocEpITHVwUVVIWlpkTGlLWQp2L1VBdnpEWFVRS0JnQ0E0MUt2RzVZZE8rQjQ2TThYWGFKcUxuQ3ZQUnExR0RPckhTN1BHZ3dGRDVJZFduMTVxCnk1UXR4U0l3b1ZnQWprTFpTaWtVbWRWUzY0S3BCTVNVdElvWHRvdmxnRkExTDhFbEc4ZE1UOXA1emt2bGFOUisKZ0pSS0xMRW9jQ1Boc2tqSDJTZVdqOUtKSW5UY1k2Y1BWMXdGZEpPc0k1bUFTdVYyNjdkdVlVOVhBb0dBTkZ6agpWdkhkNjA4RUVrbVhCMFkyUUR3cFdXeW42ZUNpUFNteHlLQVdVZFF1cDBXM3hiMktCVFNkWjhVNW85RkViQjcrCmlic3dQZnlnTkVlN3hDTmxYTTJuQ2pTOVJ5MDJtRmtKdDFLMW1uVy83OERMKzVTaFJveUxnR1dEdEdhb0hsRysKNzJRenpWQnhOQVMvWHJhNlhGcHArVjhEVUt0amRSMTAvM1NLc3pFQ2dZQjhoMHBwRVg1L0RMdW80TlZVNWlDUQpTNHRWNDhyUnVrYWhLUDF2Uk5EejJDOEZTS3ovWGVicDJiRHBJclFkMitTUlQ0Q2ZicVRSaFJISmVHWW93YjVlClhNYld0eURTNkw5NVdKejZORWhHcFRXWGo0S0NHL096VCtqZ3pFN1FDQmZPRmNtYjZ1YzNkNnh1MnJma0svUzIKSWU5blM0MUVCOVdjNGlxT3pDd0N3Zz09Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K",
+    "SELFSIGNEDROOTCA": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR1RENDQXFDZ0F3SUJBZ0lKQU9mWTUvOTd4bzN1TUEwR0NTcUdTSWIzRFFFQkN3VUFNRWN4Q3pBSkJnTlYKQkFZVEFrUkZNUnN3R1FZRFZRUUtEQkpVZDJsdVEwRlVJRWhOU1NCVFpYSjJaWEl4R3pBWkJnTlZCQU1NRWtwcApZV05vZVdsWkxVNUNNREpmY205dmREQWdGdzB5TlRBM01ESXdNVEkzTURoYUdBOHlNRFl6TVRBek1UQXhNamN3Ck9Gb3dSekVMTUFrR0ExVUVCaE1DUkVVeEd6QVpCZ05WQkFvTUVsUjNhVzVEUVZRZ1NFMUpJRk5sY25abGNqRWIKTUJrR0ExVUVBd3dTU21saFkyaDVhVmt0VGtJd01sOXliMjkwTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQwpBUThBTUlJQkNnS0NBUUVBeERWdUt4MzFHTU1GWllBOGxudlhBZDJxWXZzRGVpdHBTb1hhMXZyNU9sZWxCWkVBClEyVEdHTkl1MWtDTnlhTnEzeVJvL0RBYk5qbklLSGluS1ZGMGVqSFQyVVdxT3NWREtUTnFkOGNPd2daNXR6dzkKYkpSaUlBQ3ZaNWE0bnJIaXI2dVJWc0VNK1FMTnJoazVIdExmS2U4alNuRUZqc0tyL3BTNjl5STNGeGFlNUlpVgpnUWFudkRPK3FLNkdQUXQrRE44bmszRTdlTGNUK2RKY1R5cHBBK3FYMFhTVDgyWS9DYTh4ME0zNlZMWTY0bzNNCmNzVXEvdU01cVcvSFFQS2trYWxwVzlVdGV1VmRpbnV3cTNTTXZ4K1VYNXZUbnRvYjdzeG0zb1A4NEZkMk5JWnQKZjliTXBEUldpMnA1dFNUM2E3aUZtYnVDWHRRYlFHTEJCMFFnRFFJREFRQUJvNEdrTUlHaE1HOEdBMVVkRVFSbwpNR2FDQ1d4dlkyRnNhRzl6ZEljRWZ3QUFBWWNRQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUlOU21saFkyaDVhVmt0ClRrSXdNb0lhU21saFkyaDVhVmt0VGtJd01pNWlaV05yYUc5bVppNWpiMjJIQkFwN0FSdUhFUDZBQUFBQUFBQUEKdk1zTEdHTU5DbE13SFFZRFZSME9CQllFRktsR3lVK3NKc3o2dmZ6ZHRqRXAydFRMYmZmeE1BOEdBMVVkRXdFQgovd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBR3pFUitvRHh0M1luaWtEVEgrd0hWdHZ0VXduClRJeTQ3b1ZjQmJIVmdQcEk0b29SZTc1V2QrQnZDS2MvajZKank1bzkrcW5yOU91aFRiVHJyakJYbVhoRy9OVEUKeStQSGRXWnU4Yy9oTDNQNTU2RHpheC9iVk1oQWg1WllQMkg1NDcyeVR3UThpdTNsNzEzYlVhTEZxOGljV1J5ZgpLOFNPZCt5L0FFY3hqMkJuMWcycmpYVksrdWJnN0d3TzVtWmV6NS9PdDF5NWI2QmpuaGdIdmthckdZSXNWM2VaCmZYa05DZ2RIWGFuM3pJZHlzcE85aldnMndnUjlaQmdWYlA4V3dLRkp3K3hBMk5WUU5UdnNxYVlVVEs3RlVmeFcKdXdTeHRlNFRkdHVjdzRXTjUvbmxvOXlXSjZxVXdkMWdtTGwwWTFtOERPNVBqRVp6ayt4cFBDK0FtTmc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+    "SELFSIGNEDROOTCAKEY": "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2Z0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktnd2dnU2tBZ0VBQW9JQkFRREVOVzRySGZVWXd3VmwKZ0R5V2U5Y0IzYXBpK3dONksybEtoZHJXK3ZrNlY2VUZrUUJEWk1ZWTBpN1dRSTNKbzJyZkpHajhNQnMyT2NnbwplS2NwVVhSNk1kUFpSYW82eFVNcE0ycDN4dzdDQm5tM1BEMXNsR0lnQUs5bmxyaWVzZUt2cTVGV3dRejVBczJ1CkdUa2UwdDhwN3lOS2NRV093cXYrbExyM0lqY1hGcDdraUpXQkJxZThNNzZvcm9ZOUMzNE0zeWVUY1R0NHR4UDUKMGx4UEtta0Q2cGZSZEpQelpqOEpyekhRemZwVXRqcmlqY3h5eFNyKzR6bXBiOGRBOHFTUnFXbGIxUzE2NVYySwplN0NyZEl5L0g1UmZtOU9lMmh2dXpHYmVnL3pnVjNZMGhtMS8xc3lrTkZhTGFubTFKUGRydUlXWnU0SmUxQnRBCllzRUhSQ0FOQWdNQkFBRUNnZ0VBUGNkQS8reDN6cXNoR050dXVFY1g1S3VCeVphVmVyTU9mUHQyY3pna252MFgKcFpBSlVDNzd2TGI1TGxhM0RpVVpNbGRKZ3hZMml6VllVMzNoekQyc2Vna1VWaFg4U25Mditab0p6TnJ0UjZRNApVTHh6N3FzdDFqdkEvdEhUSVl5Sy9wcjdzU0FwMElIVWR4dlVBMk9NQnEwWUpJay9vYnFqNHcyN2JMTG1PNnRECmlPU3l0RlhBOElkdm9qUEFGeWtWY3JmVDBQQmd5Y3V1cmdTSHJKN0tmdXJCdlVIdW1tRGxDMHJkNUwvMDEyZFIKc3ZTYUJyQlhTZlFSaGY3b1pBcjQ0Uk9FeDJkRnp1bVlsT3JySTQxbFRFTTBQQ21odFNnYUU5K3lOam5LNTRQMgo2aE5nbHl1RmlteUhVczJ6L2QzY2hrTXpBc1d4c2JHQ2ZsUVVrYkQrZFFLQmdRRGpCYnpkaGw1MXU3dHUxOUJIClk0OTFYTEJkT3hRL1F3YXpKMElRR2hBMXltbkNpUXMvSmRiVFh1dTZzL3lObWE1RVlQMFBkaGRSMFcyVDZJczUKemJQeS9XbG1aMWxvSG1WRGRKRG5DQmU5eHNVTkV1UmI0eERyNFpCRElXa05lbFVTaFVtYzJocEtTOWxUUVVZdQpoYWEvL210ZzJaN1JBeGNrSXBaMDdxKzJYd0tCZ1FEZFFOQkRxTGl0L0NYaU16VGkyTk1uaTI2Mll2citKSlpvCkJaTXhMMkNhY25HenN3aWFRc3F4RTY3ZWJFZnlBVUtVbXlyNG5weUhtcEViMGxTV1dKRTRWV2grbFRRMXU4bGsKRzBJS0FmQ25aaDNiUW5pTHFRNFdtMmxsWVYvWmRlMlJEWnR3eDFTcFJyTmxwMHlFVHY1MEhiZzNudGV5V0pXZgppekFlT0pmSkV3S0JnUUM3TVdUOUtLbkUzSXA5cUZobU5STDZpL1lrdWUxRkNLaUNtdkZmUTQ1d1BEb2VuVS8zCnZ1UzNuNEl5amV6R2VaejNaeDNqWE5WM3NuOXZRWVZqb1ZrckdJZUxWOWFpQXNZdTYvUDdmSEhQR3hJcWFKU0IKcSthdENXNGgzRys2SEUvL21JWU5YczNreTB3azJTTGNnM251d0FPY2RYVCtGVlZFaDN5V2FLWGNjd0tCZ1FETwpzVVhlYnpoWUVUNnkybk9GbUZscWorK1ZvMUluS2JiNDVueGpib2Nvd2RGR3R2SkthaXRBMGNxREwxVG0yQmFECkRaSlBRSjJxY05NdTBvY0REU3BkSGl6SVZFcTZCL3hUOE1MNDVtY1RlMnBZOHZmNlFLeFFvazhMenJQa1N5N3MKVzNIaklkUU5iMmNZaC9vTGdHQmx5WDNYT0NUNUQ1aDN1MmZ3VTU0NDBRS0JnR1VnOFJuSGxDSytXVHY0a05BMgpLcFdmbk50Zy9nUDg2SWVRR3ZHeHVWMDlPcVNjUUhlNXR0K2RTU3JsZDlYZDNIc1pSdHlCSE0xazJZRFNLajNCCmtSNTgrQW5sanI5bGNXQ2huWkhpdTE3WTZYdVNmS0xDbHkxNEk3U2tQYU9KNzNpNzFOaTUvbUkxT0VHcEhOQlQKUGwyNDJIOC9VWVhCR0Y5QmdkalhUd0JyCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K",
     "SESSIONSTORAGE": {},
     "SHOW_CONFIGURATION_HINTS": false,
     "SHOW_MAINTENANCE_MODE": true,
@@ -3004,47 +3021,47 @@
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset": {
+        "PLC1.AnalyticsHMI.bN1_M1_OverallEquipmentEffectivenessOEE_Reset": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset",
+            "MAPPING": "PLC1::AnalyticsHMI::bN1_M1_OverallEquipmentEffectivenessOEE_Reset",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/BOOL"
             }
         },
-        "PLC1.AnalyticsHMI.bN1_M3_PieChart_Reset": {
+        "PLC1.AnalyticsHMI.bN1_M3_OEETrendLine_Reset": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::bN1_M3_PieChart_Reset",
+            "MAPPING": "PLC1::AnalyticsHMI::bN1_M3_OEETrendLine_Reset",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/BOOL"
             }
         },
-        "PLC1.AnalyticsHMI.bN1_M4_ThresholdClassifier1Ch_Reset": {
+        "PLC1.AnalyticsHMI.bN1_M4_ProductionQuantityAnalysis_Reset": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::bN1_M4_ThresholdClassifier1Ch_Reset",
+            "MAPPING": "PLC1::AnalyticsHMI::bN1_M4_ProductionQuantityAnalysis_Reset",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/BOOL"
             }
         },
-        "PLC1.AnalyticsHMI.bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset": {
+        "PLC1.AnalyticsHMI.bN1_M5_ProductivityInterval_Reset": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset",
+            "MAPPING": "PLC1::AnalyticsHMI::bN1_M5_ProductivityInterval_Reset",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/BOOL"
             }
         },
-        "PLC1.AnalyticsHMI.bN1_Network_Reset": {
+        "PLC1.AnalyticsHMI.bN1_OEEStatus_Reset": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::bN1_Network_Reset",
+            "MAPPING": "PLC1::AnalyticsHMI::bN1_OEEStatus_Reset",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -3056,79 +3073,215 @@
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.aM3_aChannelNames": {
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesElapsed": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl1_Pie_Chart::aM3_aChannelNames",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.ARRAY_1..2_OF-STRING-255"
-                    },
-                    {
-                        "comment": "Labels",
-                        "propertyOrder": 5
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.bM3_bRelativeOutput": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl1_Pie_Chart::bM3_bRelativeOutput",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "comment": "Relative",
-                        "propertyOrder": 4
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.fM3_fDataInCh2": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl1_Pie_Chart::fM3_fDataInCh2",
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl1_Production_Quantity_Analysis::fM4_nCyclesElapsed",
             "SCHEMA": {
                 "allOf": [
                     {
                         "$ref": "tchmi:general#/definitions/LREAL"
                     },
                     {
-                        "comment": "Values",
-                        "propertyOrder": 3
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.fM3_nDataInCh1": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl1_Pie_Chart::fM3_nDataInCh1",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/LREAL"
-                    },
-                    {
-                        "comment": "Values",
+                        "comment": "Elapsed (Values)",
                         "propertyOrder": 2
                     }
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.eM1_eOeeClass": {
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesRemaining": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE::eM1_eOeeClass",
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl1_Production_Quantity_Analysis::fM4_nCyclesRemaining",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/LREAL"
+                    },
+                    {
+                        "comment": "Remaining (Values)",
+                        "propertyOrder": 3
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aChannelNames": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl2_OEE_Trend_Line::aM3_aChannelNames",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.ARRAY_0..3_OF-STRING-255"
+                    },
+                    {
+                        "comment": "Display Names",
+                        "propertyOrder": 5
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aTrendData": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl2_OEE_Trend_Line::aM3_aTrendData",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.ARRAY_1..4_OF-ARRAY_1..10080_OF-LREAL"
+                    },
+                    {
+                        "comment": "Raw Data",
+                        "propertyOrder": 2
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.nM3_nCountValues": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl2_OEE_Trend_Line::nM3_nCountValues",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/UDINT"
+                    },
+                    {
+                        "comment": "Counted Values",
+                        "propertyOrder": 4
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.tM3_fbLastValue": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl2_OEE_Trend_Line::tM3_fbLastValue",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.Tc2_EtherCAT.DCTIMESTRUCT"
+                    },
+                    {
+                        "comment": "Last Value Timestamp",
+                        "propertyOrder": 3
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fCurrentProductivity": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl3_Productivity_Interval::fM5_fCurrentProductivity",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/LREAL"
+                    },
+                    {
+                        "comment": "Current Productivity",
+                        "propertyOrder": 6
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fExpectedProductivity": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl3_Productivity_Interval::fM5_fExpectedProductivity",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/LREAL"
+                    },
+                    {
+                        "comment": "Expected Productivity",
+                        "propertyOrder": 7
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nProducedInInterval": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl3_Productivity_Interval::fM5_nProducedInInterval",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/LREAL"
+                    },
+                    {
+                        "comment": "Produced Pieces",
+                        "propertyOrder": 2
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nRemainingInInterval": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl3_Productivity_Interval::fM5_nRemainingInInterval",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/LREAL"
+                    },
+                    {
+                        "comment": "Remaining Pieces",
+                        "propertyOrder": 3
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbElapsedTime": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl3_Productivity_Interval::tM5_fbElapsedTime",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.Tc3_Analytics.ST_ALY_Timespan"
+                    },
+                    {
+                        "comment": "Elapsed Time",
+                        "propertyOrder": 4
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbRemainingTime": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl3_Productivity_Interval::tM5_fbRemainingTime",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.Tc3_Analytics.ST_ALY_Timespan"
+                    },
+                    {
+                        "comment": "Remaining Time",
+                        "propertyOrder": 5
+                    }
+                ]
+            }
+        },
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.eM1_eOeeClass": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE::eM1_eOeeClass",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -3141,11 +3294,11 @@
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fAvailability": {
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fAvailability": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE::fM1_fAvailability",
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE::fM1_fAvailability",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -3158,11 +3311,11 @@
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fOEE": {
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fOEE": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE::fM1_fOEE",
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE::fM1_fOEE",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -3175,11 +3328,11 @@
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fPerformance": {
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fPerformance": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE::fM1_fPerformance",
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE::fM1_fPerformance",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -3192,11 +3345,11 @@
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fQuality": {
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fQuality": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE::fM1_fQuality",
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE::fM1_fQuality",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -3209,11 +3362,11 @@
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelOkWarning": {
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelOkWarning": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE::fM1_fThresholdLevelOkWarning",
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE::fM1_fThresholdLevelOkWarning",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -3226,11 +3379,11 @@
                 ]
             }
         },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelWarningAlarm": {
+        "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelWarningAlarm": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE::fM1_fThresholdLevelWarningAlarm",
+            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_OEE_Status::stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE::fM1_fThresholdLevelWarningAlarm",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -3239,108 +3392,6 @@
                     {
                         "comment": "Level Warning / Alarm",
                         "propertyOrder": 7
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.eM4_eClass": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl3_Threshold_Classifier_1Ch::eM4_eClass",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.Tc3_Analytics.E_ALY_Classification_3Cls"
-                    },
-                    {
-                        "comment": "Classification",
-                        "propertyOrder": 3
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.fM4_fDataIn": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl3_Threshold_Classifier_1Ch::fM4_fDataIn",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/LREAL"
-                    },
-                    {
-                        "comment": "Value",
-                        "propertyOrder": 2
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.tM4_fbTimeLastEventAlarm": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl3_Threshold_Classifier_1Ch::tM4_fbTimeLastEventAlarm",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.Tc2_EtherCAT.DCTIMESTRUCT"
-                    },
-                    {
-                        "comment": "Last Alarm",
-                        "propertyOrder": 5
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.tM4_fbTimeLastEventWarning": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl3_Threshold_Classifier_1Ch::tM4_fbTimeLastEventWarning",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.Tc2_EtherCAT.DCTIMESTRUCT"
-                    },
-                    {
-                        "comment": "Last Warning",
-                        "propertyOrder": 4
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeElapsed": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis::tM6_fbLifetimeElapsed",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.Tc3_Analytics.ST_ALY_Timespan"
-                    },
-                    {
-                        "comment": "Elapsed (Times)",
-                        "propertyOrder": 2
-                    }
-                ]
-            }
-        },
-        "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeRemaining": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::AnalyticsHMI::stHMI_C1_Network::stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis::tM6_fbLifetimeRemaining",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.Tc3_Analytics.ST_ALY_Timespan"
-                    },
-                    {
-                        "comment": "Remaining (Times)",
-                        "propertyOrder": 3
                     }
                 ]
             }
@@ -4673,28 +4724,30 @@
             "SYMBOLACCESS": 0,
             "SYMBOLS": {
                 "PLC1.AnalyticsHMI.aMapItems": 3,
-                "PLC1.AnalyticsHMI.bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M3_PieChart_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M4_ThresholdClassifier1Ch_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_Network_Reset": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.aM3_aChannelNames": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.bM3_bRelativeOutput": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.fM3_fDataInCh2": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.fM3_nDataInCh1": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.eM1_eOeeClass": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fAvailability": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fOEE": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fPerformance": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fQuality": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelOkWarning": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelWarningAlarm": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.eM4_eClass": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.fM4_fDataIn": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.tM4_fbTimeLastEventAlarm": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.tM4_fbTimeLastEventWarning": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeElapsed": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeRemaining": 3
+                "PLC1.AnalyticsHMI.bN1_M1_OverallEquipmentEffectivenessOEE_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M3_OEETrendLine_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M4_ProductionQuantityAnalysis_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M5_ProductivityInterval_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_OEEStatus_Reset": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesElapsed": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesRemaining": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aChannelNames": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aTrendData": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.nM3_nCountValues": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.tM3_fbLastValue": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fCurrentProductivity": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fExpectedProductivity": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nProducedInInterval": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nRemainingInInterval": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbElapsedTime": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbRemainingTime": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.eM1_eOeeClass": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fAvailability": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fOEE": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fPerformance": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fQuality": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelOkWarning": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelWarningAlarm": 3
             }
         },
         "Guests": {
@@ -4704,28 +4757,30 @@
             "SYMBOLACCESS": 0,
             "SYMBOLS": {
                 "PLC1.AnalyticsHMI.aMapItems": 3,
-                "PLC1.AnalyticsHMI.bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M3_PieChart_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M4_ThresholdClassifier1Ch_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_Network_Reset": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.aM3_aChannelNames": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.bM3_bRelativeOutput": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.fM3_fDataInCh2": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.fM3_nDataInCh1": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.eM1_eOeeClass": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fAvailability": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fOEE": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fPerformance": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fQuality": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelOkWarning": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelWarningAlarm": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.eM4_eClass": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.fM4_fDataIn": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.tM4_fbTimeLastEventAlarm": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.tM4_fbTimeLastEventWarning": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeElapsed": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeRemaining": 3
+                "PLC1.AnalyticsHMI.bN1_M1_OverallEquipmentEffectivenessOEE_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M3_OEETrendLine_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M4_ProductionQuantityAnalysis_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M5_ProductivityInterval_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_OEEStatus_Reset": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesElapsed": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesRemaining": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aChannelNames": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aTrendData": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.nM3_nCountValues": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.tM3_fbLastValue": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fCurrentProductivity": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fExpectedProductivity": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nProducedInInterval": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nRemainingInInterval": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbElapsedTime": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbRemainingTime": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.eM1_eOeeClass": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fAvailability": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fOEE": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fPerformance": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fQuality": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelOkWarning": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelWarningAlarm": 3
             }
         },
         "Users": {
@@ -4735,28 +4790,30 @@
             "SYMBOLACCESS": 0,
             "SYMBOLS": {
                 "PLC1.AnalyticsHMI.aMapItems": 3,
-                "PLC1.AnalyticsHMI.bN1_M1_PackMLOverallEquipmentEffectivenessOEE_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M3_PieChart_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M4_ThresholdClassifier1Ch_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_M6_PreventiveMaintenanceLifetimeAnalysis_Reset": 3,
-                "PLC1.AnalyticsHMI.bN1_Network_Reset": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.aM3_aChannelNames": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.bM3_bRelativeOutput": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.fM3_fDataInCh2": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl1_Pie_Chart.fM3_nDataInCh1": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.eM1_eOeeClass": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fAvailability": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fOEE": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fPerformance": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fQuality": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelOkWarning": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelWarningAlarm": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.eM4_eClass": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.fM4_fDataIn": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.tM4_fbTimeLastEventAlarm": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl3_Threshold_Classifier_1Ch.tM4_fbTimeLastEventWarning": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeElapsed": 3,
-                "PLC1.AnalyticsHMI.stHMI_C1_Network.stHMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.tM6_fbLifetimeRemaining": 3
+                "PLC1.AnalyticsHMI.bN1_M1_OverallEquipmentEffectivenessOEE_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M3_OEETrendLine_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M4_ProductionQuantityAnalysis_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_M5_ProductivityInterval_Reset": 3,
+                "PLC1.AnalyticsHMI.bN1_OEEStatus_Reset": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesElapsed": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl1_Production_Quantity_Analysis.fM4_nCyclesRemaining": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aChannelNames": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.aM3_aTrendData": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.nM3_nCountValues": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl2_OEE_Trend_Line.tM3_fbLastValue": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fCurrentProductivity": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_fExpectedProductivity": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nProducedInInterval": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.fM5_nRemainingInInterval": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbElapsedTime": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl3_Productivity_Interval.tM5_fbRemainingTime": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.eM1_eOeeClass": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fAvailability": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fOEE": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fPerformance": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fQuality": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelOkWarning": 3,
+                "PLC1.AnalyticsHMI.stHMI_C1_OEE_Status.stHMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.fM1_fThresholdLevelWarningAlarm": 3
             }
         },
         "__SystemAdministrators": {

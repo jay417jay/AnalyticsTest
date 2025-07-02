@@ -3,19 +3,19 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{798735fd-d580-4fc4-af93-9901fc5a290f}</ProjectGuid>
+    <ProjectGuid>{4b4ebdc7-91ab-4a83-87d4-4016a4c02a99}</ProjectGuid>
     <SubObjectsSortedByName>true</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>AnalyticsPLC</Name>
     <ProgramVersion>3.1.4026.16</ProgramVersion>
-    <Application>{8c988503-6f07-4b74-aadd-aba6c1f73d58}</Application>
-    <TypeSystem>{9f686ca5-a1a0-42e1-8b00-8bf1e3c981b3}</TypeSystem>
-    <Implicit_Task_Info>{f4261b9e-b3e6-4689-90c3-0194ce2fb0d3}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{7eba30c2-10c7-49cd-b10d-a6084d9d0980}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{85759c28-f59b-4e52-b034-62e35e3ad8a7}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{fee0f70a-656a-42b0-840e-d14e58093db7}</LibraryReferences>
+    <Application>{b988aaec-e10f-40ab-bd75-4e67ba3acd20}</Application>
+    <TypeSystem>{f07fbc74-c705-4dce-8c9c-bae469c76b82}</TypeSystem>
+    <Implicit_Task_Info>{bfef7a1b-376e-4c6c-aea8-7c6ed8c39940}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{0fece5f8-88e1-4b2e-87a9-4515fa4c7837}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{90c5f1a8-4123-4074-9837-00ae1ca21ab3}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{57cf33f6-0e2a-4c51-9035-1904cd67e1df}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnalyticsTask.TcTTO">
@@ -45,16 +45,16 @@
     <Compile Include="DUTs\Analytics\E_VirtualInput.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl1_Pie_Chart.TcDUT">
+    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl1_Production_Quantity_Analysis.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl2_PackML_Overall_Equipment_Effectiveness_OEE.TcDUT">
+    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl2_OEE_Trend_Line.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl3_Threshold_Classifier_1Ch.TcDUT">
+    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl3_Productivity_Interval.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl4_Preventive_Maintenance_Lifetime_Analysis.TcDUT">
+    <Compile Include="DUTs\Analytics\HMI\Controls\ST_HMI_C1_Ctrl4_Overall_Equipment_Effectiveness_OEE.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\Analytics\HMI\DataSourcePage\E_SourceType.TcDUT">
@@ -81,13 +81,16 @@
     <Compile Include="DUTs\Analytics\HMI\DataSourcePage\ST_HMI_InputSourceCtrl.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Analytics\HMI\ST_HMI_C1_Network.TcDUT">
+    <Compile Include="DUTs\Analytics\HMI\ST_HMI_C1_OEE_Status.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\Analytics\HMI\ST_HMI_MapItem.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\Analytics\HMI\ST_KeyValuePair.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\Analytics\Results\ST_Results.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\Analytics\Shapes.TcDUT">
@@ -111,25 +114,22 @@
     <Compile Include="POUs\Analytics\Analysis\FB_Analysis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\FB_N1_Network.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 OEEStatus\FB_N1_OEEStatus.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M1_PackMLOverallEquipmentEffectivenessOEE.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 OEEStatus\Modules\FB_N1_M1_OverallEquipmentEffectivenessOEE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M2_ProductionTimingAnalysis1Ch.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 OEEStatus\Modules\FB_N1_M2_ProductionModeTimingAnalysis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M3_PieChart.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 OEEStatus\Modules\FB_N1_M3_OEETrendLine.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M4_ThresholdClassifier1Ch.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 OEEStatus\Modules\FB_N1_M4_ProductionQuantityAnalysis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M5_PlasticMathOperation.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules\FB_N1_M6_PreventiveMaintenanceLifetimeAnalysis.TcPOU">
+    <Compile Include="POUs\Analytics\Analysis\Networks\N01 OEEStatus\Modules\FB_N1_M5_ProductivityInterval.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Analytics\MAIN_Analytics.TcPOU">
@@ -208,13 +208,14 @@
     <Folder Include="DUTs\Analytics\HMI" />
     <Folder Include="DUTs\Analytics\HMI\Controls" />
     <Folder Include="DUTs\Analytics\HMI\DataSourcePage" />
+    <Folder Include="DUTs\Analytics\Results" />
     <Folder Include="DUTs\Analytics\Sources" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\Analytics" />
     <Folder Include="POUs\Analytics\Analysis" />
     <Folder Include="POUs\Analytics\Analysis\Networks" />
-    <Folder Include="POUs\Analytics\Analysis\Networks\N01 Network" />
-    <Folder Include="POUs\Analytics\Analysis\Networks\N01 Network\Modules" />
+    <Folder Include="POUs\Analytics\Analysis\Networks\N01 OEEStatus" />
+    <Folder Include="POUs\Analytics\Analysis\Networks\N01 OEEStatus\Modules" />
     <Folder Include="POUs\Analytics\Sources" />
     <Folder Include="POUs\Analytics\Sources\T1_InputSource" />
     <Folder Include="POUs\Analytics\Sources\[Interfaces]" />

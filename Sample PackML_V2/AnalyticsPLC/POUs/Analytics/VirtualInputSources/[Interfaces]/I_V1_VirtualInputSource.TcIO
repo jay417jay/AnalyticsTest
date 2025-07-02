@@ -1,40 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Productversion="">
-  <Itf Name="I_V1_VirtualInputSource" Id="7665db2c-296c-405f-8172-0c79bbfe4e81">
+  <Itf Name="I_V1_VirtualInputSource" Id="9077eff0-1e38-4d28-a561-eca7188a3413">
     <Declaration><![CDATA[INTERFACE I_V1_VirtualInputSource EXTENDS I_VirtualInputSource]]></Declaration>
-    <Property Name="nV1_TimeLine" Id="fc8b361c-7725-4706-999d-f9c71eabbd64">
+    <Property Name="nV1_TimeLine" Id="d6a89746-74a2-4baf-93ee-50e8c0ecde3b">
       <Declaration><![CDATA[PROPERTY nV1_TimeLine : ULINT]]></Declaration>
-      <Get Name="Get" Id="d6b7a890-b8d7-430f-b001-bda516850054">
+      <Get Name="Get" Id="32385617-aaa0-410c-bceb-c44d89695eba">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="bV1_bProductionMode" Id="8ae3d32f-611a-4596-8b75-ba4447afa44d">
+    <Property Name="bV1_bProductionMode" Id="34fbf626-267c-4d48-84de-ab048657b8ab">
       <Declaration><![CDATA[PROPERTY bV1_bProductionMode : BOOL]]></Declaration>
-      <Get Name="Get" Id="c2267b10-1475-4556-86af-b78dfe0a050f">
+      <Get Name="Get" Id="dfb288e1-9c45-4adf-9053-cbf217a80dd5">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="nV1_lScheduledTime" Id="da576e35-8ffd-4e2b-a0b1-2731a9e1c22b">
+    <Property Name="nV1_lScheduledTime" Id="a9aef586-a9f5-4419-8170-bf6fc7018bec">
       <Declaration><![CDATA[PROPERTY nV1_lScheduledTime : LINT]]></Declaration>
-      <Get Name="Get" Id="87a58dcd-5219-4939-bdcf-c2732503ab71">
+      <Get Name="Get" Id="dcb7d244-0ae0-480b-ab23-b11842d37402">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="nV1_uProcessedCount" Id="beca9d5e-d11f-4371-8db9-457ff4d11819">
-      <Declaration><![CDATA[PROPERTY nV1_uProcessedCount : ULINT]]></Declaration>
-      <Get Name="Get" Id="1088f7f3-f8af-4fac-a544-8b8f876746f0">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-    </Property>
-    <Property Name="nV1_uDefectiveCount" Id="afc1a83e-2d43-43f1-b4e4-e18a6cf7cbb1">
+    <Property Name="nV1_uDefectiveCount" Id="2dbed273-b49e-47ee-b117-ed34f105f8f5">
       <Declaration><![CDATA[PROPERTY nV1_uDefectiveCount : ULINT]]></Declaration>
-      <Get Name="Get" Id="1970681c-82a5-42b0-a66c-8c50bad3c9e6">
+      <Get Name="Get" Id="5497485c-ab2e-4cde-814f-5fde0a6615e5">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="nV1_uMetalCount" Id="653ba742-3897-4474-a12f-8f4843b8268a">
-      <Declaration><![CDATA[PROPERTY nV1_uMetalCount : ULINT]]></Declaration>
-      <Get Name="Get" Id="c567f787-0bc6-4498-afa8-011b133c7fe0">
+    <Property Name="nV1_lStartTime" Id="4f505f8a-338d-4c94-9829-5e4d0de584ef">
+      <Declaration><![CDATA[PROPERTY nV1_lStartTime : LWORD]]></Declaration>
+      <Get Name="Get" Id="e0ca0f2b-eab2-4114-9ec6-78be6a0da8dd">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nV1_lStopTime" Id="ce130914-5eba-40e3-aeb4-d0872295c74e">
+      <Declaration><![CDATA[PROPERTY nV1_lStopTime : LWORD]]></Declaration>
+      <Get Name="Get" Id="6bde8e15-c95a-416e-8e7f-2d1a859bfdcf">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="bV1_bConfigure" Id="fd0632c8-331f-44d3-80fd-d4772471e871">
+      <Declaration><![CDATA[PROPERTY bV1_bConfigure : BOOL]]></Declaration>
+      <Get Name="Get" Id="e0644c3f-6742-420f-a83c-1414f91effcf">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="bV1_bReset" Id="8c86cd09-5c9e-4044-b29d-8fec6025f93f">
+      <Declaration><![CDATA[PROPERTY bV1_bReset : BOOL]]></Declaration>
+      <Get Name="Get" Id="3726bf81-eaba-478b-8802-a6db77068d7a">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="bV1_bTest" Id="0ba4d291-1878-4c10-8cd1-030b4ee15494">
+      <Declaration><![CDATA[PROPERTY bV1_bTest : BOOL]]></Declaration>
+      <Get Name="Get" Id="c7ec5049-2ce3-402f-83a4-3cead518a09f">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="nV1_uTotalCount" Id="75c1ddc5-6ba0-4608-a367-8da1cd4ac92b">
+      <Declaration><![CDATA[PROPERTY nV1_uTotalCount : ULINT]]></Declaration>
+      <Get Name="Get" Id="8c8e9150-4ad2-41a3-b88a-e1b80e96876f">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
